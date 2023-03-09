@@ -1,100 +1,12 @@
-/**
- * imports
- */
-import { createApp } from "vue";
-import { createStore } from "vuex";
 import app from '../lib/init-theme'
 
 import "../css/main.css";
 
 document.addEventListener('DOMContentLoaded', () => {
+  app.mountVue()
   app.init()
 })
 
-/**
- * vuex
- * auto-import all modules and prepare shared store
- */
-const vuexModules = import.meta.globEager("./vue/store/**/*.js");
-const modules = {};
-
-Object.entries(vuexModules).forEach(([path, definition]) => {
-  const name = path
-    .replace(/\/vue\/store/g, "")
-    .replace(/\.(\/|js)/g, "")
-    .replace(/\s/g, "-");
-
-  modules[name] = definition.default;
-});
-
-const store = createStore({
-  strict: process.env.NODE_ENV !== "production",
-  modules,
-});
-
-/**
- * create vue instance function
- */
-const createVueApp = () => {
-  const app = createApp({});
-
-  /**
-   * vue components
-   * auto-import all vue components
-   */
-  const components = import.meta.globEager("./vue/components/**/*.vue");
-
-  Object.entries(components).forEach(([path, definition]) => {
-    const componentName = path
-      .replace(/\/vue\/components/g, "")
-      .replace(/\.(\/|vue|js)/g, "")
-      .replace(/(\/|-|_|\s)\w/g, (match) => match.slice(1).toUpperCase());
-
-    app.component(componentName, definition.default);
-  });
-
-  /**
-   * vue mixins
-   * auto-register all mixins with a 'global' keyword in their filename
-   */
-  //   const mixins = require.context('./vue/mixins/', true, /.*global.*\.js$/)
-  const mixins = import.meta.globEager("./vue/mixins/*.js");
-
-  Object.entries(mixins).forEach(([path, definition]) => {
-    app.mixin(definition.default);
-  });
-
-  /**
-   * vue directives
-   * auto-register all directives with a 'global' keyword in their filename
-   */
-  const directives = import.meta.globEager("./vue/directives/*.js");
-
-  Object.entries(directives).forEach(([path, definition]) => {
-    const directive = definition.default;
-    app.directive(directive.name, directive.directive);
-  });
-
-  /**
-   * vue plugins
-   * extend with additional features
-   */
-  app.use(store);
-
-  return app;
-};
-
-/**
- * create and mount vue instance(s)
- */
-const appElement = document.querySelector("#app");
-
-if (appElement) {
-  createVueApp().mount(appElement);
-} else {
-  const vueElements = document.querySelectorAll("[vue]");
-  if (vueElements) vueElements.forEach((el) => createVueApp().mount(el));
-}
 
 /**
  * fixes for Shopify sections

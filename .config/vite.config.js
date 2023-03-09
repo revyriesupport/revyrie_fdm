@@ -32,7 +32,7 @@ export default {
     rollupOptions: {
       input: {
         bundle: resolve(__dirname, "../src/scripts/main.js"),
-        product: resolve(__dirname, "../src/scripts/product-template.js"),
+        'product-template': resolve(__dirname, "../src/scripts/product-template.js"),
       },
       output: {
         entryFileNames: `[name].js`,

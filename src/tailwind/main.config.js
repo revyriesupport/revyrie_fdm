@@ -12,7 +12,12 @@ module.exports = {
   content: [
     path.resolve(__dirname, '**/*.{js,vue}'),
     path.resolve(__dirname, '../vue/components/*.vue'),
-    path.resolve(__dirname, '../../shopify/assets/*.js'),
-    path.resolve(__dirname, '../../shopify/**/*.liquid')
-  ]
+    path.resolve(__dirname, '../../shopify/**/*.liquid'),
+    path.resolve(__dirname, '../../shopify/config/*.json'),
+    path.resolve(__dirname, '../../shopify/layout/*.liquid'),
+    path.resolve(__dirname, '../../shopify/assets/*.liquid'),
+    path.resolve(__dirname, '../../shopify/sections/*.liquid'),
+    path.resolve(__dirname, '../../shopify/snippets/*.liquid'),
+    path.resolve(__dirname, '../../shopify/templates/*.{json,liquid}'),
+  ],
 }

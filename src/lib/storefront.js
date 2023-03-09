@@ -9,9 +9,9 @@ import { GraphQLClient } from 'graphql-request'
 
 class Storefront {
   constructor () {
-    this.client = new GraphQLClient(`https://${__GLOBAL__.domain}/api/2023-01/graphql`, {
+    this.client = new GraphQLClient(`https://${window.storeData.domain}/api/2023-01/graphql`, {
       headers: {
-        "X-Shopify-Storefront-Access-Token": __GLOBAL__.Storefront
+        "X-Shopify-Storefront-Access-Token": window.storeData.Storefront
       }
     })
   }
