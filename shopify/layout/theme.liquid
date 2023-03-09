@@ -33,6 +33,7 @@
     <script src="{{ 'pubsub.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'bundle.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'product-template.js' | asset_url }}" defer="defer"></script>
     {{ content_for_header }}
 
     {%- liquid
@@ -219,10 +220,11 @@
       }
     {% endstyle %}
 
+    {{ 'bundle.css' | asset_url | stylesheet_tag }}
+    {{ 'base.css' | asset_url | stylesheet_tag }}
 
-
-{{ 'bundle.css' | asset_url | stylesheet_tag }}
-{{ 'base.css' | asset_url | stylesheet_tag }}
+    {% comment %} {{ 'main.css' | asset_url | stylesheet_tag }}
+    {{ 'featured-collection.css' | asset_url | stylesheet_tag }} {% endcomment %}
 
     {%- unless settings.type_body_font.system? -%}
       <link rel="preload" as="font" href="{{ settings.type_body_font | font_url }}" type="font/woff2" crossorigin>
@@ -240,6 +242,8 @@
       document.documentElement.classList.add('shopify-design-mode');
     }
     </script>
+
+    {%- render 'javascript-globals' -%}
   </head>
 
   <body class="gradient">

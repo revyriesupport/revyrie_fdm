@@ -18,7 +18,7 @@ export default {
   ],
   clearScreen: false,
   css: {
-    postcss: resolve(__dirname, "../.config/postcss.config.js"),
+    postcss: resolve(__dirname, "./postcss.config.js"),
   },
   resolve: {
     extensions: ["*", ".js", ".vue", ".json"],
@@ -31,7 +31,8 @@ export default {
   build: {
     rollupOptions: {
       input: {
-        bundle: resolve(__dirname, "../src/main.js"),
+        bundle: resolve(__dirname, "../src/scripts/main.js"),
+        product: resolve(__dirname, "../src/scripts/product-template.js"),
       },
       output: {
         entryFileNames: `[name].js`,
@@ -53,3 +54,7 @@ export default {
     emptyOutDir: false,
   },
 };
+// assetFileNames: (assetInfo) =>
+//           assetInfo.name.split("/").pop().split(".").shift() == "main"
+//             ? "bundle.css"
+//             : "[name].[ext]",

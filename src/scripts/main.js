@@ -1,13 +1,15 @@
 /**
  * imports
  */
-
-
-console.log('Vue running!')
-
 import { createApp } from "vue";
 import { createStore } from "vuex";
-import "./css/main.css";
+import app from '../lib/init-theme'
+
+import "../css/main.css";
+
+document.addEventListener('DOMContentLoaded', () => {
+  app.init()
+})
 
 /**
  * vuex

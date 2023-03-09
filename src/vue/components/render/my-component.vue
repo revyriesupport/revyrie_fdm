@@ -2,7 +2,7 @@
   <div>
     <slot />
 
-    <ul>
+    <ul class="bg-red-300">
       <li
         v-for="(value, key) in shopifyData"
         :key="key"
