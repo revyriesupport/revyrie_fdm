@@ -12,7 +12,7 @@ export default {
       include: "../src/**/*.{js,vue}",
     }),
     StylelintPlugin({
-      files: '../src/**/*.{vue,css,sass,scss}',
+      files: '../src/**/*.{vue,css}',
       configFile: resolve(__dirname, './.stylelintrc.js')
     })
   ],
@@ -33,6 +33,9 @@ export default {
       input: {
         bundle: resolve(__dirname, "../src/scripts/main.js"),
         'product-template': resolve(__dirname, "../src/scripts/product-template.js"),
+        'collection-template': resolve(__dirname, "../src/scripts/collection-template.js"),
+        'homepage-template': resolve(__dirname, "../src/scripts/homepage-template.js"),
+        'account-template': resolve(__dirname, "../src/scripts/account-template.js"),
       },
       output: {
         entryFileNames: `[name].js`,
@@ -44,9 +47,9 @@ export default {
       },
       plugins: [
         process.env.NODE_ENV == "production" &&
-          del({
-            targets: ["../shopify/assets/**/*", "!../shopify/assets/*static*"],
-          }),
+        del({
+          targets: ["../shopify/assets/**/*", "!../shopify/assets/*static*"],
+        }),
       ],
     },
     outDir: resolve(__dirname, "../shopify/assets"),

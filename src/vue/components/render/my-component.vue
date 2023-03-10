@@ -2,11 +2,8 @@
   <div>
     <slot />
 
-    <ul class="bg-red-300">
-      <li
-        v-for="(value, key) in shopifyData"
-        :key="key"
-      >
+    <ul>
+      <li v-for="(value, key) in shopifyData" :key="key">
         {{ key }}: {{ value }}
       </li>
     </ul>
@@ -18,8 +15,8 @@ export default {
   props: {
     shopifyData: {
       type: Object,
-      required: true
-    }
-  }
-}
+      required: true,
+    },
+  },
+};
 </script>

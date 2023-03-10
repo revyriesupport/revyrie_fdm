@@ -5,7 +5,6 @@ module.exports = {
      * add plugins
      * docs: https://stylelint.io/user-guide/configure#plugins
      */
-    // 'stylelint-scss' // stylelint by itself supports SCSS syntax very well
   ],
   ignoreFiles: [
     /**

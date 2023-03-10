@@ -7,19 +7,9 @@
 
 const path = require('path')
 
-function withOpacityValue(variableName) {
-  return ({ opacityValue }) => {
-    if (opacityValue !== undefined) {
-      return `rgba(var(${variableName}), ${opacityValue})`
-    }
-
-    return `rgb(var(${variableName}))`
-  }
-}
-
 module.exports = {
   mode: 'jit',
-  darkMode: false,
+  darkMode: 'media',
   theme: {
     screens: {
       md: '750px',
@@ -32,6 +22,8 @@ module.exports = {
       accent2: 'rgba(var(--color-base-accent-2), <alpha-value>)',
       background1: 'rgba(var(--color-base-background-1), <alpha-value>)',
       background2: 'rgba(var(--color-base-background-2), <alpha-value>)',
+      white: 'rgba(255,255,255, <alpha-value>)',
+      grey: 'rgba(222,222,222, <alpha-value>)',
     },
     fontSize: {
       xs: ['14px', { lineHeight: '24px', letterSpacing: '-0.03em' }],
@@ -68,8 +60,5 @@ module.exports = {
     path.resolve(__dirname, '../shopify/sections/*.liquid'),
     path.resolve(__dirname, '../shopify/snippets/*.liquid'),
     path.resolve(__dirname, '../shopify/templates/*.{json,liquid}'),
-  ],
-  corePlugins: {
-    preflight: false,
-  }
+  ]
 }
