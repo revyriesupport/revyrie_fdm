@@ -1557,7 +1557,8 @@
         "info": "t:settings_schema.cart.settings.cart_drawer.collection.info"
       }
     ]
-  },{
+  },
+  {
     "name": "Setup",
     "settings": [
       {
@@ -1568,7 +1569,7 @@
         "type": "text",
         "id": "storefront_token",
         "label": "Shopify Storefront Token",
-        "default": "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"
+        "default": "743ca34938b6b2ddc6cdb7d243df9e8b"
       }
     ]
   }
