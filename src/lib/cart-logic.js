@@ -1,6 +1,7 @@
 import { createApp } from "vue";
 import { createPinia } from 'pinia'
 import { useCartStore } from '../vue/store/cart'
+import { loadMiniCartOnlyWhenIsOpen } from './store-definition'
 import ProductSlider from '../vue/components/render/ProductSlider.vue'
 import MiniCart from '../vue/components/render/MiniCart.vue'
 
@@ -15,8 +16,10 @@ class Cart {
     app.component('MiniCart', MiniCart)
     app.mount('#vue-cart')
 
-    const cart = useCartStore()
-    cart.fetchCart()
+    if (!loadMiniCartOnlyWhenIsOpen) {
+      const cart = useCartStore()
+      cart.fetchCart()
+    }
   }
 }
 

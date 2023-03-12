@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
-import { generateFetchRequest, cleanProductVariantId } from '../../lib/utilities'
+import { generateFetchRequest, cleanProductVariantId, focusElement } from '../../lib/utilities'
 
-export const useCartStore = defineStore({
+const useCartStoreDefinition = defineStore({
   id: 'cart',
   state: () => ({
     items: [],
@@ -45,7 +45,23 @@ export const useCartStore = defineStore({
     }
   },
   actions: {
-    toggle() { this.isOpen = !this.isOpen },
+    toggle() {
+      this.isOpen = !this.isOpen
+
+      if (this.isOpen) {
+        document.body.style.overflow = 'hidden';
+        focusElement('#close-mini-cart')
+      } else {
+        document.body.style.overflow = 'auto'
+        focusElement('#header-cart-icon')
+      }
+
+      if (this.isOpen) {
+        if (this.items.length === 0) {
+          this.fetchCart()
+        }
+      }
+    },
 
     async fetchCart() {
       this.isLoading = true
@@ -153,3 +169,24 @@ export const useCartStore = defineStore({
     },
   }
 })
+
+export const useCartStore = useCartStoreDefinition
+
+
+window.theme = {
+  toggleCart: () => {
+    const cart = useCartStoreDefinition();
+    cart.toggle();
+  },
+  validateNewItem: (item) => {
+    const cart = useCartStoreDefinition();
+    console.log('cart', cart)
+    console.log('item', item)
+    const itemAlreadyOnCart = cart.items.find(cartItem => cartItem.id === item.id);
+    if (itemAlreadyOnCart) {
+      cart.items.find(cartItem => cartItem.id === item.id).quantity = item.quantity;
+    } else {
+      cart.items = [item].concat(cart.items)
+    }
+  }
+}

@@ -37,6 +37,7 @@ export default {
               (edge) => edge.id === item.value.id
             );
             item.value = newItem;
+            this.$refs.itemQuantity.focus();
           } else {
             errorMessage.value = response.statusText;
           }
@@ -78,9 +79,9 @@ export default {
     class="w-full flex-grow py-6 px-4 overflow-y-auto"
     :class="{ 'pointer-events-none animate-pulse': loading }"
   >
-    <div class="flex flex-row gap-4 w-full">
-      <div>
-        <div class="w-full aspect-[2/3] relative">
+    <div class="flex flex-row gap-4">
+      <div class="flex-1">
+        <div class="w-full aspect-square relative">
           <a :href="item.url" class="absolute inset-0 z-10"></a>
           <img
             :src="item.image"
@@ -91,13 +92,13 @@ export default {
         </div>
       </div>
 
-      <div class="flex flex-col w-full">
+      <div class="flex flex-col flex-1">
         <div class="mb-8">
           <p v-if="item.product_type" class="text-ink/80">
             {{ item.product_type }}
           </p>
           <h3 class="text-ink text-lg font-bold">{{ item.product_title }}</h3>
-          <div class="flex items-center space-x-2 text-lg font-bold text-ink">
+          <div class="flex items-center space-x-2 text-lg text-ink">
             <div
               v-if="item.original_line_price != item.final_line_price"
               class="cart-item__discounted-prices"
@@ -117,8 +118,9 @@ export default {
               {{ money(item.original_line_price) }}
             </div>
           </div>
+          <p></p>
         </div>
-        <div class="flex items-center space-x-4">
+        <div class="flex flex-col items-end">
           <div
             class="flex items-center space-x-2 border"
             :class="{ 'pointer-events-none opacity-50': loading }"
@@ -164,6 +166,7 @@ export default {
               v-else
               class="w-16 text-center text-ink bg-white border-ink focus:outline-none focus:ring-2"
               type="number"
+              ref="itemQuantity"
               v-model="item.quantity"
               @change="updateQuantity"
               min="1"
@@ -194,7 +197,7 @@ export default {
           <div>
             <button
               type="button"
-              class="text-red-500 hover:text-red-600 focus:outline-none focus:text-red-600"
+              class="text-sm underline underline-offset-4 mt-2"
               aria-label="remove"
               @click="removeItem"
             >

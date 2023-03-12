@@ -22,7 +22,10 @@ module.exports = {
       accent2: 'rgba(var(--color-base-accent-2), <alpha-value>)',
       background1: 'rgba(var(--color-base-background-1), <alpha-value>)',
       background2: 'rgba(var(--color-base-background-2), <alpha-value>)',
+      cream: 'rgba(233,233,233, <alpha-value>)',
       white: 'rgba(255,255,255, <alpha-value>)',
+
+      black: 'rgba(0,0,0, <alpha-value>)',
       grey: 'rgba(222,222,222, <alpha-value>)',
       error: 'rgba(222,111,111, <alpha-value>)',
     },

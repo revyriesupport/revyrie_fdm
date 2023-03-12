@@ -152,3 +152,15 @@ export function parseQueryString(queryString) {
   })
   return params
 }
+
+/**
+ * Focus element by selector
+ * 
+ * @param {string} selector
+ */
+export function focusElement(selector) {
+  const element = document.querySelector(selector)
+  if (element) {
+    element.focus()
+  }
+}

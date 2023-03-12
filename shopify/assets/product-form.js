@@ -46,6 +46,8 @@ if (!customElements.get('product-form')) {
         fetch(`${routes.cart_add_url}`, config)
           .then((response) => response.json())
           .then((response) => {
+            console.log('>response:', response)
+
             if (response.status) {
               this.handleErrorMessage(response.description);
 
@@ -57,9 +59,6 @@ if (!customElements.get('product-form')) {
               soldOutMessage.classList.remove('hidden');
               this.error = true;
               return;
-            } else if (!this.cart) {
-              window.location = window.routes.cart_url;
-              return;
             }
 
             this.error = false;
@@ -69,27 +68,32 @@ if (!customElements.get('product-form')) {
                 'modalClosed',
                 () => {
                   setTimeout(() => {
-                    this.cart.renderContents(response);
+                    // this.cart.renderContents(response);
                   });
                 },
                 { once: true },
               );
               quickAddModal.hide(true);
             } else {
-              this.cart.renderContents(response);
+              console.log('Looking for cart object')
+              // this.cart.renderContents(response);
             }
+
+            window.theme.validateNewItem(response)
           })
           .catch((e) => {
             console.error(e);
           })
           .finally(() => {
             this.submitButton.classList.remove('loading');
-            if (this.cart && this.cart.classList.contains('is-empty'))
-              this.cart.classList.remove('is-empty');
-            if (!this.error) this.submitButton.removeAttribute('aria-disabled');
-            this.querySelector('.loading-overlay__spinner').classList.add(
-              'hidden',
-            );
+            // if (this.cart && this.cart.classList.contains('is-empty'))
+            //   this.cart.classList.remove('is-empty');
+            // if (!this.error) this.submitButton.removeAttribute('aria-disabled');
+            // this.querySelector('.loading-overlay__spinner').classList.add(
+            //   'hidden',
+            // );
+
+            window.theme.toggleCart()
           });
       }
 

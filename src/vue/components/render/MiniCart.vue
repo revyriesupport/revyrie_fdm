@@ -26,8 +26,9 @@ export default {
 };
 </script>
 <template>
+  <!-- max-w-md md:max-w-lg -->
   <div
-    class="fixed visible bottom-0 top-0 right-0 z-50 flex flex-col w-full max-w-md md:max-w-lg bg-white border-ink shadow-lg transition duration-300 ease-in-out"
+    class="fixed visible bottom-0 top-0 right-0 z-50 flex flex-col w-full max-w-lg lg:max-w-xl bg-white border-ink shadow-lg transition duration-300 ease-in-out"
     :class="{ 'translate-x-full': !cart.isOpen }"
     role="dialog"
     aria-modal="true"
@@ -35,10 +36,11 @@ export default {
   >
     <!-- Header -->
     <div class="flex items-center justify-between p-4 bg-white">
-      <p class="text-lg font-medium text-ink" id="cartTitle">My Cart</p>
+      <p class="text-xl font-medium text-ink" id="cartTitle">My Cart</p>
       <button
         type="button"
-        class="text-ink hover:text-ink focus:outline-none focus:text-ink"
+        id="close-mini-cart"
+        class="text-ink focus-inset"
         aria-label="Close cart dialog"
         @click="cart.toggle"
       >
@@ -67,27 +69,33 @@ export default {
     </div>
 
     <!-- Cart Items -->
-    <div v-if="cart.isEmpty" class="p-4 text-center">Your cart is empty.</div>
-    <div class="flex-1" v-else>
+    <div
+      v-if="cart.isEmpty"
+      class="p-4 text-center flex-1 flex w-full items-center justify-center text-ink"
+    >
+      <p v-if="cart.isLoading" class="text-xl text-center">Loading...</p>
+      <p v-else class="text-xl text-center">Your cart is empty.</p>
+    </div>
+    <div class="flex-1 overflow-auto" v-else>
       <cart-item
         v-for="item in cart.items"
         :key="item.id"
         :line="item"
-        class="flex p-4 border-b border-gray-200"
+        class="flex p-4 border-b border-gray-200 last:border-b-0"
       ></cart-item>
     </div>
 
     <!-- Footer -->
     <div
-      class="flex items-center self-end w-full justify-between p-4 text-lg font-medium text-gray-800 bg-gray-100"
+      class="flex items-center self-end w-full justify-between p-4 text-lg font-medium text-gray-800 bg-cream border-t border-ink/20"
     >
-      <div class="w-full flex flex-col p-4 text-ink">
+      <div class="w-full flex flex-col px-6 text-ink">
         <div class="mb-8">
           <label class="block text-gray-800 font-medium mb-2" for="notes"
             >Order Notes:</label
           >
           <textarea
-            class="w-full border-ink/50 border py-2 px-3 focus:border-accent2 focus:ring-2 focus:ring-accent2 focus:ring-opacity-50 placeholder:text-sm"
+            class="w-full border-ink/50 border py-2 px-3 m-0 focus:border-accent2 focus:ring-2 focus:ring-accent2 focus:ring-opacity-50 placeholder:text-sm"
             name="notes"
             rows="2"
             placeholder="Add notes about your order (optional)"
@@ -123,7 +131,7 @@ export default {
         <button
           @click="cart.checkout"
           type="button"
-          class="w-full px-4 py-2 text-white bg-accent2 rounded-md hover:bg-yellow-600 focus:outline-none focus:bg-yellow-600 transition duration-150 ease-in-out mb-4"
+          class="w-full px-4 py-2 text-white bg-accent2 hover:bg-yellow-600 focus:outline-none focus:bg-yellow-600 transition duration-150 ease-in-out"
           aria-label="Go to Checkout"
         >
           Go to Checkout
@@ -131,6 +139,15 @@ export default {
       </div>
     </div>
   </div>
+  <div
+    aria-hidden="true"
+    @click="cart.toggle"
+    class="fixed inset-0 z-40 bg-black/50 opacity-0 transition duration-300 ease-in-out"
+    :class="[
+      { 'opacity-100': cart.isOpen },
+      cart.isOpen ? 'pointer-events-auto' : 'pointer-events-none',
+    ]"
+  ></div>
 </template>
 
 <!--
