@@ -5,12 +5,14 @@ export const useCartStore = defineStore({
   id: 'cart',
   state: () => ({
     items: [],
-    isOpen: true,
+    isOpen: false,
     isLoading: false,
     error: null,
-
   }),
   getters: {
+    isEmpty() {
+      return this.items?.length === 0
+    },
     totalAmount() {
       return this.items.reduce((total, item) => total + (item.price * item.quantity), 0)
     },
@@ -22,9 +24,6 @@ export const useCartStore = defineStore({
     },
     hasProductTag() {
       return (productTag) => this.items.some(item => item.tags.includes(productTag))
-    },
-    isEmpty() {
-      return this.items?.length === 0
     },
     hasDiscounts() {
       return this.items.some(item => item.discount_applications?.length > 0) || false
@@ -46,6 +45,8 @@ export const useCartStore = defineStore({
     }
   },
   actions: {
+    toggle() { this.isOpen = !this.isOpen },
+
     async fetchCart() {
       this.isLoading = true
       try {
@@ -58,11 +59,12 @@ export const useCartStore = defineStore({
       }
     },
 
-    async addToCart(variantId, quantity = 1) {
+    async addToCart(key, quantity = 1) {
       this.isLoading = true
+      const id = cleanProductVariantId(key.toString())
       try {
         const response = await generateFetchRequest('/cart/add.js', 'POST', {
-          id: variantId,
+          id: id,
           quantity: quantity
         }, null)
         this.items = response.data.items
@@ -73,15 +75,18 @@ export const useCartStore = defineStore({
       }
     },
 
-    async updateCartItem(key, quantity) {
+    async updateCartItem(key, quantity, callback) {
       this.isLoading = true
+      const id = cleanProductVariantId(key.toString())
       try {
         const response = await generateFetchRequest('/cart/change.js', 'POST', {
-          key: key,
+          id: id,
           quantity: quantity
         }, null)
         this.items = response.data.items
-
+        if (callback) {
+          callback(response)
+        }
         this.isLoading = false
       } catch (error) {
         this.error = error
@@ -89,21 +94,10 @@ export const useCartStore = defineStore({
       }
     },
 
-    async removeCartItem(key) {
-      this.isLoading = true
-      try {
-        const response = await generateFetchRequest('/cart/change.js', 'POST', {
-          key: key,
-          quantity: 0
-        }, null)
-        this.items = response.data.items
-
-        this.isLoading = false
-      } catch (error) {
-        this.error = error
-        this.isLoading = false
-      }
+    removeCartItem(id) {
+      this.updateCartItem(id, 0)
     },
+
     async applyDiscount(discountCode) {
       this.isLoading = true
       try {
@@ -122,7 +116,6 @@ export const useCartStore = defineStore({
       try {
         const response = await generateFetchRequest('/discount/remove.js', 'POST', null, null)
         this.items = response.data.items
-
         this.isLoading = false
       } catch (error) {
         this.error = error
@@ -135,7 +128,6 @@ export const useCartStore = defineStore({
       try {
         const response = await generateFetchRequest('/gift_cards/' + giftCardCode + '/apply.js', 'POST', null, null)
         this.items = response.data.items
-
         this.isLoading = false
       } catch (error) {
         this.error = error
@@ -161,67 +153,3 @@ export const useCartStore = defineStore({
     },
   }
 })
-
-// export const useCartStore = defineStore('cart', {
-//   state: () => ({
-//     open: false,
-//     items: [],
-//     isLoading: false,
-//     error: null,
-//     cart: {}
-//   }),
-//   getters: {
-//     totalAmount: (state) => state.cart?.total_price || 0,
-//     lineItems: (state) => state.cart?.items || [],
-//     lineItemsCount: (state) => state.cart?.items?.length || 0,
-//   },
-//   actions: {
-//     getCart() {
-//       makeFetchRequest({
-//         url: '/cart.js',
-//         method: 'GET',
-//         callback: (data) => {
-//           this.cart = data
-//         }
-//       });
-//     },
-//     addToCart({ id: storefrontID, quantity = 1 }) {
-//       if (!storefrontID) return
-//       const id = cleanProductVariantId(storefrontID)
-//       const data = {
-//         id,
-//         quantity
-//       };
-
-//       makeFetchRequest({
-//         url: '/cart/add.js',
-//         method: 'POST',
-//         body: data,
-//         callback: (data) => {
-//           console.log('New product:', data)
-//           this.cart.items.push(data)
-//         }
-//       });
-//     },
-//     updateCartItem({ id: storefrontID, quantity = 1 }) {
-//       if (!storefrontID) return
-//       const id = cleanProductVariantId(storefrontID)
-//       const data = {
-//         id,
-//         quantity
-//       };
-//       makeFetchRequest({
-//         url: '/cart/update.js',
-//         method: 'POST',
-//         body: data,
-//         callback: (data) => {
-//           console.log('Product Updated!', data)
-//         }
-//       });
-//     },
-//     removeFromCart() {
-//       console.log('-----> removeFromCart')
-//     },
-//     }
-//   }
-// })

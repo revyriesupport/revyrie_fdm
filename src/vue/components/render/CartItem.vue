@@ -1,32 +1,67 @@
 <script>
+import { ref } from "vue";
 import { useCartStore } from "@/vue/store/cart";
 import { formatProductPrice } from "@/lib/utilities";
+import { cartItemLimit } from "@/lib/store-definition";
 
 export default {
   props: {
-    item: {
+    line: {
       type: Object,
       required: true,
     },
   },
-  setup() {
+  setup(props) {
+    const loading = ref(false);
+    const line = props.line;
+    const item = ref({ ...line });
     const cart = useCartStore();
-    const money = (priceValue) => formatProductPrice(priceValue);
 
-    const updateQuantity = (data) => {
-      console.log("updateQuantity", data);
+    const money = (priceValue) => formatProductPrice(priceValue);
+    let errorMessage = ref(false);
+
+    const getQuantity = (event) => {
+      return parseInt(event.target.value);
     };
-    const increaseQuantity = (data) => {
-      console.log("increaseQuantity", data);
+
+    const requestUpdate = (newQuantity) => {
+      if (isNaN(newQuantity)) return;
+
+      if (newQuantity <= cartItemLimit) {
+        errorMessage.value = false;
+        loading.value = true;
+        cart.updateCartItem(item.value.id, newQuantity, (res) => {
+          const { data, response } = res;
+          if (response.status === 200) {
+            const newItem = data.items.find(
+              (edge) => edge.id === item.value.id
+            );
+            item.value = newItem;
+          } else {
+            errorMessage.value = response.statusText;
+          }
+          loading.value = false;
+        });
+      } else {
+        errorMessage.value = `You can only add ${cartItemLimit} items to your cart`;
+      }
     };
-    const decreaseQuantity = (data) => {
-      console.log("decreaseQuantity", data);
+
+    const updateQuantity = (event) => {
+      const quantity = getQuantity(event);
+      if (isNaN(quantity)) return;
+      requestUpdate(quantity);
     };
-    const removeItem = (data) => {
-      console.log("removeItem", data);
-    };
+
+    const increaseQuantity = () => requestUpdate(item.value.quantity + 1);
+    const decreaseQuantity = () => requestUpdate(item.value.quantity - 1);
+    const removeItem = () => requestUpdate(0);
+
     return {
+      item,
       cart,
+      loading,
+      errorMessage,
 
       money,
       updateQuantity,
@@ -39,7 +74,10 @@ export default {
 </script>
 
 <template>
-  <div class="w-full flex-grow py-6 px-4 overflow-y-auto">
+  <div
+    class="w-full flex-grow py-6 px-4 overflow-y-auto"
+    :class="{ 'pointer-events-none animate-pulse': loading }"
+  >
     <div class="flex flex-row gap-4 w-full">
       <div>
         <div class="w-full aspect-[2/3] relative">
@@ -58,7 +96,7 @@ export default {
           <p v-if="item.product_type" class="text-ink/80">
             {{ item.product_type }}
           </p>
-          <p class="text-ink text-lg font-bold">{{ item.product_title }}</p>
+          <h3 class="text-ink text-lg font-bold">{{ item.product_title }}</h3>
           <div class="flex items-center space-x-2 text-lg font-bold text-ink">
             <div
               v-if="item.original_line_price != item.final_line_price"
@@ -81,10 +119,13 @@ export default {
           </div>
         </div>
         <div class="flex items-center space-x-4">
-          <div class="flex items-center space-x-2 border">
+          <div
+            class="flex items-center space-x-2 border"
+            :class="{ 'pointer-events-none opacity-50': loading }"
+          >
             <button
               type="button"
-              class="text-ink hover:text-accent1 py-3 px-1 focus:outline-none focus:text-accent1 transition duration-150 ease-in-out"
+              class="text-ink hover:text-accent2 py-3 px-1 focus:outline-none focus:text-accent1 transition duration-150 ease-in-out"
               aria-label="decrease quantity"
               @click="decreaseQuantity"
             >
@@ -103,16 +144,34 @@ export default {
                 />
               </svg>
             </button>
+            <div class="w-16 text-center h-6" v-if="loading">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-6 h-6 m-auto animate-spin"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M21 7.5l-2.25-1.313M21 7.5v2.25m0-2.25l-2.25 1.313M3 7.5l2.25-1.313M3 7.5l2.25 1.313M3 7.5v2.25m9 3l2.25-1.313M12 12.75l-2.25-1.313M12 12.75V15m0 6.75l2.25-1.313M12 21.75V19.5m0 2.25l-2.25-1.313m0-16.875L12 2.25l2.25 1.313M21 14.25v2.25l-2.25 1.313m-13.5 0L3 16.5v-2.25"
+                />
+              </svg>
+            </div>
             <input
-              class="w-16 text-center text-ink bg-white border-ink rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent2"
+              v-else
+              class="w-16 text-center text-ink bg-white border-ink focus:outline-none focus:ring-2"
               type="number"
               v-model="item.quantity"
               @change="updateQuantity"
               min="1"
+              aria-label="quantity"
             />
             <button
               type="button"
-              class="text-ink hover:text-accent1 py-3 px-1 focus:outline-none focus:text-accent1 transition duration-150 ease-in-out"
+              class="text-ink hover:text-accent2 py-3 px-1 focus:outline-none focus:text-accent1 transition duration-150 ease-in-out"
               aria-label="increase quantity"
               @click="increaseQuantity"
             >
@@ -143,6 +202,9 @@ export default {
             </button>
           </div>
         </div>
+        <p v-if="errorMessage" class="text-error text-md mt-2">
+          {{ errorMessage }}
+        </p>
       </div>
     </div>
   </div>

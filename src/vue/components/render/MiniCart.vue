@@ -11,6 +11,12 @@ export default {
     const cart = useCartStore();
     const money = (priceValue) => formatProductPrice(priceValue);
 
+    const headerCartIcon = document.getElementById("header-cart-icon");
+    headerCartIcon.addEventListener("click", (event) => {
+      event.preventDefault();
+      cart.toggle();
+    });
+
     return {
       cart,
 
@@ -23,16 +29,18 @@ export default {
   <div
     class="fixed visible bottom-0 top-0 right-0 z-50 flex flex-col w-full max-w-md md:max-w-lg bg-white border-ink shadow-lg transition duration-300 ease-in-out"
     :class="{ 'translate-x-full': !cart.isOpen }"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="cartTitle"
   >
     <!-- Header -->
-    <div
-      class="flex items-center justify-between p-4 text-lg font-medium text-ink bg-white"
-    >
-      <span>My Cart</span>
+    <div class="flex items-center justify-between p-4 bg-white">
+      <p class="text-lg font-medium text-ink" id="cartTitle">My Cart</p>
       <button
         type="button"
         class="text-ink hover:text-ink focus:outline-none focus:text-ink"
-        aria-label="close"
+        aria-label="Close cart dialog"
+        @click="cart.toggle"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -53,16 +61,18 @@ export default {
 
     <!-- Announcement Bar -->
     <div class="p-4 bg-accent2">
-      <p class="text-sm text-white">Free shipping on orders over $50</p>
+      <p class="text-sm text-white" role="alert">
+        Free shipping on orders over $50
+      </p>
     </div>
 
     <!-- Cart Items -->
     <div v-if="cart.isEmpty" class="p-4 text-center">Your cart is empty.</div>
-    <div v-else>
+    <div class="flex-1" v-else>
       <cart-item
         v-for="item in cart.items"
         :key="item.id"
-        :item="item"
+        :line="item"
         class="flex p-4 border-b border-gray-200"
       ></cart-item>
     </div>
@@ -71,48 +81,50 @@ export default {
     <div
       class="flex items-center self-end w-full justify-between p-4 text-lg font-medium text-gray-800 bg-gray-100"
     >
-      <div class="w-full flex flex-col p-4 bg-gray-100">
-        <div class="flex items-center justify-between mb-4">
-          <span class="text-lg font-medium text-ink">Subtotal:</span>
-          <span class="text-lg font-medium text-ink">{{
+      <div class="w-full flex flex-col p-4 text-ink">
+        <div class="mb-8">
+          <label class="block text-gray-800 font-medium mb-2" for="notes"
+            >Order Notes:</label
+          >
+          <textarea
+            class="w-full border-ink/50 border py-2 px-3 focus:border-accent2 focus:ring-2 focus:ring-accent2 focus:ring-opacity-50 placeholder:text-sm"
+            name="notes"
+            rows="2"
+            placeholder="Add notes about your order (optional)"
+            aria-label="Order notes"
+          ></textarea>
+        </div>
+
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-lg font-medium">Subtotal:</span>
+          <span class="text-lg font-medium text-ink" aria-live="polite">{{
             money(cart.subtotal)
           }}</span>
         </div>
-        <div class="flex items-center justify-between mb-4">
+        <div class="flex items-center justify-between mb-2">
           <span class="text-lg font-medium text-ink">Taxes:</span>
           <span class="text-lg font-medium text-ink">{{
             money(cart.taxes)
           }}</span>
         </div>
-        <div class="flex items-center justify-between mb-4">
+        <div class="flex items-center justify-between mb-2">
           <span class="text-lg font-medium text-ink">Shipping:</span>
           <span class="text-lg font-medium text-ink">{{
             money(cart.shipping)
           }}</span>
         </div>
-        <div class="flex items-center justify-between mb-4">
+        <div class="flex items-center justify-between mb-2">
           <span class="text-xl font-medium text-ink">Total:</span>
           <span class="text-xl font-medium text-ink">{{
             money(cart.total)
           }}</span>
-        </div>
-        <div class="mb-4">
-          <label class="block text-gray-800 font-medium mb-2" for="notes"
-            >Order Notes:</label
-          >
-          <textarea
-            class="w-full rounded-lg border-gray-300 focus:border-accent2 focus:ring-2 focus:ring-accent2 focus:ring-opacity-50 placeholder:text-sm"
-            id="notes"
-            name="notes"
-            rows="2"
-            placeholder="Add notes about your order (optional)"
-          ></textarea>
         </div>
 
         <button
           @click="cart.checkout"
           type="button"
           class="w-full px-4 py-2 text-white bg-accent2 rounded-md hover:bg-yellow-600 focus:outline-none focus:bg-yellow-600 transition duration-150 ease-in-out mb-4"
+          aria-label="Go to Checkout"
         >
           Go to Checkout
         </button>
