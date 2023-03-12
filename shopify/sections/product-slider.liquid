@@ -1,7 +1,11 @@
-<div class="container m-auto">
-<product-slider
-  :shopify-data="{ collectionHandle: {{ section.settings.collectionHandle }}, tittle: {{ section.settings.tittle }} }">
-</product-slider>
+<div class="container m-auto py-10">
+  <p class="text-3xl text-ink text-center">{{ section.settings.tittle }}</p>
+  <div class="min-h-[266px]">
+    <product-slider
+      vue
+      :shopify-data="{ collectionHandle: '{{ section.settings.collectionHandle }}' }">
+    </product-slider>
+  </div>
 </div>
 
 

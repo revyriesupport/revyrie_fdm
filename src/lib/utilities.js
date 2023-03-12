@@ -164,3 +164,19 @@ export function focusElement(selector) {
     element.focus()
   }
 }
+
+/**
+ * Convert snake_case to componentName
+ * 
+ * @param {string} name
+ */
+export const componentName = (name) => {
+  let camelCase = name.toLowerCase().replace(/([-_][a-z])/g, group =>
+    group
+      .toUpperCase()
+      .replace('-', '')
+      .replace('_', '')
+  );
+  return camelCase[0].toUpperCase() + camelCase.slice(1);
+}
+

@@ -12,13 +12,14 @@ class Cart {
     const app = createApp(MiniCart)
 
     app.use(pinia)
+
     app.component('ProductSlider', ProductSlider)
 
     // app.component('CartItem', defineAsyncComponent(() =>
     //   import('../vue/components/render/CartItem.vue')
     // ))
 
-    app.mount('#vue-cart')
+    app.mount('#mini-cart')
 
     if (!loadMiniCartOnlyWhenIsOpen) {
       const cart = useCartStore()

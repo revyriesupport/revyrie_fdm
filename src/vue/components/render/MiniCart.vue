@@ -1,4 +1,5 @@
 <script>
+import { defineAsyncComponent } from "vue";
 import { useCartStore } from "@/vue/store/cart";
 import CartItem from "./CartItem.vue";
 import { formatProductPrice } from "@/lib/utilities";
@@ -16,6 +17,8 @@ export default {
       event.preventDefault();
       cart.toggle();
     });
+
+    // const CartItem = defineAsyncComponent(() => import("./CartItem.vue"));
 
     return {
       cart,
