@@ -1,31 +1,29 @@
 <script>
-import { watch } from "vue";
+import { ref, watch } from "vue";
 export default {
   props: {
-    quantity: {
+    qty: {
       type: Number,
       required: true,
     },
     loading: {
-      type: Number,
+      type: Boolean,
       required: false,
       default: false,
     },
   },
-  setup(props) {
-    let propQuantity = props.quantity;
-    watch(props.quantity, (first, second) => {
-      console.log(
-        "Watch props.selected function called with args:",
-        first,
-        second
-      );
-      this.$refs.itemQuantity.focus();
-      // Both props are undefined so its just a bare callback func to be run
-    });
-
+  emits: ["decreaseQuantity", "updateQuantity", "increaseQuantity"],
+  setup(props, context) {
+    const quantity = ref(props.qty);
+    watch(
+      () => props.qty,
+      (newQuantity) => {
+        quantity.value = newQuantity;
+        // context.refs.itemQuantity.focus();
+      }
+    );
     return {
-      propQuantity,
+      quantity,
     };
   },
 };
@@ -70,7 +68,7 @@ export default {
     class="w-16 text-center text-ink bg-white border-ink focus:outline-none focus:ring-2"
     type="number"
     ref="itemQuantity"
-    v-model="propQuantity"
+    v-model="quantity"
     @change="$emit('updateQuantity')"
     min="1"
     aria-label="quantity"

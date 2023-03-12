@@ -1,4 +1,4 @@
-import { createApp } from "vue";
+import { createApp, defineAsyncComponent } from "vue";
 import { createPinia } from 'pinia'
 import { useCartStore } from '../vue/store/cart'
 import { loadMiniCartOnlyWhenIsOpen } from './store-definition'
@@ -13,7 +13,11 @@ class Cart {
 
     app.use(pinia)
     app.component('ProductSlider', ProductSlider)
-    app.component('MiniCart', MiniCart)
+
+    // app.component('CartItem', defineAsyncComponent(() =>
+    //   import('../vue/components/render/CartItem.vue')
+    // ))
+
     app.mount('#vue-cart')
 
     if (!loadMiniCartOnlyWhenIsOpen) {

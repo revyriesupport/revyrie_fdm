@@ -1,0 +1,36 @@
+<div class="container m-auto">
+<product-slider
+  :shopify-data="{ collectionHandle: {{ section.settings.collectionHandle }}, tittle: {{ section.settings.tittle }} }">
+</product-slider>
+</div>
+
+
+{% schema %}
+{
+  "name": "Product Slider",
+  "class": "section",
+  "tag": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "collectionHandle",
+      "label": "Collection Handle",
+      "default": "homepage-slider"
+    },
+    {
+      "type": "text",
+      "id": "tittle",
+      "label": "Tittle",
+      "default": "Product Slider"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Slider"
+    }
+  ]
+}
+{% endschema %}

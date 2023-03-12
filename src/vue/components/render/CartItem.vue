@@ -5,7 +5,7 @@ import { formatProductPrice } from "@/lib/utilities";
 import { cartItemLimit } from "@/lib/store-definition";
 import Quantity from "./Quantity.vue";
 
-export default createComponent({
+export default {
   components: {
     Quantity,
   },
@@ -74,7 +74,7 @@ export default createComponent({
       removeItem,
     };
   },
-});
+};
 </script>
 
 <template>
@@ -132,7 +132,7 @@ export default createComponent({
               @decreaseQuantity="decreaseQuantity"
               @updateQuantity="updateQuantity"
               @increaseQuantity="increaseQuantity"
-              :quantity="item.quantity"
+              :qty="item.quantity"
               :loading="loading"
             ></quantity>
           </div>
