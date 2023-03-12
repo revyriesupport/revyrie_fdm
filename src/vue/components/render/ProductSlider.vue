@@ -9,7 +9,7 @@ export default {
     shopifyData: Object,
   },
   setup(props) {
-    const { collectionHandle } = props.shopifyData;
+    const { collectionHandle, tittle } = props.shopifyData;
     if (!collectionHandle) return;
 
     const cart = useCartStore();
@@ -30,6 +30,7 @@ export default {
     }, 5000);
 
     return {
+      tittle,
       cart,
       loading,
       state,
@@ -41,6 +42,8 @@ export default {
 <template>
   <div class="w-full mt-8">
     <p class="text-2xl mb-8">Items on Cart: {{ cart.lineItemsCount }}</p>
+
+    <p class="text-2xl mb-8">{{ tittle }}</p>
 
     <div class="w-full flex gap-4 snap-mandatory snap-x overflow-auto">
       <template v-if="loading">
@@ -117,3 +120,33 @@ export default {
     </div>
   </div>
 </template>
+
+<!-- 
+<template>
+<div class="flex-grow p-4">
+  <h2 class="text-lg font-medium text-gray-800 mb-4">You May Also Like</h2>
+  <div class="flex space-x-4 overflow-x-scroll overflow-y-hidden">
+
+    <div class="flex-none w-48 bg-white rounded-lg shadow-md overflow-hidden">
+      <img class="w-full h-32 object-cover" src="https://via.placeholder.com/150" alt="Product">
+      <div class="p-4">
+        <h3 class="text-base font-medium text-gray-800 mb-2">Product Name</h3>
+        <p class="text-sm font-medium text-gray-500">Product Type</p>
+        <p class="text-lg font-medium text-gray-800">$99.99</p>
+        <button type="button" class="w-full mt-4 px-4 py-2 text-white bg-yellow-500 rounded-md hover:bg-yellow-600 focus:outline-none focus:bg-yellow-600 transition duration-150 ease-in-out">Add to Cart</button>
+      </div>
+    </div>
+
+
+    <div class="flex-none w-48 bg-white rounded-lg shadow-md overflow-hidden">
+
+    </div>
+
+
+    <div class="flex-none w-48 bg-white rounded-lg shadow-md overflow-hidden">
+
+    </div>
+  </div>
+</div>
+</template>
+ -->

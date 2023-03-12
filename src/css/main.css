@@ -2,7 +2,15 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-* {
+@layer base {
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+/* * {
   scrollbar-width: thin;
   scrollbar-color: var(--color-base-background-2) var(--color-base-text);
 }
@@ -19,4 +27,4 @@
   background-color: var(--color-base-background-2);
   border-radius: 14px;
   border: 3px solid var(--color-base-text);
-}
+} */
