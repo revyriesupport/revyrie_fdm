@@ -34,6 +34,6 @@
     shopHandle: "{{ shop.permanent_domain | replace: '.myshopify.com', '' }}",
     storefrontToken: "{{ settings.storefront_token }}",
     template: "{{ template }}",
-    cart: {{ cart | json }}
+    currencyCode : "{{ shop.currency }}",
   }
 </script>
