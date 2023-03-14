@@ -58,7 +58,7 @@ export default {
 </script>
 
 <template>
-  <div class="w-full mt-8" ref="productSlider">
+  <div class="w-full mt-8 overflow-hidden" ref="productSlider">
     <div
       class="w-full flex gap-4 snap-mandatory snap-x overflow-auto"
       v-if="!loading"

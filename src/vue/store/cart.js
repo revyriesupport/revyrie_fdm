@@ -69,7 +69,7 @@ const useCartStoreDefinition = defineStore({
         document.body.style.overflow = 'hidden';
         focusElement('#close-mini-cart')
       } else {
-        document.body.style.overflow = 'auto'
+        document.body.style.overflow = 'inherit'
         if (document.querySelector('.shopify-section-header-sticky:not(.shopify-section-header-hidden)')) {
           focusElement('#header-cart-icon')
         }
