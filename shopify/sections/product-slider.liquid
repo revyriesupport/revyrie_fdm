@@ -1,13 +1,15 @@
-<div class="container m-auto py-10">
-  <p class="text-3xl text-ink text-center">{{ section.settings.tittle }}</p>
+<div class="page-width m-auto py-10">
+  <p class="text-3xl text-ink text-center">{{ section.settings.title }}</p>
   <div class="min-h-[266px]">
     <product-slider
-      vue
-      :shopify-data="{ collectionHandle: '{{ section.settings.collectionHandle }}' }">
+      vue="component"
+      :shopify-data="{
+        collectionHandle: '{{ section.settings.collectionHandle }}',
+        limit: '{{ section.settings.limit }}'
+      }">
     </product-slider>
   </div>
 </div>
-
 
 {% schema %}
 {
@@ -19,16 +21,21 @@
   },
   "settings": [
     {
-      "type": "text",
+      "type": "collection",
       "id": "collectionHandle",
-      "label": "Collection Handle",
-      "default": "homepage-slider"
+      "label": "Collection"
     },
     {
       "type": "text",
-      "id": "tittle",
-      "label": "Tittle",
+      "id": "title",
+      "label": "Title",
       "default": "Product Slider"
+    },
+    {
+      "type": "text",
+      "id": "limit",
+      "label": "Limit of products",
+      "default": "10"
     }
   ],
   "presets": [

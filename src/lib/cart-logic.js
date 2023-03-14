@@ -3,7 +3,7 @@ import { createPinia } from 'pinia'
 import { useCartStore } from '../vue/store/cart'
 import { loadMiniCartOnlyWhenIsOpen } from './store-definition'
 import ProductSlider from '../vue/components/render/ProductSlider.vue'
-import MiniCart from '../vue/components/render/MiniCart.vue'
+import MiniCart from '@render/MiniCart.vue'
 
 class Cart {
   constructor() { }

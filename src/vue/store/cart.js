@@ -1,5 +1,10 @@
 import { defineStore } from 'pinia'
-import { generateFetchRequest, cleanProductVariantId, focusElement } from '../../lib/utilities'
+import {
+  generateFetchRequest,
+  cleanProductVariantId,
+  focusElement
+} from '@/lib/utilities'
+import { miniCartRevertedOrder } from '@/lib/store-definition'
 
 const temporalUpdateBubbleCartCount = (count) => {
   count === 0
@@ -14,9 +19,14 @@ const useCartStoreDefinition = defineStore({
     items: [],
     isOpen: false,
     isLoading: false,
-    error: null,
+    error: null
   }),
   getters: {
+    listItems() {
+      return miniCartRevertedOrder
+        ? this.items.reverse()
+        : this.items
+    },
     isEmpty() {
       return this.items?.length === 0
     },
@@ -60,7 +70,9 @@ const useCartStoreDefinition = defineStore({
         focusElement('#close-mini-cart')
       } else {
         document.body.style.overflow = 'auto'
-        focusElement('#header-cart-icon')
+        if (document.querySelector('.shopify-section-header-sticky:not(.shopify-section-header-hidden)')) {
+          focusElement('#header-cart-icon')
+        }
       }
 
       if (this.isOpen) {
@@ -209,13 +221,15 @@ window.theme = {
     const cart = useCartStoreDefinition();
     cart.toggle();
   },
-  validateNewItem: (item) => {
+  validateNewItem: (item, callback) => {
     const cart = useCartStoreDefinition();
     const itemAlreadyOnCart = cart.items.find(cartItem => cartItem.id === item.id);
-    if (itemAlreadyOnCart) {
-      cart.items.find(cartItem => cartItem.id === item.id).quantity = item.quantity;
-    } else {
-      cart.items = [item].concat(cart.items)
+    itemAlreadyOnCart
+      ? cart.items.find(cartItem => cartItem.id === item.id).quantity = item.quantity
+      : cart.items = [item].concat(cart.items)
+
+    if (callback) {
+      callback();
     }
   }
 }

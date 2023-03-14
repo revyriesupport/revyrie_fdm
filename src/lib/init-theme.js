@@ -1,5 +1,4 @@
 import { defineAsyncComponent, createApp } from "vue"
-import { createPinia } from 'pinia'
 import { componentName } from './utilities'
 
 class Init {
@@ -9,38 +8,30 @@ class Init {
 
   mountVue() {
     this.vueElements.forEach(el => {
-      // const pinia = createPinia()
-
-      const app = createApp();
-      const name = componentName(el.tagName.toLowerCase())
-      const components = import.meta.globEager("../vue/components/**/*.vue");
-      Object.entries(components).forEach(([path, definition]) => {
-        const componentName = path
-          .replace(/\/vue\/components/g, "")
-          .replace(/\.(\/|vue|js)/g, "")
-          .replace(/(\/|-|_|\s)\w/g, (match) => match.slice(1).toUpperCase())
-          .replace('.renderless', '')
-          .replace('.render', '');
-
-        if (componentName == name) {
-          app.component(componentName, definition.default);
-        }
-      });
-
-      const parent = el.parentNode
-      const wrap = document.createElement('div');
-      wrap.setAttribute('data-vue-parent', name)
-
-      parent.replaceChild(wrap, el);
-      wrap.appendChild(el);
-
-      // app.use(pinia)
-
-      app.mount(wrap)
+      this.requestComponent(el)
     })
 
     this.adminVueFix()
   }
+
+  async requestComponent(el) {
+    const app = createApp();
+    const name = componentName(el.tagName.toLowerCase());
+
+    const { default: definition } = await import(`../vue/components/render/${name}.vue`);
+    app.component(name, definition);
+
+    const parent = el.parentNode;
+    const wrap = document.createElement('div');
+    wrap.setAttribute('data-vue', name);
+
+    parent.replaceChild(wrap, el);
+    wrap.appendChild(el);
+
+    app.mount(wrap);
+  }
+
+
   adminVueFix() {
     if (window.Shopify.designMode) {
       document.addEventListener("shopify:section:load", (event) => {
@@ -64,30 +55,38 @@ class Init {
   }
 }
 
+
+
+
+/*
+  mountVue() {
+    this.vueElements.forEach(el => {
+      const app = createApp();
+      const name = componentName(el.tagName.toLowerCase())
+      const components = import.meta.globEager("../vue/components/**-/*.vue");
+      Object.entries(components).forEach(([path, definition]) => {
+        const componentName = path
+          .replace(/\/vue\/components/g, "")
+          .replace(/\.(\/|vue|js)/g, "")
+          .replace(/(\/|-|_|\s)\w/g, (match) => match.slice(1).toUpperCase())
+
+        if (componentName == name) {
+          app.component(componentName, definition.default);
+        }
+      });
+
+      const parent = el.parentNode
+      const wrap = document.createElement('div');
+      wrap.setAttribute('data-vue', name)
+
+      parent.replaceChild(wrap, el);
+      wrap.appendChild(el);
+
+      app.mount(wrap)
+    })
+
+    this.adminVueFix()
+  }
+*/
+
 export default new Init()
-
-// const createVueApp = () => {
-//   const app = createApp({});
-
-//   const components = import.meta.globEager("../vue/components/**/*.vue");
-//   console.log('components:', components)
-//   Object.entries(components).forEach(([path, definition]) => {
-//     const componentName = path
-//       .replace(/\/vue\/components/g, "")
-//       .replace(/\.(\/|vue|js)/g, "")
-//       .replace(/(\/|-|_|\s)\w/g, (match) => match.slice(1).toUpperCase());
-
-//     app.component(componentName, definition.default);
-//   });
-
-//   const mixins = import.meta.globEager("../vue/mixins/*.js");
-//   Object.entries(mixins).forEach(([path, definition]) => {
-//     app.mixin(definition.default);
-//   });
-
-//   const directives = import.meta.globEager("../vue/directives/*.js");
-//   Object.entries(directives).forEach(([path, definition]) => {
-//     const directive = definition.default;
-//     app.directive(directive.name, directive.directive);
-//   });
-// };

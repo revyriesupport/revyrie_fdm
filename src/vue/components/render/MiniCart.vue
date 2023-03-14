@@ -81,7 +81,7 @@ export default {
     </div>
     <div class="flex-1 overflow-auto" v-else>
       <cart-item
-        v-for="item in cart.items"
+        v-for="item in cart.listItems"
         :key="item.id"
         :line="item"
         class="flex p-4 border-b border-gray-200 last:border-b-0"
@@ -106,23 +106,19 @@ export default {
           ></textarea>
         </div>
 
-        <div class="flex items-center justify-between mb-2">
-          <span class="text-lg font-medium">Subtotal:</span>
-          <span class="text-lg font-medium text-ink" aria-live="polite">{{
+        <div class="flex items-center justify-between mb-2 text-ink">
+          <span>Subtotal:</span>
+          <span class="text-ink" aria-live="polite">{{
             money(cart.subtotal)
           }}</span>
         </div>
-        <div class="flex items-center justify-between mb-2">
-          <span class="text-lg font-medium text-ink">Taxes:</span>
-          <span class="text-lg font-medium text-ink">{{
-            money(cart.taxes)
-          }}</span>
+        <div class="flex items-center justify-between mb-2 text-ink">
+          <span class="text-ink">Taxes:</span>
+          <span class="text-ink">{{ money(cart.taxes) }}</span>
         </div>
-        <div class="flex items-center justify-between mb-2">
-          <span class="text-lg font-medium text-ink">Shipping:</span>
-          <span class="text-lg font-medium text-ink">{{
-            money(cart.shipping)
-          }}</span>
+        <div class="flex items-center justify-between mb-2 text-ink">
+          <span class="text-ink">Shipping:</span>
+          <span class="text-ink">{{ money(cart.shipping) }}</span>
         </div>
         <div class="flex items-center justify-between mb-2">
           <span class="text-xl font-medium text-ink">Total:</span>

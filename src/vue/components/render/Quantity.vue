@@ -11,8 +11,19 @@ export default {
       required: false,
       default: false,
     },
+    decreaseQuantity: {
+      type: Function,
+      required: true,
+    },
+    increaseQuantity: {
+      type: Function,
+      required: true,
+    },
+    updateQuantity: {
+      type: Function,
+      required: true,
+    },
   },
-  emits: ["decreaseQuantity", "updateQuantity", "increaseQuantity"],
   setup(props, context) {
     const quantity = ref(props.qty);
     watch(
@@ -22,6 +33,7 @@ export default {
         // context.refs.itemQuantity.focus();
       }
     );
+
     return {
       quantity,
     };
@@ -34,7 +46,7 @@ export default {
     type="button"
     class="text-ink hover:text-accent2 py-3 px-1 transition duration-150 ease-in-out"
     aria-label="decrease quantity"
-    @click="$emit('decreaseQuantity')"
+    @click="decreaseQuantity(quantity)"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -69,7 +81,7 @@ export default {
     type="number"
     ref="itemQuantity"
     v-model="quantity"
-    @change="$emit('updateQuantity')"
+    @change="updateQuantity(quantity)"
     min="1"
     aria-label="quantity"
   />
@@ -77,7 +89,7 @@ export default {
     type="button"
     class="text-ink hover:text-accent2 py-3 px-1 transition duration-150 ease-in-out"
     aria-label="increase quantity"
-    @click="$emit('increaseQuantity')"
+    @click="increaseQuantity(quantity)"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"

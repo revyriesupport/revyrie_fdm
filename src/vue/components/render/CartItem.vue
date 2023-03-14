@@ -1,5 +1,5 @@
 <script>
-import { ref, createComponent } from "vue";
+import { ref, computed } from "vue";
 import { useCartStore } from "@/vue/store/cart";
 import { formatProductPrice } from "@/lib/utilities";
 import { cartItemLimit } from "@/lib/store-definition";
@@ -15,25 +15,24 @@ export default {
       required: true,
     },
   },
-  setup(props) {
+  setup({ line }) {
     const loading = ref(false);
-    const line = props.line;
     const item = ref({ ...line });
     const cart = useCartStore();
-
-    const money = (priceValue) => formatProductPrice(priceValue);
     let errorMessage = ref(false);
 
-    const getQuantity = (event) => {
-      return parseInt(event.target.value);
-    };
+    const finalPrice = computed(() =>
+      formatProductPrice(item.value.final_line_price)
+    );
+    const originalPrice = computed(() =>
+      formatProductPrice(item.value.original_line_price)
+    );
 
     const requestUpdate = (newQuantity) => {
-      if (isNaN(newQuantity)) return;
-
       if (newQuantity <= cartItemLimit) {
         errorMessage.value = false;
         loading.value = true;
+
         cart.updateCartItem(item.value.id, newQuantity, (res) => {
           const { data, response } = res;
           if (response.status === 200) {
@@ -51,10 +50,9 @@ export default {
       }
     };
 
-    const updateQuantity = (event) => {
-      const quantity = getQuantity(event);
-      if (isNaN(quantity)) return;
-      requestUpdate(quantity);
+    const updateQuantity = (qty) => {
+      if (!Number.isInteger(qty)) return;
+      requestUpdate(qty);
     };
 
     const increaseQuantity = () => requestUpdate(item.value.quantity + 1);
@@ -66,8 +64,9 @@ export default {
       cart,
       loading,
       errorMessage,
+      finalPrice,
+      originalPrice,
 
-      money,
       updateQuantity,
       increaseQuantity,
       decreaseQuantity,
@@ -85,7 +84,11 @@ export default {
     <div class="flex flex-row gap-4">
       <div class="flex-1">
         <div class="w-full aspect-square relative">
-          <a :href="item.url" class="absolute inset-0 z-10"></a>
+          <a
+            :href="item.url"
+            class="absolute inset-0 z-10"
+            aria-label="View details for {{ product.title }}"
+          ></a>
           <img
             :src="item.image"
             :alt="item.product_title + ' product image'"
@@ -109,16 +112,14 @@ export default {
               <dl class="flex flex-row space-x-4">
                 <dt class="sr-only">Regular price</dt>
                 <dd>
-                  <s class="text-gray-500 line-through">{{
-                    money(item.original_line_price)
-                  }}</s>
+                  <s class="text-gray-500 line-through">{{ originalPrice }}</s>
                 </dd>
                 <dt class="sr-only">Sale price</dt>
-                <dd class="text-error">{{ money(item.final_line_price) }}</dd>
+                <dd class="text-error">{{ finalPrice }}</dd>
               </dl>
             </div>
             <div v-else class="text-gray-900">
-              {{ money(item.original_line_price) }}
+              {{ originalPrice }}
             </div>
           </div>
           <p></p>
@@ -129,9 +130,9 @@ export default {
             :class="{ 'pointer-events-none opacity-50': loading }"
           >
             <quantity
-              @decreaseQuantity="decreaseQuantity"
-              @updateQuantity="updateQuantity"
-              @increaseQuantity="increaseQuantity"
+              :decreaseQuantity="decreaseQuantity"
+              :updateQuantity="updateQuantity"
+              :increaseQuantity="increaseQuantity"
               :qty="item.quantity"
               :loading="loading"
             ></quantity>

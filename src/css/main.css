@@ -1,5 +1,6 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
+
 @import "tailwindcss/utilities";
 
 @layer base {
@@ -8,6 +9,10 @@
     -webkit-appearance: none;
     margin: 0;
   }
+}
+
+.section-header {
+  @apply z-[100] !important;
 }
 
 /* * {

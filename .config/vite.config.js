@@ -25,6 +25,8 @@ export default {
     alias: {
       vue: "vue/dist/vue.esm-bundler.js",
       "@": resolve(__dirname, "../src/"),
+      "@render": resolve(__dirname, "../src/vue/components/render/"),
+      "@renderless": resolve(__dirname, "../src/vue/components/renderless/"),
       "@shopify-directory": resolve(__dirname, "../shopify/"),
     },
   },
