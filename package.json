@@ -1,8 +1,8 @@
 {
   "name": "shopify-base-theme",
-  "description": "Customizable modular development environment for blazing-fast Shopify theme creation",
-  "author": "Agency",
-  "version": "4.4.1",
+  "description": "Base theme: Vue + Tailwind + Shopify + Vite",
+  "author": "Myntr",
+  "version": "0.01",
   "license": "MIT",
   "scripts": {
     "shopify:list": "shopify theme list --store=myntr-theme-dev.myshopify.com",

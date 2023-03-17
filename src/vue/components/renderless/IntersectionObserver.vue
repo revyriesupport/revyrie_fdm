@@ -1,46 +1,51 @@
 <script>
-import { onMounted, onUnmounted } from "vue";
+import { sliderIntersectionOptions } from "@/lib/store-definition";
+import { ref, onMounted, onBeforeUnmount, defineComponent } from "vue";
 
-export default {
-  name: "IntersectionObserver",
+export default defineComponent({
   props: {
+    unobserveOnEnter: {
+      type: Boolean,
+      default: false,
+    },
     options: {
       type: Object,
-      default: () => ({}),
     },
   },
-  emits: ["intersect"],
   setup(props, { emit }) {
-    let observer = null;
+    const observerElement = ref(null);
+    const observer = ref(null);
+    const options = props.options || sliderIntersectionOptions;
 
-    const observeElement = (element) => {
-      if (element && observer) {
-        observer.observe(element);
-      }
+    const initObserver = () => {
+      observer.value = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            emit("enterViewport");
+            if (props.unobserveOnEnter) {
+              observer.value.unobserve(observerElement.value);
+            }
+          } else {
+            emit("leaveViewport");
+          }
+        });
+      }, options);
+
+      observer.value.observe(observerElement.value);
     };
 
-    const handleIntersection = (entries, observer) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          emit("intersect", entry, observer);
-        }
-      });
-    };
-
-    onMounted(() => {
-      observer = new IntersectionObserver(handleIntersection, props.options);
+    onMounted(initObserver);
+    onBeforeUnmount(() => {
+      observer.value.disconnect();
     });
 
-    onUnmounted(() => {
-      if (observer) {
-        observer.disconnect();
-        observer = null;
-      }
-    });
-
-    return {
-      observeElement,
-    };
+    return { observerElement };
   },
-};
+});
 </script>
+
+<template>
+  <div ref="observerElement">
+    <slot></slot>
+  </div>
+</template>

@@ -1,7 +1,7 @@
 const config = {
   cartItemLimit: 3,
   loadMiniCartOnlyWhenIsOpen: true,
-  miniCartRevertedOrder: true,
+  miniCartRevertedOrder: false,
   sliderIntersectionOptions: {
     rootMargin: "10%",
     threshold: 0,

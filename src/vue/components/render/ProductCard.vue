@@ -17,7 +17,7 @@ export default {
 
     const handleClick = (event) => {
       event.preventDefault();
-      const id = props.product.variants.edges[0].node.id;
+      const id = props.product.variant_id;
       if (!id) return;
 
       const validateIfItemIsInCart = cart.items.find((item) => item.id === id);
@@ -48,8 +48,8 @@ export default {
               aria-label="View details for {{ product.title }}"
             ></a>
             <img
-              :src="product.images.edges[0].node.src"
-              :alt="product.images.edges[0].node.alt"
+              :src="product.featured_image.url"
+              :alt="product.featured_image.alt"
               class="w-full h-full object-cover object-center"
               loading="lazy"
             />
@@ -61,7 +61,7 @@ export default {
               {{ product.title }}
             </p>
             <p class="text-accent1 mt-6">
-              {{ product.description.substring(0, 100) }}
+              {{ product.product_description?.substring(0, 100) }}
             </p>
           </div>
           <button

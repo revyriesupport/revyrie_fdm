@@ -56,6 +56,7 @@ export const cleanProductVariantId = (id) => {
   return id.replace('gid://shopify/ProductVariant/', '')
 }
 
+
 /**
  * Check if the current page is the cart page
  *

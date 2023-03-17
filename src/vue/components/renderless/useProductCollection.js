@@ -1,6 +1,8 @@
 import { ref } from "vue";
 import storefront from "@/lib/storefront";
+import { convertProductResponse, convertCollectionResponse } from "@/lib/utilities-graphql";
 import { collection as queryCollection } from "@/lib/queries";
+import { product as queryProduct } from "@/lib/queries";
 
 export default function useProductCollection(collectionHandle, limit = 10) {
   const products = ref([]);
@@ -10,11 +12,29 @@ export default function useProductCollection(collectionHandle, limit = 10) {
     try {
       const response = await storefront.request(queryCollection, {
         handle: collectionHandle,
-        first: parseInt(limit),
+        productsFirst: parseInt(limit),
       });
       if (!response.collectionByHandle) return;
-      products.value = response.collectionByHandle.products.edges;
+
+      console.log('response:', response)
+      const collection = convertCollectionResponse(response.collectionByHandle)
+      console.log(collection)
+      products.value = collection.products
       loading.value = false;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const fetchProduct = async (handle) => {
+    try {
+      const response = await storefront.request(queryProduct, {
+        handle: handle,
+        imagesFirst: 2,
+      });
+      if (!response.productByHandle) return;
+      console.log(response)
+      console.log(convertProductResponse(response.productByHandle))
     } catch (error) {
       console.error(error);
     }
@@ -24,5 +44,6 @@ export default function useProductCollection(collectionHandle, limit = 10) {
     products,
     loading,
     fetchData,
+    fetchProduct,
   };
 }
