@@ -5,59 +5,6 @@
  */
 
 /**
- * Decode Storefront Product ID, this is used
- * with Storefront API
- *
- * @param {string} id
- */
-export const decodeIDproduct = (id) => {
-  return decodeURIComponent(escape(window.atob(id))).split(
-    'gid://shopify/Product/'
-  )[1]
-}
-
-/**
- * Encode from numerical to Storefront Product ID, this is used
- * with Storefront API
- *
- * @param {string} id
- */
-export const encodeIDproduct = (id) => {
-  return window.btoa('gid://shopify/Product/' + id)
-}
-
-/**
- * Decode Storefront Product Variant ID, this is used
- * with Storefront API
- *
- * @param {string} id
- */
-export const decodeIDProductVariant = (id) => {
-  return decodeURIComponent(escape(window.atob(id))).split(
-    'gid://shopify/ProductVariant/'
-  )[1]
-}
-
-/**
- * Clean Product ID
- *
- * @param {string} id
- */
-export const cleanProductId = (id) => {
-  return id.replace('gid://shopify/Product/', '')
-}
-
-/**
- * Clean Variant ID
- *
- * @param {string} id
- */
-export const cleanProductVariantId = (id) => {
-  return id.replace('gid://shopify/ProductVariant/', '')
-}
-
-
-/**
  * Check if the current page is the cart page
  *
  * @returns {boolean}
@@ -87,7 +34,6 @@ export function formatProductPrice(price, currencyCode = window.storeData.curren
   const formattedPrice = price / 100;
   return formatter.format(formattedPrice);
 }
-
 /**
  * 
  * End of Shopify Related Utilities
@@ -104,6 +50,7 @@ export function formatProductPrice(price, currencyCode = window.storeData.curren
  * @param {function} callback
  */
 export async function generateFetchRequest(url, method, body, callback) {
+  console.log('generateFetchRequest:', body)
   const requestOptions = {
     method: method,
     headers: {
@@ -113,6 +60,7 @@ export async function generateFetchRequest(url, method, body, callback) {
 
   if (method === 'POST' || method === 'PUT') {
     requestOptions.body = JSON.stringify(body)
+    console.log('requestOptions.body:', requestOptions.body)
   }
 
   const response = await fetch(url, requestOptions)
@@ -181,3 +129,31 @@ export const componentName = (name) => {
   return camelCase[0].toUpperCase() + camelCase.slice(1);
 }
 
+/**
+ * Return reduced value of an array
+ *
+ * @param {items} array
+ * @param {function} callback
+ */
+
+export const calculateTotal = (items, callback) => {
+  return items.reduce((total, item) => total + callback(item), 0);
+}
+
+
+
+/**
+ * 
+ * Temporal Functions
+ * 
+ */
+
+/**
+ * Updates DOM Cart total item on header
+ */
+export const temporalUpdateBubbleCartCount = (count) => {
+  count === 0
+    ? document.querySelector('.cart-count-bubble').classList.add('hidden')
+    : document.querySelector('.cart-count-bubble').classList.remove('hidden')
+  document.querySelector('.cart-count-bubble span[aria-hidden="true"]').innerText = count
+}

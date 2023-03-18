@@ -1,17 +1,12 @@
 import { defineStore } from 'pinia'
 import {
   generateFetchRequest,
-  cleanProductVariantId,
-  focusElement
+  focusElement,
+  calculateTotal,
+  temporalUpdateBubbleCartCount
 } from '@/lib/utilities'
+import { cleanProductVariantId } from '@/lib/utilities-graphql'
 import { miniCartRevertedOrder } from '@/lib/store-definition'
-
-const temporalUpdateBubbleCartCount = (count) => {
-  count === 0
-    ? document.querySelector('.cart-count-bubble').classList.add('hidden')
-    : document.querySelector('.cart-count-bubble').classList.remove('hidden')
-  document.querySelector('.cart-count-bubble span[aria-hidden="true"]').innerText = count
-}
 
 const useCartStoreDefinition = defineStore({
   id: 'cart',
@@ -19,7 +14,8 @@ const useCartStoreDefinition = defineStore({
     items: [],
     isOpen: false,
     isLoading: false,
-    error: null
+    error: null,
+    cartRequested: false
   }),
   getters: {
     listItems() {
@@ -31,28 +27,29 @@ const useCartStoreDefinition = defineStore({
       return this.items?.length === 0
     },
     totalAmount() {
-      return this.items.reduce((total, item) => total + (item.price * item.quantity), 0)
+      return calculateTotal(this.items, (item) => item.price * item.quantity);
     },
     totalItems() {
-      return this.items.reduce((total, item) => total + item.quantity, 0)
+      return calculateTotal(this.items, (item) => item.quantity);
     },
-    hasProductType() {
-      return (productType) => this.items.some(item => item.product_type === productType)
+    hasProductType(productType) {
+      // this.hasProductType.call(this, productType);
+      return this.items.some(item => item.product_type === productType);
     },
-    hasProductTag() {
-      return (productTag) => this.items.some(item => item.tags.includes(productTag))
+    hasProductTag(productTag) {
+      return this.items.some(item => item.tags.includes(productTag));
     },
     hasDiscounts() {
       return this.items.some(item => item.discount_applications?.length > 0) || false
     },
     discountTotal() {
-      return this.items.reduce((total, item) => total + item.final_line_price - item.original_line_price, 0)
+      return calculateTotal(this.items, (item) => item.final_line_price - item.original_line_price) || 0;
     },
     subtotal() {
-      return this.items.reduce((total, item) => total + item.original_line_price, 0)
+      return calculateTotal(this.items, (item) => item.original_line_price) || 0;
     },
     taxes() {
-      return this.items.reduce((total, item) => total + item.total_tax, 0) || 0
+      return calculateTotal(this.items, (item) => item.total_tax) || 0;
     },
     shipping() {
       return this.items.reduce((total, item) => total + item.line_level_shipping_price, 0) || 0
@@ -75,10 +72,8 @@ const useCartStoreDefinition = defineStore({
         }
       }
 
-      if (this.isOpen) {
-        if (this.items.length === 0) {
-          this.fetchCart()
-        }
+      if (this.isOpen && this.cartRequested === false) {
+        this.fetchCart()
       }
     },
 
@@ -88,6 +83,7 @@ const useCartStoreDefinition = defineStore({
         const response = await generateFetchRequest('/cart.js', 'GET', null, null)
         this.items = response.data.items || []
         this.isLoading = false
+        this.cartRequested = true
       } catch (error) {
         this.error = error
         this.isLoading = false
@@ -96,23 +92,26 @@ const useCartStoreDefinition = defineStore({
 
     async addToCart(key, quantity = 1, callback) {
       if (!key) return
-      const id = cleanProductVariantId(key.toString())
+      if (this.cartRequested === false) {
+        await this.fetchCart()
+      }
 
-      // const validateIfItemIsInCart = this.items.find(item => item.id === parseInt(id))
-      // console.log('validateIfItemIsInCart:', validateIfItemIsInCart)
-      // if (validateIfItemIsInCart) {
-      //   this.updateCartItem(id, validateIfItemIsInCart.quantity + quantity)
-      //   return
-      // }
+      const id = cleanProductVariantId(key.toString())
+      console.log('____id:', id)
+      const itemAlreadyOnCart = await this.isProductInCart(id);
+      if (itemAlreadyOnCart) {
+        console.log('itemAlreadyOnCart:', itemAlreadyOnCart)
+        this.updateCartItem(id, itemAlreadyOnCart.quantity + quantity)
+        return
+      }
 
       this.isLoading = true
       try {
         const response = await generateFetchRequest('/cart/add.js', 'POST', {
-          id: id,
+          id: id.toString(),
           quantity: quantity
         }, null)
 
-        this.isOpen = true
         this.isLoading = false
 
         console.log('this.items.length', this.items.length)
@@ -124,6 +123,8 @@ const useCartStoreDefinition = defineStore({
         if (callback) {
           callback(response)
         }
+
+        this.isOpen = true
         temporalUpdateBubbleCartCount(this.totalItems)
       } catch (error) {
         this.error = error
@@ -137,16 +138,20 @@ const useCartStoreDefinition = defineStore({
       this.isLoading = true
       try {
         const response = await generateFetchRequest('/cart/change.js', 'POST', {
-          id: id,
+          id: id.toString(),
           quantity: quantity
         }, null)
-        console.log('----> Data', response.data)
-        this.items = response.data.items
-        if (callback) {
-          callback(response)
-        }
-        this.isLoading = false
-        temporalUpdateBubbleCartCount(this.totalItems)
+        this.items = []
+
+        setTimeout(() => {
+          this.items = response.data.items
+          if (callback) {
+            callback(response)
+          }
+          this.isLoading = false
+          temporalUpdateBubbleCartCount(this.totalItems)
+          this.isOpen = true
+        }, 0)
       } catch (error) {
         this.error = error
         this.isLoading = false
@@ -154,7 +159,15 @@ const useCartStoreDefinition = defineStore({
     },
 
     removeCartItem(id) {
-      this.updateCartItem(id, 0)
+      if(this.isProductInCart(id)){
+        this.updateCartItem(id, 0)
+      } else {
+        console.warn('Product not in cart')
+      }
+    },
+
+    isProductInCart(id) {
+      return this.items.find(item => item.id === Number(id))
     },
 
     async applyDiscount(discountCode) {

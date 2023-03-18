@@ -130,6 +130,7 @@ export default {
             :class="{ 'pointer-events-none opacity-50': loading }"
           >
             <quantity
+              v-if="cart.isOpen"
               :decreaseQuantity="decreaseQuantity"
               :updateQuantity="updateQuantity"
               :increaseQuantity="increaseQuantity"

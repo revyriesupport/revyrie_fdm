@@ -43,7 +43,17 @@
   endif
 -%}
 
-{% comment %}
+{%- comment -%}
+<ProductGallery>
+  {%- for media in product.media -%}
+    {%- if media.media_type == 'image' -%}
+      <img
+        src="{{ media | img_url: '500x' }}"
+        alt="{{ media.alt | escape }}" />
+    {%- endif -%}
+  {%- endfor -%}
+</ProductGallery>
+
 <ProductGallery v-bind:productImages="productImages">
   <template v-slot="{ imageHtml }">
     <div v-html="imageHtml"></div>

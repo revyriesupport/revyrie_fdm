@@ -3,19 +3,25 @@ import { ref, onMounted } from "vue";
 
 export default {
   setup() {
-    const productImages = ref([]);
+    // const productImages = ref([]);
 
-    const loadInitialProductImages = () => {
-      const imagesJson = document.getElementById("product-images-json");
-      if (imagesJson) {
-        const images = JSON.parse(imagesJson.textContent);
-        productImages.value = images.images;
-      }
-    };
+    // const loadInitialProductImages = () => {
+    //   const imagesJson = document.getElementById("product-images-json");
+    //   if (imagesJson) {
+    //     const images = JSON.parse(imagesJson.textContent);
+    //     productImages.value = images.images;
+    //   }
+    // };
 
-    onMounted(loadInitialProductImages);
+    // onMounted(loadInitialProductImages);
+
+    // With store
+    // const store = useStore();
+    // const activeProductImages = computed(() => store.state.activeProductImages);
+    const activeProductImages = [];
 
     return {
+      activeProductImages,
       productImages,
     };
   },
@@ -23,5 +29,14 @@ export default {
 </script>
 
 <template>
-  <div></div>
+  <div class="product-gallery">
+    <slot>
+      <img
+        v-for="(image, index) in activeProductImages"
+        :key="index"
+        :src="image.src"
+        :alt="image.alt"
+      />
+    </slot>
+  </div>
 </template>

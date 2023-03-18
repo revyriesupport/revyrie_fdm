@@ -64,3 +64,12 @@ export const convertCollectionResponse = (collection) => {
 
   return transformedCollection;
 }
+
+/**
+ * Clean Variant ID
+ *
+ * @param {string} id
+ */
+export const cleanProductVariantId = (id) => {
+  return Number(id.replace('gid://shopify/ProductVariant/', ''))
+}

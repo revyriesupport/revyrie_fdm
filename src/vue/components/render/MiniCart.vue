@@ -4,6 +4,10 @@ import { useCartStore } from "@/vue/store/cart";
 import CartItem from "./CartItem.vue";
 import { formatProductPrice } from "@/lib/utilities";
 
+// const CartItem = defineAsyncComponent(() =>
+//   import("./CartItem.vue")
+// );
+
 export default {
   components: {
     CartItem,

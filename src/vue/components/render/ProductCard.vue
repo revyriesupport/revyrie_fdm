@@ -22,7 +22,7 @@ export default {
 
       const validateIfItemIsInCart = cart.items.find((item) => item.id === id);
       validateIfItemIsInCart
-        ? cart.updateItem(id, validateIfItemIsInCart.quantity + 1)
+        ? cart.updateCartItem(id, validateIfItemIsInCart.quantity + 1)
         : cart.addToCart(id, 1);
     };
 
