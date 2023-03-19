@@ -1,5 +1,5 @@
 <script>
-import { useCartStore } from "@/vue/store/cart";
+import { useCartStore } from "@store/cart-state";
 
 export default {
   props: {

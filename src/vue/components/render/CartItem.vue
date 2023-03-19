@@ -1,6 +1,6 @@
 <script>
 import { ref, computed } from "vue";
-import { useCartStore } from "@/vue/store/cart";
+import { useCartStore } from "@store/cart-state";
 import { formatProductPrice } from "@/lib/utilities";
 import { cartItemLimit } from "@/lib/store-definition";
 import Quantity from "./Quantity.vue";

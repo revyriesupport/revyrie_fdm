@@ -1,42 +1,52 @@
 <script>
-import { ref, onMounted } from "vue";
-
-export default {
-  setup() {
-    // const productImages = ref([]);
-
-    // const loadInitialProductImages = () => {
-    //   const imagesJson = document.getElementById("product-images-json");
-    //   if (imagesJson) {
-    //     const images = JSON.parse(imagesJson.textContent);
-    //     productImages.value = images.images;
-    //   }
-    // };
-
-    // onMounted(loadInitialProductImages);
-
-    // With store
-    // const store = useStore();
-    // const activeProductImages = computed(() => store.state.activeProductImages);
-    const activeProductImages = [];
-
-    return {
-      activeProductImages,
-      productImages,
-    };
+import { ref, onMounted, defineComponent } from "vue";
+import { useProductStore } from "@store/product-state";
+export default defineComponent({
+  name: "product-gallery",
+  props: {
+    media: {
+      type: Array,
+      default: () => [],
+    },
+    activeColor: {
+      type: String,
+      default: "",
+    },
   },
-};
-</script>
+  setup(props, { slots }) {
+    const loadedImages = ref({});
 
-<template>
-  <div class="product-gallery">
-    <slot>
-      <img
-        v-for="(image, index) in activeProductImages"
-        :key="index"
-        :src="image.src"
-        :alt="image.alt"
-      />
-    </slot>
-  </div>
-</template>
+    console.log("props.activeColor:", props);
+    const product = useProductStore();
+    product.setActiveColor(props.activeColor);
+
+    const loadRemainingImages = (media) => {
+      media.forEach((mediaItem) => {
+        if (mediaItem.media_type === "image") {
+          const img = new Image();
+          img.src = mediaItem.src;
+          img.onload = () => {
+            loadedImages.value[mediaItem.id] = mediaItem.src;
+          };
+        } else if (
+          mediaItem.media_type === "video" ||
+          mediaItem.media_type === "external_video"
+        ) {
+          // Preload Video
+        }
+      });
+    };
+
+    onMounted(() => {
+      loadRemainingImages(props.media);
+      product.setAllProductMedia(props.media);
+    });
+
+    return () =>
+      slots.default({
+        loadedImages: loadedImages.value,
+        getImagesPerColor: product.getImagesPerColor,
+      });
+  },
+});
+</script>

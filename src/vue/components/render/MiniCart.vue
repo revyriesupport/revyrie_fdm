@@ -1,6 +1,6 @@
 <script>
 import { defineAsyncComponent } from "vue";
-import { useCartStore } from "@/vue/store/cart";
+import { useCartStore } from "@store/cart-state";
 import CartItem from "./CartItem.vue";
 import { formatProductPrice } from "@/lib/utilities";
 

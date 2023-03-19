@@ -1,6 +1,6 @@
 import { createApp, defineAsyncComponent } from "vue";
 import { createPinia } from 'pinia'
-import { useCartStore } from '../vue/store/cart'
+import { useCartStore } from '@store/cart-state'
 import { loadMiniCartOnlyWhenIsOpen } from './store-definition'
 import ProductSlider from '../vue/components/render/ProductSlider.vue'
 import MiniCart from '@render/MiniCart.vue'
@@ -10,11 +10,9 @@ class Cart {
   init() {
     const pinia = createPinia()
     const app = createApp(MiniCart)
-
     app.use(pinia)
 
     app.component('ProductSlider', ProductSlider)
-
     // app.component('CartItem', defineAsyncComponent(() =>
     //   import('../vue/components/render/CartItem.vue')
     // ))

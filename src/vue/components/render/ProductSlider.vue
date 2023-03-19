@@ -1,6 +1,6 @@
 <script>
 import { ref, computed } from "vue";
-import { useCartStore } from "@/vue/store/cart";
+import { useCartStore } from "@store/cart-state";
 import ProductCard from "./ProductCard.vue";
 import useProductCollection from "@renderless/useProductCollection";
 import IntersectionObserver from "@renderless/IntersectionObserver.vue";

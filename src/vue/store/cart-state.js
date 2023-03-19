@@ -5,6 +5,7 @@ import {
   calculateTotal,
   temporalUpdateBubbleCartCount
 } from '@/lib/utilities'
+import { cartItemLimit } from "@/lib/store-definition";
 import { cleanProductVariantId } from '@/lib/utilities-graphql'
 import { miniCartRevertedOrder } from '@/lib/store-definition'
 
@@ -92,15 +93,12 @@ const useCartStoreDefinition = defineStore({
 
     async addToCart(key, quantity = 1, callback) {
       if (!key) return
-      if (this.cartRequested === false) {
-        await this.fetchCart()
-      }
+      if (this.validateCartItemLimitQuantity(quantity)) return
+      if (this.cartRequested === false) await this.fetchCart()
 
       const id = cleanProductVariantId(key.toString())
-      console.log('____id:', id)
       const itemAlreadyOnCart = await this.isProductInCart(id);
       if (itemAlreadyOnCart) {
-        console.log('itemAlreadyOnCart:', itemAlreadyOnCart)
         this.updateCartItem(id, itemAlreadyOnCart.quantity + quantity)
         return
       }
@@ -136,6 +134,9 @@ const useCartStoreDefinition = defineStore({
       if (!key) return
       const id = cleanProductVariantId(key.toString())
       this.isLoading = true
+
+      if (this.validateCartItemLimitQuantity(quantity)) return
+
       try {
         const response = await generateFetchRequest('/cart/change.js', 'POST', {
           id: id.toString(),
@@ -168,6 +169,14 @@ const useCartStoreDefinition = defineStore({
 
     isProductInCart(id) {
       return this.items.find(item => item.id === Number(id))
+    },
+
+    validateCartItemLimitQuantity(quantity) {
+      if (quantity > cartItemLimit) {
+        alert(`The maximum quantity allowed for each item is ${cartItemLimit}`)
+        console.warn(`The maximum quantity allowed for each item is ${cartItemLimit}`)
+      }
+      return quantity > cartItemLimit
     },
 
     async applyDiscount(discountCode) {
