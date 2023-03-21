@@ -13,5 +13,9 @@ node_modules
 # shopify/assets/*
 # !shopify/assets/*static*
 shopify/assets/bundle.js
+shopify/assets/product-template.js
+shopify/assets/homepage-template.js
+shopify/assets/collection-template.js
+shopify/assets/account-template.js
 shopify/assets/bundle.css
 shopify/assets/storefront.js

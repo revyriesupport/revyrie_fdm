@@ -1,0 +1,58 @@
+{% liquid
+  
+%}
+{% comment %}
+{% assign main_images = product.media | where_exp: 'media', 'media.alt contains "color:" and media.alt contains active_color' | limit: 2 %}
+{% for media in main_images %}
+  {% if media.media_type == 'image' %}
+    <img src="{{ media | img_url: '500x' }}" alt="{{ media.alt }}" class="main-image w-full h-auto" fetchpriority="high" />
+  {% elsif media.media_type == 'video' or media.media_type == 'external_video' %}
+    <video class="main-video w-full h-auto" controls>
+      <source src="{{ media.sources[0].url }}" type="{{ media.sources[0].mime_type }}">
+      Your browser does not support the video tag.
+    </video>
+  {% endif %}
+{% endfor %}
+{% endcomment %}
+
+{% comment %}
+<div
+  class="w-full grid grid-cols-2 grid-flow-col gap-4"
+>
+  <product-gallery
+    :media="remainingMedia"
+    active-color="{{ active_color }}"
+    v-slot="{ loadedImages, getImagesPerColor }"
+  >
+    <div class="w-1/2 aspect-square bg-grey" v-for="media in getImagesPerColor">
+      <img v-if="media.media_type == 'image'" :src="media.src" :alt="media-alt">
+    </div> 
+  </product-gallery>
+</div>
+{% endcomment %}
+
+<div class="w-full mx-auto">
+  <div class="w-full flex gap-4">
+    <product-gallery
+      :media="remainingMedia"
+      active-color="{{ active_color }}"
+      v-slot="{ loadedImages, getImagesPerColor }"
+    >
+      <div
+        v-for="media in getImagesPerColor"
+        class="w-1/2 relative aspect-square bg-grey"
+      >
+        <img
+          v-if="media.media_type == 'image'"
+          :src="media.src"
+          :alt="media.alt" 
+          class="inset-0 w-full h-full absolute object-cover"
+        >
+          <button href="#" class="absolute top-2 right-2 p-2 bg-white bg-opacity-70 hover:bg-opacity-100 text-gray-800">
+            {%- render 'icon-zoom' -%}
+          </button>
+          {% comment %} <video src="producto-1-video.mp4" class="hidden"></video> {% endcomment %}
+      </div>
+    </product-gallery>
+  </div>
+</div>

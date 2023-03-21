@@ -1,1 +1,1 @@
-const t={data(){return{test:"Test"}},setup(){console.log("ProductHero setup")}};export{t as default};
+import{_ as e}from"./_plugin-vue_export-helper.js";const t={data(){return{test:"Test"}},setup(){console.log("ProductHero setup")}},r=e(t,[["__file","/Users/latiosaxe/code/myntr/base-theme-2023/src/vue/components/render/ProductHero.vue"]]);export{r as default};

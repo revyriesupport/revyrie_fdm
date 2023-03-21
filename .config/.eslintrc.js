@@ -34,6 +34,7 @@ module.exports = {
      * add custom rules
      * docs: https://eslint.org/docs/rules
      */
+    'indent': ['error', 4],
     'no-unused-vars': isDevelopment ? 'off' : 'error',
     // 'quotes': ['error', 'single'],
     // 'semi': ['error', 'never']

@@ -1,0 +1,74 @@
+
+{%- liquid
+  assign active_variant = product.selected_or_first_available_variant
+  assign color_option_index = 0
+  for option in product.options_with_values
+    if option.name == 'Color'
+      assign color_option_index = forloop.index0
+      break
+    endif
+  endfor
+  assign active_color = active_variant.options[0] | handle
+-%}
+
+<div id="product-app">
+  <section class="product-hero flex gap-x-10">
+    <div class="product-hero__media flex-1">
+      {% render 'product-gallery' with active_color: active_color %}
+    </div>
+    <div class="product-hero__info flex-1 space-y-4">
+      <h1 class="text-2xl font-semibold">{{ product.title }}</h1>
+      <p class="text-base">{{ product.description }}</p>
+      <p class="text-base">Type: {{ product.type }}</p>
+      {%- if product.compare_at_price_max > product.price -%}
+        <p class="product-hero__price text-lg">
+          <span class="product-hero__price--discount text-red-600 font-semibold">{{ product.price | money }}</span>
+          <span class="product-hero__price--original line-through text-gray-500">{{ product.compare_at_price_max | money }}</span>
+        </p>
+      {%- else -%}
+        <p class="product-hero__price text-lg">{{ product.price | money }}</p>
+      {%- endif -%}
+
+      {%- comment %} Swatches container {%- endcomment -%}
+      <div class="swatches-container">
+        {%- for option in product.options_with_values -%}
+          {%- if option.name == 'Color' -%}
+            <div class="swatches">
+              {%- for value in option.values -%}
+                <button
+                  class="swatch p-4 bg-grey mr-5"
+                  data-color="{{ value }}"
+                >
+                  {{ value }}
+                </button>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+  window.remainingMedia = [
+    {%- assign remaining_media = product.media  -%}
+    {%- for media in remaining_media -%}
+      {
+        id: '{{ media.id }}',
+        media_type: '{{ media.media_type }}',
+        {%- if media.media_type == 'image' -%}
+        src: '{{ media | img_url: '500x' }}',
+        alt: '{{ media.alt }}',
+        {%- elsif media.media_type == 'video' or media.media_type == 'external_video' -%}
+        sources: [
+          {
+            url: '{{ media.sources[0].url }}',
+            mime_type: '{{ media.sources[0].mime_type }}',
+          },
+        ],
+        {%- endif -%}
+      },
+    {%- endfor -%}
+  ];
+</script>
