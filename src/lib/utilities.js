@@ -60,7 +60,6 @@ export async function generateFetchRequest(url, method, body, callback) {
 
   if (method === 'POST' || method === 'PUT') {
     requestOptions.body = JSON.stringify(body)
-    console.log('requestOptions.body:', requestOptions.body)
   }
 
   const response = await fetch(url, requestOptions)
@@ -156,4 +155,12 @@ export const temporalUpdateBubbleCartCount = (count) => {
     ? document.querySelector('.cart-count-bubble').classList.add('hidden')
     : document.querySelector('.cart-count-bubble').classList.remove('hidden')
   document.querySelector('.cart-count-bubble span[aria-hidden="true"]').innerText = count
+}
+
+export const debounce = (func, timeout = 300) => {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => { func.apply(this, args); }, timeout);
+  };
 }

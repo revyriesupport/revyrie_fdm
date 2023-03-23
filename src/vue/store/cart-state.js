@@ -3,11 +3,15 @@ import {
   generateFetchRequest,
   focusElement,
   calculateTotal,
-  temporalUpdateBubbleCartCount
+  temporalUpdateBubbleCartCount,
+  duplicateCartItemsBaseOnProperties,
 } from '@/lib/utilities'
+
+import { ERROR_MESSAGES } from '@/lib/error-messages.js';
 import { cartItemLimit } from "@/lib/store-definition";
 import { cleanProductVariantId } from '@/lib/utilities-graphql'
 import { miniCartRevertedOrder } from '@/lib/store-definition'
+
 
 const useCartStoreDefinition = defineStore({
   id: 'cart',
@@ -20,12 +24,10 @@ const useCartStoreDefinition = defineStore({
   }),
   getters: {
     listItems() {
-      return miniCartRevertedOrder
-        ? this.items.reverse()
-        : this.items
+      return miniCartRevertedOrder ? this.items.reverse() : this.items;
     },
     isEmpty() {
-      return this.items?.length === 0
+      return this.items?.length === 0;
     },
     totalAmount() {
       return calculateTotal(this.items, (item) => item.price * item.quantity);
@@ -34,17 +36,20 @@ const useCartStoreDefinition = defineStore({
       return calculateTotal(this.items, (item) => item.quantity);
     },
     hasProductType(productType) {
-      // this.hasProductType.call(this, productType);
-      return this.items.some(item => item.product_type === productType);
+      if (!productType || this.items.length == 0) return false
+      return this.items.some((item) => item.product_type === productType);
     },
     hasProductTag(productTag) {
-      return this.items.some(item => item.tags.includes(productTag));
+      if (!productTag || this.items.length == 0) return false
+      return this.items.some((item) => item?.tags?.includes(productTag));
     },
     hasDiscounts() {
-      return this.items.some(item => item.discount_applications?.length > 0) || false
+      return this.items.some((item) => item.discount_applications?.length > 0) || false;
     },
     discountTotal() {
-      return calculateTotal(this.items, (item) => item.final_line_price - item.original_line_price) || 0;
+      return (
+        calculateTotal(this.items, (item) => item.final_line_price - item.original_line_price) || 0
+      );
     },
     subtotal() {
       return calculateTotal(this.items, (item) => item.original_line_price) || 0;
@@ -53,10 +58,10 @@ const useCartStoreDefinition = defineStore({
       return calculateTotal(this.items, (item) => item.total_tax) || 0;
     },
     shipping() {
-      return this.items.reduce((total, item) => total + item.line_level_shipping_price, 0) || 0
+      return this.items.reduce((total, item) => total + item.line_level_shipping_price, 0) || 0;
     },
     total() {
-      return this.subtotal + this.taxes + this.shipping - this.discountTotal || 0
+      return this.subtotal + this.taxes + this.shipping - this.discountTotal || 0;
     }
   },
   actions: {
@@ -91,92 +96,107 @@ const useCartStoreDefinition = defineStore({
       }
     },
 
-    async addToCart(key, quantity = 1, callback) {
-      if (!key) return
-      if (this.validateCartItemLimitQuantity(quantity)) return
+    async addToCart({ id, quantity = 1, properties = false }) {
+      const error = validateCartItem({ id, quantity, properties });
+      if (error) {
+        this.error = error;
+        return handleResponseOrError(null, error);
+      }
       if (this.cartRequested === false) await this.fetchCart()
 
-      const id = cleanProductVariantId(key.toString())
-      const itemAlreadyOnCart = await this.isProductInCart(id);
-      if (itemAlreadyOnCart) {
-        this.updateCartItem(id, itemAlreadyOnCart.quantity + quantity)
-        return
+      const _id = cleanProductVariantId(id.toString())
+      const requestBody = {
+        id: _id.toString(),
+        quantity
+      };
+      if (properties) {
+        requestBody.properties = properties;
       }
+
+
+      const itemAlreadyOnCart = await this.isProductInCart(_id);
+      if (itemAlreadyOnCart) {
+        requestBody.quantity = itemAlreadyOnCart.quantity + quantity
+        return this.updateCartItem(requestBody);
+      }
+      // if (itemAlreadyOnCart && itemAlreadyOnCart.properties) {
+      //   console.log('itemAlreadyOnCart:', itemAlreadyOnCart)
+      //   if (properties && JSON.stringify(itemAlreadyOnCart.properties) === JSON.stringify(properties)) {
+      //     console.log('Is equal', itemAlreadyOnCart.properties, properties)
+      //     requestBody.quantity = itemAlreadyOnCart.quantity + quantity
+      //     this.updateCartItem(requestBody)
+      //     return
+      //   }
+      //   console.log('Is not equal', itemAlreadyOnCart.properties, properties)
+      // }
 
       this.isLoading = true
       try {
-        const response = await generateFetchRequest('/cart/add.js', 'POST', {
-          id: id.toString(),
-          quantity: quantity
-        }, null)
-
-        this.isLoading = false
-
-        console.log('this.items.length', this.items.length)
+        const response =
+          await generateFetchRequest('/cart/add.js', 'POST', requestBody, null)
 
         this.items.length === 0
           ? this.items.push(response.data)
           : this.items = [response.data].concat(this.items)
 
-        if (callback) {
-          callback(response)
-        }
-
         this.isOpen = true
+        this.error = null
         temporalUpdateBubbleCartCount(this.totalItems)
+
+        return handleResponseOrError(response, null);
       } catch (error) {
         this.error = error
+        return handleResponseOrError(null, error);
+      } finally {
         this.isLoading = false
       }
     },
 
-    async updateCartItem(key, quantity, callback) {
-      if (!key) return
-      const id = cleanProductVariantId(key.toString())
-      this.isLoading = true
+    async updateCartItem({ id, quantity = 1, properties = false }) {
+      const error = validateCartItem({ id, quantity, properties });
+      if (error) {
+        this.error = error;
+        return handleResponseOrError(null, error);
+      }
 
-      if (this.validateCartItemLimitQuantity(quantity)) return
+      this.isLoading = true
+      const _id = cleanProductVariantId(id.toString())
+      const requestBody = {
+        id: _id.toString(),
+        quantity
+      };
+      if (properties) {
+        requestBody.properties = properties;
+      }
 
       try {
-        const response = await generateFetchRequest('/cart/change.js', 'POST', {
-          id: id.toString(),
-          quantity: quantity
-        }, null)
-        this.items = []
+        const response =
+          await generateFetchRequest('/cart/change.js', 'POST', requestBody, null)
 
-        setTimeout(() => {
-          this.items = response.data.items
-          if (callback) {
-            callback(response)
-          }
-          this.isLoading = false
-          temporalUpdateBubbleCartCount(this.totalItems)
-          this.isOpen = true
-        }, 0)
+        this.items = response.data.items
+        temporalUpdateBubbleCartCount(this.totalItems)
+        this.isOpen = true
+        this.error = null
+
+        return handleResponseOrError(response, null);
       } catch (error) {
         this.error = error
+        return handleResponseOrError(null, this.error);
+      } finally {
         this.isLoading = false
       }
     },
 
     removeCartItem(id) {
-      if(this.isProductInCart(id)){
-        this.updateCartItem(id, 0)
+      if (this.isProductInCart(id)) {
+        this.updateCartItem({ id, quantity: 0 })
       } else {
-        console.warn('Product not in cart')
+        this.error = ERROR_MESSAGES.PRODUCT_NOT_IN_CART
       }
     },
 
     isProductInCart(id) {
       return this.items.find(item => item.id === Number(id))
-    },
-
-    validateCartItemLimitQuantity(quantity) {
-      if (quantity > cartItemLimit) {
-        alert(`The maximum quantity allowed for each item is ${cartItemLimit}`)
-        console.warn(`The maximum quantity allowed for each item is ${cartItemLimit}`)
-      }
-      return quantity > cartItemLimit
     },
 
     async applyDiscount(discountCode) {
@@ -235,9 +255,31 @@ const useCartStoreDefinition = defineStore({
   }
 })
 
+function validateCartItem({ id, quantity }) {
+  if (!id) {
+    return ERROR_MESSAGES.INVALID_ID;
+  }
+
+  if (quantity && typeof quantity !== "number") {
+    return ERROR_MESSAGES.INVALID_QUANTITY;
+  }
+
+  if (quantity > cartItemLimit) {
+    return ERROR_MESSAGES.MAX_CART_ITEM_LIMIT_EXCEEDED;
+  }
+
+  return null;
+}
+
+function handleResponseOrError(response, error) {
+  if (error) {
+    return { error };
+  } else {
+    return { response };
+  }
+}
+
 export const useCartStore = useCartStoreDefinition
-
-
 window.theme = {
   toggleCart: () => {
     const cart = useCartStoreDefinition();

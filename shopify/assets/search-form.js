@@ -6,7 +6,7 @@ class SearchForm extends HTMLElement {
 
     if (this.input) {
       this.input.form.addEventListener('reset', this.onFormReset.bind(this));
-      this.input.addEventListener('input', debounce((event) => {
+      this.input.addEventListener('input', this.debounce((event) => {
         this.onChange(event);
       }, 300).bind(this))
     }
@@ -16,8 +16,16 @@ class SearchForm extends HTMLElement {
     const resetIsHidden = this.resetButton.classList.contains('hidden');
     if (this.input.value.length > 0 && resetIsHidden) {
       this.resetButton.classList.remove('hidden')
-    } else if (this.input.value.length === 0  && !resetIsHidden) {
+    } else if (this.input.value.length === 0 && !resetIsHidden) {
       this.resetButton.classList.add('hidden')
+    }
+  }
+
+  debounce(func, timeout = 300) {
+    let timer;
+    return (...args) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => { func.apply(this, args); }, timeout);
     }
   }
 

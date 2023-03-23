@@ -1,6 +1,7 @@
 {% liquid
   
 %}
+
 {% comment %}
 {% assign main_images = product.media | where_exp: 'media', 'media.alt contains "color:" and media.alt contains active_color' | limit: 2 %}
 {% for media in main_images %}
@@ -13,9 +14,7 @@
     </video>
   {% endif %}
 {% endfor %}
-{% endcomment %}
 
-{% comment %}
 <div
   class="w-full grid grid-cols-2 grid-flow-col gap-4"
 >

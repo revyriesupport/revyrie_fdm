@@ -11,31 +11,34 @@ export default {
       required: false,
       default: false,
     },
-    decreaseQuantity: {
-      type: Function,
-      required: true,
-    },
-    increaseQuantity: {
-      type: Function,
-      required: true,
-    },
-    updateQuantity: {
-      type: Function,
-      required: true,
-    },
   },
   setup(props, context) {
     const quantity = ref(props.qty);
     watch(
       () => props.qty,
       (newQuantity) => {
+        console.log("WATCH newQuantity:", newQuantity);
         quantity.value = newQuantity;
-        // context.refs.itemQuantity.focus();
       }
     );
 
+    const updateQuantity = () => {
+      context.emit("update-quantity", quantity.value);
+    };
+
+    const increaseQuantity = () => {
+      context.emit("increase-quantity");
+    };
+
+    const decreaseQuantity = () => {
+      context.emit("decrease-quantity");
+    };
+
     return {
       quantity,
+      updateQuantity,
+      increaseQuantity,
+      decreaseQuantity,
     };
   },
 };
@@ -44,7 +47,7 @@ export default {
 <template>
   <button
     type="button"
-    class="text-ink hover:text-accent2 py-3 px-1 transition duration-150 ease-in-out"
+    class="py-3 px-1 text-ink transition duration-150 ease-in-out hover:text-accent2"
     aria-label="decrease quantity"
     @click="decreaseQuantity(quantity)"
   >
@@ -54,19 +57,19 @@ export default {
       viewBox="0 0 24 24"
       stroke-width="1"
       stroke="currentColor"
-      class="w-10 h-10"
+      class="h-10 w-10"
     >
       <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15" />
     </svg>
   </button>
-  <div class="w-16 text-center h-6" v-if="loading">
+  <div class="h-6 w-16 text-center" v-if="loading">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
       stroke-width="1.5"
       stroke="currentColor"
-      class="w-6 h-6 m-auto animate-spin"
+      class="m-auto h-6 w-6 animate-spin"
     >
       <path
         stroke-linecap="round"
@@ -77,7 +80,7 @@ export default {
   </div>
   <input
     v-else
-    class="w-16 text-center text-ink bg-white border-ink focus:outline-none focus:ring-2"
+    class="w-16 border-ink bg-white text-center text-ink focus:outline-none focus:ring-2"
     type="number"
     ref="itemQuantity"
     v-model="quantity"
@@ -87,7 +90,7 @@ export default {
   />
   <button
     type="button"
-    class="text-ink hover:text-accent2 py-3 px-1 transition duration-150 ease-in-out"
+    class="py-3 px-1 text-ink transition duration-150 ease-in-out hover:text-accent2"
     aria-label="increase quantity"
     @click="increaseQuantity(quantity)"
   >
@@ -97,7 +100,7 @@ export default {
       viewBox="0 0 24 24"
       stroke-width="1"
       stroke="currentColor"
-      class="w-10 h-10"
+      class="h-10 w-10"
     >
       <path
         stroke-linecap="round"

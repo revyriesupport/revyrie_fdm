@@ -27,14 +27,13 @@
 
     <script src="{{ 'constants.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'pubsub.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
-    <script type="module" src="{{ 'bundle.js' | asset_url }}" defer="defer"></script>
+    <script type="module" src="{{ 'global.js' | asset_url }}" defer="defer"></script>
 
     {{ content_for_header }}
 
     {%- render 'styles-global' -%}
 
-    {{ 'bundle.css' | asset_url | stylesheet_tag }}
+    {{ 'global.css' | asset_url | stylesheet_tag }}
     {{ 'base.css' | asset_url | stylesheet_tag }}
     {{ 'component-grid.css' | asset_url | stylesheet_tag }}
 

@@ -34,7 +34,7 @@ export default {
   build: {
     rollupOptions: {
       input: {
-        bundle: resolve(__dirname, "../src/scripts/main.js"),
+        'global': resolve(__dirname, "../src/scripts/main.js"),
         'product-template': resolve(__dirname, "../src/scripts/product-template.js"),
         'collection-template': resolve(__dirname, "../src/scripts/collection-template.js"),
         'homepage-template': resolve(__dirname, "../src/scripts/homepage-template.js"),
@@ -45,7 +45,7 @@ export default {
         chunkFileNames: `[name].js`,
         assetFileNames: (assetInfo) =>
           assetInfo.name.split("/").pop().split(".").shift() == "main"
-            ? "bundle.css"
+            ? "global.css"
             : "[name].[ext]",
       },
       plugins: [

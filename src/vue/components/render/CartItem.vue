@@ -1,8 +1,7 @@
 <script>
-import { ref, computed } from "vue";
+import { ref, computed, watch, reactive } from "vue";
 import { useCartStore } from "@store/cart-state";
 import { formatProductPrice } from "@/lib/utilities";
-import { cartItemLimit } from "@/lib/store-definition";
 import Quantity from "./Quantity.vue";
 
 export default {
@@ -17,47 +16,52 @@ export default {
   },
   setup({ line }) {
     const loading = ref(false);
-    const item = ref({ ...line });
+    const item = reactive({ ...line });
     const cart = useCartStore();
     let errorMessage = ref(false);
 
     const finalPrice = computed(() =>
-      formatProductPrice(item.value.final_line_price)
+      formatProductPrice(item?.final_line_price || 0)
     );
+
     const originalPrice = computed(() =>
-      formatProductPrice(item.value.original_line_price)
+      formatProductPrice(item?.original_line_price || 0)
     );
 
-    const requestUpdate = (newQuantity) => {
-      if (newQuantity <= cartItemLimit) {
-        errorMessage.value = false;
-        loading.value = true;
-
-        cart.updateCartItem(item.value.id, newQuantity, (res) => {
-          const { data, response } = res;
-          if (response.status === 200) {
-            const newItem = data.items.find(
-              (edge) => edge.id === item.value.id
-            );
-            item.value = newItem;
-          } else {
-            errorMessage.value = response.statusText;
-          }
-          loading.value = false;
-        });
-      } else {
-        errorMessage.value = `You can only add ${cartItemLimit} items to your cart`;
+    const requestUpdate = async (newQuantity) => {
+      loading.value = true;
+      const result = await cart.updateCartItem({
+        id: item.id,
+        quantity: newQuantity,
+      });
+      if (result.error) {
+        errorMessage.value = result.error;
       }
+      setTimeout(() => {
+        loading.value = false;
+      }, 500);
     };
 
     const updateQuantity = (qty) => {
       if (!Number.isInteger(qty)) return;
       requestUpdate(qty);
     };
+    const increaseQuantity = () => requestUpdate(item.quantity + 1);
+    const decreaseQuantity = () => requestUpdate(item.quantity - 1);
 
-    const increaseQuantity = () => requestUpdate(item.value.quantity + 1);
-    const decreaseQuantity = () => requestUpdate(item.value.quantity - 1);
-    const removeItem = () => requestUpdate(0);
+    const removeItem = () => {
+      loading.value = true;
+      requestUpdate(0);
+    };
+
+    watch(
+      () => line,
+      (newLine) => {
+        console.log("UPDATED!!!");
+        item = newLine;
+      },
+      { deep: true }
+    );
 
     return {
       item,
@@ -78,12 +82,12 @@ export default {
 
 <template>
   <div
-    class="w-full flex-grow py-6 px-4 overflow-y-auto"
+    class="w-full flex-grow overflow-y-auto py-6 px-4"
     :class="{ 'pointer-events-none animate-pulse': loading }"
   >
     <div class="flex flex-row gap-4">
       <div class="flex-1">
-        <div class="w-full aspect-square relative">
+        <div class="relative aspect-square w-full">
           <a
             :href="item.url"
             class="absolute inset-0 z-10"
@@ -92,18 +96,18 @@ export default {
           <img
             :src="item.image"
             :alt="item.product_title + ' product image'"
-            class="w-full h-full object-cover object-center"
+            class="h-full w-full object-cover object-center"
             loading="lazy"
           />
         </div>
       </div>
 
-      <div class="flex flex-col flex-1">
+      <div class="flex flex-1 flex-col">
         <div class="mb-8">
           <p v-if="item.product_type" class="text-ink/80">
             {{ item.product_type }}
           </p>
-          <h3 class="text-ink text-lg font-bold">{{ item.product_title }}</h3>
+          <h3 class="text-lg font-bold text-ink">{{ item.product_title }}</h3>
           <div class="flex items-center space-x-2 text-lg text-ink">
             <div
               v-if="item.original_line_price != item.final_line_price"
@@ -122,34 +126,48 @@ export default {
               {{ originalPrice }}
             </div>
           </div>
-          <p></p>
+          <div
+            v-if="item.properties && Object.keys(item.properties).length > 0"
+          >
+            <ul class="mt-2">
+              <li
+                v-for="(value, key) in item.properties"
+                :key="key"
+                class="flex justify-start gap-x-2 text-sm text-ink/80"
+              >
+                <span
+                  ><strong>{{ key }}:</strong></span
+                >
+                <span>{{ value }}</span>
+              </li>
+            </ul>
+          </div>
         </div>
         <div class="flex flex-col items-end">
           <div
             class="flex items-center space-x-2 border"
             :class="{ 'pointer-events-none opacity-50': loading }"
           >
+            <!-- v-model="item.quantity" -->
             <quantity
               v-if="cart.isOpen"
-              :decreaseQuantity="decreaseQuantity"
-              :updateQuantity="updateQuantity"
-              :increaseQuantity="increaseQuantity"
               :qty="item.quantity"
               :loading="loading"
+              @update-quantity="updateQuantity"
+              @increase-quantity="increaseQuantity"
+              @decrease-quantity="decreaseQuantity"
             ></quantity>
           </div>
-          <div>
-            <button
-              type="button"
-              class="text-sm underline underline-offset-4 mt-2"
-              aria-label="remove"
-              @click="removeItem"
-            >
-              Remove
-            </button>
-          </div>
+          <button
+            type="button"
+            class="mt-2 text-sm underline underline-offset-4"
+            aria-label="remove"
+            @click="removeItem"
+          >
+            Remove
+          </button>
         </div>
-        <p v-if="errorMessage" class="text-error text-md mt-2">
+        <p v-if="errorMessage" class="text-md mt-2 text-error">
           {{ errorMessage }}
         </p>
       </div>
