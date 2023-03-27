@@ -19,7 +19,9 @@
   }
 {%- endstyle -%}
 
-<script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
+{%- if template == 'cart' -%}
+  <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
 
 <cart-items class="page-width{% if cart == empty %} is-empty{% else %} section-{{ section.id }}-padding{% endif %}">
   <div class="title-wrapper-with-link">

@@ -32,7 +32,7 @@
           {%- endif -%}
         </div>
 
-        <product-form
+        <product-hero
           :shopify-data='{
             variant_id: {{ product.selected_or_first_available_variant.id | json }},
             options: {{ product.options_with_values | json }}

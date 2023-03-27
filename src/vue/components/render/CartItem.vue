@@ -52,14 +52,13 @@ export default {
       requestUpdate(0);
     };
 
-    watch(
-      () => line,
-      (newLine) => {
-        console.log("UPDATED!!!");
-        item = newLine;
-      },
-      { deep: true }
-    );
+    // watch(
+    //   () => line,
+    //   (newLine) => {
+    //     item = newLine;
+    //   },
+    //   { deep: true }
+    // );
 
     return {
       item,

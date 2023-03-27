@@ -17,7 +17,7 @@ export default {
     watch(
       () => props.qty,
       (newQuantity) => {
-        console.log("WATCH newQuantity:", newQuantity);
+        // console.log("WATCH newQuantity:", newQuantity);
         quantity.value = newQuantity;
       }
     );

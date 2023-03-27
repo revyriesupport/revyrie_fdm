@@ -157,11 +157,3 @@ export const temporalUpdateBubbleCartCount = (count) => {
     : document.querySelector('.cart-count-bubble').classList.remove('hidden')
   document.querySelector('.cart-count-bubble span[aria-hidden="true"]').innerText = count
 }
-
-export const debounce = (func, timeout = 300) => {
-  let timer;
-  return (...args) => {
-    clearTimeout(timer);
-    timer = setTimeout(() => { func.apply(this, args); }, timeout);
-  };
-};

@@ -20,7 +20,7 @@ class CartItems extends HTMLElement {
       document.getElementById('shopping-cart-line-item-status') ||
       document.getElementById('CartDrawer-LineItemStatus');
 
-    const debouncedOnChange = this.debounce((event) => {
+    const debouncedOnChange = debounce((event) => {
       this.onChange(event);
     }, ON_CHANGE_DEBOUNCE_TIMER);
 
@@ -28,14 +28,6 @@ class CartItems extends HTMLElement {
   }
 
   cartUpdateUnsubscriber = undefined;
-
-  debounce(func, timeout = 300) {
-    let timer;
-    return (...args) => {
-      clearTimeout(timer);
-      timer = setTimeout(() => { func.apply(this, args); }, timeout);
-    }
-  }
 
   connectedCallback() {
     this.cartUpdateUnsubscriber = subscribe(

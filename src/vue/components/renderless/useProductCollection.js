@@ -16,9 +16,7 @@ export default function useProductCollection(collectionHandle, limit = 10) {
       });
       if (!response.collectionByHandle) return;
 
-      console.log('response:', response)
       const collection = convertCollectionResponse(response.collectionByHandle)
-      console.log(collection)
       products.value = collection.products
       loading.value = false;
     } catch (error) {
@@ -33,8 +31,6 @@ export default function useProductCollection(collectionHandle, limit = 10) {
         imagesFirst: 2,
       });
       if (!response.productByHandle) return;
-      console.log(response)
-      console.log(convertProductResponse(response.productByHandle))
     } catch (error) {
       console.error(error);
     }

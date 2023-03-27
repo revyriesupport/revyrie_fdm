@@ -1,6 +1,8 @@
 <script>
 import { defineAsyncComponent } from "vue";
 import { useCartStore } from "@store/cart-state";
+import { useGlobalStore } from "@store/global-state";
+
 import CartItem from "./CartItem.vue";
 import { formatProductPrice } from "@/lib/utilities";
 
@@ -15,12 +17,11 @@ export default {
   setup() {
     const cart = useCartStore();
     const money = (priceValue) => formatProductPrice(priceValue);
-
-    console.log("mini cart setup!!");
-
+    const global = useGlobalStore();
     const headerCartIcon = document.getElementById("header-cart-icon");
     headerCartIcon.addEventListener("click", (event) => {
       event.preventDefault();
+      if (global.template == "cart") return;
       cart.toggle();
     });
 
@@ -35,7 +36,6 @@ export default {
 };
 </script>
 <template>
-  <!-- max-w-md md:max-w-lg -->
   <div
     class="visible fixed bottom-0 top-0 right-0 z-50 flex w-full max-w-lg flex-col border-ink bg-white shadow-lg transition duration-300 ease-in-out lg:max-w-xl"
     :class="{ 'translate-x-full': !cart.isOpen }"
@@ -96,7 +96,7 @@ export default {
       class="text-gray-800 flex w-full items-center justify-between self-end border-t border-ink/20 bg-cream p-4 text-lg font-medium"
     >
       <div class="flex w-full flex-col px-6 text-ink">
-        <!-- <div class="mb-8">
+        <div class="mb-8">
           <label class="text-gray-800 mb-2 block font-medium" for="notes"
             >Order Notes:</label
           >
@@ -107,7 +107,7 @@ export default {
             placeholder="Add notes about your order (optional)"
             aria-label="Order notes"
           ></textarea>
-        </div> -->
+        </div>
 
         <div class="mb-2 flex items-center justify-between text-ink">
           <span>Subtotal:</span>

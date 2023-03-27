@@ -177,7 +177,6 @@ const useCartStoreDefinition = defineStore({
       if (properties) {
         requestBody.properties = properties;
       }
-
       if (selling_plan) {
         requestBody.selling_plan = selling_plan;
       }
@@ -193,8 +192,8 @@ const useCartStoreDefinition = defineStore({
           this.error = null
           this.isOpen = true
           temporalUpdateBubbleCartCount(this.totalItems)
-          return handleResponseOrError(response, null);
         }, 0)
+        return handleResponseOrError(response, null);
 
       } catch (error) {
         this.error = error
@@ -206,7 +205,7 @@ const useCartStoreDefinition = defineStore({
 
     removeCartItem(id) {
       if (this.isProductInCart(id)) {
-        this.updateCartItem({ id, quantity: 0 })
+        return this.updateCartItem({ id, quantity: 0 })
       } else {
         return handleResponseOrError(null, ERROR_MESSAGES.PRODUCT_NOT_IN_CART);
       }
