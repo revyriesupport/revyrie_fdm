@@ -28,7 +28,6 @@ const useCartStoreDefinition = defineStore({
     items: [],
     isOpen: false,
     isLoading: false,
-    error: null,
     cartRequested: false
   }),
   getters: {
@@ -39,10 +38,14 @@ const useCartStoreDefinition = defineStore({
       return this.items?.length === 0;
     },
     totalAmount() {
-      return calculateTotal(this.items, (item) => item.price * item.quantity);
+      return !this.isEmpty
+        ? calculateTotal(this.items, (item) => item.price * item.quantity)
+        : 0
     },
     totalItems() {
-      return calculateTotal(this.items, (item) => item.quantity);
+      return !this.isEmpty
+        ? calculateTotal(this.items, (item) => item.quantity)
+        : 0
     },
     hasProductType(productType) {
       if (!productType || this.items.length == 0) return false
@@ -98,7 +101,6 @@ const useCartStoreDefinition = defineStore({
         this.isLoading = false
         this.cartRequested = true
       } catch (error) {
-        this.error = error
         this.isLoading = false
       }
     },
@@ -106,7 +108,6 @@ const useCartStoreDefinition = defineStore({
     async addToCart({ id, quantity = 1, properties = false, selling_plan = null }) {
       const error = validateCartItem({ id, quantity, properties });
       if (error) {
-        this.error = error;
         return handleResponseOrError(null, error);
       }
       if (this.cartRequested === false) await this.fetchCart()
@@ -148,13 +149,11 @@ const useCartStoreDefinition = defineStore({
           : this.items = [response.data].concat(this.items)
 
         setTimeout(() => {
-          this.error = null
           this.isOpen = true
           temporalUpdateBubbleCartCount(this.totalItems)
         }, 0)
         return handleResponseOrError(response, null);
       } catch (error) {
-        this.error = error
         return handleResponseOrError(null, error);
       } finally {
         this.isLoading = false
@@ -164,7 +163,6 @@ const useCartStoreDefinition = defineStore({
     async updateCartItem({ id, quantity = 1, properties = false, selling_plan = null }) {
       const error = validateCartItem({ id, quantity, properties });
       if (error) {
-        this.error = error;
         return handleResponseOrError(null, error);
       }
 
@@ -189,15 +187,13 @@ const useCartStoreDefinition = defineStore({
 
         setTimeout(() => {
           this.items = response.data.items
-          this.error = null
           this.isOpen = true
           temporalUpdateBubbleCartCount(this.totalItems)
         }, 0)
         return handleResponseOrError(response, null);
 
       } catch (error) {
-        this.error = error
-        return handleResponseOrError(null, this.error);
+        return handleResponseOrError(null, error);
       } finally {
         this.isLoading = false
       }

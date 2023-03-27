@@ -26,7 +26,7 @@ export function isAccountPage() {
  *
  * @returns {boolean}
  */
-export function formatProductPrice(price, currencyCode = window.storeData.currencyCode) {
+export function formatProductPrice(price, currencyCode = window.theme.currencyCode) {
   const formatter = new Intl.NumberFormat(navigator.language, {
     style: 'currency',
     currency: currencyCode,

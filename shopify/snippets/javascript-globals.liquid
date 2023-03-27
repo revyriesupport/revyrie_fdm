@@ -26,12 +26,10 @@
     pauseSlideshow: `{{ 'sections.slideshow.pause_slideshow' | t }}`,
     playSlideshow: `{{ 'sections.slideshow.play_slideshow' | t }}`,
   }
-  
-  window.storeData = {
+  window.theme.currencyCode = "{{ shop.currency }}";
+  window.theme.storeData = {
     domain: "{{ shop.permanent_domain }}",
     shopHandle: "{{ shop.permanent_domain | replace: '.myshopify.com', '' }}",
-    storefrontToken: "{{ settings.storefront_token }}",
-    template: "{{ template }}",
-    currencyCode : "{{ shop.currency }}",
+    storefrontToken: "{{ settings.storefront_token }}"
   }
 </script>
