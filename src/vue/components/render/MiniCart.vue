@@ -16,6 +16,8 @@ export default {
     const cart = useCartStore();
     const money = (priceValue) => formatProductPrice(priceValue);
 
+    console.log("mini cart setup!!");
+
     const headerCartIcon = document.getElementById("header-cart-icon");
     headerCartIcon.addEventListener("click", (event) => {
       event.preventDefault();

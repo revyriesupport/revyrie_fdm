@@ -20,7 +20,7 @@ class CartItems extends HTMLElement {
       document.getElementById('shopping-cart-line-item-status') ||
       document.getElementById('CartDrawer-LineItemStatus');
 
-    const debouncedOnChange = debounce((event) => {
+    const debouncedOnChange = this.debounce((event) => {
       this.onChange(event);
     }, ON_CHANGE_DEBOUNCE_TIMER);
 
@@ -28,6 +28,14 @@ class CartItems extends HTMLElement {
   }
 
   cartUpdateUnsubscriber = undefined;
+
+  debounce(func, timeout = 300) {
+    let timer;
+    return (...args) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => { func.apply(this, args); }, timeout);
+    }
+  }
 
   connectedCallback() {
     this.cartUpdateUnsubscriber = subscribe(
@@ -168,9 +176,9 @@ class CartItems extends HTMLElement {
         if (lineItem && lineItem.querySelector(`[name="${name}"]`)) {
           cartDrawerWrapper
             ? trapFocus(
-                cartDrawerWrapper,
-                lineItem.querySelector(`[name="${name}"]`),
-              )
+              cartDrawerWrapper,
+              lineItem.querySelector(`[name="${name}"]`),
+            )
             : lineItem.querySelector(`[name="${name}"]`).focus();
         } else if (parsedState.item_count === 0 && cartDrawerWrapper) {
           trapFocus(

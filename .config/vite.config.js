@@ -34,7 +34,7 @@ export default {
   build: {
     rollupOptions: {
       input: {
-        'global': resolve(__dirname, "../src/scripts/main.js"),
+        'global-template': resolve(__dirname, "../src/scripts/main.js"),
         'product-template': resolve(__dirname, "../src/scripts/product-template.js"),
         'collection-template': resolve(__dirname, "../src/scripts/collection-template.js"),
         'homepage-template': resolve(__dirname, "../src/scripts/homepage-template.js"),
