@@ -3,12 +3,21 @@ import {
   generateFetchRequest,
   focusElement,
   calculateTotal,
-  temporalUpdateBubbleCartCount,
-  duplicateCartItemsBaseOnProperties,
+  temporalUpdateBubbleCartCount
 } from '@/lib/utilities'
 
+import {
+  hasDiscounts,
+  discountTotal,
+  applyDiscount,
+  removeDiscount,
+  applyGiftCard,
+  removeGiftCard,
+  validateCartItem,
+  handleResponseOrError
+} from '@/lib/utilities-cart'
+
 import { ERROR_MESSAGES } from '@/lib/error-messages.js';
-import { cartItemLimit } from "@/lib/store-definition";
 import { cleanProductVariantId } from '@/lib/utilities-graphql'
 import { miniCartRevertedOrder } from '@/lib/store-definition'
 
@@ -44,12 +53,10 @@ const useCartStoreDefinition = defineStore({
       return this.items.some((item) => item?.tags?.includes(productTag));
     },
     hasDiscounts() {
-      return this.items.some((item) => item.discount_applications?.length > 0) || false;
+      return hasDiscounts(this.items);
     },
     discountTotal() {
-      return (
-        calculateTotal(this.items, (item) => item.final_line_price - item.original_line_price) || 0
-      );
+      return discountTotal(this.items);
     },
     subtotal() {
       return calculateTotal(this.items, (item) => item.original_line_price) || 0;
@@ -96,7 +103,7 @@ const useCartStoreDefinition = defineStore({
       }
     },
 
-    async addToCart({ id, quantity = 1, properties = false }) {
+    async addToCart({ id, quantity = 1, properties = false, selling_plan = null }) {
       const error = validateCartItem({ id, quantity, properties });
       if (error) {
         this.error = error;
@@ -112,23 +119,24 @@ const useCartStoreDefinition = defineStore({
       if (properties) {
         requestBody.properties = properties;
       }
-
+      if (selling_plan) {
+        requestBody.selling_plan = selling_plan;
+      }
 
       const itemAlreadyOnCart = await this.isProductInCart(_id);
+
       if (itemAlreadyOnCart) {
-        requestBody.quantity = itemAlreadyOnCart.quantity + quantity
-        return this.updateCartItem(requestBody);
+        if (properties && itemAlreadyOnCart.properties) {
+          const propertiesAreDifferent = JSON.stringify(itemAlreadyOnCart.properties) !== JSON.stringify(properties);
+          if (!propertiesAreDifferent) {
+            requestBody.quantity = itemAlreadyOnCart.quantity + quantity
+            return this.updateCartItem(requestBody);
+          }
+        } else {
+          requestBody.quantity = itemAlreadyOnCart.quantity + quantity
+          return this.updateCartItem(requestBody);
+        }
       }
-      // if (itemAlreadyOnCart && itemAlreadyOnCart.properties) {
-      //   console.log('itemAlreadyOnCart:', itemAlreadyOnCart)
-      //   if (properties && JSON.stringify(itemAlreadyOnCart.properties) === JSON.stringify(properties)) {
-      //     console.log('Is equal', itemAlreadyOnCart.properties, properties)
-      //     requestBody.quantity = itemAlreadyOnCart.quantity + quantity
-      //     this.updateCartItem(requestBody)
-      //     return
-      //   }
-      //   console.log('Is not equal', itemAlreadyOnCart.properties, properties)
-      // }
 
       this.isLoading = true
       try {
@@ -139,10 +147,11 @@ const useCartStoreDefinition = defineStore({
           ? this.items.push(response.data)
           : this.items = [response.data].concat(this.items)
 
-        this.isOpen = true
-        this.error = null
-        temporalUpdateBubbleCartCount(this.totalItems)
-
+        setTimeout(() => {
+          this.error = null
+          this.isOpen = true
+          temporalUpdateBubbleCartCount(this.totalItems)
+        }, 0)
         return handleResponseOrError(response, null);
       } catch (error) {
         this.error = error
@@ -152,7 +161,7 @@ const useCartStoreDefinition = defineStore({
       }
     },
 
-    async updateCartItem({ id, quantity = 1, properties = false }) {
+    async updateCartItem({ id, quantity = 1, properties = false, selling_plan = null }) {
       const error = validateCartItem({ id, quantity, properties });
       if (error) {
         this.error = error;
@@ -169,16 +178,24 @@ const useCartStoreDefinition = defineStore({
         requestBody.properties = properties;
       }
 
+      if (selling_plan) {
+        requestBody.selling_plan = selling_plan;
+      }
+
       try {
         const response =
           await generateFetchRequest('/cart/change.js', 'POST', requestBody, null)
 
-        this.items = response.data.items
-        temporalUpdateBubbleCartCount(this.totalItems)
-        this.isOpen = true
-        this.error = null
+        this.items = []
 
-        return handleResponseOrError(response, null);
+        setTimeout(() => {
+          this.items = response.data.items
+          this.error = null
+          this.isOpen = true
+          temporalUpdateBubbleCartCount(this.totalItems)
+          return handleResponseOrError(response, null);
+        }, 0)
+
       } catch (error) {
         this.error = error
         return handleResponseOrError(null, this.error);
@@ -191,7 +208,7 @@ const useCartStoreDefinition = defineStore({
       if (this.isProductInCart(id)) {
         this.updateCartItem({ id, quantity: 0 })
       } else {
-        this.error = ERROR_MESSAGES.PRODUCT_NOT_IN_CART
+        return handleResponseOrError(null, ERROR_MESSAGES.PRODUCT_NOT_IN_CART);
       }
     },
 
@@ -200,53 +217,19 @@ const useCartStoreDefinition = defineStore({
     },
 
     async applyDiscount(discountCode) {
-      this.isLoading = true
-      try {
-        const response = await generateFetchRequest('/discount/' + discountCode + '/apply.js', 'POST', null, null)
-        this.items = response.data.items
-
-        this.isLoading = false
-      } catch (error) {
-        this.error = error
-        this.isLoading = false
-      }
+      return applyDiscount(discountCode)
     },
 
     async removeDiscount() {
-      this.isLoading = true
-      try {
-        const response = await generateFetchRequest('/discount/remove.js', 'POST', null, null)
-        this.items = response.data.items
-        this.isLoading = false
-      } catch (error) {
-        this.error = error
-        this.isLoading = false
-      }
+      return removeDiscount()
     },
 
     async applyGiftCard(giftCardCode) {
-      this.isLoading = true
-      try {
-        const response = await generateFetchRequest('/gift_cards/' + giftCardCode + '/apply.js', 'POST', null, null)
-        this.items = response.data.items
-        this.isLoading = false
-      } catch (error) {
-        this.error = error
-        this.isLoading = false
-      }
+      return applyGiftCard(giftCardCode)
     },
 
     async removeGiftCard(giftCardId) {
-      this.isLoading = true
-      try {
-        const response = await generateFetchRequest('/gift_cards/' + giftCardId + '/remove.js', 'POST', null, null)
-        this.items = response.data.items
-
-        this.isLoading = false
-      } catch (error) {
-        this.error = error
-        this.isLoading = false
-      }
+      return removeGiftCard(giftCardId)
     },
 
     checkout() {
@@ -255,45 +238,15 @@ const useCartStoreDefinition = defineStore({
   }
 })
 
-function validateCartItem({ id, quantity }) {
-  if (!id) {
-    return ERROR_MESSAGES.INVALID_ID;
-  }
-
-  if (quantity && typeof quantity !== "number") {
-    return ERROR_MESSAGES.INVALID_QUANTITY;
-  }
-
-  if (quantity > cartItemLimit) {
-    return ERROR_MESSAGES.MAX_CART_ITEM_LIMIT_EXCEEDED;
-  }
-
-  return null;
-}
-
-function handleResponseOrError(response, error) {
-  if (error) {
-    return { error };
-  } else {
-    return { response };
-  }
-}
-
 export const useCartStore = useCartStoreDefinition
 window.theme = {
   toggleCart: () => {
     const cart = useCartStoreDefinition();
     cart.toggle();
   },
-  validateNewItem: (item, callback) => {
+  addToCart: async (item) => {
     const cart = useCartStoreDefinition();
-    const itemAlreadyOnCart = cart.items.find(cartItem => cartItem.id === item.id);
-    itemAlreadyOnCart
-      ? cart.items.find(cartItem => cartItem.id === item.id).quantity = item.quantity
-      : cart.items = [item].concat(cart.items)
-
-    if (callback) {
-      callback();
-    }
+    const response = await cart.addToCart(item);
+    return response
   }
 }

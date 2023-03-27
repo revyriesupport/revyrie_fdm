@@ -28,7 +28,7 @@
 
 .article-card__title a:after {
   bottom: 0;
-  content: '';
+  content: "";
   height: 100%;
   left: 0;
   position: absolute;
@@ -130,12 +130,12 @@
 
 /* check for flexbox gap in older Safari versions */
 @supports not (inset: 10px) {
-  .articles-wrapper.grid {
+  .articles-wrapper.grid-config {
     margin: 0 0 5rem 0;
   }
 
   @media screen and (min-width: 750px) {
-    .articles-wrapper.grid {
+    .articles-wrapper.grid-config {
       margin-bottom: 7rem;
     }
   }

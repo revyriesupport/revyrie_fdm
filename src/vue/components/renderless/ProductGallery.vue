@@ -1,6 +1,7 @@
 <script>
 import { ref, onMounted, defineComponent } from "vue";
 import { useProductStore } from "@store/product-state";
+
 export default defineComponent({
   name: "product-gallery",
   props: {

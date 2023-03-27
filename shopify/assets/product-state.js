@@ -1,0 +1,1 @@
+import{d as e}from"./_plugin-vue_export-helper.js";const o=e({id:"product",state:()=>({isLoading:!1,error:null,media:[],activeColor:null}),getters:{isProductInCart(){},getImagesPerColor(){return this.media.filter(t=>t.alt.includes(this.activeColor))}},actions:{setActiveColor(t){this.activeColor=t},setAllProductMedia(t){this.media=t}}}),i=o;export{i as u};

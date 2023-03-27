@@ -1,8 +1,8 @@
+// cartItemLimit: Number.MAX_SAFE_INTEGER,
 const config = {
   cartItemLimit: Number.MAX_SAFE_INTEGER,
   loadMiniCartOnlyWhenIsOpen: true,
   miniCartRevertedOrder: false,
-  duplicateCartItemsBaseOnProperties: true,
 
   sliderIntersectionOptions: {
     rootMargin: "10%",

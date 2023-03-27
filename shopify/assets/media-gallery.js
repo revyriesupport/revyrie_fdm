@@ -14,7 +14,7 @@ if (!customElements.get('media-gallery')) {
 
         this.elements.viewer.addEventListener(
           'slideChanged',
-          debounce(this.onSlideChanged.bind(this), 500),
+          this.debounce(this.onSlideChanged.bind(this), 500),
         );
         this.elements.thumbnails
           .querySelectorAll('[data-target]')
@@ -35,6 +35,14 @@ if (!customElements.get('media-gallery')) {
           this.mql.matches
         )
           this.removeListSemantic();
+      }
+
+      debounce(func, timeout = 300) {
+        let timer;
+        return (...args) => {
+          clearTimeout(timer);
+          timer = setTimeout(() => { func.apply(this, args); }, timeout);
+        }
       }
 
       onSlideChanged(event) {

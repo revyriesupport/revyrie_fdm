@@ -136,9 +136,9 @@ export const componentName = (name) => {
  */
 
 export const calculateTotal = (items, callback) => {
+  if (!items.length) return 0;
   return items.reduce((total, item) => total + callback(item), 0);
 }
-
 
 
 /**
@@ -151,6 +151,7 @@ export const calculateTotal = (items, callback) => {
  * Updates DOM Cart total item on header
  */
 export const temporalUpdateBubbleCartCount = (count) => {
+  console.log('temporalUpdateBubbleCartCount:', count)
   count === 0
     ? document.querySelector('.cart-count-bubble').classList.add('hidden')
     : document.querySelector('.cart-count-bubble').classList.remove('hidden')
@@ -163,4 +164,4 @@ export const debounce = (func, timeout = 300) => {
     clearTimeout(timer);
     timer = setTimeout(() => { func.apply(this, args); }, timeout);
   };
-}
+};

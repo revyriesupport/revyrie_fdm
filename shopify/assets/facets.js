@@ -205,6 +205,14 @@ class FacetFiltersForm extends HTMLElement {
     ];
   }
 
+  debounce(func, timeout = 300) {
+    let timer;
+    return (...args) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => { func.apply(this, args); }, timeout);
+    }
+  }
+
   createSearchParams(form) {
     const formData = new FormData(form);
     return new URLSearchParams(formData).toString();
@@ -255,8 +263,8 @@ class FacetFiltersForm extends HTMLElement {
       event.currentTarget.href.indexOf('?') == -1
         ? ''
         : event.currentTarget.href.slice(
-            event.currentTarget.href.indexOf('?') + 1,
-          );
+          event.currentTarget.href.indexOf('?') + 1,
+        );
     FacetFiltersForm.renderPage(url);
   }
 }

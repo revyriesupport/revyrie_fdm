@@ -26,11 +26,6 @@ export default {
       const id = props.product.variant_id;
       if (!id) return;
 
-      // const validateIfItemIsInCart = cart.items.find((item) => item.id === id);
-      // validateIfItemIsInCart
-      //   ? cart.updateCartItem({ id, quantity: validateIfItemIsInCart.quantity + 1 })
-      //   : cart.addToCart({ id, quantity: 1 });
-
       const result = await cart.addToCart({
         id,
         quantity: 1,

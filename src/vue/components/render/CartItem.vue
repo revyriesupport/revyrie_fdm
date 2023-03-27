@@ -37,9 +37,7 @@ export default {
       if (result.error) {
         errorMessage.value = result.error;
       }
-      setTimeout(() => {
-        loading.value = false;
-      }, 500);
+      loading.value = false;
     };
 
     const updateQuantity = (qty) => {

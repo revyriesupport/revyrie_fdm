@@ -8,15 +8,10 @@ if (!customElements.get('product-form')) {
         this.form = this.querySelector('form');
         this.form.querySelector('[name=id]').disabled = false;
         this.form.addEventListener('submit', this.onSubmitHandler.bind(this));
-        this.cart =
-          document.querySelector('cart-notification') ||
-          document.querySelector('cart-drawer');
         this.submitButton = this.querySelector('[type="submit"]');
-        if (document.querySelector('cart-drawer'))
-          this.submitButton.setAttribute('aria-haspopup', 'dialog');
       }
 
-      onSubmitHandler(evt) {
+      async onSubmitHandler(evt) {
         evt.preventDefault();
         if (this.submitButton.getAttribute('aria-disabled') === 'true') return;
 
@@ -28,67 +23,36 @@ if (!customElements.get('product-form')) {
           'hidden',
         );
 
-        const config = fetchConfig('javascript');
-        config.headers['X-Requested-With'] = 'XMLHttpRequest';
-        delete config.headers['Content-Type'];
+        const id = this.form.querySelector('[name=id]').value;
+        await window.theme.addToCart({
+          id,
+          quantity: 1,
+          properties: {
+            ink: 'red',
+          },
+        }).then((result) => {
+          if (result.error) {
+            this.handleErrorMessage(result.error);
 
-        const formData = new FormData(this.form);
-        if (this.cart) {
-          formData.append(
-            'sections',
-            this.cart.getSectionsToRender().map((section) => section.id),
-          );
-          formData.append('sections_url', window.location.pathname);
-          this.cart.setActiveElement(document.activeElement);
-        }
-        config.body = formData;
-
-        fetch(`${routes.cart_add_url}`, config)
-          .then((response) => response.json())
-          .then((response) => {
-            if (response.status) {
-              this.handleErrorMessage(response.description);
-
-              const soldOutMessage =
-                this.submitButton.querySelector('.sold-out-message');
-              if (!soldOutMessage) return;
-              this.submitButton.setAttribute('aria-disabled', true);
-              this.submitButton.querySelector('span').classList.add('hidden');
-              soldOutMessage.classList.remove('hidden');
-              this.error = true;
-              return;
-            }
-
-            this.error = false;
-            const quickAddModal = this.closest('quick-add-modal');
-            if (quickAddModal) {
-              document.body.addEventListener(
-                'modalClosed',
-                () => {
-                  setTimeout(() => {
-                    // this.cart.renderContents(response);
-                  });
-                },
-                { once: true },
-              );
-              quickAddModal.hide(true);
-            } else {
-              console.log('Looking for cart object')
-              // this.cart.renderContents(response);
-            }
-
-            window.theme.validateNewItem(response)
-          })
-          .catch((e) => {
-            console.error(e);
-          })
-          .finally(() => {
-            this.submitButton.classList.remove('loading');
-            this.submitButton.removeAttribute('aria-disabled');
-            this.querySelector('.loading-overlay__spinner').classList.add('hidden');
-
-            window.theme.toggleCart()
-          });
+            const soldOutMessage = this.submitButton.querySelector('.sold-out-message');
+            if (!soldOutMessage) return;
+            this.submitButton.setAttribute('aria-disabled', true);
+            this.submitButton.querySelector('span').classList.add('hidden');
+            soldOutMessage.classList.remove('hidden');
+            soldOutMessage.textContent = result.error;
+            this.error = true;
+            return
+          }
+          this.error = false;
+          const quickAddModal = this.closest('quick-add-modal');
+          if (quickAddModal) {
+            quickAddModal.hide(true);
+          }
+        }).finally(() => {
+          this.submitButton.classList.remove('loading');
+          this.submitButton.removeAttribute('aria-disabled');
+          this.querySelector('.loading-overlay__spinner').classList.add('hidden');
+        })
       }
 
       handleErrorMessage(errorMessage = false) {

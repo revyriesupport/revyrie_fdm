@@ -12,42 +12,35 @@
 -%}
 
 <div id="product-app">
-  <section class="product-hero flex gap-x-10">
-    <div class="product-hero__media flex-1">
-      {% render 'product-gallery' with active_color: active_color %}
-    </div>
-    <div class="product-hero__info flex-1 space-y-4">
-      <h1 class="text-2xl font-semibold">{{ product.title }}</h1>
-      <p class="text-base">{{ product.description }}</p>
-      <p class="text-base">Type: {{ product.type }}</p>
-      {%- if product.compare_at_price_max > product.price -%}
-        <p class="product-hero__price text-lg">
-          <span class="product-hero__price--discount text-red-600 font-semibold">{{ product.price | money }}</span>
-          <span class="product-hero__price--original line-through text-gray-500">{{ product.compare_at_price_max | money }}</span>
-        </p>
-      {%- else -%}
-        <p class="product-hero__price text-lg">{{ product.price | money }}</p>
-      {%- endif -%}
-
-      {%- comment %} Swatches container {%- endcomment -%}
-      <div class="swatches-container">
-        {%- for option in product.options_with_values -%}
-          {%- if option.name == 'Color' -%}
-            <div class="swatches">
-              {%- for value in option.values -%}
-                <button
-                  class="swatch p-4 bg-grey mr-5"
-                  data-color="{{ value }}"
-                >
-                  {{ value }}
-                </button>
-              {%- endfor -%}
-            </div>
-          {%- endif -%}
-        {%- endfor -%}
+  <div class="page-width">
+    <section class="product-hero flex gap-x-10">
+      <div class="product-hero__media w-[60%]">
+        {% render 'product-gallery' with active_color: active_color %}
       </div>
-    </div>
-  </section>
+      <div class="product-hero__info flex-1 space-y-4 gap-y-4">
+        <div class="flex flex-col gap-y-2 mt-8">
+          <h1 class="text-2xl font-semibold">{{ product.title }}</h1>
+          <p class="text-base">{{ product.description }}</p>
+          <p class="text-base">Type: {{ product.type }}</p>
+          {%- if product.compare_at_price_max > product.price -%}
+            <p class="product-hero__price text-lg">
+              <span class="product-hero__price--discount text-red-600 font-semibold">{{ product.price | money }}</span>
+              <span class="product-hero__price--original line-through text-gray-500">{{ product.compare_at_price_max | money }}</span>
+            </p>
+          {%- else -%}
+            <p class="product-hero__price text-lg">{{ product.price | money }}</p>
+          {%- endif -%}
+        </div>
+
+        <product-form
+          :shopify-data='{
+            variant_id: {{ product.selected_or_first_available_variant.id | json }},
+            options: {{ product.options_with_values | json }}
+          }'
+        />
+      </div>
+    </section>
+  </div>
 </div>
 
 <script>

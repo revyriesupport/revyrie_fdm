@@ -12,12 +12,9 @@ const useProductStoreDefinition = defineStore({
   getters: {
     isProductInCart() { },
     getImagesPerColor() {
-      const imagesThatContainsCurrentColorOnAltValue = this.media.filter((image) => {
-        console.log('<<<<image.alt:', image.alt, this.activeColor)
+      return this.media.filter((image) => {
         return image.alt.includes(this.activeColor);
       });
-      console.log('imagesThatContainsCurrentColorOnAltValue:', imagesThatContainsCurrentColorOnAltValue)
-      return imagesThatContainsCurrentColorOnAltValue
     }
   },
   actions: {
@@ -27,24 +24,24 @@ const useProductStoreDefinition = defineStore({
     setAllProductMedia(media) {
       this.media = media
     },
-    async fetchProductMedia(handle) {
-      if (!handle) return;
+    // async fetchProductMedia(handle) {
+    //   if (!handle) return;
 
-      this.isLoading = true;
+    //   this.isLoading = true;
 
-      try {
-        const response = await generateFetchRequest(`/products/${handle}.js`, 'GET', null, null);
-        const data = response.data;
-        console.log('response:', response)
-        const media = data.media;
+    //   try {
+    //     const response = await generateFetchRequest(`/products/${handle}.js`, 'GET', null, null);
+    //     const data = response.data;
+    //     console.log('response:', response)
+    //     const media = data.media;
 
-        this.media = media;
-        this.isLoading = false;
-      } catch (error) {
-        this.error = error;
-        this.isLoading = false;
-      }
-    },
+    //     this.media = media;
+    //     this.isLoading = false;
+    //   } catch (error) {
+    //     this.error = error;
+    //     this.isLoading = false;
+    //   }
+    // },
   },
 });
 

@@ -1,6 +1,5 @@
-
 /* component-grid */
-.grid {
+.grid-config {
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 2rem;
@@ -11,7 +10,7 @@
 }
 
 @media screen and (min-width: 750px) {
-  .grid {
+  .grid-config {
     column-gap: var(--grid-desktop-horizontal-spacing);
     row-gap: var(--grid-desktop-vertical-spacing);
   }
@@ -35,7 +34,7 @@
   }
 }
 
-.grid--gapless.grid {
+.grid--gapless.grid-config {
   column-gap: 0;
   row-gap: 0;
 }

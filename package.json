@@ -2,7 +2,7 @@
   "name": "shopify-base-theme",
   "description": "Base theme: Vue + Tailwind + Shopify + Vite",
   "author": "Myntr",
-  "version": "0.01",
+  "version": "1.0.0",
   "license": "MIT",
   "scripts": {
     "shopify:list": "shopify theme list --store=myntr-theme-dev.myshopify.com",

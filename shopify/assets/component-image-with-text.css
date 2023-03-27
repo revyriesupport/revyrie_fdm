@@ -1,4 +1,4 @@
-.image-with-text .grid {
+.image-with-text .grid-config {
   margin-bottom: 0;
 }
 
@@ -49,7 +49,7 @@
 }
 
 .image-with-text__media--placeholder:after {
-  content: '';
+  content: "";
   position: absolute;
   width: 100%;
   height: 100%;
@@ -89,7 +89,7 @@
 }
 
 .image-with-text .grid__item::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -384,18 +384,22 @@
 }
 
 @media screen and (min-width: 750px) {
-  .collapse-padding .image-with-text__grid:not(.image-with-text__grid--reverse) .image-with-text__content:not(.image-with-text__content--desktop-center) {
+  .collapse-padding
+    .image-with-text__grid:not(.image-with-text__grid--reverse)
+    .image-with-text__content:not(.image-with-text__content--desktop-center) {
     padding-right: 0;
   }
 
-  .collapse-padding .image-with-text__grid--reverse .image-with-text__content:not(.image-with-text__content--desktop-center) {
+  .collapse-padding
+    .image-with-text__grid--reverse
+    .image-with-text__content:not(.image-with-text__content--desktop-center) {
     padding-left: 0;
   }
 }
 
 /* check for flexbox gap in older Safari versions */
 @supports not (inset: 10px) {
-  .image-with-text .grid {
+  .image-with-text .grid-config {
     margin-left: 0;
   }
 }

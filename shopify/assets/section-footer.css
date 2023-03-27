@@ -12,7 +12,7 @@
 }
 
 @media screen and (max-width: 749px) {
-  .footer .grid {
+  .footer .grid-config {
     display: block;
   }
 
@@ -34,7 +34,7 @@
 }
 
 @media screen and (min-width: 750px) {
-  .footer__content-top .grid {
+  .footer__content-top .grid-config {
     row-gap: 6rem;
     margin-bottom: 0;
   }
@@ -238,7 +238,6 @@
   .footer-block__newsletter {
     flex-direction: column;
   }
-
 }
 
 @media screen and (min-width: 750px) {
@@ -364,7 +363,7 @@ noscript .localization-form__select {
 
 .localization-form__select .icon-caret {
   position: absolute;
-  content: '';
+  content: "";
   height: 0.6rem;
   right: calc(var(--inputs-border-width) + 1.5rem);
   top: calc(50% - 0.2rem);
@@ -416,7 +415,8 @@ noscript .localization-selector.link {
 }
 
 @media screen and (min-width: 750px) {
-  .footer__content-bottom-wrapper:not(.footer__content-bottom-wrapper--center) .footer__copyright {
+  .footer__content-bottom-wrapper:not(.footer__content-bottom-wrapper--center)
+    .footer__copyright {
     text-align: right;
   }
 }
@@ -523,10 +523,14 @@ noscript .localization-selector.link {
 
 .footer-block__image-wrapper {
   box-shadow: var(--media-shadow-horizontal-offset)
-    var(--media-shadow-vertical-offset)
-    var(--media-shadow-blur-radius)
+    var(--media-shadow-vertical-offset) var(--media-shadow-blur-radius)
     rgba(var(--color-shadow), var(--media-shadow-opacity));
-  margin-bottom: max(calc(2rem + var(--media-shadow-vertical-offset) * var(--media-shadow-visible)), 2rem);
+  margin-bottom: max(
+    calc(
+      2rem + var(--media-shadow-vertical-offset) * var(--media-shadow-visible)
+    ),
+    2rem
+  );
   overflow: hidden !important;
 }
 
@@ -544,7 +548,9 @@ noscript .localization-selector.link {
   text-align: center;
 }
 
-.footer-block:only-child > .footer-block__brand-info > .footer-block__image-wrapper {
+.footer-block:only-child
+  > .footer-block__brand-info
+  > .footer-block__image-wrapper {
   margin-left: auto;
   margin-right: auto;
 }
@@ -554,7 +560,9 @@ noscript .localization-selector.link {
   height: auto;
 }
 
-.footer-block:only-child .footer-block__brand-info .footer__list-social.list-social {
+.footer-block:only-child
+  .footer-block__brand-info
+  .footer__list-social.list-social {
   justify-content: center;
 }
 
@@ -588,7 +596,7 @@ noscript .localization-selector.link {
 }
 
 .policies li::before {
-  content: '\00B7';
+  content: "\00B7";
   padding: 0 0.8rem;
 }
 
@@ -630,13 +638,13 @@ noscript .localization-selector.link {
 /* check for flexbox gap in older Safari versions */
 @supports not (inset: 10px) {
   @media screen and (max-width: 749px) {
-    .footer .grid {
+    .footer .grid-config {
       margin-left: 0;
     }
   }
 
   @media screen and (min-width: 750px) {
-    .footer__content-top .grid {
+    .footer__content-top .grid-config {
       margin-left: -3rem;
     }
 

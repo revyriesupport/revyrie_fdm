@@ -1,5 +1,5 @@
-import cart from '../lib/cart-logic'
-import app from '../lib/init-theme'
+import cart from '@/lib/init-cart'
+import app from '@/lib/init-theme'
 
 import "../css/main.css";
 
