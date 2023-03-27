@@ -14,7 +14,8 @@ export default {
     StylelintPlugin({
       files: '../src/**/*.{vue,css}',
       configFile: resolve(__dirname, './.stylelintrc.js')
-    })
+    }),
+    process.env.NODE_ENV === "production" && cssMinify()
   ],
   clearScreen: false,
   css: {

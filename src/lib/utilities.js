@@ -26,7 +26,7 @@ export function isAccountPage() {
  *
  * @returns {boolean}
  */
-export function formatProductPrice(price, currencyCode = window.theme.currencyCode) {
+export function formatProductPrice(price, currencyCode = window.currencyCode) {
   const formatter = new Intl.NumberFormat(navigator.language, {
     style: 'currency',
     currency: currencyCode,
@@ -115,6 +115,7 @@ export function focusElement(selector) {
 
 /**
  * Convert snake_case to componentName
+ * (e.g. product_card => ProductCard)
  * 
  * @param {string} name
  */

@@ -28,6 +28,7 @@ const useCartStoreDefinition = defineStore({
     items: [],
     isOpen: false,
     isLoading: false,
+    note: '',
     cartRequested: false
   }),
   getters: {
@@ -98,6 +99,7 @@ const useCartStoreDefinition = defineStore({
       try {
         const response = await generateFetchRequest('/cart.js', 'GET', null, null)
         this.items = response.data.items || []
+        this.note = response.data.note || ''
         this.isLoading = false
         this.cartRequested = true
       } catch (error) {
@@ -227,8 +229,12 @@ const useCartStoreDefinition = defineStore({
       return removeGiftCard(giftCardId)
     },
 
+    updateNote(note) {
+      this.note = note;
+    },
     checkout() {
-      window.location.href = '/checkout'
+      const checkoutUrl = `/checkout?note=${encodeURIComponent(this.notes)}`;
+      window.location.href = checkoutUrl;
     },
   }
 })

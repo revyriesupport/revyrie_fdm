@@ -1,10 +1,11 @@
 <script>
-import { defineAsyncComponent } from "vue";
+import { defineAsyncComponent, ref, watch } from "vue";
 import { useCartStore } from "@store/cart-state";
 import { useGlobalStore } from "@store/global-state";
 
 import CartItem from "./CartItem.vue";
 import { formatProductPrice } from "@/lib/utilities";
+import ShippingProgressBar from "@render/ShippingProgressBar.vue";
 
 // const CartItem = defineAsyncComponent(() =>
 //   import("./CartItem.vue")
@@ -13,6 +14,7 @@ import { formatProductPrice } from "@/lib/utilities";
 export default {
   components: {
     CartItem,
+    ShippingProgressBar,
   },
   setup() {
     const cart = useCartStore();
@@ -25,10 +27,20 @@ export default {
       cart.toggle();
     });
 
+    const note = ref(cart.note);
+    watch(
+      () => cart.note,
+      (newNote) => {
+        note.value = newNote;
+        cart.updateNote(newNote);
+      }
+    );
+
     // const CartItem = defineAsyncComponent(() => import("./CartItem.vue"));
 
     return {
       cart,
+      note,
 
       money,
     };
@@ -70,11 +82,13 @@ export default {
       </button>
     </div>
 
-    <div class="bg-accent2 p-4">
+    <!-- <div class="bg-accent2 p-4">
       <p class="text-sm text-white" role="alert">
         Free shipping on orders over $50
       </p>
-    </div>
+    </div> -->
+
+    <shipping-progress-bar></shipping-progress-bar>
 
     <div
       v-if="cart.isEmpty"
@@ -97,15 +111,16 @@ export default {
     >
       <div class="flex w-full flex-col px-6 text-ink">
         <div class="mb-8">
-          <label class="text-gray-800 mb-2 block font-medium" for="notes"
-            >Order Notes:</label
+          <label class="text-gray-800 mb-2 block font-medium" for="note"
+            >Order Note:</label
           >
           <textarea
+            v-model="cart.note"
             class="m-0 w-full border border-ink/50 py-2 px-3 placeholder:text-sm focus:border-accent2 focus:ring-2 focus:ring-accent2 focus:ring-opacity-50"
-            name="notes"
+            name="note"
             rows="2"
-            placeholder="Add notes about your order (optional)"
-            aria-label="Order notes"
+            placeholder="Add note about your order (optional)"
+            aria-label="Order note"
           ></textarea>
         </div>
 

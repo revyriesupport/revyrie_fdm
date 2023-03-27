@@ -26,8 +26,15 @@
     pauseSlideshow: `{{ 'sections.slideshow.pause_slideshow' | t }}`,
     playSlideshow: `{{ 'sections.slideshow.play_slideshow' | t }}`,
   }
-  window.theme.currencyCode = "{{ shop.currency }}";
-  window.theme.storeData = {
+
+  window.currencyCode = "{{ shop.currency }}";
+  window.freeShipping = {
+    showShippingProgressBar: {{ settings.show_shipping_progress_bar | default: false  }},
+    shippingThreshold: {{ settings.shipping_threshold | times: 100 | default: 0 }},
+    shippingProgressText: "{{ settings.shipping_progress_text }}",
+    shippingCompleteText: "{{ settings.shipping_complete_text }}"
+  }
+  window.storeData = {
     domain: "{{ shop.permanent_domain }}",
     shopHandle: "{{ shop.permanent_domain | replace: '.myshopify.com', '' }}",
     storefrontToken: "{{ settings.storefront_token }}"

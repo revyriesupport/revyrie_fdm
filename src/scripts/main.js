@@ -7,4 +7,3 @@ document.addEventListener('DOMContentLoaded', () => {
   cart.init()
   app.mountVue()
 })
-

@@ -1559,6 +1559,35 @@
     ]
   },
   {
+    "name": "Free Shipping - Progress Bar",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_shipping_progress_bar",
+        "label": "Show shipping progress bar",
+        "default": false
+      },
+      {
+        "type": "number",
+        "id": "shipping_threshold",
+        "label": "Free shipping threshold amount",
+        "default": 250
+      },
+      {
+        "type": "text",
+        "id": "shipping_progress_text",
+        "label": "Shipping progress text",
+        "default": "Free Shipping On orders over $250"
+      },
+      {
+        "type": "text",
+        "id": "shipping_complete_text",
+        "label": "Shipping complete text",
+        "default": "Your shipping will be free"
+      }
+    ]
+  },
+  {
     "name": "Setup",
     "settings": [
       {
