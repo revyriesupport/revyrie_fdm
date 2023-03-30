@@ -227,11 +227,6 @@ h2,
   }
 }
 
-.gift-card__label:not(.badge) {
-  font-weight: 400;
-  opacity: 0.7;
-}
-
 .gift-card__number {
   background-color: transparent;
   border: none;
@@ -266,27 +261,6 @@ h2,
   font-weight: 500;
   display: inline;
   margin-left: 1rem;
-}
-
-.badge {
-  border: 1px solid transparent;
-  margin: 1.7rem 0 1rem 1rem;
-  border-radius: 4rem;
-  display: inline-block;
-  font-size: 1.2rem;
-  letter-spacing: 0.1rem;
-  line-height: 1;
-  padding: 0.6rem 1.3rem;
-  text-align: center;
-  background-color: rgb(var(--color-base-background-1));
-  border-color: rgba(var(--color-base-text), 0.04);
-  color: rgb(var(--color-base-text));
-}
-
-.badge--inverse {
-  background-color: rgb(var(--color-base-text));
-  border-color: rgb(var(--color-base-text));
-  color: rgb(var(--color-base-background-1));
 }
 
 .caption-large {

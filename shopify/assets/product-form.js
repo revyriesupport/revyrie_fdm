@@ -27,32 +27,30 @@ if (!customElements.get('product-form')) {
         await window.theme.addToCart({
           id,
           quantity: 1,
-          properties: {
-            ink: 'red',
-          },
-        }).then((result) => {
-          if (result.error) {
-            this.handleErrorMessage(result.error);
-
-            const soldOutMessage = this.submitButton.querySelector('.sold-out-message');
-            if (!soldOutMessage) return;
-            this.submitButton.setAttribute('aria-disabled', true);
-            this.submitButton.querySelector('span').classList.add('hidden');
-            soldOutMessage.classList.remove('hidden');
-            soldOutMessage.textContent = result.error;
-            this.error = true;
-            return
-          }
-          this.error = false;
-          const quickAddModal = this.closest('quick-add-modal');
-          if (quickAddModal) {
-            quickAddModal.hide(true);
-          }
-        }).finally(() => {
-          this.submitButton.classList.remove('loading');
-          this.submitButton.removeAttribute('aria-disabled');
-          this.querySelector('.loading-overlay__spinner').classList.add('hidden');
         })
+          .then((result) => {
+            if (result.error) {
+              this.handleErrorMessage(result.error);
+
+              const soldOutMessage = this.submitButton.querySelector('.sold-out-message');
+              if (!soldOutMessage) return;
+              this.submitButton.setAttribute('aria-disabled', true);
+              this.submitButton.querySelector('span').classList.add('hidden');
+              soldOutMessage.classList.remove('hidden');
+              soldOutMessage.textContent = result.error;
+              this.error = true;
+              return
+            }
+            this.error = false;
+            const quickAddModal = this.closest('quick-add-modal');
+            if (quickAddModal) {
+              quickAddModal.hide(true);
+            }
+          }).finally(() => {
+            this.submitButton.classList.remove('loading');
+            this.submitButton.removeAttribute('aria-disabled');
+            this.querySelector('.loading-overlay__spinner').classList.add('hidden');
+          });
       }
 
       handleErrorMessage(errorMessage = false) {

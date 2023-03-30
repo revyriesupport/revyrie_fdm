@@ -130,14 +130,11 @@ const useCartStoreDefinition = defineStore({
 
       if (itemAlreadyOnCart) {
         if (properties && itemAlreadyOnCart.properties) {
-          const propertiesAreDifferent = JSON.stringify(itemAlreadyOnCart.properties) !== JSON.stringify(properties);
-          if (!propertiesAreDifferent) {
+          const propertiesAreEqual = JSON.stringify(itemAlreadyOnCart.properties) === JSON.stringify(properties);
+          if (propertiesAreEqual) {
             requestBody.quantity = itemAlreadyOnCart.quantity + quantity
-            return this.updateCartItem(requestBody);
+            return this.updateCartItemFetch(requestBody)
           }
-        } else {
-          requestBody.quantity = itemAlreadyOnCart.quantity + quantity
-          return this.updateCartItem(requestBody);
         }
       }
 
@@ -145,6 +142,9 @@ const useCartStoreDefinition = defineStore({
       try {
         const response =
           await generateFetchRequest('/cart/add.js', 'POST', requestBody, null)
+
+
+        console.log('response.data', response.data)
 
         this.items.length === 0
           ? this.items.push(response.data)
@@ -181,6 +181,10 @@ const useCartStoreDefinition = defineStore({
         requestBody.selling_plan = selling_plan;
       }
 
+      return await this.updateCartItemFetch(requestBody)
+    },
+
+    async updateCartItemFetch(requestBody) {
       try {
         const response =
           await generateFetchRequest('/cart/change.js', 'POST', requestBody, null)
@@ -233,7 +237,7 @@ const useCartStoreDefinition = defineStore({
       this.note = note;
     },
     checkout() {
-      const checkoutUrl = `/checkout?note=${encodeURIComponent(this.notes)}`;
+      const checkoutUrl = `/checkout?note=${encodeURIComponent(this.note)}`;
       window.location.href = checkoutUrl;
     },
   }

@@ -1,15 +1,12 @@
 <script>
-import { defineAsyncComponent, ref, watch } from "vue";
+import { ref, watch } from "vue";
 import { useCartStore } from "@store/cart-state";
 import { useGlobalStore } from "@store/global-state";
 
-import CartItem from "./CartItem.vue";
 import { formatProductPrice } from "@/lib/utilities";
-import ShippingProgressBar from "@render/ShippingProgressBar.vue";
 
-// const CartItem = defineAsyncComponent(() =>
-//   import("./CartItem.vue")
-// );
+import CartItem from "@render/CartItem.vue";
+import ShippingProgressBar from "@render/ShippingProgressBar.vue";
 
 export default {
   components: {
@@ -35,9 +32,6 @@ export default {
         cart.updateNote(newNote);
       }
     );
-
-    // const CartItem = defineAsyncComponent(() => import("./CartItem.vue"));
-
     return {
       cart,
       note,
@@ -81,13 +75,6 @@ export default {
         </svg>
       </button>
     </div>
-
-    <!-- <div class="bg-accent2 p-4">
-      <p class="text-sm text-white" role="alert">
-        Free shipping on orders over $50
-      </p>
-    </div> -->
-
     <shipping-progress-bar></shipping-progress-bar>
 
     <div
@@ -100,7 +87,7 @@ export default {
     <div class="flex-1 overflow-auto" v-else>
       <cart-item
         v-for="item in cart.listItems"
-        :key="item.id"
+        :key="item.key"
         :line="item"
         class="border-gray-200 flex border-b p-4 last:border-b-0"
       ></cart-item>

@@ -19,6 +19,7 @@
       </div>
       <div class="product-hero__info flex-1 space-y-4 gap-y-4">
         <div class="flex flex-col gap-y-2 mt-8">
+          {% render 'product-badges' with _tags: product.tags %}
           <h1 class="text-2xl font-semibold">{{ product.title }}</h1>
           <p class="text-base">{{ product.description }}</p>
           <p class="text-base">Type: {{ product.type }}</p>

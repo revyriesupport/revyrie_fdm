@@ -14,6 +14,7 @@ export const collection = `
           node {
             id
             title
+            tags
             description
             handle
             productType

@@ -35,10 +35,10 @@
     <product-gallery
       :media="remainingMedia"
       active-color="{{ active_color }}"
-      v-slot="{ loadedImages, getImagesPerColor }"
+      v-slot="{ loadedImages, imagesPerColor }"
     >
       <div
-        v-for="media in getImagesPerColor"
+        v-for="media in imagesPerColor"
         class="relative aspect-square bg-grey"
       >
         <img

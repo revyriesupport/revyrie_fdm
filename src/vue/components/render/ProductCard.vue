@@ -2,7 +2,12 @@
 import { useCartStore } from "@store/cart-state";
 import { ref, computed } from "vue";
 
+import Badge from "@render/Badge.vue";
+
 export default {
+  components: {
+    Badge,
+  },
   props: {
     product: {
       type: Object,
@@ -29,7 +34,7 @@ export default {
       const result = await cart.addToCart({
         id,
         quantity: 1,
-        properties: { ink: "red" },
+        properties: { _badges: "Sale,Dynamic Text" },
       });
 
       if (result.error) {
@@ -70,11 +75,12 @@ export default {
           </div>
         </div>
         <div class="flex flex-1 flex-col p-4">
-          <div class="w-full flex-1">
-            <p class="mb-1 font-bold leading-7 text-ink">
+          <div class="flex w-full flex-1 flex-col gap-y-4">
+            <Badge :productTags="product.tags" />
+            <p class="font-bold leading-7 text-ink">
               {{ product.title }}
             </p>
-            <p class="mt-6 text-accent1">{{ truncatedDescription }}</p>
+            <p class="text-accent1">{{ truncatedDescription }}</p>
           </div>
 
           <p v-if="errorMessage" class="text-md mt-2 text-error">

@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia';
-import { generateFetchRequest } from '@/lib/utilities';
 
 const useProductStoreDefinition = defineStore({
   id: 'product',
@@ -12,9 +11,15 @@ const useProductStoreDefinition = defineStore({
   getters: {
     isProductInCart() { },
     getImagesPerColor() {
-      return this.media.filter((image) => {
-        return image.alt.includes(this.activeColor);
-      });
+      return (activeColor) => {
+        console.log('---------getImagesPerColor', activeColor)
+        console.log('IMAGES:', this.media.filter((image) => {
+          return image.alt.includes(activeColor);
+        }))
+        return this.media.filter((image) => {
+          return image.alt.includes(`:${activeColor}`);
+        });
+      };
     }
   },
   actions: {
@@ -23,25 +28,7 @@ const useProductStoreDefinition = defineStore({
     },
     setAllProductMedia(media) {
       this.media = media
-    },
-    // async fetchProductMedia(handle) {
-    //   if (!handle) return;
-
-    //   this.isLoading = true;
-
-    //   try {
-    //     const response = await generateFetchRequest(`/products/${handle}.js`, 'GET', null, null);
-    //     const data = response.data;
-    //     console.log('response:', response)
-    //     const media = data.media;
-
-    //     this.media = media;
-    //     this.isLoading = false;
-    //   } catch (error) {
-    //     this.error = error;
-    //     this.isLoading = false;
-    //   }
-    // },
+    }
   },
 });
 

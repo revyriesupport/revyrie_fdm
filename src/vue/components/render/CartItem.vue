@@ -1,12 +1,16 @@
 <script>
 import { ref, computed, watch, reactive } from "vue";
 import { useCartStore } from "@store/cart-state";
+
 import { formatProductPrice } from "@/lib/utilities";
-import Quantity from "./Quantity.vue";
+
+import Quantity from "@render/Quantity.vue";
+import Badge from "@render/Badge.vue";
 
 export default {
   components: {
     Quantity,
+    Badge,
   },
   props: {
     line: {
@@ -52,13 +56,13 @@ export default {
       requestUpdate(0);
     };
 
-    // watch(
-    //   () => line,
-    //   (newLine) => {
-    //     item = newLine;
-    //   },
-    //   { deep: true }
-    // );
+    watch(
+      () => line,
+      (newLine) => {
+        item = newLine;
+      },
+      { deep: true }
+    );
 
     return {
       item,
@@ -104,6 +108,9 @@ export default {
           <p v-if="item.product_type" class="text-ink/80">
             {{ item.product_type }}
           </p>
+
+          <Badge :productProperties="item.properties" />
+
           <h3 class="text-lg font-bold text-ink">{{ item.product_title }}</h3>
           <div class="flex items-center space-x-2 text-lg text-ink">
             <div
@@ -132,7 +139,7 @@ export default {
                 :key="key"
                 class="flex justify-start gap-x-2 text-sm text-ink/80"
               >
-                <span
+                <span v-if="!key.startsWith('_')"
                   ><strong>{{ key }}:</strong></span
                 >
                 <span>{{ value }}</span>

@@ -12,13 +12,6 @@ export default {
     const progress = computed(() => {
       const cartTotal = parseFloat(cart.totalAmount);
       const threshold = global.shippingThreshold;
-      console.log("cartTotal:", cartTotal);
-      console.log("threshold:", threshold);
-      console.log(
-        "(cartTotal / threshold) * 100",
-        (cartTotal / threshold) * 100
-      );
-      console.log(Math.min((cartTotal / threshold) * 100, 100));
       return Math.min((cartTotal / threshold) * 100, 100);
     });
 

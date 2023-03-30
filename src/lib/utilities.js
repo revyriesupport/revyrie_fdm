@@ -153,6 +153,7 @@ export const calculateTotal = (items, callback) => {
  */
 export const temporalUpdateBubbleCartCount = (count) => {
   console.log('temporalUpdateBubbleCartCount:', count)
+  if (!document.querySelector('.cart-count-bubble')) return
   count === 0
     ? document.querySelector('.cart-count-bubble').classList.add('hidden')
     : document.querySelector('.cart-count-bubble').classList.remove('hidden')

@@ -29,11 +29,18 @@ export default defineComponent({
       if (!variant_id) return;
 
       const cart = useCartStore();
-      const result = await cart.addToCart({
-        id: variant_id,
-        quantity: 1,
-        properties: { ink: "red" },
-      });
+      await cart
+        .addToCart({
+          id: variant_id,
+          quantity: 1,
+          properties: { _badges: "Sale,Dynamic Text" },
+        })
+        .then((res) => {
+          console.log("res", res);
+        })
+        .catch((err) => {
+          console.log("err", err);
+        });
     };
 
     return {

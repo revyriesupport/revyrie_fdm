@@ -1,5 +1,5 @@
 <script>
-import { ref, onMounted, defineComponent } from "vue";
+import { ref, onMounted, defineComponent, watch } from "vue";
 import { useProductStore } from "@store/product-state";
 
 export default defineComponent({
@@ -16,8 +16,8 @@ export default defineComponent({
   },
   setup(props, { slots }) {
     const loadedImages = ref({});
+    const imagesPerColor = ref([]);
 
-    console.log("props.activeColor:", props);
     const product = useProductStore();
     product.setActiveColor(props.activeColor);
 
@@ -41,12 +41,21 @@ export default defineComponent({
     onMounted(() => {
       loadRemainingImages(props.media);
       product.setAllProductMedia(props.media);
+      imagesPerColor.value = product.getImagesPerColor(props.activeColor);
     });
+
+    watch(
+      () => product.activeColor,
+      (newActiveColor) => {
+        product.setActiveColor(newActiveColor);
+        imagesPerColor.value = product.getImagesPerColor(newActiveColor);
+      }
+    );
 
     return () =>
       slots.default({
         loadedImages: loadedImages.value,
-        getImagesPerColor: product.getImagesPerColor,
+        imagesPerColor: imagesPerColor.value,
       });
   },
 });

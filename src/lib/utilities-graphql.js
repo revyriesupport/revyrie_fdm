@@ -30,6 +30,7 @@ export const convertProductResponse = (product) => {
     product_type: product.productType,
     product_title: product.title,
     product_description: product.description,
+    tags: product.tags,
     variant_title: product.variants.edges[0]?.node.title || '',
     variant_options: product.variants.edges[0]?.node.selectedOptions.map(option => option.value) || [],
     options_with_values: product.options.map(option => {
