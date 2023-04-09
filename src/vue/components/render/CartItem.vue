@@ -1,5 +1,5 @@
 <script>
-import { ref, computed, watch, reactive } from "vue";
+import { ref, computed, watchEffect } from "vue";
 import { useCartStore } from "@store/cart-state";
 
 import { formatProductPrice } from "@/lib/utilities";
@@ -18,24 +18,32 @@ export default {
       required: true,
     },
   },
-  setup({ line }) {
+  setup(props) {
+    const line = ref(props.line);
+    console.log("___line:", line);
+
+    watchEffect(() => {
+      line.value = props.line;
+    });
+
     const loading = ref(false);
-    const item = reactive({ ...line });
     const cart = useCartStore();
     let errorMessage = ref(false);
 
     const finalPrice = computed(() =>
-      formatProductPrice(item?.final_line_price || 0)
+      formatProductPrice(line.value.final_line_price || 0)
     );
 
     const originalPrice = computed(() =>
-      formatProductPrice(item?.original_line_price || 0)
+      formatProductPrice(line.value.original_line_price || 0)
     );
 
     const requestUpdate = async (newQuantity) => {
+      console.log("requestUpdate:", newQuantity);
       loading.value = true;
+
       const result = await cart.updateCartItem({
-        id: item.id,
+        id: line.value.id,
         quantity: newQuantity,
       });
       if (result.error) {
@@ -44,35 +52,27 @@ export default {
       loading.value = false;
     };
 
-    const updateQuantity = (qty) => {
+    const handleUpdateQuantity = (qty) => {
       if (!Number.isInteger(qty)) return;
       requestUpdate(qty);
     };
-    const increaseQuantity = () => requestUpdate(item.quantity + 1);
-    const decreaseQuantity = () => requestUpdate(item.quantity - 1);
+    const increaseQuantity = () => requestUpdate(line.value.quantity + 1);
+    const decreaseQuantity = () => requestUpdate(line.value.quantity - 1);
 
     const removeItem = () => {
       loading.value = true;
       requestUpdate(0);
     };
 
-    watch(
-      () => line,
-      (newLine) => {
-        item = newLine;
-      },
-      { deep: true }
-    );
-
     return {
-      item,
+      line,
       cart,
       loading,
       errorMessage,
       finalPrice,
       originalPrice,
 
-      updateQuantity,
+      handleUpdateQuantity,
       increaseQuantity,
       decreaseQuantity,
       removeItem,
@@ -90,13 +90,13 @@ export default {
       <div class="flex-1">
         <div class="relative aspect-square w-full">
           <a
-            :href="item.url"
+            :href="line.url"
             class="absolute inset-0 z-10"
             aria-label="View details for {{ product.title }}"
           ></a>
           <img
-            :src="item.image"
-            :alt="item.product_title + ' product image'"
+            :src="line.image"
+            :alt="line.product_title + ' product image'"
             class="h-full w-full object-cover object-center"
             loading="lazy"
           />
@@ -105,16 +105,16 @@ export default {
 
       <div class="flex flex-1 flex-col">
         <div class="mb-8">
-          <p v-if="item.product_type" class="text-ink/80">
-            {{ item.product_type }}
+          <p v-if="line.product_type" class="text-ink/80">
+            {{ line.product_type }}
           </p>
 
-          <Badge :productProperties="item.properties" />
+          <Badge :productProperties="line.properties" />
 
-          <h3 class="text-lg font-bold text-ink">{{ item.product_title }}</h3>
+          <h3 class="text-lg font-bold text-ink">{{ line.product_title }}</h3>
           <div class="flex items-center space-x-2 text-lg text-ink">
             <div
-              v-if="item.original_line_price != item.final_line_price"
+              v-if="line.original_line_price != line.final_line_price"
               class="cart-item__discounted-prices"
             >
               <dl class="flex flex-row space-x-4">
@@ -131,11 +131,11 @@ export default {
             </div>
           </div>
           <div
-            v-if="item.properties && Object.keys(item.properties).length > 0"
+            v-if="line.properties && Object.keys(line.properties).length > 0"
           >
             <ul class="mt-2">
               <li
-                v-for="(value, key) in item.properties"
+                v-for="(value, key) in line.properties"
                 :key="key"
                 class="flex justify-start gap-x-2 text-sm text-ink/80"
               >
@@ -152,14 +152,15 @@ export default {
             class="flex items-center space-x-2 border"
             :class="{ 'pointer-events-none opacity-50': loading }"
           >
-            <!-- v-model="item.quantity" -->
+            <!-- v-model="line.quantity" -->
             <quantity
               v-if="cart.isOpen"
-              :qty="item.quantity"
+              :qty="line.quantity"
               :loading="loading"
-              @update-quantity="updateQuantity"
+              @update-quantity="handleUpdateQuantity"
               @increase-quantity="increaseQuantity"
               @decrease-quantity="decreaseQuantity"
+              @quantity-changed="onQuantityChanged"
             ></quantity>
           </div>
           <button

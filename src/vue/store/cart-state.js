@@ -7,6 +7,9 @@ import {
 } from '@/lib/utilities'
 
 import {
+  generateBodyObject,
+  getIndexOfElementWithSameIdAndProperties,
+  getItemOfElementWithSameIdAndProperties,
   hasDiscounts,
   discountTotal,
   applyDiscount,
@@ -115,26 +118,37 @@ const useCartStoreDefinition = defineStore({
       if (this.cartRequested === false) await this.fetchCart()
 
       const _id = cleanProductVariantId(id.toString())
-      const requestBody = {
+      let requestBody = generateBodyObject({
         id: _id.toString(),
-        quantity
-      };
-      if (properties) {
-        requestBody.properties = properties;
-      }
-      if (selling_plan) {
-        requestBody.selling_plan = selling_plan;
-      }
+        quantity,
+        properties,
+        selling_plan
+      })
 
       const itemAlreadyOnCart = await this.isProductInCart(_id);
+      console.log('itemAlreadyOnCart:', itemAlreadyOnCart)
 
       if (itemAlreadyOnCart) {
-        if (properties && itemAlreadyOnCart.properties) {
-          const propertiesAreEqual = JSON.stringify(itemAlreadyOnCart.properties) === JSON.stringify(properties);
-          if (propertiesAreEqual) {
-            requestBody.quantity = itemAlreadyOnCart.quantity + quantity
-            return this.updateCartItemFetch(requestBody)
-          }
+        const elementsWithSameId = this.items.filter((item) => item.id === _id)
+        const elementWithSameProperties = elementsWithSameId.find((item) => JSON.stringify(item.properties) === JSON.stringify(properties))
+        // elementWithSameProperties
+        if (false) {
+          const element = getItemOfElementWithSameIdAndProperties(this.items, _id, properties)
+          requestBody = generateBodyObject({
+            line: element.key,
+            quantity: element.quantity + quantity,
+            properties,
+            selling_plan
+          })
+          return this.updateCartItemFetch(requestBody)
+        } else {
+          requestBody = generateBodyObject({
+            id: itemAlreadyOnCart.id,
+            quantity: quantity + itemAlreadyOnCart.quantity,
+            properties,
+            selling_plan
+          })
+          return this.updateCartItemFetch(requestBody)
         }
       }
 
@@ -143,15 +157,15 @@ const useCartStoreDefinition = defineStore({
         const response =
           await generateFetchRequest('/cart/add.js', 'POST', requestBody, null)
 
-
-        console.log('response.data', response.data)
-
         this.items.length === 0
           ? this.items.push(response.data)
           : this.items = [response.data].concat(this.items)
 
+        console.log('this.items:', this.items)
+
         setTimeout(() => {
           this.isOpen = true
+          console.log('this.isOpen:', this.isOpen)
           temporalUpdateBubbleCartCount(this.totalItems)
         }, 0)
         return handleResponseOrError(response, null);
@@ -170,16 +184,12 @@ const useCartStoreDefinition = defineStore({
 
       this.isLoading = true
       const _id = cleanProductVariantId(id.toString())
-      const requestBody = {
+      const requestBody = generateBodyObject({
         id: _id.toString(),
-        quantity
-      };
-      if (properties) {
-        requestBody.properties = properties;
-      }
-      if (selling_plan) {
-        requestBody.selling_plan = selling_plan;
-      }
+        quantity,
+        properties,
+        selling_plan
+      })
 
       return await this.updateCartItemFetch(requestBody)
     },
@@ -189,7 +199,7 @@ const useCartStoreDefinition = defineStore({
         const response =
           await generateFetchRequest('/cart/change.js', 'POST', requestBody, null)
 
-        this.items = []
+        // this.items = []
 
         setTimeout(() => {
           this.items = response.data.items
@@ -212,6 +222,11 @@ const useCartStoreDefinition = defineStore({
         return handleResponseOrError(null, ERROR_MESSAGES.PRODUCT_NOT_IN_CART);
       }
     },
+
+    isProductInCart(id) {
+      return this.items.find(item => item.id === Number(id))
+    },
+
 
     isProductInCart(id) {
       return this.items.find(item => item.id === Number(id))

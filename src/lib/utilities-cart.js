@@ -6,6 +6,34 @@ import {
 import { ERROR_MESSAGES } from '@/lib/error-messages.js';
 import { cartItemLimit } from "@/lib/store-definition";
 
+
+export function generateBodyObject({ id, line = false, quantity, properties, selling_plan }) {
+  const res = { quantity }
+  line
+    ? res.line =
+    line.includes(':')
+      ? parseInt(line.split(':')[0])
+      : parseInt(line)
+    : res.id = id.toString();
+
+  if (properties) {
+    res.properties = properties;
+  }
+  if (selling_plan) {
+    res.selling_plan = selling_plan;
+  }
+  return res
+}
+
+export const getIndexOfElementWithSameIdAndProperties = (items, id, properties) => {
+  return items.findIndex((item) => item.id === id && JSON.stringify(item.properties) === JSON.stringify(properties))
+}
+
+export const getItemOfElementWithSameIdAndProperties = (items, id, properties) => {
+  return items.find((item) => item.id === id && JSON.stringify(item.properties) === JSON.stringify(properties))
+  // return items.findIndex((item) => item.id === id && JSON.stringify(item.properties) === JSON.stringify(properties))
+}
+
 export async function applyDiscount(discountCode) {
   try {
     const response = await generateFetchRequest(

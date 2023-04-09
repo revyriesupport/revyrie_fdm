@@ -877,18 +877,36 @@ class VariantSelects extends HTMLElement {
   }
 
   updateVariantStatuses() {
-    const selectedOptionOneVariants = this.variantData.filter(variant => this.querySelector(':checked').value === variant.option1);
+    console.log('updateVariantStatuses', this.variantData)
+    const selectedOptionOneVariants = this.variantData
+      .filter(variant => {
+        console.log('this.querySelector(checked):', this.querySelector(':checked'))
+        console.log('variant.option1', variant.option1)
+        return this.querySelector(':checked').value === variant.option1
+      });
+    console.log('selectedOptionOneVariants:', selectedOptionOneVariants)
     const inputWrappers = [...this.querySelectorAll('.product-form__input')];
+    console.log('inputWrappers:', inputWrappers)
     inputWrappers.forEach((option, index) => {
+      console.log('option', option)
+      console.log('index', index)
       if (index === 0) return;
       const optionInputs = [...option.querySelectorAll('input[type="radio"], option')]
+      console.log('optionInputs:', optionInputs)
       const previousOptionSelected = inputWrappers[index - 1].querySelector(':checked').value;
-      const availableOptionInputsValue = selectedOptionOneVariants.filter(variant => variant.available && variant[`option${index}`] === previousOptionSelected).map(variantOption => variantOption[`option${index + 1}`]);
+      console.log('previousOptionSelected:', previousOptionSelected)
+      const availableOptionInputsValue = selectedOptionOneVariants
+        .filter(variant => variant.available && variant[`option${index}`] === previousOptionSelected)
+        .map(variantOption => variantOption[`option${index + 1}`]);
+      console.log('!!!availableOptionInputsValue:', availableOptionInputsValue)
       this.setInputAvailability(optionInputs, availableOptionInputsValue)
     });
   }
 
   setInputAvailability(listOfOptions, listOfAvailableOptions) {
+    console.log('setInputAvailability:', listOfOptions)
+    console.log('listOfAvailableOptions:', listOfAvailableOptions)
+
     listOfOptions.forEach(input => {
       if (listOfAvailableOptions.includes(input.getAttribute('value'))) {
         input.innerText = input.getAttribute('value');
@@ -919,22 +937,39 @@ class VariantSelects extends HTMLElement {
   }
 
   renderProductInfo() {
+    console.log('renderProductInfo:')
     const requestedVariantId = this.currentVariant.id;
+    console.log('requestedVariantId:', requestedVariantId)
     const sectionId = this.dataset.originalSection ? this.dataset.originalSection : this.dataset.section;
+    console.log('sectionId:', sectionId)
+
+    console.log(`${this.dataset.url}?variant=${requestedVariantId}&section_id=${this.dataset.originalSection ? this.dataset.originalSection : this.dataset.section}`)
 
     fetch(`${this.dataset.url}?variant=${requestedVariantId}&section_id=${this.dataset.originalSection ? this.dataset.originalSection : this.dataset.section}`)
       .then((response) => response.text())
       .then((responseText) => {
         // prevent unnecessary ui changes from abandoned selections
+
+        console.log('this.currentVariant.id:', this.currentVariant.id)
+        console.log('requestedVariantId', requestedVariantId)
         if (this.currentVariant.id !== requestedVariantId) return;
 
+
+
         const html = new DOMParser().parseFromString(responseText, 'text/html')
+        console.log('html:', html)
         const destination = document.getElementById(`price-${this.dataset.section}`);
+        console.log('destination:', destination)
         const source = html.getElementById(`price-${this.dataset.originalSection ? this.dataset.originalSection : this.dataset.section}`);
+        console.log('source:', source)
         const skuSource = html.getElementById(`Sku-${this.dataset.originalSection ? this.dataset.originalSection : this.dataset.section}`);
+        console.log('skuSource:', skuSource)
         const skuDestination = document.getElementById(`Sku-${this.dataset.section}`);
+        console.log('skuDestination:', skuDestination)
         const inventorySource = html.getElementById(`Inventory-${this.dataset.originalSection ? this.dataset.originalSection : this.dataset.section}`);
+        console.log('inventorySource:', inventorySource)
         const inventoryDestination = document.getElementById(`Inventory-${this.dataset.section}`);
+        console.log('inventoryDestination:', inventoryDestination)
 
         if (source && destination) destination.innerHTML = source.innerHTML;
         if (inventorySource && inventoryDestination) inventoryDestination.innerHTML = inventorySource.innerHTML;
@@ -945,11 +980,15 @@ class VariantSelects extends HTMLElement {
 
         const price = document.getElementById(`price-${this.dataset.section}`);
 
+        console.log('price:', price)
         if (price) price.classList.remove('visibility-hidden');
 
         if (inventoryDestination) inventoryDestination.classList.toggle('visibility-hidden', inventorySource.innerText === '');
+        console.log('inventoryDestination:', inventoryDestination)
 
+        console.log('------', `ProductSubmitButton-${sectionId}`)
         const addButtonUpdated = html.getElementById(`ProductSubmitButton-${sectionId}`);
+        console.log('addButtonUpdated:', addButtonUpdated)
         this.toggleAddButton(addButtonUpdated ? addButtonUpdated.hasAttribute('disabled') : true, window.variantStrings.soldOut);
 
         publish(PUB_SUB_EVENTS.variantChange, {

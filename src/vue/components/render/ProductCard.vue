@@ -34,7 +34,7 @@ export default {
       const result = await cart.addToCart({
         id,
         quantity: 1,
-        properties: { _badges: "Sale,Dynamic Text" },
+        properties: { ink: "Red" },
       });
 
       if (result.error) {

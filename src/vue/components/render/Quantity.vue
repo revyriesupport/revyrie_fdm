@@ -1,5 +1,5 @@
 <script>
-import { ref, watch } from "vue";
+import { ref, watchEffect } from "vue";
 export default {
   props: {
     qty: {
@@ -14,31 +14,29 @@ export default {
   },
   setup(props, context) {
     const quantity = ref(props.qty);
-    watch(
-      () => props.qty,
-      (newQuantity) => {
-        // console.log("WATCH newQuantity:", newQuantity);
-        quantity.value = newQuantity;
-      }
-    );
 
-    const updateQuantity = () => {
+    watchEffect(() => {
+      quantity.value = props.qty;
+    });
+
+    const handleUpdateQuantity = () => {
       context.emit("update-quantity", quantity.value);
     };
 
-    const increaseQuantity = () => {
+    const handleIncreaseQuantity = () => {
       context.emit("increase-quantity");
     };
 
-    const decreaseQuantity = () => {
+    const handleDecreaseQuantity = () => {
       context.emit("decrease-quantity");
     };
 
     return {
       quantity,
-      updateQuantity,
-      increaseQuantity,
-      decreaseQuantity,
+
+      handleUpdateQuantity,
+      handleIncreaseQuantity,
+      handleDecreaseQuantity,
     };
   },
 };
@@ -49,7 +47,7 @@ export default {
     type="button"
     class="py-3 px-1 text-ink transition duration-150 ease-in-out hover:text-accent2"
     aria-label="decrease quantity"
-    @click="decreaseQuantity(quantity)"
+    @click="handleDecreaseQuantity(quantity)"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -84,7 +82,7 @@ export default {
     type="number"
     ref="itemQuantity"
     v-model="quantity"
-    @change="updateQuantity(quantity)"
+    @change="handleUpdateQuantity(quantity)"
     min="1"
     aria-label="quantity"
   />
@@ -92,7 +90,7 @@ export default {
     type="button"
     class="py-3 px-1 text-ink transition duration-150 ease-in-out hover:text-accent2"
     aria-label="increase quantity"
-    @click="increaseQuantity(quantity)"
+    @click="handleIncreaseQuantity(quantity)"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"

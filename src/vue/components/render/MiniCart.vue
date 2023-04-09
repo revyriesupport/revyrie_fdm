@@ -1,5 +1,5 @@
 <script>
-import { ref, watch } from "vue";
+import { ref, watch, watchEffect, provide } from "vue";
 import { useCartStore } from "@store/cart-state";
 import { useGlobalStore } from "@store/global-state";
 
@@ -13,7 +13,7 @@ export default {
     CartItem,
     ShippingProgressBar,
   },
-  setup() {
+  setup(props, { emit }) {
     const cart = useCartStore();
     const money = (priceValue) => formatProductPrice(priceValue);
     const global = useGlobalStore();
@@ -25,6 +25,7 @@ export default {
     });
 
     const note = ref(cart.note);
+
     watch(
       () => cart.note,
       (newNote) => {
@@ -32,6 +33,29 @@ export default {
         cart.updateNote(newNote);
       }
     );
+
+    // watch(
+    //   () => cart.items,
+    //   (newElements, oldElements) => {
+    //     console.log("newElements, oldElements", newElements, oldElements);
+    //     console.log("oldElements", oldElements.length);
+    //     if (oldElements.length === 0) return;
+
+    //     const elementsWithNewQuantity = newElements.filter(
+    //       (newElement, index) => {
+    //         if (!oldElements[index]) return false;
+    //         return newElement.quantity !== oldElements[index].quantity;
+    //       }
+    //     );
+    //     console.log("elementsWithNewQuantity", elementsWithNewQuantity);
+
+    //     elementsWithNewQuantity.forEach((element) => {
+    //       // send new quantity to CartItem.vue that updates Quantity.vue
+    //       emit("update-item-quantity", element.key, element.quantity);
+    //     });
+    //   }
+    // );
+
     return {
       cart,
       note,
