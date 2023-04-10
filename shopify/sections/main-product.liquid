@@ -61,7 +61,7 @@
     class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid-config grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}"
   >
     <div class="grid__item product__media-wrapper{% if section.settings.media_position == 'right' %} medium-hide large-up-hide{% endif %}">
-      {% render 'product-media-gallery', variant_images: variant_images %}
+      {% render 'product-media-gallery', variant_images: variant_images, desktop_slider: section.settings.dekstop_slider %}
     </div>
     <div class="product__info-wrapper grid__item{% if settings.page_width > 1400 and section.settings.media_size == "small" %} product__info-wrapper--extra-padding{% endif %}">
       <product-info
@@ -381,6 +381,7 @@
                                 {%- for product in recommendations.products limit: block.settings.products_per_page offset: continue -%}
                                   <li>
                                     {% render 'card-product',
+
                                       card_product: product,
                                       media_aspect_ratio: block.settings.image_ratio,
                                       show_secondary_image: false,
@@ -447,7 +448,7 @@
     {%- if section.settings.media_position == 'right' -%}
       {% comment %} Duplicate gallery to display after product content on tablet/desktop breakpoint {% endcomment %}
       <div class="grid__item product__media-wrapper small-hide">
-        {% render 'product-media-gallery', variant_images: variant_images, is_duplicate: true %}
+        {% render 'product-media-gallery', variant_images: variant_images, is_duplicate: true, desktop_slider: section.settings.dekstop_slider %}
       </div>
     {%- endif -%}
   </div>
@@ -1930,6 +1931,12 @@
       "default": "large",
       "label": "t:sections.main-product.settings.media_size.label",
       "info": "t:sections.main-product.settings.media_size.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "dekstop_slider",
+      "default": true,
+      "label": "Desktop Slider"
     },
     {
       "type": "checkbox",

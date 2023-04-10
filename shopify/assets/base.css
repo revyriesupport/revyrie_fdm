@@ -2443,10 +2443,9 @@ details[open] > .header__submenu {
 }
 
 /* Header menu */
-.header__inline-menu {
+.header .header__inline-menu {
   margin-left: -1.2rem;
   grid-area: navigation;
-  display: none;
 }
 
 .header--top-center .header__inline-menu,
@@ -2455,8 +2454,8 @@ details[open] > .header__submenu {
 }
 
 @media screen and (min-width: 990px) {
-  .header__inline-menu {
-    display: block;
+  .header .header__inline-menu {
+    display: block !important;
   }
 
   .header--top-center .header__inline-menu {

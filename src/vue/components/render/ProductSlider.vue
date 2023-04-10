@@ -96,7 +96,7 @@ export default {
                 <div class="relative h-52 w-full bg-grey"></div>
                 <div class="mt-4 w-full px-4">
                   <div class="h-12 w-full bg-grey"></div>
-                  <div class="mt-6 h-44 w-full bg-grey"></div>
+                  <div class="mt-6 h-56 w-full bg-grey"></div>
                   <div class="mt-5 mb-4 h-12 w-full bg-grey"></div>
                 </div>
               </div>

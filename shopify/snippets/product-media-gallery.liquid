@@ -37,6 +37,8 @@
     assign media_width = 0.45
   endif
 
+  assign desktop_slider = desktop_slider | default: true 
+
   assign id_append = ''
   if is_duplicate
     assign id_append = '-duplicate'
@@ -53,7 +55,7 @@
   data-desktop-layout="{{ section.settings.gallery_layout }}"
 >
   <div id="GalleryStatus-{{ section.id }}" class="visually-hidden" role="status"></div>
-  <slider-component id="GalleryViewer-{{ section.id }}{{ id_append }}" class="slider-mobile-gutter">
+<slider-component id="GalleryViewer-{{ section.id }}{{ id_append }}" class="slider-mobile-gutter {% if desktop_slider %}--desktop-slider{% endif %}">
     {%- unless is_duplicate -%}
       <a class="skip-to-content-link button visually-hidden quick-add-hidden" href="#ProductInfo-{{ section.id }}">
         {{ 'accessibility.skip_to_product_info' | t }}
