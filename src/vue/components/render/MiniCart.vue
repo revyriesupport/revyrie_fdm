@@ -1,8 +1,9 @@
 <script>
-import { ref, watch, watchEffect, provide } from "vue";
+import { ref, watch, onMounted } from "vue";
 import { useCartStore } from "@store/cart-state";
 import { useGlobalStore } from "@store/global-state";
 
+import { loadMiniCartOnlyWhenIsOpen } from "@/lib/store-definition";
 import { formatProductPrice } from "@/lib/utilities";
 
 import CartItem from "@render/CartItem.vue";
@@ -13,18 +14,12 @@ export default {
     CartItem,
     ShippingProgressBar,
   },
-  setup(props, { emit }) {
+  setup() {
     const cart = useCartStore();
-    const money = (priceValue) => formatProductPrice(priceValue);
     const global = useGlobalStore();
-    const headerCartIcon = document.getElementById("header-cart-icon");
-    headerCartIcon.addEventListener("click", (event) => {
-      event.preventDefault();
-      if (global.template == "cart") return;
-      cart.toggle();
-    });
 
     const note = ref(cart.note);
+    const money = (priceValue) => formatProductPrice(priceValue);
 
     watch(
       () => cart.note,
@@ -34,27 +29,20 @@ export default {
       }
     );
 
-    // watch(
-    //   () => cart.items,
-    //   (newElements, oldElements) => {
-    //     console.log("newElements, oldElements", newElements, oldElements);
-    //     console.log("oldElements", oldElements.length);
-    //     if (oldElements.length === 0) return;
+    cart.fetchCart();
+    // if (!loadMiniCartOnlyWhenIsOpen) {
+    //   cart.fetchCart();
+    // }
 
-    //     const elementsWithNewQuantity = newElements.filter(
-    //       (newElement, index) => {
-    //         if (!oldElements[index]) return false;
-    //         return newElement.quantity !== oldElements[index].quantity;
-    //       }
-    //     );
-    //     console.log("elementsWithNewQuantity", elementsWithNewQuantity);
-
-    //     elementsWithNewQuantity.forEach((element) => {
-    //       // send new quantity to CartItem.vue that updates Quantity.vue
-    //       emit("update-item-quantity", element.key, element.quantity);
-    //     });
-    //   }
-    // );
+    onMounted(() => {
+      global.setTemplate(document.body.dataset?.template || "");
+      const headerCartIcon = document.getElementById("header-cart-icon");
+      headerCartIcon.addEventListener("click", (event) => {
+        event.preventDefault();
+        if (global.template == "cart") return false;
+        cart.toggle();
+      });
+    });
 
     return {
       cart,
@@ -108,7 +96,7 @@ export default {
       <p v-if="cart.isLoading" class="text-center text-xl">Loading...</p>
       <p v-else class="text-center text-xl">Your cart is empty.</p>
     </div>
-    <div class="flex-1 overflow-auto" v-else>
+    <div v-else class="flex-1 overflow-auto">
       <cart-item
         v-for="item in cart.listItems"
         :key="item.key"

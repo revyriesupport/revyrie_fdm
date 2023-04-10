@@ -24,12 +24,15 @@ if (!customElements.get('product-form')) {
       );
 
       const id = this.form.querySelector('[name=id]').value;
+
       await window.theme.addToCart({
         id,
         quantity: 1,
+        properties: {
+          ink: 'red'
+        },
       })
         .then((result) => {
-          console.log('>>>>result:', result)
           if (result.error) {
             this.handleErrorMessage(result.error);
 

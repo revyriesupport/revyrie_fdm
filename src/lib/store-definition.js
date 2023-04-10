@@ -1,7 +1,7 @@
 // cartItemLimit: Number.MAX_SAFE_INTEGER,
 const config = {
   cartItemLimit: Number.MAX_SAFE_INTEGER,
-  loadMiniCartOnlyWhenIsOpen: false,
+  loadMiniCartOnlyWhenIsOpen: true,
   miniCartRevertedOrder: false,
 
   sliderIntersectionOptions: {

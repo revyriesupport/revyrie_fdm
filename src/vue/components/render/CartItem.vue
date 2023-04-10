@@ -1,5 +1,5 @@
 <script>
-import { ref, computed, watchEffect } from "vue";
+import { ref, computed, watchEffect, onMounted } from "vue";
 import { useCartStore } from "@store/cart-state";
 
 import { formatProductPrice } from "@/lib/utilities";
@@ -20,14 +20,12 @@ export default {
   },
   setup(props) {
     const line = ref(props.line);
-    console.log("___line:", line);
 
     watchEffect(() => {
       line.value = props.line;
     });
 
     const loading = ref(false);
-    const cart = useCartStore();
     let errorMessage = ref(false);
 
     const finalPrice = computed(() =>
@@ -38,12 +36,14 @@ export default {
       formatProductPrice(line.value.original_line_price || 0)
     );
 
+    const cart = useCartStore();
+
     const requestUpdate = async (newQuantity) => {
       console.log("requestUpdate:", newQuantity);
       loading.value = true;
 
       const result = await cart.updateCartItem({
-        id: line.value.id,
+        key: line.value.key,
         quantity: newQuantity,
       });
       if (result.error) {
@@ -59,14 +59,10 @@ export default {
     const increaseQuantity = () => requestUpdate(line.value.quantity + 1);
     const decreaseQuantity = () => requestUpdate(line.value.quantity - 1);
 
-    const removeItem = () => {
-      loading.value = true;
-      requestUpdate(0);
-    };
+    const removeItem = () => requestUpdate(0);
 
     return {
       line,
-      cart,
       loading,
       errorMessage,
       finalPrice,
@@ -104,7 +100,7 @@ export default {
       </div>
 
       <div class="flex flex-1 flex-col">
-        <div class="mb-8">
+        <div class="mb-8 flex flex-col gap-y-1">
           <p v-if="line.product_type" class="text-ink/80">
             {{ line.product_type }}
           </p>
@@ -130,22 +126,29 @@ export default {
               {{ originalPrice }}
             </div>
           </div>
-          <div
-            v-if="line.properties && Object.keys(line.properties).length > 0"
+
+          <p
+            class="flex gap-x-2"
+            v-for="option in line.options_with_values"
+            :key="option.name"
           >
-            <ul class="mt-2">
-              <li
-                v-for="(value, key) in line.properties"
-                :key="key"
+            <span v-text="`${option.name}:`" />
+            <strong v-text="option.value"></strong>
+          </p>
+
+          <ul v-if="line.properties && Object.keys(line.properties).length > 0">
+            <li v-for="(value, key) in line.properties" :key="key">
+              <div
+                v-if="!key.startsWith('_')"
                 class="flex justify-start gap-x-2 text-sm text-ink/80"
               >
-                <span v-if="!key.startsWith('_')"
-                  ><strong>{{ key }}:</strong></span
-                >
-                <span>{{ value }}</span>
-              </li>
-            </ul>
-          </div>
+                <span>{{ value }}:</span>
+                <span>
+                  <strong>{{ key }}:</strong>
+                </span>
+              </div>
+            </li>
+          </ul>
         </div>
         <div class="flex flex-col items-end">
           <div
@@ -154,7 +157,6 @@ export default {
           >
             <!-- v-model="line.quantity" -->
             <quantity
-              v-if="cart.isOpen"
               :qty="line.quantity"
               :loading="loading"
               @update-quantity="handleUpdateQuantity"

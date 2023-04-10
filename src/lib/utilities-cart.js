@@ -6,14 +6,10 @@ import {
 import { ERROR_MESSAGES } from '@/lib/error-messages.js';
 import { cartItemLimit } from "@/lib/store-definition";
 
-
-export function generateBodyObject({ id, line = false, quantity, properties, selling_plan }) {
+export function generateBodyObject({ id, key = false, quantity, properties, selling_plan }) {
   const res = { quantity }
-  line
-    ? res.line =
-    line.includes(':')
-      ? parseInt(line.split(':')[0])
-      : parseInt(line)
+  key
+    ? res.key = key
     : res.id = id.toString();
 
   if (properties) {
@@ -25,14 +21,6 @@ export function generateBodyObject({ id, line = false, quantity, properties, sel
   return res
 }
 
-export const getIndexOfElementWithSameIdAndProperties = (items, id, properties) => {
-  return items.findIndex((item) => item.id === id && JSON.stringify(item.properties) === JSON.stringify(properties))
-}
-
-export const getItemOfElementWithSameIdAndProperties = (items, id, properties) => {
-  return items.find((item) => item.id === id && JSON.stringify(item.properties) === JSON.stringify(properties))
-  // return items.findIndex((item) => item.id === id && JSON.stringify(item.properties) === JSON.stringify(properties))
-}
 
 export async function applyDiscount(discountCode) {
   try {
@@ -97,8 +85,9 @@ export function discountTotal(items) {
   return calculateTotal(items, (item) => item.final_line_price - item.original_line_price) || 0;
 }
 
-export function validateCartItem({ id, quantity }) {
-  if (!id) {
+export function validateCartItem({ id, key, quantity }) {
+  const id_or_key = id || key;
+  if (!id_or_key) {
     return ERROR_MESSAGES.INVALID_ID;
   }
 
