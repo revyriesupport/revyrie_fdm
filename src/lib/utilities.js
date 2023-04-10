@@ -50,7 +50,6 @@ export function formatProductPrice(price, currencyCode = window.currencyCode) {
  * @param {function} callback
  */
 export async function generateFetchRequest(url, method, body, callback) {
-  console.log('generateFetchRequest:', body)
   const requestOptions = {
     method: method,
     headers: {
@@ -152,7 +151,6 @@ export const calculateTotal = (items, callback) => {
  * Updates DOM Cart total item on header
  */
 export const temporalUpdateBubbleCartCount = (count) => {
-  console.log('temporalUpdateBubbleCartCount:', count)
   if (!document.querySelector('.cart-count-bubble')) return
   count === 0
     ? document.querySelector('.cart-count-bubble').classList.add('hidden')

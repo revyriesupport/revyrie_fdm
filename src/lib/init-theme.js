@@ -7,7 +7,6 @@ class Init {
   }
 
   mountVue() {
-    console.log('mountVue:', this.vueElements)
     this.vueElements.forEach(el => {
       this.requestComponent(el)
     })
@@ -18,7 +17,6 @@ class Init {
   async requestComponent(el) {
     const app = createApp();
     const name = componentName(el.tagName.toLowerCase());
-    console.log('name:', name)
 
     const { default: definition } = await import(`../vue/components/render/${name}.vue`);
     app.component(name, definition);

@@ -158,7 +158,6 @@ const useCartStoreDefinition = defineStore({
           ? this.items.push(response.data)
           : this.items = [response.data].concat(this.items)
 
-        console.log('Open!')
         this.open()
         temporalUpdateBubbleCartCount(this.totalItems)
 

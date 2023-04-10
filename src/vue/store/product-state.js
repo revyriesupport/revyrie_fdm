@@ -12,10 +12,6 @@ const useProductStoreDefinition = defineStore({
     isProductInCart() { },
     getImagesPerColor() {
       return (activeColor) => {
-        console.log('---------getImagesPerColor', activeColor)
-        console.log('IMAGES:', this.media.filter((image) => {
-          return image.alt.includes(activeColor);
-        }))
         return this.media.filter((image) => {
           return image.alt.includes(`:${activeColor}`);
         });

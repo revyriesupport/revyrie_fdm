@@ -39,7 +39,6 @@ export default {
     const cart = useCartStore();
 
     const requestUpdate = async (newQuantity) => {
-      console.log("requestUpdate:", newQuantity);
       loading.value = true;
 
       const result = await cart.updateCartItem({

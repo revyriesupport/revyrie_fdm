@@ -10,8 +10,6 @@ export default {
     },
   },
   setup(props) {
-    console.log("props.productTags", props);
-
     const badges = computed(() => {
       return props.productTags
         .filter((tag) => tag.startsWith("config:badge:"))
