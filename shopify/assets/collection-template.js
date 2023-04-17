@@ -1,1 +1,1 @@
-document.addEventListener("DOMContentLoaded",()=>{console.log("collection-template.js!!!!!!!")});
+document.addEventListener("DOMContentLoaded",()=>{});

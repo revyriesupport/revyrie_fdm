@@ -29,10 +29,9 @@ export default {
       }
     );
 
-    cart.fetchCart();
-    // if (!loadMiniCartOnlyWhenIsOpen) {
-    //   cart.fetchCart();
-    // }
+    if (!loadMiniCartOnlyWhenIsOpen) {
+      cart.fetchCart();
+    }
 
     onMounted(() => {
       global.setTemplate(document.body.dataset?.template || "");

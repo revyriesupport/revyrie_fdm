@@ -1,21 +1,9 @@
-import { createApp, defineComponent } from "vue";
+import { createApp } from "vue";
 import { createPinia } from 'pinia'
-import ProductGallery from '@renderless/ProductGallery.vue';
-import ProductHero from '@render/ProductHero.vue';
 
 document.addEventListener('DOMContentLoaded', () => {
   const pinia = createPinia()
-  const app = createApp(defineComponent({
-    components: {
-      ProductGallery,
-      ProductHero,
-    },
-    data() {
-      return {
-        remainingMedia: window.remainingMedia || [],
-      };
-    },
-  }));
+  const app = createApp();
   app.use(pinia)
   app.mount('#product-app')
 });

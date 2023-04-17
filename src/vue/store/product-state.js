@@ -8,16 +8,6 @@ const useProductStoreDefinition = defineStore({
     media: [],
     activeColor: null,
   }),
-  getters: {
-    isProductInCart() { },
-    getImagesPerColor() {
-      return (activeColor) => {
-        return this.media.filter((image) => {
-          return image.alt.includes(`:${activeColor}`);
-        });
-      };
-    }
-  },
   actions: {
     setActiveColor(color) {
       this.activeColor = color;

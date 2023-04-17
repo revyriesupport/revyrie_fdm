@@ -24,13 +24,11 @@ if (!customElements.get('product-form')) {
       );
 
       const id = this.form.querySelector('[name=id]').value;
+      const quantity = parseInt(document.querySelector('[data-cart-quantity]').value) || 1;
 
       await window.theme.addToCart({
         id,
-        quantity: 1,
-        properties: {
-          ink: 'red'
-        },
+        quantity: quantity || 0,
       })
         .then((result) => {
           if (result.error) {

@@ -28,19 +28,16 @@ export default defineComponent({
       event.preventDefault();
       if (!variant_id) return;
 
+      // properties: {}
       const cart = useCartStore();
       await cart
         .addToCart({
           id: variant_id,
           quantity: 1,
-          properties: { _badges: "Sale,Dynamic Text" },
         })
         .then((res) => {
           console.log("res", res);
         })
-        .catch((err) => {
-          console.log("err", err);
-        });
     };
 
     return {
@@ -85,8 +82,7 @@ export default defineComponent({
       type="button"
       @click.prevent="handleClick"
       class="mt-10 block w-full transform rounded-3xl bg-black px-4 py-3 text-center font-medium text-white transition-colors duration-300 focus:outline-none"
-    >
-      Add to Cart!
-    </button>
+      v-text="window.variantStrings.addToCart"
+    />
   </div>
 </template>
