@@ -4,12 +4,14 @@ if (!customElements.get('media-gallery')) {
     class MediaGallery extends HTMLElement {
       constructor() {
         super();
+        this.activeColor = null;
         this.elements = {
           liveRegion: this.querySelector('[id^="GalleryStatus"]'),
           viewer: this.querySelector('[id^="GalleryViewer"]'),
           thumbnails: this.querySelector('[id^="GalleryThumbnails"]'),
         };
         this.mql = window.matchMedia('(min-width: 750px)');
+
         if (!this.elements.thumbnails) return;
 
         this.elements.viewer.addEventListener(
@@ -30,11 +32,58 @@ if (!customElements.get('media-gallery')) {
                 ),
               );
           });
+
         if (
           this.dataset.desktopLayout.includes('thumbnail') &&
           this.mql.matches
         )
           this.removeListSemantic();
+      }
+
+      connectedCallback() {
+        if (this.dataset.activeColor && this.dataset.activeColor !== 'default-title') {
+          this.activeColor = this.dataset.activeColor;
+          this.filterImagesByColor();
+
+          this.addEventListener('colorChanged', (event) => {
+            this.activeColor = event.detail.color;
+            this.filterImagesByColor();
+          });
+        }
+      }
+
+      filterImagesByColor() {
+        if (!this.activeColor) {
+          this.elements.viewer
+            .querySelectorAll('[data-media-id]')
+            .forEach((element) => {
+              element.classList.remove('is-hidden');
+            });
+        } else {
+          
+          this.elements.viewer
+            .querySelectorAll('li[data-media-id]')
+            .forEach((element) => {
+              if (element.dataset.color === this.activeColor) {
+                element.classList.remove('is-hidden');
+              } else {
+                element.classList.add('is-hidden');
+                element.classList.remove('is-active');
+              }
+            });
+
+          this.elements.thumbnails && this.elements.thumbnails
+            .querySelectorAll('[data-media-position]')
+            .forEach((element) => {
+              if (element.dataset?.color === this.activeColor) {
+                element.classList.remove('is-hidden');
+              } else {
+                element.classList.add('is-hidden');
+                element.classList.remove('is-active');
+              }
+            });
+        }
+        this.updatePagination();
       }
 
       onSlideChanged(event) {
@@ -91,6 +140,15 @@ if (!customElements.get('media-gallery')) {
           activeMedia,
           activeThumbnail.dataset.mediaPosition,
         );
+      }
+
+      updatePagination() {
+        const totalImages = this.elements.viewer.querySelectorAll('li[data-media-id]:not(.is-hidden)')
+        if (totalImages.length <= 0) return;
+        document.querySelectorAll('.slider-counter--total').forEach((element) => {
+          element.textContent = totalImages.length;
+        });
+      
       }
 
       setActiveThumbnail(thumbnail) {

@@ -61,7 +61,7 @@
     class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid-config grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}"
   >
     <div class="grid__item product__media-wrapper{% if section.settings.media_position == 'right' %} medium-hide large-up-hide{% endif %}">
-      {% render 'product-media-gallery', variant_images: variant_images, desktop_slider: section.settings.dekstop_slider %}
+      {% render 'product-media-gallery', variant_images: variant_images, desktop_slider: section.settings.dekstop_slider, reduce_images: section.settings.only_current_color_images %}
     </div>
     <div class="product__info-wrapper grid__item{% if settings.page_width > 1400 and section.settings.media_size == "small" %} product__info-wrapper--extra-padding{% endif %}">
       <product-info
@@ -448,7 +448,7 @@
     {%- if section.settings.media_position == 'right' -%}
       {% comment %} Duplicate gallery to display after product content on tablet/desktop breakpoint {% endcomment %}
       <div class="grid__item product__media-wrapper small-hide">
-        {% render 'product-media-gallery', variant_images: variant_images, is_duplicate: true, desktop_slider: section.settings.dekstop_slider %}
+        {% render 'product-media-gallery', variant_images: variant_images, is_duplicate: true, desktop_slider: section.settings.dekstop_slider, reduce_images: section.settings.only_current_color_images %}
       </div>
     {%- endif -%}
   </div>
@@ -1900,6 +1900,12 @@
     }
   ],
   "settings": [
+    {
+      "type": "checkbox",
+      "id": "only_current_color_images",
+      "default": true,
+      "label": "Show only current color images"
+    },
     {
       "type": "checkbox",
       "id": "enable_sticky_info",

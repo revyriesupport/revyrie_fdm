@@ -9,6 +9,18 @@
   Usage:
   {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
 {% endcomment %}
+
+{% liquid
+  assign active_variant = product.selected_or_first_available_variant
+  assign color_option_index = -1
+  for option in product.options_with_values
+    if option.name == 'Color'
+      assign color_option_index = forloop.index0
+      break
+    endif
+  endfor
+%}
+
 {%- unless product.has_only_default_variant -%}
   {%- if block.settings.picker_type == 'button' -%}
     <variant-radios
@@ -16,6 +28,7 @@
       class="no-js-hidden"
       data-section="{{ section.id }}"
       data-url="{{ product.url }}"
+      {% if color_option_index >= 0 %}data-color-option-index="{{ color_option_index }}"{% endif %}
       {% if update_url == false %}
         data-update-url="false"
       {% endif %}
@@ -37,6 +50,7 @@
       class="no-js-hidden"
       data-section="{{ section.id }}"
       data-url="{{ product.url }}"
+      {% if color_option_index >= 0 %}data-color-option-index="{{ color_option_index }}"{% endif %}
       {% if update_url == false %}
         data-update-url="false"
       {% endif %}

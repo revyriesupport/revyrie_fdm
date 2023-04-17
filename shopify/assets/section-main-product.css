@@ -539,6 +539,14 @@ a.product__text {
   }
 }
 
+
+.product__media-list .product__media-item.is-hidden {
+  display: none !important;
+}
+.thumbnail-slider .thumbnail-list__item.is-hidden {
+  display: none !important;
+}
+
 @media screen and (min-width: 750px) {
   .product--thumbnail .product__media-list,
   .product--thumbnail_slider .product__media-list {

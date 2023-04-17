@@ -847,8 +847,20 @@ class VariantSelects extends HTMLElement {
     if (!this.currentVariant) return;
     if (!this.currentVariant.featured_media) return;
 
+    const color = this.currentVariant[`option${parseInt(this.dataset.colorOptionIndex) + 1 }`]
+
     const mediaGalleries = document.querySelectorAll(`[id^="MediaGallery-${this.dataset.section}"]`);
-    mediaGalleries.forEach(mediaGallery => mediaGallery.setActiveMedia(`${this.dataset.section}-${this.currentVariant.featured_media.id}`, true));
+    mediaGalleries.forEach(mediaGallery => {
+      mediaGallery.setActiveMedia(`${this.dataset.section}-${this.currentVariant.featured_media.id}`, true);
+      if (color) {
+        const handle = color.replace(/\s+/g, '-').toLowerCase();
+        mediaGallery.dispatchEvent(new CustomEvent('colorChanged', {
+          detail: {
+            color: handle,
+          },
+        }));
+      }
+    });
 
     const modalContent = document.querySelector(`#ProductModal-${this.dataset.section} .product-media-modal__content`);
     if (!modalContent) return;
