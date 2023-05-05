@@ -5,7 +5,8 @@
       "blocks": {
         "b8d60418-c7eb-4492-ab8d-c085d3e8e707": {
           "type": "rating",
-          "settings": {}
+          "settings": {
+          }
         },
         "vendor": {
           "type": "text",
@@ -16,7 +17,8 @@
         },
         "title": {
           "type": "title",
-          "settings": {}
+          "settings": {
+          }
         },
         "caption": {
           "type": "text",
@@ -27,7 +29,8 @@
         },
         "price": {
           "type": "price",
-          "settings": {}
+          "settings": {
+          }
         },
         "variant_picker": {
           "type": "variant_picker",
@@ -37,7 +40,8 @@
         },
         "quantity_selector": {
           "type": "quantity_selector",
-          "settings": {}
+          "settings": {
+          }
         },
         "306ee66b-18bc-4234-943b-eec008bb14c8": {
           "type": "inventory",
@@ -55,7 +59,8 @@
         },
         "description": {
           "type": "description",
-          "settings": {}
+          "settings": {
+          }
         },
         "collapsible-row-0": {
           "type": "collapsible_tab",
@@ -118,14 +123,16 @@
         "share"
       ],
       "settings": {
+        "only_current_color_images": true,
         "enable_sticky_info": true,
-        "media_size": "large",
+        "media_size": "medium",
+        "dekstop_slider": true,
         "constrain_to_viewport": true,
         "media_fit": "contain",
         "gallery_layout": "thumbnail",
         "media_position": "left",
         "image_zoom": "lightbox",
-        "mobile_thumbnails": "hide",
+        "mobile_thumbnails": "show",
         "hide_variants": true,
         "enable_video_looping": false,
         "padding_top": 36,
@@ -145,12 +152,15 @@
         "image-with-text-1": {
           "type": "text",
           "settings": {
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.<\/p>",
             "text_style": "body"
           }
         }
       },
-      "block_order": ["image-with-text-0", "image-with-text-1"],
+      "block_order": [
+        "image-with-text-0",
+        "image-with-text-1"
+      ],
       "settings": {
         "height": "small",
         "desktop_image_width": "medium",
@@ -171,7 +181,7 @@
           "type": "column",
           "settings": {
             "title": "Free Shipping",
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.<\/p>",
             "link_label": "",
             "link": ""
           }
@@ -180,13 +190,16 @@
           "type": "column",
           "settings": {
             "title": "Hassle-Free Exchanges",
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.<\/p>",
             "link_label": "",
             "link": ""
           }
         }
       },
-      "block_order": ["column-0", "column-1"],
+      "block_order": [
+        "column-0",
+        "column-1"
+      ],
       "settings": {
         "title": "",
         "heading_size": "h1",
@@ -222,5 +235,10 @@
       }
     }
   },
-  "order": ["main", "image-with-text", "multicolumn", "related-products"]
+  "order": [
+    "main",
+    "image-with-text",
+    "multicolumn",
+    "related-products"
+  ]
 }

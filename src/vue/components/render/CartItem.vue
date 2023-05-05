@@ -161,7 +161,6 @@ export default {
               @update-quantity="handleUpdateQuantity"
               @increase-quantity="increaseQuantity"
               @decrease-quantity="decreaseQuantity"
-              @quantity-changed="onQuantityChanged"
             ></quantity>
           </div>
           <button

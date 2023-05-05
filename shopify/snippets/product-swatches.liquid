@@ -9,7 +9,7 @@
           <ul class="swatches">
             {%- for swatch in swatches -%}
               <li class="swatch">
-                <img v-if="swatch.image" :src="swatch.image.src" :alt="swatch.name" />
+                <img v-if="swatch.image" :src="swatch.image.src" :alt="swatch.name" loading="lazy" />
                 <span v-else>{{ swatch.name }}</span>
               </li>
             {%- endfor -%}

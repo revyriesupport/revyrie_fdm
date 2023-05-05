@@ -5,7 +5,12 @@ export default {
   props: {
     productTags: {
       type: Array,
-      required: true,
+      required: false,
+      default: () => [],
+    },
+    productProperties: {
+      type: Object,
+      required: false,
       default: () => [],
     },
   },

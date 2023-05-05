@@ -12,6 +12,7 @@ export default {
       default: false,
     },
   },
+  emits: ["update-quantity", "increase-quantity", "decrease-quantity"],
   setup(props, context) {
     const quantity = ref(props.qty);
 

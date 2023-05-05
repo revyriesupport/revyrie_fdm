@@ -29,7 +29,7 @@
 
   window.currencyCode = "{{ shop.currency }}";
   window.freeShipping = {
-    showShippingProgressBar: {{ settings.show_shipping_progress_bar | default: false  }},
+    showShippingProgressBar: {{ settings.show_shipping_progress_bar | default: false }},
     shippingThreshold: {{ settings.shipping_threshold | times: 100 | default: 0 }},
     shippingProgressText: "{{ settings.shipping_progress_text }}",
     shippingCompleteText: "{{ settings.shipping_complete_text }}"

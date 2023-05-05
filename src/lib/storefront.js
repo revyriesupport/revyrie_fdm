@@ -8,8 +8,14 @@ class Storefront {
     })
   }
 
-  request(query, variables) {
-    return this.client.request(query, variables)
+  async request(query, variables) {
+    try {
+      const response = await this.client.request(query, variables);
+      return response;
+    } catch (error) {
+      console.error('There was an error with Storefront API', error.response.error)
+      throw error;
+    }
   }
 }
 
