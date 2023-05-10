@@ -102,7 +102,7 @@
         %}
         <li
           id="Slide-{{ section.id }}-{{ featured_media.id }}{{ id_append }}"
-          class="__test_1 product__media-item grid__item slider__slide is-active{{ _hidden_class }}{% if single_media_visible %} product__media-item--single{% endif %}{% if featured_media.media_type != 'image' %} product__media-item--full{% endif %}{% if section.settings.hide_variants and variant_images contains featured_media.src %} product__media-item--variant{% endif %}"
+          class="product__media-item grid__item slider__slide is-active{{ _hidden_class }}{% if single_media_visible %} product__media-item--single{% endif %}{% if featured_media.media_type != 'image' %} product__media-item--full{% endif %}{% if section.settings.hide_variants and variant_images contains featured_media.src %} product__media-item--variant{% endif %}"
           data-media-id="{{ section.id }}-{{ featured_media.id }}"
           {% if featured_media.alt contains 'color:' -%}
           data-color="{{ featured_media.alt | split: 'color:' | last | strip | handle }}"
@@ -142,7 +142,7 @@
           %}
           <li
             id="Slide-{{ section.id }}-{{ media.id }}{{ id_append }}"
-            class="__test_2 product__media-item grid__item slider__slide{% if single_media_visible %} product__media-item--single{% endif %}{% if product.selected_or_first_available_variant.featured_media == null and forloop.index == 1 %} is-active{% endif %}{% if media.media_type != 'image' %} product__media-item--full{% endif %}{% if section.settings.hide_variants and variant_images contains media.src %} product__media-item--variant{% endif %}{{ _hidden_class }}"
+            class="product__media-item grid__item slider__slide{% if single_media_visible %} product__media-item--single{% endif %}{% if product.selected_or_first_available_variant.featured_media == null and forloop.index == 1 %} is-active{% endif %}{% if media.media_type != 'image' %} product__media-item--full{% endif %}{% if section.settings.hide_variants and variant_images contains media.src %} product__media-item--variant{% endif %}{{ _hidden_class }}"
             data-media-id="{{ section.id }}-{{ media.id }}"
             {% if media.alt contains 'color:' -%}
             data-color="{{ media.alt | split: 'color:' | last | strip | handle }}"
@@ -291,7 +291,7 @@
           -%}
           <li
             id="Slide-Thumbnails-{{ section.id }}-0{{ id_append }}"
-            class="__test_3 thumbnail-list__item slider__slide{% if section.settings.hide_variants and variant_images contains featured_media.src %} thumbnail-list_item--variant{% endif %}"
+            class="thumbnail-list__item slider__slide{% if section.settings.hide_variants and variant_images contains featured_media.src %} thumbnail-list_item--variant{% endif %}"
             data-target="{{ section.id }}-{{ featured_media.id }}"
             data-media-position="{{ media_index }}"
             {% if featured_media.alt contains 'color:' -%}
@@ -346,7 +346,7 @@
             -%}
             <li
               id="Slide-Thumbnails-{{ section.id }}-{{ forloop.index }}{{ id_append }}"
-              class="__test_4 thumbnail-list__item slider__slide{% if section.settings.hide_variants and variant_images contains media.src %} thumbnail-list_item--variant{% endif %}{{ _hidden_class }}"
+              class="thumbnail-list__item slider__slide{% if section.settings.hide_variants and variant_images contains media.src %} thumbnail-list_item--variant{% endif %}{{ _hidden_class }}"
               data-target="{{ section.id }}-{{ media.id }}"
               data-media-position="{{ media_index }}"
               {% if media.alt contains 'color:' -%}
