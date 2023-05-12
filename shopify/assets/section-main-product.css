@@ -1162,7 +1162,7 @@ a.product__text {
     display: none;
   }
 
-  .slider-desktop-buttons {
+  .slider-desktop-buttons.--visible {
     width: 100%;
     display: block;
   }
@@ -1575,6 +1575,12 @@ slider-component.--desktop-slider .product__media-list {
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
+}
+
+@media screen and (min-width: 750px) {
+  slider-component.--desktop-slider .product__media-list {
+    padding: 0;
+  }
 }
 
 slider-component.--desktop-slider .product__media-list .product__media-item {
