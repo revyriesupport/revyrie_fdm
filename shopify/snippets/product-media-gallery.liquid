@@ -16,7 +16,15 @@
     assign single_media_visible = true
   endif
 
+  assign media_with_color_alt = false
   assign media_count = product.media.size
+
+  for media in product.media
+    if media.alt contains 'color:'
+      assign media_with_color_alt = true
+      break
+    endif
+  endfor
   # if section.settings.hide_variants and media_count > 1 and variant_images.size > 0
     # assign media_count = media_count | minus: variant_images.size | plus: 1
   # endif
@@ -65,6 +73,7 @@
     class="product__column-sticky"
   {% endif %}
   aria-label="{{ 'products.product.media.gallery_viewer' | t }}"
+  {% if media_with_color_alt %}data-has-variant-images{% endif  %}
   data-total-media-count="{{ media_count }}"
   data-desktop-layout="{{ section.settings.gallery_layout }}"
   {% if active_color -%}
@@ -97,7 +106,7 @@
                 assign _hidden_class = ' is-hidden'
               endunless
             else
-              if media_count > 1
+              if media_with_color_alt
                 assign _hidden_class = ' is-hidden'
               endif
             endif
@@ -140,7 +149,7 @@
                   assign _hidden_class = ' is-hidden'
                 endunless
               else
-                if media_count > 1
+                if media_with_color_alt
                   assign _hidden_class = ' is-hidden'
                 endif
               endif
@@ -292,7 +301,7 @@
                   assign _hidden_class = ' is-hidden'
                 endunless
               else
-                if media_count > 1
+                if media_with_color_alt
                   assign _hidden_class = ' is-hidden'
                 endif
               endif

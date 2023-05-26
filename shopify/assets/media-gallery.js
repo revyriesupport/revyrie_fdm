@@ -60,8 +60,11 @@ if (!customElements.get('media-gallery')) {
               element.classList.remove('is-hidden');
             });
         } else {
-          const totalMediaCount = parseInt(this.dataset.totalMediaCount) || 0;
-          if (totalMediaCount <= 1) return;
+          // const totalMediaCount = parseInt(this.dataset.totalMediaCount) || 0;
+          // if (totalMediaCount <= 1) return;
+          console.log(!this.dataset.hasVariantImages)
+          if (!this.dataset.hasVariantImages) return
+
           this.elements.viewer
             .querySelectorAll('li[data-media-id]')
             .forEach((element) => {
