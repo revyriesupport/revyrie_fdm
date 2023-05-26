@@ -65,6 +65,7 @@
     class="product__column-sticky"
   {% endif %}
   aria-label="{{ 'products.product.media.gallery_viewer' | t }}"
+  data-total-media-count="{{ media_count }}"
   data-desktop-layout="{{ section.settings.gallery_layout }}"
   {% if active_color -%}
     data-color-option-index="{{ color_option_index }}"
@@ -96,7 +97,9 @@
                 assign _hidden_class = ' is-hidden'
               endunless
             else
-              assign _hidden_class = ' is-hidden'
+              if media_count > 1
+                assign _hidden_class = ' is-hidden'
+              endif
             endif
           endif
         %}
@@ -106,6 +109,7 @@
           data-media-id="{{ section.id }}-{{ featured_media.id }}"
           {% if featured_media.alt contains 'color:' -%}
           data-color="{{ featured_media.alt | split: 'color:' | last | strip | handle }}"
+          {%- else %}data-missing-variant-image="true"
           {%- endif %}
         >
           {%- assign media_position = 1 -%}
@@ -136,7 +140,9 @@
                   assign _hidden_class = ' is-hidden'
                 endunless
               else
-                assign _hidden_class = ' is-hidden'
+                if media_count > 1
+                  assign _hidden_class = ' is-hidden'
+                endif
               endif
             endif
           %}
@@ -286,7 +292,9 @@
                   assign _hidden_class = ' is-hidden'
                 endunless
               else
-                assign _hidden_class = ' is-hidden'
+                if media_count > 1
+                  assign _hidden_class = ' is-hidden'
+                endif
               endif
             endif
           -%}
