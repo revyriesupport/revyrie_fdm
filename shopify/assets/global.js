@@ -650,13 +650,10 @@ class SliderComponent extends HTMLElement {
   }
 
   onButtonClick(event) {
-    console.log('onButtonClick:', event)
     event.preventDefault();
     const target = event.currentTarget || event.target
     const step = target.dataset.step || 1;
-    console.log('target.name:', target.name)
     this.slideScrollPosition = target.name === 'next' ? this.slider.scrollLeft + (step * this.sliderItemOffset) : this.slider.scrollLeft - (step * this.sliderItemOffset);
-    console.log('this.slider:', this.slider)
     this.slider.scrollTo({
       left: this.slideScrollPosition
     });
