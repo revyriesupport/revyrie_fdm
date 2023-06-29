@@ -17,7 +17,7 @@
   endif
 
   assign media_with_color_alt = false
-  assign media_count = product.media.size
+  assign media_count = product.images.size
 
   for media in product.media
     if media.alt contains 'color:'
@@ -73,7 +73,7 @@
     class="product__column-sticky"
   {% endif %}
   aria-label="{{ 'products.product.media.gallery_viewer' | t }}"
-  {% if media_with_color_alt %}data-has-variant-images{% endif  %}
+  {% if media_with_color_alt %}data-has-variant-images="true"{% endif  %}
   data-total-media-count="{{ media_count }}"
   data-desktop-layout="{{ section.settings.gallery_layout }}"
   {% if active_color -%}

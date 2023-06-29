@@ -1,3 +1,6 @@
+const IS_ACTIVE = 'is-active'
+const IS_HIDDEN = 'is-hidden'
+
 if (!customElements.get('media-gallery')) {
   customElements.define(
     'media-gallery',
@@ -53,41 +56,42 @@ if (!customElements.get('media-gallery')) {
       }
 
       filterImagesByColor() {
-        if (!this.activeColor) {
+        if (!this.activeColor || !this.dataset.hasVariantImages) {
           this.elements.viewer
             .querySelectorAll('[data-media-id]')
             .forEach((element) => {
-              element.classList.remove('is-hidden');
+              element.classList.remove(IS_HIDDEN);
             });
-        } else {
-          // const totalMediaCount = parseInt(this.dataset.totalMediaCount) || 0;
-          // if (totalMediaCount <= 1) return;
-          console.log(!this.dataset.hasVariantImages)
-          if (!this.dataset.hasVariantImages) return
 
-          this.elements.viewer
-            .querySelectorAll('li[data-media-id]')
-            .forEach((element) => {
-              if (element.dataset.color === this.activeColor) {
-                element.classList.remove('is-hidden');
-              } else {
-                element.classList.add('is-hidden');
-                element.classList.remove('is-active');
-              }
-            });
 
           this.elements.thumbnails && this.elements.thumbnails
             .querySelectorAll('[data-media-position]')
             .forEach((element) => {
-              if (element.dataset?.color === this.activeColor) {
-                element.classList.remove('is-hidden');
-              } else {
-                element.classList.add('is-hidden');
-                element.classList.remove('is-active');
-              }
+              element.classList.remove(IS_HIDDEN);
             });
+        } else {
+          this.processElements.call(this, this.elements.viewer, 'li[data-media-id]');
+
+          if (this.elements.thumbnails) {
+            this.processElements.call(this, this.elements.thumbnails, '[data-media-position]');
+
+            const firstImages = document.querySelector('.thumbnail-list__item:not(.is-hidden)');
+            if (firstImages) {
+              const activeThumbnail = this.elements.thumbnails.querySelector(`[data-target="${firstImages.dataset.target}"]`);
+              this.setActiveThumbnail(activeThumbnail);
+            }
+          }
         }
         this.updatePagination();
+      }
+
+      processElements(container, selector) {
+        container.querySelectorAll(selector).forEach((element) => {
+          const { classList, dataset } = element;      
+          dataset.color === this.activeColor
+            ? classList.remove(IS_HIDDEN)
+            : classList.add(IS_HIDDEN) && classList.remove(IS_ACTIVE);
+        });
       }
 
       onSlideChanged(event) {
@@ -104,9 +108,9 @@ if (!customElements.get('media-gallery')) {
         this.elements.viewer
           .querySelectorAll('[data-media-id]')
           .forEach((element) => {
-            element.classList.remove('is-active');
+            element.classList.remove(IS_ACTIVE);
           });
-        activeMedia.classList.add('is-active');
+        activeMedia.classList.add(IS_ACTIVE);
 
         if (prepend) {
           activeMedia.parentElement.prepend(activeMedia);

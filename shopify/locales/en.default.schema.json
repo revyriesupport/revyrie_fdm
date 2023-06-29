@@ -891,7 +891,7 @@
           }
         },
         "hide_variants": {
-          "label": "Hide unselected variants’ media on desktop"
+          "label": "Hide unselected variant's media on desktop"
         },
         "enable_video_looping": {
           "label": "Enable video looping"
