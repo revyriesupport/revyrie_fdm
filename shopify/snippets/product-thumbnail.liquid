@@ -26,9 +26,15 @@
 {% endcomment %}
 
 {%- liquid
-  unless lazy_load == false
+  assign lazy = 'eager'
+  if lazy_load
     assign lazy = 'lazy'
-  endunless
+  endif
+
+  assign fetch = 'normal' 
+  if fetchpriority
+    assign fetch = 'high'
+  endif
 
   assign desktop_columns = 1
   if desktop_layout == 'columns' and media_count > 1
@@ -95,6 +101,7 @@
         class: image_class,
         loading: lazy,
         sizes: sizes,
+        fetchpriority: fetch,
         widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946'
       }}
     </div>
