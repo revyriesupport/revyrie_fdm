@@ -7,11 +7,13 @@
   "scripts": {
     "login": "shopify theme list --store myntr-theme-dev.myshopify.com && shopify theme info",
     "start": "run-p -sr shopify:dev vite:watch",
+    "start:sync": "run-p -sr shopify:dev:sync vite:watch",
     "deploy": "run-s vite:build && shopify theme push --path shopify",
     "deploy:new": "run-s vite:build && shopify theme push --unpublished --path shopify",
     "vite:watch": "cross-env NODE_ENV=development vite build --watch --mode 'development' --config .config/vite.config.js",
     "vite:build": "cross-env NODE_ENV=production vite build --mode 'production' --config .config/vite.config.js",
     "shopify:dev": "shopify theme dev --path shopify",
+    "shopify:dev:sync": "shopify theme dev --path shopify --theme-editor-sync",
     "shopify:pull": "shopify theme pull --path shopify",
     "shopify:list": "shopify theme list --store=myntr-theme-dev.myshopify.com",
     "shopify:settings:init": "mv shopify/.shopifyignore shopify/tmpfile && shopify theme pull --live --only 'config/settings_data.json' --path shopify && shopify theme push --development --only 'config/settings_data.json' --path shopify && mv shopify/tmpfile shopify/.shopifyignore",

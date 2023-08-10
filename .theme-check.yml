@@ -2,7 +2,7 @@
 # Official documentation: https://shopify.dev/docs/themes/tools/theme-check/configuration
 # Reference: https://github.com/Shopify/theme-check/blob/main/config/default.yml
 #
-root: .
+root: shopify
 
 extends: :nothing
 
