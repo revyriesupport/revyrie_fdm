@@ -1500,7 +1500,7 @@
         "type": "text",
         "id": "storefront_token",
         "label": "Shopify Storefront Token",
-        "default": "743ca34938b6b2ddc6cdb7d243df9e8b"
+        "default": "1994eda48a8d9dbb5e9f8381e7a0a900"
       }
     ]
   }
