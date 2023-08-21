@@ -79,17 +79,18 @@ const useCartStoreDefinition = defineStore({
   actions: {
     open() {
       this.isOpen = true
+      document.body.classList.add('cart-drawer-open')
     },
     toggle() {
       this.isOpen = !this.isOpen
 
       if (this.isOpen) {
-        document.body.style.overflow = 'hidden';
+        document.body.classList.add('cart-drawer-open')
         focusElement('#close-mini-cart')
       } else {
-        document.body.style.overflow = 'inherit'
+        document.body.classList.remove('cart-drawer-open')
         if (document.querySelector('.shopify-section-header-sticky:not(.shopify-section-header-hidden)')) {
-          focusElement('#header-cart-icon')
+          focusElement('#cart-icon-bubble')
         }
       }
 

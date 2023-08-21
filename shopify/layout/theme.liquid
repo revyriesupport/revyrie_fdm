@@ -23,13 +23,22 @@
       {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
     </title>
 
+    {%- if page_description -%}
+      <meta name="description" content="{{ page_description | escape }}">
+    {%- endif -%}
+
+    {%- render 'meta-tags' -%}
+
     {%- render 'styles-critical' -%}
 
     <script src="{{ 'constants.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'pubsub.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
-    <script type="module" src="{{ 'global-template.js' | asset_url }}" defer="defer"></script> 
-    
+    {%- if settings.animations_reveal_on_scroll -%}
+      <script src="{{ 'animations.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
+    <script type="module" src="{{ 'global-template.js' | asset_url }}" defer="defer"></script>
+
     {{ content_for_header }}
 
     {%- render 'styles-global' -%}
@@ -39,6 +48,11 @@
     {{ 'component-grid.css' | asset_url | stylesheet_tag }}
 
     {%- render 'fonts' -%}
+
+    {%- if localization.available_countries.size > 1 or localization.available_languages.size > 1 -%}
+      {{ 'component-localization-form.css' | asset_url | stylesheet_tag: preload: true }}
+      <script src="{{ 'localization-form.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
 
     {%- if settings.predictive_search_enabled -%}
       <link rel="stylesheet" href="{{ 'component-predictive-search.css' | asset_url }}" media="print" onload="this.media='all'">
@@ -53,23 +67,20 @@
 
     {%- render 'header-defer-scripts' -%}
     {%- render 'header-delay' -%}
-
-    {%- if page_description -%}
-      <meta name="description" content="{{ page_description | escape }}">
-    {%- endif -%}
-
-    {%- render 'meta-tags' -%}
   </head>
 
   <body
-    class="gradient"
+    class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}"
     data-template="{{ request.page_type }}"
   >
+
     <a class="skip-to-content-link button visually-hidden" href="#MainContent">
-      {{ "accessibility.skip_to_text" | t }}
+      {{ 'accessibility.skip_to_text' | t }}
     </a>
 
-    {%- render 'cart-drawer' -%}
+    {%- if settings.cart_type == 'drawer' -%}
+      {%- render 'cart-drawer-vue' -%}
+    {%- endif -%}
 
     {% sections 'header-group' %}
 

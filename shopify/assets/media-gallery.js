@@ -87,7 +87,7 @@ if (!customElements.get('media-gallery')) {
 
       processElements(container, selector) {
         container.querySelectorAll(selector).forEach((element) => {
-          const { classList, dataset } = element;      
+          const { classList, dataset } = element;
           dataset.color === this.activeColor
             ? classList.remove(IS_HIDDEN)
             : classList.add(IS_HIDDEN) && classList.remove(IS_ACTIVE);
@@ -156,7 +156,6 @@ if (!customElements.get('media-gallery')) {
         document.querySelectorAll('.slider-counter--total').forEach((element) => {
           element.textContent = totalImages.length;
         });
-      
       }
 
       setActiveThumbnail(thumbnail) {

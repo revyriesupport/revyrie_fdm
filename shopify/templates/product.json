@@ -3,11 +3,6 @@
     "main": {
       "type": "main-product",
       "blocks": {
-        "b8d60418-c7eb-4492-ab8d-c085d3e8e707": {
-          "type": "rating",
-          "settings": {
-          }
-        },
         "vendor": {
           "type": "text",
           "settings": {
@@ -43,18 +38,11 @@
           "settings": {
           }
         },
-        "306ee66b-18bc-4234-943b-eec008bb14c8": {
-          "type": "inventory",
-          "settings": {
-            "text_style": "body",
-            "inventory_threshold": 10,
-            "show_inventory_quantity": true
-          }
-        },
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
-            "show_dynamic_checkout": true
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true
           }
         },
         "description": {
@@ -106,14 +94,12 @@
         }
       },
       "block_order": [
-        "b8d60418-c7eb-4492-ab8d-c085d3e8e707",
         "vendor",
         "title",
         "caption",
         "price",
         "variant_picker",
         "quantity_selector",
-        "306ee66b-18bc-4234-943b-eec008bb14c8",
         "buy_buttons",
         "description",
         "collapsible-row-0",
@@ -126,7 +112,7 @@
         "only_current_color_images": true,
         "enable_sticky_info": true,
         "media_size": "medium",
-        "dekstop_slider": true,
+        "desktop_slider": true,
         "constrain_to_viewport": true,
         "media_fit": "contain",
         "gallery_layout": "thumbnail",
@@ -169,6 +155,7 @@
         "desktop_content_alignment": "left",
         "content_layout": "no-overlap",
         "color_scheme": "background-2",
+        "image_behavior": "none",
         "mobile_content_alignment": "left",
         "padding_top": 36,
         "padding_bottom": 36
@@ -226,6 +213,7 @@
         "columns_desktop": 4,
         "color_scheme": "background-1",
         "image_ratio": "square",
+        "image_shape": "default",
         "show_secondary_image": true,
         "show_vendor": false,
         "show_rating": false,

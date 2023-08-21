@@ -35,7 +35,7 @@ export default {
 
     onMounted(() => {
       global.setTemplate(document.body.dataset?.template || "");
-      const headerCartIcon = document.getElementById("header-cart-icon");
+      const headerCartIcon = document.getElementById("cart-icon-bubble");
       headerCartIcon.addEventListener("click", (event) => {
         event.preventDefault();
         if (global.template == "cart") return false;
@@ -146,7 +146,7 @@ export default {
         <button
           @click="cart.checkout"
           type="button"
-          class="hover:bg-yellow-600 focus:bg-yellow-600 w-full bg-accent2 px-4 py-2 text-white transition duration-150 ease-in-out focus:outline-none"
+          class="bg-black text-white w-full px-4 py-2 transition duration-150 ease-in-out focus:outline-none"
           aria-label="Go to Checkout"
         >
           Go to Checkout

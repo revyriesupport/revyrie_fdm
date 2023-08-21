@@ -1,4 +1,4 @@
-.image-with-text .grid-config {
+.image-with-text .grid {
   margin-bottom: 0;
 }
 
@@ -49,10 +49,8 @@
 }
 
 .image-with-text__media--placeholder:after {
-  content: "";
+  content: '';
   position: absolute;
-  width: 100%;
-  height: 100%;
   background: rgba(var(--color-foreground), 0.04);
 }
 
@@ -69,11 +67,17 @@
 .image-with-text__media--placeholder > svg {
   position: absolute;
   left: 50%;
-  max-width: 80rem;
   top: 50%;
   transform: translate(-50%, -50%);
   width: 100%;
+  height: 100%;
   fill: currentColor;
+}
+
+.image-with-text__media--placeholder:is(.animate--ambient, .animate--zoom-in) > svg {
+  top: 0;
+  left: 0;
+  transform: translate(0);
 }
 
 .image-with-text__content {
@@ -89,7 +93,7 @@
 }
 
 .image-with-text .grid__item::after {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
@@ -98,28 +102,22 @@
   z-index: -1;
 }
 
-.image-with-text:not(.image-with-text--overlap)
-  .image-with-text__media-item:after {
+.image-with-text:not(.image-with-text--overlap) .image-with-text__media-item:after {
   border-radius: var(--media-radius);
-  box-shadow: var(--media-shadow-horizontal-offset)
-    var(--media-shadow-vertical-offset) var(--media-shadow-blur-radius)
+  box-shadow: var(--media-shadow-horizontal-offset) var(--media-shadow-vertical-offset) var(--media-shadow-blur-radius)
     rgba(var(--color-shadow), var(--media-shadow-opacity));
 }
 
-.image-with-text:not(.image-with-text--overlap)
-  .image-with-text__text-item:after {
+.image-with-text:not(.image-with-text--overlap) .image-with-text__text-item:after {
   border-radius: var(--text-boxes-radius);
-  box-shadow: var(--text-boxes-shadow-horizontal-offset)
-    var(--text-boxes-shadow-vertical-offset)
-    var(--text-boxes-shadow-blur-radius)
-    rgba(var(--color-shadow), var(--text-boxes-shadow-opacity));
+  box-shadow: var(--text-boxes-shadow-horizontal-offset) var(--text-boxes-shadow-vertical-offset)
+    var(--text-boxes-shadow-blur-radius) rgba(var(--color-shadow), var(--text-boxes-shadow-opacity));
 }
 
 .image-with-text .image-with-text__media-item > * {
   border-radius: var(--media-radius);
   overflow: hidden;
-  box-shadow: var(--media-shadow-horizontal-offset)
-    var(--media-shadow-vertical-offset) var(--media-shadow-blur-radius)
+  box-shadow: var(--media-shadow-horizontal-offset) var(--media-shadow-vertical-offset) var(--media-shadow-blur-radius)
     rgba(var(--color-shadow), var(--media-shadow-opacity));
 }
 
@@ -130,45 +128,31 @@
 .image-with-text .image-with-text__text-item > * {
   border-radius: var(--text-boxes-radius);
   overflow: hidden;
-  box-shadow: var(--text-boxes-shadow-horizontal-offset)
-    var(--text-boxes-shadow-vertical-offset)
-    var(--text-boxes-shadow-blur-radius)
-    rgba(var(--color-shadow), var(--text-boxes-shadow-opacity));
+  box-shadow: var(--text-boxes-shadow-horizontal-offset) var(--text-boxes-shadow-vertical-offset)
+    var(--text-boxes-shadow-blur-radius) rgba(var(--color-shadow), var(--text-boxes-shadow-opacity));
 }
 
-.image-with-text:not(.image-with-text--overlap)
-  .image-with-text__media-item
-  > *,
-.image-with-text:not(.image-with-text--overlap)
-  .image-with-text__text-item
-  > * {
+.image-with-text:not(.image-with-text--overlap) .image-with-text__media-item > *,
+.image-with-text:not(.image-with-text--overlap) .image-with-text__text-item > * {
   box-shadow: none;
 }
 
 @media screen and (max-width: 749px) {
-  .image-with-text.collapse-corners:not(.image-with-text--overlap)
-    .image-with-text__media-item:after,
-  .image-with-text.collapse-corners:not(.image-with-text--overlap)
-    .grid__item
-    .image-with-text__media,
-  .image-with-text.collapse-corners:not(.image-with-text--overlap)
-    .image-with-text__media
-    img {
+  .image-with-text.collapse-corners:not(.image-with-text--overlap) .image-with-text__media-item:after,
+  .image-with-text.collapse-corners:not(.image-with-text--overlap) .grid__item .image-with-text__media,
+  .image-with-text.collapse-corners:not(.image-with-text--overlap) .image-with-text__media img,
+  .image-with-text.collapse-corners:not(.image-with-text--overlap) .image-with-text__media .placeholder-svg {
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
   }
 
-  .image-with-text.collapse-corners:not(.image-with-text--overlap)
-    .image-with-text__text-item:after,
-  .image-with-text.collapse-corners:not(.image-with-text--overlap)
-    .grid__item
-    .image-with-text__content {
+  .image-with-text.collapse-corners:not(.image-with-text--overlap) .image-with-text__text-item:after,
+  .image-with-text.collapse-corners:not(.image-with-text--overlap) .grid__item .image-with-text__content {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
   }
 
-  .image-with-text.collapse-borders:not(.image-with-text--overlap)
-    .image-with-text__content {
+  .image-with-text.collapse-borders:not(.image-with-text--overlap) .image-with-text__content {
     border-top: 0;
   }
 }
@@ -231,16 +215,12 @@
     margin-left: -4rem;
   }
 
-  .image-with-text--overlap
-    .image-with-text__grid--reverse
-    .image-with-text__content {
+  .image-with-text--overlap .image-with-text__grid--reverse .image-with-text__content {
     margin-left: 0;
     margin-right: -4rem;
   }
 
-  .image-with-text--overlap
-    .image-with-text__grid--reverse
-    .image-with-text__text-item {
+  .image-with-text--overlap .image-with-text__grid--reverse .image-with-text__text-item {
     justify-content: flex-end;
   }
 
@@ -272,6 +252,10 @@
     .image-with-text__media
     img,
   .image-with-text.collapse-corners:not(.image-with-text--overlap)
+    .grid:not(.image-with-text__grid--reverse)
+    .image-with-text__media
+    .placeholder-svg,
+  .image-with-text.collapse-corners:not(.image-with-text--overlap)
     .image-with-text__grid--reverse
     .image-with-text__text-item:after,
   .image-with-text.collapse-corners:not(.image-with-text--overlap)
@@ -302,7 +286,11 @@
   .image-with-text.collapse-corners:not(.image-with-text--overlap)
     .image-with-text__grid--reverse
     .image-with-text__media
-    img {
+    img,
+  .image-with-text.collapse-corners:not(.image-with-text--overlap)
+    .image-with-text__grid--reverse
+    .image-with-text__media
+    .placeholder-svg {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
   }
@@ -320,17 +308,25 @@
   }
 }
 
-.image-with-text:not(.collapse-corners, .image-with-text--overlap)
-  .image-with-text__media-item {
+.image-with-text:not(.collapse-corners, .image-with-text--overlap) .image-with-text__media-item {
   z-index: 2;
+}
+
+/* Needed for gradient continuity with or without animation so that transparent PNG images come up as we would expect */
+.image-with-text:not(.image-with-text--overlap) .color-background-1,
+.image-with-text.image-with-text--overlap .image-with-text__media.color-background-1 {
+  background: transparent;
+}
+
+/* Needed for gradient continuity with or without animation, the transform scopes the gradient to its container which happens already when animation are turned on */
+.image-with-text .gradient {
+  transform: perspective(0);
 }
 
 .image-with-text__content {
   border-radius: var(--text-boxes-radius);
-  box-shadow: var(--text-boxes-shadow-horizontal-offset)
-    var(--text-boxes-shadow-vertical-offset)
-    var(--text-boxes-shadow-blur-radius)
-    rgba(var(--color-shadow), var(--text-boxes-shadow-opacity));
+  box-shadow: var(--text-boxes-shadow-horizontal-offset) var(--text-boxes-shadow-vertical-offset)
+    var(--text-boxes-shadow-blur-radius) rgba(var(--color-shadow), var(--text-boxes-shadow-opacity));
   word-break: break-word;
 }
 
@@ -399,7 +395,7 @@
 
 /* check for flexbox gap in older Safari versions */
 @supports not (inset: 10px) {
-  .image-with-text .grid-config {
+  .image-with-text .grid {
     margin-left: 0;
   }
 }
