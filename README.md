@@ -2,7 +2,7 @@
 
 # Fleur Du Mal Theme
 
-This is a modern Shopify theme built with Dawn v8.0.0, Vue.js, Tailwind CSS, and Vite. It also includes an integration with Shopify's Storefront API. This theme is designed to be performant and customizable, serving as a foundation for building bespoke Shopify themes.
+This is a modern Shopify theme built with Dawn v11.0.0, Vue.js, Tailwind CSS, and Vite. It also includes an integration with Shopify's Storefront API. This theme is designed to be performant and customizable, serving as a foundation for building bespoke Shopify themes.
 
 ## Requirements
 

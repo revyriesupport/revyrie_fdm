@@ -32,21 +32,21 @@ export default {
 
 <template>
   <div v-if="global.showShippingProgressBar">
-    <div v-if="progress < 100" class="bg-accent2 p-4">
-      <p class="text-sm text-white" role="alert">
+    <div v-if="progress < 100" class="p-4">
+      <p class="text-sm" role="alert">
         {{ global.shippingProgressText }}
       </p>
       <div class="relative pt-1">
-        <div class="mb-4 flex h-2 overflow-hidden rounded bg-white text-xs">
+        <div class="mb-4 bg-grey flex h-2 overflow-hidden rounded bg-grey text-xs">
           <div
             :style="progressBarStyle"
-            class="w-0 rounded-r-lg bg-accent1 transition-all duration-500 ease-out"
+            class="w-0 rounded-r-lg bg-black transition-all duration-500 ease-out"
           ></div>
         </div>
       </div>
     </div>
-    <div v-else class="bg-accent2 p-4">
-      <p class="text-sm text-white" role="alert">
+    <div v-else class="p-4">
+      <p class="text-sm" role="alert">
         {{ global.shippingCompleteText }}
       </p>
     </div>

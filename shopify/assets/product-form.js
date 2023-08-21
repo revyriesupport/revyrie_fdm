@@ -8,7 +8,10 @@ if (!customElements.get('product-form')) {
       this.form.addEventListener('submit', this.onSubmitHandler.bind(this));
       this.cart = document.querySelector('cart-notification') || document.querySelector('cart-drawer');
       this.submitButton = this.querySelector('[type="submit"]');
+
       if (document.querySelector('cart-drawer')) this.submitButton.setAttribute('aria-haspopup', 'dialog');
+
+      this.hideErrors = false; //this.dataset.hideErrors === 'true';
     }
 
     async onSubmitHandler(evt) {
@@ -19,9 +22,7 @@ if (!customElements.get('product-form')) {
 
       this.submitButton.setAttribute('aria-disabled', true);
       this.submitButton.classList.add('loading');
-      this.querySelector('.loading-overlay__spinner').classList.remove(
-        'hidden',
-      );
+      this.querySelector('.loading-overlay__spinner').classList.remove('hidden');
 
       const id = this.form.querySelector('[name=id]').value;
       const quantity = parseInt(document.querySelector('[data-cart-quantity]').value) || 1;
@@ -50,12 +51,14 @@ if (!customElements.get('product-form')) {
           }
         }).finally(() => {
           this.submitButton.classList.remove('loading');
-          this.submitButton.removeAttribute('aria-disabled');
+          if (!this.error) this.submitButton.removeAttribute('aria-disabled');
           this.querySelector('.loading-overlay__spinner').classList.add('hidden');
         });
     }
 
     handleErrorMessage(errorMessage = false) {
+      if (this.hideErrors) return;
+
       this.errorMessageWrapper = this.errorMessageWrapper || this.querySelector('.product-form__error-message-wrapper');
       if (!this.errorMessageWrapper) return;
       this.errorMessage = this.errorMessage || this.errorMessageWrapper.querySelector('.product-form__error-message');

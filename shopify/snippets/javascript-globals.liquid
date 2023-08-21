@@ -20,20 +20,33 @@
     unavailable_with_option: `{{ 'products.product.value_unavailable' | t: option_value: '[value]' }}`,
   }
 
+  window.quickOrderListStrings = {
+    itemsAdded: `{{ 'sections.quick_order_list.items_added.other' | t: quantity: '[quantity]' }}`,
+    itemAdded: `{{ 'sections.quick_order_list.items_added.one' | t: quantity: '[quantity]' }}`,
+    itemsRemoved: `{{ 'sections.quick_order_list.items_removed.other' | t: quantity: '[quantity]' }}`,
+    itemRemoved: `{{ 'sections.quick_order_list.items_removed.one' | t: quantity: '[quantity]' }}`,
+    viewCart: `{{- 'sections.quick_order_list.view_cart' | t -}}`,
+    each: `{{- 'sections.quick_order_list.each' | t: money: '[money]' }}`,
+  }
+
   window.accessibilityStrings = {
     imageAvailable: `{{ 'products.product.media.image_available' | t: index: '[index]' }}`,
     shareSuccess: `{{ 'general.share.success_message' | t }}`,
     pauseSlideshow: `{{ 'sections.slideshow.pause_slideshow' | t }}`,
     playSlideshow: `{{ 'sections.slideshow.play_slideshow' | t }}`,
+    recipientFormExpanded: `{{ 'recipient.form.expanded' | t }}`,
+    recipientFormCollapsed: `{{ 'recipient.form.collapsed' | t }}`,
   }
 
   window.currencyCode = "{{ shop.currency }}";
+
   window.freeShipping = {
     showShippingProgressBar: {{ settings.show_shipping_progress_bar | default: false }},
     shippingThreshold: {{ settings.shipping_threshold | times: 100 | default: 0 }},
     shippingProgressText: "{{ settings.shipping_progress_text }}",
     shippingCompleteText: "{{ settings.shipping_complete_text }}"
   }
+
   window.storeData = {
     domain: "{{ shop.permanent_domain }}",
     shopHandle: "{{ shop.permanent_domain | replace: '.myshopify.com', '' }}",

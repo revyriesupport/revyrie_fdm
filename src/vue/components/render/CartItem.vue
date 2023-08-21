@@ -90,7 +90,7 @@ export default {
             aria-label="View details for {{ product.title }}"
           ></a>
           <img
-            :src="line.image"
+            :src="line.image+'&width=500'"
             :alt="line.product_title + ' product image'"
             class="h-full w-full object-cover object-center"
             loading="lazy"

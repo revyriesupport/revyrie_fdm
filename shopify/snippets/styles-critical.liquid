@@ -1,4 +1,15 @@
 {%- style -%}
+
+  body.cart-drawer-open {
+    overflow: hidden !important;
+  }
+
+  @media (min-width: 990px){
+    body.cart-drawer-open {
+      padding-right: 15px;
+    }
+  }
+
   .drawer {
     position: fixed;
     z-index: 1000;
@@ -42,24 +53,10 @@
     bottom: 0;
     left: 0;
   }
-
-  {% if template contains 'index' %}
-
-  {% elsif template contains 'product' %}
-
-  {% elsif template contains 'collection' %}
-
-  {% endif %}
 {%- endstyle -%}
 
 {%- if template contains 'index' -%}
   <link rel="preload" href="{{ 'section-image-banner.css' | asset_url }}" as="style" />
-  {%- elsif template contains 'product' -%}
-    <link rel="preload" href="{{ 'section-main-product.css' | asset_url }}" as="style" />
-
-{%- elsif template contains 'collection' -%}
-
+{%- elsif template contains 'product' -%}
+  <link rel="preload" href="{{ 'section-main-product.css' | asset_url }}" as="style" />
 {%- endif -%}
-
-
-  

@@ -35,8 +35,14 @@ export const collection = `
                 node {
                   id
                   title
-                  price
-                  compareAtPrice
+                  price {
+                    amount
+                    currencyCode
+                  }
+                  compareAtPrice {
+                    amount
+                    currencyCode
+                  }
                   availableForSale
                   sku
                   weight
@@ -84,8 +90,14 @@ query productByHandle(
           title
           sku
           weight
-          price
-          compareAtPrice
+          price {
+            amount
+            currencyCode
+          }
+          compareAtPrice {
+            amount
+            currencyCode
+          }
           selectedOptions {
             name
             value
@@ -96,43 +108,3 @@ query productByHandle(
   }
 }
 `
-
-// export const collection = `
-//   query collectionByHandle(
-//     $handle: String!
-//     $first: Int!
-//     ) {
-//     collectionByHandle(handle: $handle) {
-//       products(first: $first) {
-//         edges {
-//           cursor
-//           node {
-//             id
-//             title
-//             description
-//             handle
-//             images(first: 1) {
-//               edges {
-//                 node {
-//                   src
-//                   altText
-//                 }
-//               }
-//             }
-//             variants(first: 50) {
-//               edges {
-//                 node {
-//                   id
-//                   title
-//                   price
-//                   compareAtPrice
-//                   availableForSale
-//                 }
-//               }
-//             }
-//           }
-//         }
-//       }
-//     }
-//   }
-// `

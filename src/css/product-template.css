@@ -4,9 +4,3 @@
 @tailwind utilities;
 
 @config "../tailwind/product-template.config.js";
-
-/* @import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
-
-@config "../tailwind/main.config.js"; */

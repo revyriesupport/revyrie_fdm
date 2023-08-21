@@ -17,9 +17,7 @@
         "show_secondary_image": false,
         "show_vendor": false,
         "show_rating": false,
-        "enable_quick_add": true,
         "enable_filtering": true,
-        "filter_type": "drawer",
         "enable_sorting": true,
         "columns_mobile": "2",
         "padding_top": 36,
@@ -27,5 +25,8 @@
       }
     }
   },
-  "order": ["banner", "product-grid"]
+  "order": [
+    "banner",
+    "product-grid"
+  ]
 }
