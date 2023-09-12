@@ -1,0 +1,87 @@
+* html .tabs ul.tab-nav li {
+	 display: inline;
+}
+ .tabs ul.tab-nav {
+	 margin: 0px 0px 5px 0px;
+}
+ .tabs ul.tab-nav li {
+	 margin-right: 10px;
+	 margin-bottom: 5px;
+	 list-style: none;
+	 display: inline-block;
+	 padding-bottom: 4px;
+	 line-height: 1;
+	 font-size: 11px;
+	 text-transform: uppercase;
+}
+#sizing-modal #tab-conversionchart table td:first-child, #sizing-modal #tab-conversionchart table th:first-child {
+    position: -webkit-sticky;
+    position: sticky;
+    left: 0;
+    background: #fff;
+}
+div#sizing-modal a.close-button {
+    font-size: 28px;
+    color: #000;
+    font-weight: 400;
+    top: 4px;
+    right: 10px;
+    line-height: 1;
+    position: absolute;
+    z-index: 100;
+}
+div#sizing-modal .top-margin-small {
+    margin-top: 30px;
+}
+div#sizing-modal a {
+    color: #d4857b;
+}
+div#sizing-modal .tabs ul.tab-nav li a{
+  color: #000;
+  border-bottom: 1px solid transparent;
+}
+div#sizing-modal .tabs ul.tab-nav li a.active{
+  border-bottom-color: #000;
+}
+.tab-content{
+  display:none;
+}
+.tab-content.active {
+    display: block;
+}
+@media screen and (min-width: 640px) {
+	 .tabs ul.tab-nav li {
+		 letter-spacing: 0.05rem;
+	}
+}
+ .tabs ul.tab-nav li:last-child {
+	 margin-right: 0px;
+}
+ .tabs ul.tab-nav li.active a {
+	 color: #000;
+	 border-bottom: 1px solid #000;
+}
+ .tabs ul.tab-nav li a {
+	 letter-spacing: 0.05rem;
+	 color: #979797;
+}
+ .tabs ul.tab-nav li a:hover {
+	 color: #000;
+	 border-bottom: 1px solid #000;
+}
+ .tabs div.tab-content {
+	 clear: both;
+	 text-align: left;
+}
+ .tabs div.tab-content ul li.product-sku {
+	 margin-top: 5px;
+}
+ .tabs div.tab-content#tab-fit ul li, .tabs div.tab-content#tab-details ul li, .tabs div.tab-content#tab-specs ul li {
+	 list-style-type: disc;
+	 margin-bottom: 5px;
+	 list-style-position: inside;
+}
+ .tabs div.tab-content#tab-fit ul li:last-child, .tabs div.tab-content#tab-details ul li:last-child, .tabs div.tab-content#tab-specs ul li:last-child {
+	 margin-bottom: 0px;
+}
+ 
