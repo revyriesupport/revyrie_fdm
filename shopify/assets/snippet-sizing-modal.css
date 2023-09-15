@@ -1,0 +1,113 @@
+/*================ Sizing Modal - Webkit Scrollbar ================*/
+ #sizing-modal {
+	 border: 2px solid #000;
+}
+ #sizing-modal ::-webkit-scrollbar {
+	 -webkit-appearance: none;
+	 width: 10px;
+	 height: 10px;
+}
+ #sizing-modal ::-webkit-scrollbar-thumb {
+	 border-radius: 6px;
+	 background-color: rgba(0, 0, 0, 1);
+	 -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+}
+
+ #sizing-modal .tabs div.tab-content {
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#sizing-modal.full {
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+/*===== Custom css ======*/
+#sizing-modal {
+    border: 2px solid #000;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 100vh;
+    min-height: 100vh;
+    background-color: #fefefe;
+    z-index: 111;
+    width: 100%;
+    padding: 40px;
+    overflow-y: auto;
+}
+@media screen and (min-width: 640px) {
+  .reveal {
+      max-width: 650px;
+  }
+}
+#sizing-modal .reveal.full { 
+  max-width: 1000px;
+}
+#sizing-modal table {
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    box-shadow: none;
+    display: block;
+    overflow-x: scroll;
+    border: 1px solid #ececec;
+}
+#sizing-modal table thead tr th, 
+#sizing-modal table thead tr td, 
+#sizing-modal table tbody tr th, 
+#sizing-modal table tfoot tr th, 
+#sizing-modal table tfoot tr td, 
+#sizing-modal table tbody tr td, 
+#sizing-modal table tr td {
+    line-height: 1.4;
+    font-size: 11px;
+    padding: 10px;
+    text-transform: uppercase;
+    width: 15%;
+    min-width: 120px;
+    border-color: transparent;
+    border-bottom-color: #ececec;
+    text-align: center;
+}
+#sizing-modal table tr:nth-of-type(2n) {
+    background: #f4f4f4;
+}
+div#sizing-modal h2 {
+    margin-bottom: 10px;
+}
+div#sizing-modal h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+div#sizing-modal h2, 
+div#sizing-modal h3 {
+    text-transform: lowercase;
+}
+div#sizing-modal {
+    display: none;
+}
+@media screen and (min-width: 1024px){
+  #sizing-modal table thead tr th, 
+  #sizing-modal table thead tr td,
+  #sizing-modal table tbody tr th, 
+  #sizing-modal table tfoot tr th, 
+  #sizing-modal table tfoot tr td, 
+  #sizing-modal table tbody tr td, 
+  #sizing-modal table tr td {
+    width: 10%;
+  }
+}
+/*===== Custom css ===*/
+@media screen and (max-width: 768px) { 
+  div#sizing-modal h2 {
+    font-size: 24px;
+  }
+  #sizing-modal {
+    padding: 30px 15px 15px;
+  }
+}

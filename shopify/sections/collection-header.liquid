@@ -1,0 +1,573 @@
+{%comment %}
+<link rel="stylesheet" href="{{ 'temp-collection.css' | asset_url }}" media="print" onload="this.media='all'">
+<div data-section-id="{{ section.id }}" data-section-type="collection-header-section" id="collection-header-section"{% if collection.description contains '<!-- video-mp4 -->' or collection.description contains '<!-- video-ogv -->' %} class="hidden"{% endif %}>
+{% if collection.description contains "<!-- text-slide-1 -->" %}
+<div class="row collapse top-margin">
+ <div class="medium-12 columns">
+   <div class="text-slideshow cycle-slideshow" data-cycle-slides=".cycle-slide" data-cycle-pause-on-hover="false" data-cycle-fx="none" data-cycle-speed="250" data-cycle-timeout="250" data-cycle-paused="false" data-cycle-random="false" data-cycle-swipe="false">
+ <div class="cycle-slide h1">
+   {{ collection.description | split: '<!-- text-slide-1 -->' | last | split: '<!-- end text-slide-1 -->' | first }}
+ </div><!-- cycle-slide -->
+ {% if collection.description contains "<!-- text-slide-2 -->" %}
+<div class="cycle-slide h1">
+   {{ collection.description | split: '<!-- text-slide-2 -->' | last | split: '<!-- end text-slide-2 -->' | first }}
+ </div><!-- cycle-slide -->
+ {% endif %}
+ {% if collection.description contains "<!-- text-slide-3 -->" %}
+<div class="cycle-slide h1">
+   {{ collection.description | split: '<!-- text-slide-3 -->' | last | split: '<!-- end text-slide-3 -->' | first }}
+ </div><!-- cycle-slide -->
+ {% endif %}
+ {% if collection.description contains "<!-- text-slide-4 -->" %}
+ <div class="cycle-slide h1">
+   {{ collection.description | split: '<!-- text-slide-4 -->' | last | split: '<!-- end text-slide-4 -->' | first }}
+ </div><!-- cycle-slide -->
+ {% endif %}
+ {% if collection.description contains "<!-- text-slide-5 -->" %}
+ <div class="cycle-slide h1">
+   {{ collection.description | split: '<!-- text-slide-5 -->' | last | split: '<!-- end text-slide-5 -->' | first }}
+ </div><!-- cycle-slide -->
+ {% endif %}
+</div><!-- cycle-slideshow -->
+</div><!-- medium-12 columns -->
+</div><!-- row collapse top-margin-->
+{% elsif collection.image %}
+{% if collection.description contains "<!-- background-image -->" or collection.description contains "<!-- video-mp4 -->" or collection.description contains "<!-- video-ogv -->" %}
+<div class="row{% if collection.description contains "<!-- expanded -->" %} expanded{% endif %}{% if collection.description contains "<!-- collapse -->" %} collapse{% endif %}">
+ <div class="medium-12 columns">
+   <div class="hero-banner-wrapper">
+       <div class="hero-banner">
+   <div class="content_table{% if collection.description contains '<!-- large-banner -->' %} large{% endif %}">
+     <div class="content_table_cell{% if collection.description contains '<!-- bottom-align -->' %} bottom_align{% endif %}{% if collection.description contains '<!-- mobile-middle-align -->' %} mobile_middle_align{% endif %}{% if collection.description contains '<!-- mobile-bottom-align -->' %} mobile_bottom_align{% endif %}{% if collection.description contains '<!-- top-align -->' %} top_align{% endif %}{% if collection.description contains '<!-- mobile-top-align -->' %} mobile_top_align{% endif %}{% if collection.description contains '<!-- border -->' %} border{% endif %}{% if collection.description contains '<!-- overlay -->' %} overlay{% endif %}{% if collection.description contains '<!-- invert -->' %} invert{% endif %}">
+       {% if collection.description contains "<!-- background-image -->" %}
+       {% if collection.description contains '<!-- graphic -->' %}
+       <img src="{{ collection.description | split: '<!-- graphic -->' | last | split: '<!-- end graphic -->' | first }}" alt="{{ collection.title }}" class="graphic{% if collection.description contains '<!-- large-graphic -->' %} large{% endif %}{% if collection.description contains '<!-- graphic-mobile -->' %} hide-for-small-only{% endif %}">
+       {% if collection.description contains '<!-- graphic-mobile -->' %}
+       <img src="{{ collection.description | split: '<!-- graphic-mobile -->' | last | split: '<!-- end graphic-mobile -->' | first }}" alt="{{ collection.title }}" class="graphic show-for-small-only">
+       {% endif %}
+       {% else %}
+       <h1><a href="{{ collection.url }}">{{ collection.title }}</a></h1>
+       {% endif %}
+
+
+         
+
+           
+           {% endif %}
+
+
+     </div><!-- content_table_cell -->
+   </div><!-- content_table -->
+
+
+
+{% if collection.description contains '<!-- video-mp4 -->' or collection.description contains '<!-- video-ogv -->' %}
+   <script>
+     document.getElementById("collection-header-section").classList.remove("hidden");
+   </script>
+
+
+<video class="background-video" poster="{{ collection.image.src | img_url: '1900x826', crop: 'top' }}" preload="none" controlsList="nodownload" autoplay muted loop playsinline webkit-playsinline>
+ {% if collection.description contains '<!-- video-mp4 -->' %}
+     <source src="{{ collection.description | split: '<!-- video-mp4 -->' | last | split: '<!-- end video-mp4 -->' | first }}" type="video/mp4">
+     {% endif %}
+     {% if collection.description contains '<!-- video-ogv -->' %}
+     <source src="{{ collection.description | split: '<!-- video-ogv -->' | last | split: '<!-- end video-ogv -->' | first }}" type="video/ogv">
+       {% endif %}
+       Your browser does not support HTML5 video.
+   </video>
+
+{% endif %}
+
+
+
+ </div><!-- hero-banner -->
+</div><!-- hero-banner-wrapper -->
+{% unless collection.description contains '<!-- video-mp4 -->' or collection.description contains '<!-- video-ogv -->' %}
+ <style>
+   .hero-banner .content_table {
+     background-image: url('{{ collection.image.src | img_url: '1900x' }}');
+   }
+
+   {% if collection.description contains "<!-- background-pos-left -->" %}
+   .hero-banner .content_table {
+     background-position: left center;
+   }
+   {% elsif collection.description contains "<!-- background-pos-right -->" %}
+   .hero-banner .content_table {
+     background-position: right center;
+   }
+   {% endif %}
+
+   {% if collection.description contains "<!-- mobile-image -->" %}
+   @media screen and (max-width: 40em) {
+     .hero-banner .content_table {
+       background-image: url('{{ collection.description | split: '<!-- mobile-image -->' | last | split: '<!-- end mobile-image -->' | first }}');
+     }
+   }
+   {% endif %}
+ </style>
+ {% endunless %}
+</div><!-- medium-12 columns -->
+</div><!-- row-->
+ {% elsif collection.description contains "<!-- countdown -->" %}
+<div class="row">
+ <div class="medium-12 columns">
+   <div class="hero-banner-wrapper">
+       <div class="hero-banner">
+   <div class="content_table{% if collection.description contains '<!-- large-banner -->' %} large{% endif %}">
+     <div class="content_table_cell{% if collection.description contains '<!-- border -->' %} border{% endif %}{% if collection.description contains '<!-- overlay -->' %} overlay{% endif %}{% if collection.description contains '<!-- invert -->' %} invert{% endif %}">
+       <h1><a href="{{ collection.url }}">{{ collection.title }}</a></h1>
+       {% if collection.description contains '<!-- description -->' %}
+       <p{% if collection.description contains '<!-- secondary-font -->' %} class="secondary-font large"{% endif %}>{{ collection.description | split: '<!-- description -->' | last | split: '<!-- end description -->' | first }}</p>
+       {% endif %}
+       <div id="countdown" class="invert">
+         <h6>Sale ends in</h6>
+         <ul>
+           <li><div class="counter"><span class="days"></span><div class="countdown-label">Days</div></div></li>
+           <li><div class="counter"><span class="hours"></span><div class="countdown-label">Hours</div></div></li>
+           <li><div class="counter"><span class="minutes"></span><div class="countdown-label">Minutes</div></div></li>
+           <li><div class="counter"><span class="seconds"></span><div class="countdown-label">Seconds</div></div></li>
+         </ul>
+       </div><!-- countdown -->
+       {% if collection.description contains '<!-- legal-text -->' %}
+       <div class="legal-text">{{ collection.description | split: '<!-- legal-text -->' | last | split: '<!-- end legal-text -->' | first }}</div>
+       {% endif %}
+     </div><!-- content_table_cell -->
+   </div><!-- content_table -->
+ </div><!-- hero-banner -->
+</div><!-- hero-banner-wrapper -->
+ <style>
+   .hero-banner .content_table {
+     background-image: url('{{ collection.image.src | img_url: '1900x' }}');
+   }
+   {% if collection.description contains "<!-- mobile-image -->" %}
+   @media screen and (max-width: 40em) {
+     .hero-banner .content_table {
+       background-image: url('{{ collection.description | split: '<!-- mobile-image -->' | last | split: '<!-- end mobile-image -->' | first }}');
+     }
+   }
+   {% endif %}
+ </style>
+</div><!-- medium-12 columns -->
+</div><!-- row-->
+
+
+ {% elsif collection.description contains "<!-- legal-text-only -->" %}
+<div class="row">
+ <div class="medium-12 columns">
+   <div class="hero-banner-wrapper">
+       <div class="hero-banner">
+   <div class="content_table{% if collection.description contains '<!-- large-banner -->' %} large{% endif %}">
+     <div class="content_table_cell{% if collection.description contains '<!-- border -->' %} border{% endif %}{% if collection.description contains '<!-- overlay -->' %} overlay{% endif %}{% if collection.description contains '<!-- invert -->' %} invert{% endif %}">
+
+       {% if collection.description contains '<!-- legal-text-only -->' %}
+       <div class="legal-text">{{ collection.description | split: '<!-- legal-text-only -->' | last | split: '<!-- end legal-text-only -->' | first }}</div>
+       {% endif %}
+     </div><!-- content_table_cell -->
+   </div><!-- content_table -->
+ </div><!-- hero-banner -->
+</div><!-- hero-banner-wrapper -->
+ <style>
+   .hero-banner .content_table {
+     background-image: url('{{ collection.image.src | img_url: '1900x' }}');
+   }
+   {% if collection.description contains "<!-- mobile-image -->" %}
+   @media screen and (max-width: 40em) {
+     .hero-banner .content_table {
+       background-image: url('{{ collection.description | split: '<!-- mobile-image -->' | last | split: '<!-- end mobile-image -->' | first }}');
+     }
+   }
+   {% endif %}
+ </style>
+</div><!-- medium-12 columns -->
+</div><!-- row-->
+ {% else %}
+
+
+<div class="row collapse">
+ <div class="medium-12 columns">
+   {% if collection.description contains '<!-- video-mp4 -->' or collection.description contains '<!-- video-ogv -->' %}
+   <video class="video" poster="{{ collection.image.src | img_url: '1900x826', crop: 'top' }}" preload="none" controlsList="nodownload" autoplay muted loop playsinline webkit-playsinline>
+     {% if collection.description contains '<!-- video-mp4 -->' %}
+         <source src="{{ collection.description | split: '<!-- video-mp4 -->' | last | split: '<!-- end video-mp4 -->' | first }}" type="video/mp4">
+         {% endif %}
+         {% if collection.description contains '<!-- video-ogv -->' %}
+         <source src="{{ collection.description | split: '<!-- video-ogv -->' | last | split: '<!-- end video-ogv -->' | first }}" type="video/ogv">
+           {% endif %}
+           Your browser does not support HTML5 video.
+       </video>
+   {% else %}
+   <img src="{{ collection.image.src | img_url: '1900x826', crop: 'top' }}');" alt="{{ collection.title }}" class="{% if collection.description contains "<!-- mobile-image -->" %}hide-for-small-only{% endif %} collection-image">
+   {% if collection.description contains "<!-- mobile-image -->" %}
+   <img src="{{ collection.description | split: '<!-- mobile-image -->' | last | split: '<!-- end mobile-image -->' | first }}" alt="{{ collection.title }}" class="show-for-small-only collection-image">
+   {% endif %}
+   {% endif %}
+ </div><!-- medium-12 columns -->
+</div><!-- row collapse-->
+{% endif %}
+
+{% endif %}
+
+
+
+<div class="row">
+ <div class="medium-12 columns">
+
+<div class="collection-details{% unless collection.image %} no-banner{% endunless %}">
+ {% unless collection.description contains "<!-- countdown -->" or collection.description contains "<!-- background-image -->" %}
+ <h1{% if collection.description contains "<!-- text-slide-1 -->" %} class="hidden"{% endif %}><a href="{{ collection.url }}">{{ collection.title }}</a></h1>
+ {% endunless %}
+
+ {% unless collection.description contains "<!-- background-image -->" or collection.description contains "<!-- countdown -->" %}
+ {% if collection.description contains '<!-- description -->' %}
+   <p class="collection-description{% if collection.description contains '<!-- secondary-font -->' %} secondary-font large{% endif %}">{{ collection.description | split: '<!-- description -->' | last | split: '<!-- end description -->' | first }}</p>
+   {% endif %}
+   {% endunless %}
+
+   
+
+
+     {% if section.settings.options_enable %}
+     {% unless collection.handle == 'holiday-gift-guide' or collection.handle == 'banana-embroidery' or collection.handle == 'discover-fleur' %}
+     <ul class="collection-options">
+
+
+
+
+
+
+
+       {% if collection.handle contains 'fleuroscopes-' %}
+       <li><a href="/pages/fleuroscopes" class="back-button">{% include 'icon-chevron-left' %}Back <span class="hide-for-small-only">to Fleuroscopes</span></a></li>
+       {% elsif collection.handle == 'private-sale' %}
+       <li><a href="/" class="back-button">{% include 'icon-chevron-left' %}Back<span class="hide-for-small-only"> home</span></a></li>
+       {% if current_tags %}
+       <li><a href="/collections/private-sale" class="back-button">{% include 'icon-chevron-left' %}View all</a></li>
+       {% endif %}
+       {% endif %}
+
+       {% unless collection.handle == 'gift-cards' %}
+       {% if section.settings.filter_size_enable %}
+       {% assign tags = section.settings.filter_size  | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %}
+       <li>
+         <ul>
+           <li><label>Size:</label></li>
+           <li>
+             <select class="coll-filter">
+               <option value="">all</option>
+               {% for tag in tags %}
+               {% if current_tags contains tag %}
+               <option value="{{ tag | handle }}" selected>{{ tag }}</option>
+               {% elsif collection.all_tags contains tag %}
+               <option value="{{ tag | handle }}">{{ tag }}</option>
+               {% endif %}
+               {% endfor %}
+             </select>
+           </li>
+         </ul>
+       </li>
+       {% endif %}
+       {% endunless %}
+
+
+       
+         
+         {% if section.settings.filter_type_enable %}
+         {% assign has_type_filter = false %}
+
+         {% if collection.handle contains 'bodysuits' %}
+         {% assign tags = section.settings.filter_type_bodysuits  | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %}
+         {% assign has_type_filter = true %}
+         {% endif %}
+
+         {% if collection.handle == 'bras' or collection.handle contains 'essentiels-bras' %}
+         {% assign tags = section.settings.filter_type_bras  | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %}
+         {% assign has_type_filter = true %}
+         {% endif %}
+
+         {% if collection.handle == 'panty' or collection.handle contains 'panties' %}
+         {% assign tags = section.settings.filter_type_panty  | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %}
+         {% assign has_type_filter = true %}
+         {% endif %}
+
+         {% if collection.handle == 'essentiels-bodysuits-slips' or collection.handle == 'lingerie-panties-garters-thongs' or collection.handle == 'lingerie-cheekys-hiphuggers' %}
+         {% assign has_type_filter = false %}
+         {% endif %}
+
+
+
+         {% if has_type_filter %}
+         <li>
+           <ul>
+             <li><label>Type:</label></li>
+             <li>
+               <select class="coll-filter">
+                 <option value="">all</option>
+                 {% for tag in tags %}
+                 {% if current_tags contains tag %}
+                 <option value="{{ tag | handle }}" selected>{{ tag }}</option>
+                 {% elsif collection.all_tags contains tag %}
+                 <option value="{{ tag | handle }}">{{ tag }}</option>
+                 {% endif %}
+                 {% endfor %}
+               </select>
+             </li>
+           </ul>
+         </li>
+         {% endif %}
+         {% endif %}
+
+
+         {% unless has_type_filter %}
+         {% if section.settings.filter_category_enable %}
+         {% assign has_category_filter = false %}
+
+         {% if collection.handle == 'new-arrivals' or collection.handle == 'bridal' or collection.handle == 'best-sellers' or collection.handle == 'back-in-stock' %}
+         {% assign tags = section.settings.filter_category_bestsellers  | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %}
+         {% assign has_category_filter = true %}
+
+         {% elsif collection.handle == 'tops' %}
+         {% assign tags = section.settings.filter_category_tops  | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %}
+         {% assign has_category_filter = true %}
+
+         {% elsif collection.handle contains 'bottoms' %}
+         {% assign tags = section.settings.filter_category_bottoms  | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %}
+         {% assign has_category_filter = true %}
+
+         {% elsif collection.handle == 'swim' %}
+         {% assign tags = section.settings.filter_category_swim  | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %}
+         {% assign has_category_filter = true %}
+
+         {% elsif collection.handle contains 'sleepwear' or collection.handle == 'loungewear' %}
+         {% assign tags = section.settings.filter_category_sleepwear  | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %}
+         {% assign has_category_filter = true %}
+
+         {% elsif collection.handle == 'lingerie-slips' %}
+         {% assign has_category_filter = false %}
+
+         {% elsif collection.handle contains 'lingerie' %}
+         {% assign tags = section.settings.filter_category_lingerie  | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %}
+         {% assign has_category_filter = true %}
+
+         {% elsif collection.handle == 'pleasure' %}
+         {% assign tags = section.settings.filter_category_pleasure  | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %}
+         {% assign has_category_filter = true %}
+
+         {% elsif collection.handle contains 'clothing' or collection.handle contains 'clothes' %}
+         {% assign tags = section.settings.filter_category_clothing  | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %}
+         {% assign has_category_filter = true %}
+
+         {% elsif collection.handle == 'essentials' %}
+         {% assign tags = section.settings.filter_category_essentials  | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %}
+         {% assign has_category_filter = true %}
+
+         {% elsif collection.handle contains 'sale' %}
+         {% assign tags = section.settings.filter_category_sale  | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %}
+         {% assign has_category_filter = true %}
+
+
+         {% elsif collection.handle == 'robes' or collection.handle == 'hosiery' or collection.handle contains 'bras' or collection.handle == 'essentiels-panties-garters' or collection.handle == 'dresses' or collection.handle contains 'outerwear' or collection.handle contains 'masks' or collection.handle contains 'tops-' or collection.handle contains 'swim-' or collection.handle == 'toys' or collection.handle == 'lubricants-body' or collection.handle == 'games-books-wellness' or collection.handle == 'gift-cards' or collection.handle == 'jumpsuits-rompers' or collection.handle == 'essentiels-bodysuits-slips' %}
+         {% assign has_category_filter = false %}
+
+         {% else %}
+
+         {% assign tags = section.settings.filter_category_general  | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %}
+         {% assign has_category_filter = true %}
+
+
+
+
+         {% endif %}
+
+         {% if has_category_filter %}
+         <li{% if collection.handle contains 'fleuroscopes-' %} class="hide-for-small-only"{% endif %}>
+           <ul>
+             <li><label>Category:</label></li>
+             <li>
+               <select class="coll-filter">
+                 <option value="">all</option>
+                 {% for tag in tags %}
+                 {% if current_tags contains tag %}
+                 <option value="{{ tag | handle }}" selected>{{ tag }}</option>
+                 {% elsif collection.all_tags contains tag %}
+                 <option value="{{ tag | handle }}">{{ tag }}</option>
+                 {% endif %}
+                 {% endfor %}
+               </select>
+             </li>
+           </ul>
+         </li>
+         {% endif %}
+
+         {% endif %}
+         {% endunless %}
+
+
+
+         {% unless has_type_filter %}
+         {% unless has_category_filter %}
+         {% if section.settings.filter_material_enable %}
+         {% assign has_material_filter = false %}
+
+         {% if collection.handle == 'dresses' or collection.handle == 'lingerie-slips' %}
+         {% assign tags = section.settings.filter_material  | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %}
+         {% assign has_material_filter = true %}
+         {% endif %}
+
+         {% if has_material_filter %}
+         <li>
+           <ul>
+             <li><label>Material:</label></li>
+             <li>
+               <select class="coll-filter">
+                 <option value="">all</option>
+                 {% for tag in tags %}
+                 {% if current_tags contains tag %}
+                 <option value="{{ tag | handle }}" selected>{{ tag }}</option>
+                 {% elsif collection.all_tags contains tag %}
+                 <option value="{{ tag | handle }}">{{ tag }}</option>
+                 {% endif %}
+                 {% endfor %}
+               </select>
+             </li>
+           </ul>
+         </li>
+         {% endif %}
+         {% endif %}
+         {% endunless %}
+         {% endunless %}
+
+
+       </ul><!-- collection-options -->
+       {% endunless %}
+       {% endif %}
+ </div><!-- collection-details -->
+</div><!-- medium-12 columns -->
+</div><!-- row -->
+</div><!-- collection-header-section -->
+{% endcomment %}
+{% schema %}
+ {
+   "name": "Collection Header",
+   "settings": [
+     {
+       "type": "checkbox",
+       "id": "options_enable",
+       "label": "Display Options",
+       "default": true
+     },
+     {
+       "type": "checkbox",
+       "id": "filter_size_enable",
+       "label": "Display Size filters"
+     },
+     {
+       "type": "textarea",
+       "id": "filter_size",
+       "label": "Size filters"
+     },
+     {
+       "type": "checkbox",
+       "id": "filter_material_enable",
+       "label": "Display Material filters"
+     },
+     {
+       "type": "textarea",
+       "id": "filter_material",
+       "label": "Material filters"
+     },
+     {
+       "type": "checkbox",
+       "id": "filter_category_enable",
+       "label": "Display Category filters"
+     },
+     {
+       "type": "textarea",
+       "id": "filter_category_general",
+       "label": "General Category filters"
+     },
+     {
+       "type": "textarea",
+       "id": "filter_category_bestsellers",
+       "label": "Best Sellers Category filters"
+     },
+     {
+       "type": "textarea",
+       "id": "filter_category_tops",
+       "label": "Tops Category filters"
+     },
+     {
+       "type": "textarea",
+       "id": "filter_category_bottoms",
+       "label": "Bottoms Category filters"
+     },
+     {
+       "type": "textarea",
+       "id": "filter_category_swim",
+       "label": "Swim Category filters"
+     },
+     {
+       "type": "textarea",
+       "id": "filter_category_sleepwear",
+       "label": "Sleepwear Category filters"
+     },
+     {
+       "type": "textarea",
+       "id": "filter_category_lingerie",
+       "label": "Lingerie Category filters"
+     },
+     {
+       "type": "textarea",
+       "id": "filter_category_pleasure",
+       "label": "Pleasure Category filters"
+     },
+     {
+       "type": "textarea",
+       "id": "filter_category_clothing",
+       "label": "Clothing Category filters"
+     },
+     {
+       "type": "textarea",
+       "id": "filter_category_essentials",
+       "label": "Essentials Category filters"
+     },
+     {
+       "type": "textarea",
+       "id": "filter_category_sale",
+       "label": "Sale Category filters"
+     },
+     {
+       "type": "checkbox",
+       "id": "filter_type_enable",
+       "label": "Display Type filters"
+     },
+     {
+       "type": "textarea",
+       "id": "filter_type_bodysuits",
+       "label": "Bodysuits Type filters"
+     },
+     {
+       "type": "textarea",
+       "id": "filter_type_bras",
+       "label": "Bras Type filters"
+     },
+     {
+       "type": "textarea",
+       "id": "filter_type_panty",
+       "label": "Panty Type filters"
+     }
+
+ ],
+ "presets": [{
+   "name": "Collection Header",
+   "category": "Content",
+   "settings": {
+
+   },
+   "blocks": [
+
+   ]
+ }]
+}
+{% endschema %}

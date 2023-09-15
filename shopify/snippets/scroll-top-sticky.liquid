@@ -1,0 +1,23 @@
+{% if template contains 'collection' %}
+		{% if collection.products_count > 24 %}
+<div class="scroll-top scroll-top-sticky">
+<a href="#shopify-section-header">
+	<img src="{{ 'arrow-top.svg' | asset_url }}" alt="{{ 'collections.general.scroll_top' | t }}">
+	{{ 'collections.general.scroll_top' | t }}
+</a>
+</div><!-- scroll-top scroll-top-sticky -->
+
+<script>
+$(document).scroll(function() {
+  var y = $(this).scrollTop();
+  if (y > 1000) {
+    $('.scroll-top-sticky').fadeIn();
+  } else {
+    $('.scroll-top-sticky').fadeOut();
+  }
+});
+</script>
+
+
+{% endif %}
+{% endif %}
