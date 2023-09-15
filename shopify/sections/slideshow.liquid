@@ -142,7 +142,23 @@
             {{
               block.settings.image
               | image_url: width: 3840
-              | image_tag: loading: 'lazy', height: height, sizes: sizes, widths: widths
+              | image_tag: loading: 'lazy', height: height, sizes: sizes, widths: widths, class: "mobile_hide"
+            }}
+
+           {%- liquid 
+              assign mobile_height = block.settings.mobile_image.width | divided_by: block.settings.mobile_image.aspect_ratio | round
+              if section.settings.image_behavior == 'ambient'
+                assign sizes = '120vw'
+                assign widths = '450, 660, 900, 1320, 1800, 2136, 2400, 3600, 7680'
+              else
+                assign sizes = '100vw'
+                assign widths = '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840'
+              endif
+            -%}
+            {{
+              block.settings.mobile_image
+              | image_url: width: 3840
+              | image_tag: loading: 'lazy', height: mobile_height, sizes: sizes, widths: widths, class: "desktop_hide"
             }}
           {%- else -%}
             {%- assign placeholder_slide = forloop.index | modulo: 2 -%}
@@ -156,17 +172,39 @@
         <div class="slideshow__text-wrapper banner__content banner__content--{{ block.settings.box_align }} page-width{% if block.settings.show_text_box == false %} banner--desktop-transparent{% endif %}{% if settings.animations_reveal_on_scroll and forloop.index == 1 %} scroll-trigger animate--slide-in{% endif %}">
           <div class="slideshow__text banner__box content-container content-container--full-width-mobile color-{{ block.settings.color_scheme }} gradient slideshow__text--{{ block.settings.text_alignment }} slideshow__text-mobile--{{ block.settings.text_alignment_mobile }}">
             {%- if block.settings.heading != blank -%}
-              <h2 class="banner__heading inline-richtext {{ block.settings.heading_size }}">
+              <h2 class="banner__heading inline-richtext {{ block.settings.heading_size }}" data-index="{{ forloop.index }}">
                 {{ block.settings.heading }}
               </h2>
+              <style>
+                #Slider-{{ section.id }} .slideshow__text .banner__heading[data-index="{{ forloop.index }}"] {
+                  font-size: {{ block.settings.heading_font_size_desktop }}px;
+                  color: {{ block.settings.heading_color }};
+                }
+                @media screen and (max-width: 768px) {
+                  #Slider-{{ section.id }} .slideshow__text .banner__heading[data-index="{{ forloop.index }}"] {
+                    font-size: {{block.settings.heading_font_size_mobile }}px;
+                  }
+                }
+              </style>
             {%- endif -%}
             {%- if block.settings.subheading != blank -%}
-              <div class="banner__text rte" {{ block.shopify_attributes }}>
+              <div class="banner__text rte {{ block.settings.text_style }}" {{ block.shopify_attributes }} data-index="{{ forloop.index }}">
                 <p>{{ block.settings.subheading }}</p>
               </div>
+              <style>
+                #Slider-{{ section.id }} .slideshow__text .banner__text[data-index="{{ forloop.index }}"] p{
+                    font-size: {{ block.settings.subheading_font_size_desktop }}px;
+                    color: {{ block.settings.subheading_color }};
+                }
+                @media screen and (max-width: 768px) {
+                  #Slider-{{ section.id }} .slideshow__text .banner__text[data-index="{{ forloop.index }}"] p{
+                    font-size: {{block.settings.subheading_font_size_mobile }}px;
+                  }
+                }
+              </style>
             {%- endif -%}
             {%- if block.settings.button_label != blank -%}
-              <div class="banner__buttons">
+              <div class="banner__buttons" data-index="{{ forloop.index }}">
                 <a
                   {% if block.settings.link %}
                     href="{{ block.settings.link }}"
@@ -178,6 +216,12 @@
                   {{- block.settings.button_label | escape -}}
                 </a>
               </div>
+              <style>
+                  #Slider-{{ section.id }} .slideshow__text .banner__buttons[data-index="{{ forloop.index }}"] a.button--primary{
+                      color: {{ block.settings.button_color }};
+                      border-bottom-color: {{ block.settings.button_color }};
+                  }
+              </style>
             {%- endif -%}
           </div>
         </div>
@@ -267,7 +311,7 @@
 {
   "name": "t:sections.slideshow.name",
   "tag": "section",
-  "class": "section",
+  "class": "section slideshow_section",
   "disabled_on": {
     "groups": ["header", "footer"]
   },
@@ -402,6 +446,11 @@
           "label": "t:sections.slideshow.blocks.slide.settings.image.label"
         },
         {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "t:sections.slideshow.blocks.slide.settings.mobile_image.label"
+        },
+        {
           "type": "inline_richtext",
           "id": "heading",
           "default": "Image slide",
@@ -428,10 +477,76 @@
           "label": "t:sections.all.heading_size.label"
         },
         {
+          "type": "color",
+          "id": "heading_color",
+          "label": "t:sections.slideshow.blocks.slide.settings.heading_color.label",
+          "default": "#000"
+        },
+        {
+          "type": "range",
+          "id": "heading_font_size_desktop",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "t:sections.slideshow.blocks.slide.settings.heading_font_size_desktop.label",
+          "default": 80
+        },
+        {
+          "type": "range",
+          "id": "heading_font_size_mobile",
+          "min": 0,
+          "max": 40,
+          "step": 1,
+          "unit": "px",
+          "label": "t:sections.slideshow.blocks.slide.settings.heading_font_size_mobile.label",
+          "default": 20
+        },
+        {
           "type": "inline_richtext",
           "id": "subheading",
           "default": "Tell your brand's story through images",
           "label": "t:sections.slideshow.blocks.slide.settings.subheading.label"
+        },
+        {
+          "type": "color",
+          "id": "subheading_color",
+          "label": "t:sections.slideshow.blocks.slide.settings.subheading_color.label",
+          "default": "#000"
+        },
+        {
+          "type": "range",
+          "id": "subheading_font_size_desktop",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "label": "t:sections.slideshow.blocks.slide.settings.subheading_font_size_desktop.label",
+          "default": 22
+        },
+        {
+          "type": "range",
+          "id": "subheading_font_size_mobile",
+          "min": 0,
+          "max": 40,
+          "step": 1,
+          "label": "t:sections.slideshow.blocks.slide.settings.subheading_font_size_mobile.label",
+          "default": 16
+        },
+        {
+          "type": "select",
+          "id": "text_style",
+          "options": [
+            {
+              "value": "body",
+              "label": "t:sections.slideshow.blocks.slide.settings.text_style.options__1.label"
+            },
+            {
+              "value": "heading_font",
+              "label": "t:sections.slideshow.blocks.slide.settings.text_style.options__2.label"
+            }
+          ],
+          "default": "body",
+          "label": "t:sections.slideshow.blocks.slide.settings.text_style.label"
         },
         {
           "type": "text",
@@ -444,6 +559,12 @@
           "type": "url",
           "id": "link",
           "label": "t:sections.slideshow.blocks.slide.settings.link.label"
+        },
+        {
+          "type": "color",
+          "id": "button_color",
+          "label": "t:sections.slideshow.blocks.slide.settings.button_color.label",
+          "default": "#000"
         },
         {
           "type": "checkbox",

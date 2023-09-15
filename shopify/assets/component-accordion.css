@@ -56,3 +56,21 @@
 .accordion__content img {
   max-width: 100%;
 }
+/*===== Custom css ====*/
+.accordion summary:before {
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    margin-top: -8px;
+    content: "+";
+}
+.accordion summary {
+    padding: 16px 0;
+}
+.accordion details[open]>summary:before {
+    content: "\2013";
+}
+.accordion__title {
+    font-size: var(--body-font-size);
+    line-height: 1.6;
+}

@@ -1,16 +1,61 @@
 {% comment %}theme-check-disable ImgLazyLoading{% endcomment %}
 {{ 'component-collection-hero.css' | asset_url | stylesheet_tag }}
+{% comment %} component-collection-hero.css came with theme, Remove line 2 if not in use {% endcomment %}
+{{ 'component-collection-banner.css' | asset_url | stylesheet_tag }}
+{% comment %} component-collection-banner.css copied from FDM {% endcomment %}
 
 {%- style -%}
+  {% comment %} this style is useful for commented HTML {% endcomment %}
   @media screen and (max-width: 749px) {
     .collection-hero--with-image .collection-hero__inner {
       padding-bottom: calc({{ settings.media_shadow_vertical_offset | at_least: 0 }}px + 2rem);
     }
   }
+  @media screen and (min-width: 750px) {
+    .collection-hero--with-image {
+      padding: 0px !important;
+    }
+    .collection-hero__inner {
+      padding: 0px;
+    }
+    .collection-hero__image-container {
+      min-height:{{ collection.image.height }}px !important;
+      margin-left: 0px;
+    }
+  }
+  .collection-hero__title {
+    font-size: {{ section.settings.heading_font_size }}px;
+  }
+  .collection-hero__text-wrapper {
+    text-align:  {{ section.settings.desktop_content_alignment }};
+  }
 {%- endstyle -%}
 
-<div class="collection-hero{% if section.settings.show_collection_image and collection.image %} collection-hero--with-image{% endif %} color-{{ section.settings.color_scheme }} gradient">
-  <div class="collection-hero__inner page-width {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+{% comment %}
+  <div class="collection-hero{% if section.settings.show_collection_image and collection.image %} collection-hero--with-image{% endif %} color-{{ section.settings.color_scheme }} gradient">
+    <div class="collection-hero__inner page-width {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+
+      {%- if section.settings.show_collection_image and collection.image -%}
+        <div class="collection-hero__image-container media gradient">
+          <img
+            srcset="
+              {%- if collection.image.width >= 165 -%}{{ collection.image | image_url: width: 165 }} 165w,{%- endif -%}
+              {%- if collection.image.width >= 360 -%}{{ collection.image | image_url: width: 360 }} 360w,{%- endif -%}
+              {%- if collection.image.width >= 535 -%}{{ collection.image | image_url: width: 535 }} 535w,{%- endif -%}
+              {%- if collection.image.width >= 750 -%}{{ collection.image | image_url: width: 750 }} 750w,{%- endif -%}
+              {%- if collection.image.width >= 1070 -%}{{ collection.image | image_url: width: 1070 }} 1070w,{%- endif -%}
+              {%- if collection.image.width >= 1500 -%}{{ collection.image | image_url: width: 1500 }} 1500w,{%- endif -%}
+              {{ collection.image | image_url }} {{ collection.image.width }}w
+            "
+            src="{{ collection.image | image_url: width: 750 }}"
+            sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: 2 }}px, (min-width: 750px) calc(50vw - 130px), calc(50vw - 55px)"
+            alt=""
+            width="{{ collection.image.width }}"
+            height="{{ collection.image.height }}"
+          >
+        </div>
+      {%- endif -%}
+    </div>
     <div class="collection-hero__text-wrapper">
       <h1 class="collection-hero__title">
         <span class="visually-hidden">{{ 'sections.collection_template.title' | t }}: </span>
@@ -18,32 +63,811 @@
       </h1>
 
       {%- if section.settings.show_collection_description -%}
-        <div class="collection-hero__description rte">{{ collection.description }}</div>
+        <div class="collection-hero__description rte">
+          {{ collection.description }}
+        </div>
       {%- endif -%}
     </div>
-
-    {%- if section.settings.show_collection_image and collection.image -%}
-      <div class="collection-hero__image-container media gradient">
-        <img
-          srcset="
-            {%- if collection.image.width >= 165 -%}{{ collection.image | image_url: width: 165 }} 165w,{%- endif -%}
-            {%- if collection.image.width >= 360 -%}{{ collection.image | image_url: width: 360 }} 360w,{%- endif -%}
-            {%- if collection.image.width >= 535 -%}{{ collection.image | image_url: width: 535 }} 535w,{%- endif -%}
-            {%- if collection.image.width >= 750 -%}{{ collection.image | image_url: width: 750 }} 750w,{%- endif -%}
-            {%- if collection.image.width >= 1070 -%}{{ collection.image | image_url: width: 1070 }} 1070w,{%- endif -%}
-            {%- if collection.image.width >= 1500 -%}{{ collection.image | image_url: width: 1500 }} 1500w,{%- endif -%}
-            {{ collection.image | image_url }} {{ collection.image.width }}w
-          "
-          src="{{ collection.image | image_url: width: 750 }}"
-          sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: 2 }}px, (min-width: 750px) calc(50vw - 130px), calc(50vw - 55px)"
-          alt=""
-          width="{{ collection.image.width }}"
-          height="{{ collection.image.height }}"
-        >
-      </div>
-    {%- endif -%}
   </div>
-</div>
+{% endcomment %}
+{% comment %} Add schema related CSS {% endcomment %}
+{% assign collection_list = 'save-the-date,bridal-looks,bridal-rtw,bridal-lingerie-gifts,best-dressed-guest,all-bridal,bridal-lingerie-gifts,bridal-gifts-under-150,all-gifts,holiday-gifts,valentines-day-gifts,gifts-under-150,pleasure-gifts,gifts-for-him,bridal-lingerie-gifts,gift-sets' %}
+{% assign collection_list_1 = 'save-the-date,bridal-looks,bridal-rtw,bridal-lingerie-gifts,best-dressed-guest,all-bridal,bridal-lingerie-gifts,bridal-gifts-under-150' %}
+{% assign collection_list_2 = 'all-gifts,holiday-gifts,valentines-day-gifts,gifts-under-150,pleasure-gifts,gifts-for-him,bridal-lingerie-gifts,gift-sets' %}
+
+{% unless collection_list contains collection.handle %}
+  <div
+    class="{% if collection.description contains '<!-- video-mp4 -->' or collection.description contains '<!-- video-ogv -->' %} hidden{% endif %}"
+    data-section-id="{{ section.id }}"
+    data-section-type="collection-header-section"
+    id="collection-header-section"
+  >
+    {% if collection.description contains '<!-- text-slide-1 -->' %}
+      <div class="row collapse top-margin">
+        <div class="medium-12 columns">
+          <div
+            class="text-slideshow cycle-slideshow"
+            data-cycle-slides=".cycle-slide"
+            data-cycle-pause-on-hover="false"
+            data-cycle-fx="none"
+            data-cycle-speed="250"
+            data-cycle-timeout="250"
+            data-cycle-paused="false"
+            data-cycle-random="false"
+            data-cycle-swipe="false"
+          >
+            <div class="cycle-slide h1">
+              {{
+                collection.description
+                | split: '<!-- text-slide-1 -->'
+                | last
+                | split: '<!-- end text-slide-1 -->'
+                | first
+              }}
+            </div>
+            <!-- cycle-slide -->
+            {% if collection.description contains '<!-- text-slide-2 -->' %}
+              <div class="cycle-slide h1">
+                {{
+                  collection.description
+                  | split: '<!-- text-slide-2 -->'
+                  | last
+                  | split: '<!-- end text-slide-2 -->'
+                  | first
+                }}
+              </div>
+              <!-- cycle-slide -->
+            {% endif %}
+            {% if collection.description contains '<!-- text-slide-3 -->' %}
+              <div class="cycle-slide h1">
+                {{
+                  collection.description
+                  | split: '<!-- text-slide-3 -->'
+                  | last
+                  | split: '<!-- end text-slide-3 -->'
+                  | first
+                }}
+              </div>
+              <!-- cycle-slide -->
+            {% endif %}
+            {% if collection.description contains '<!-- text-slide-4 -->' %}
+              <div class="cycle-slide h1">
+                {{
+                  collection.description
+                  | split: '<!-- text-slide-4 -->'
+                  | last
+                  | split: '<!-- end text-slide-4 -->'
+                  | first
+                }}
+              </div>
+              <!-- cycle-slide -->
+            {% endif %}
+            {% if collection.description contains '<!-- text-slide-5 -->' %}
+              <div class="cycle-slide h1">
+                {{
+                  collection.description
+                  | split: '<!-- text-slide-5 -->'
+                  | last
+                  | split: '<!-- end text-slide-5 -->'
+                  | first
+                }}
+              </div>
+              <!-- cycle-slide -->
+            {% endif %}
+          </div>
+          <!-- cycle-slideshow -->
+        </div>
+        <!-- medium-12 columns -->
+      </div>
+      <!-- row collapse top-margin -->
+    {% elsif collection.image %}
+      {% if collection.description contains '<!-- background-image -->'
+        or collection.description contains '<!-- video-mp4 -->'
+        or collection.description contains '<!-- video-ogv -->'
+      %}
+        <div class="row{% if collection.description contains "<!-- expanded -->" %} expanded{% endif %}{% if collection.description contains "<!-- collapse -->" %} collapse{% endif %}">
+          <div class="medium-12 columns">
+            <div class="hero-banner-wrapper">
+              <div class="hero-banner">
+                <div class="content_table{% if collection.description contains '<!-- large-banner -->' %} large{% endif %}">
+                  <div class="content_table_cell{% if collection.description contains '<!-- bottom-align -->' %} bottom_align{% endif %}{% if collection.description contains '<!-- mobile-middle-align -->' %} mobile_middle_align{% endif %}{% if collection.description contains '<!-- mobile-bottom-align -->' %} mobile_bottom_align{% endif %}{% if collection.description contains '<!-- top-align -->' %} top_align{% endif %}{% if collection.description contains '<!-- mobile-top-align -->' %} mobile_top_align{% endif %}{% if collection.description contains '<!-- border -->' %} border{% endif %}{% if collection.description contains '<!-- overlay -->' %} overlay{% endif %}{% if collection.description contains '<!-- invert -->' %} invert{% endif %}">
+                    {% if collection.description contains '<!-- background-image -->' %}
+                      {% if collection.description contains '<!-- graphic -->' %}
+                        <img
+                          src="{{ collection.description | split: '<!-- graphic -->' | last | split: '<!-- end graphic -->' | first }}"
+                          alt="{{ collection.title }}"
+                          class="graphic{% if collection.description contains '<!-- large-graphic -->' %} large{% endif %}{% if collection.description contains '<!-- graphic-mobile -->' %} hide-for-small-only{% endif %}"
+                        >
+                        {% if collection.description contains '<!-- graphic-mobile -->' %}
+                          <img
+                            src="{{ collection.description | split: '<!-- graphic-mobile -->' | last | split: '<!-- end graphic-mobile -->' | first }}"
+                            alt="{{ collection.title }}"
+                            class="graphic show-for-small-only"
+                          >
+                        {% endif %}
+                      {% else %}
+                        <h1>
+                          <a href="{{ collection.url }}">{{ collection.title }}</a>
+                        </h1>
+                      {% endif %}
+
+                      {% if collection.description contains '<!-- description -->' %}
+                        <p
+                          {% if collection.description contains '<!-- secondary-font -->' %}
+                            class="secondary-font large"
+                          {% endif %}
+                        >
+                          {{
+                            collection.description
+                            | split: '<!-- description -->'
+                            | last
+                            | split: '<!-- end description -->'
+                            | first
+                          }}
+                        </p>
+                      {% endif %}
+
+                      {% if collection.description contains '<!-- signup-form -->' %}
+                        <form
+                          id="email_signup_collection_banner"
+                          class="newsletter klaviyo_gdpr_embed_{{ collection.description | split: '<!-- signup-form -->' | last | split: '<!-- end signup-form -->' | first }}"
+                          action="//manage.kmail-lists.com/subscriptions/subscribe"
+                          data-ajax-submit="//manage.kmail-lists.com/ajax/subscriptions/subscribe"
+                          method="GET"
+                          target="_blank"
+                          novalidate="novalidate"
+                        >
+                          <input
+                            type="hidden"
+                            name="g"
+                            value="{{ collection.description | split: '<!-- signup-form -->' | last | split: '<!-- end signup-form -->' | first }}"
+                          >
+                          <div class="input-group minimal">
+                            <input
+                              class=""
+                              type="email"
+                              value=""
+                              name="email"
+                              id="k_id_email"
+                              placeholder="{{ 'collections.form.signup_form_email_placeholder' | t }}"
+                            >
+                            <div class="input-group-btn">
+                              <button type="submit"><img src="{{ 'form_submit.svg' | asset_url }}"></button>
+                            </div>
+                            <!-- input-group-btn -->
+                          </div>
+                          <!-- input-group minimal -->
+                          <div class="success_message newsletter-message" style="display:none;"></div>
+                          <div class="error_message newsletter-message" style="display:none;"></div>
+                        </form>
+
+                        <script
+                          type="text/javascript"
+                          src="//www.klaviyo.com/media/js/public/klaviyo_subscribe.js"
+                        ></script>
+                        <script type="text/javascript">
+                          KlaviyoSubscribe.attachToForms('#email_signup_collection_banner', {
+                            hide_form_on_success: false,
+                            success_message: "{{ 'collections.form.signup_form_success' | t }}",
+                          //  success_url: '/success_url',
+                            extra_properties: {
+                              $source: '$embed',
+                              $method_type: "Klaviyo Form",
+                              $method_id: 'embed',
+                            }
+                          });
+                        </script>
+                      {% endif %}
+                    {% endif %}
+                  </div>
+                  <!-- content_table_cell -->
+                </div>
+                <!-- content_table -->
+
+                {% if collection.description contains '<!-- video-mp4 -->'
+                  or collection.description contains '<!-- video-ogv -->'
+                %}
+                  <script>
+                     document.addEventListener("DOMContentLoaded", () => {
+                      document.getElementById("collection-header-section").classList.remove("hidden");
+                    });
+                  </script>
+
+                  <video
+                    class="background-video"
+                    poster="{{ collection.image.src | img_url: '1900x826', crop: 'top' }}"
+                    preload="none"
+                    controlsList="nodownload"
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    webkit-playsinline
+                  >
+                    {% if collection.description contains '<!-- video-mp4 -->' %}
+                      <source
+                        src="{{ collection.description | split: '<!-- video-mp4 -->' | last | split: '<!-- end video-mp4 -->' | first }}"
+                        type="video/mp4"
+                      >
+                    {% endif %}
+                    {% if collection.description contains '<!-- video-ogv -->' %}
+                      <source
+                        src="{{ collection.description | split: '<!-- video-ogv -->' | last | split: '<!-- end video-ogv -->' | first }}"
+                        type="video/ogv"
+                      >
+                    {% endif %}
+                    Your browser does not support HTML5 video.
+                  </video>
+                {% endif %}
+              </div>
+              <!-- hero-banner -->
+            </div>
+            <!-- hero-banner-wrapper -->
+            {% unless collection.description contains '<!-- video-mp4 -->'
+              or collection.description contains '<!-- video-ogv -->'
+            %}
+              <style>
+                .hero-banner .content_table {
+                  background-image: url('{{ collection.image.src | img_url: '1900x' }}');
+                }
+
+                {% if collection.description contains "<!-- background-pos-left -->" %}
+                .hero-banner .content_table {
+                  background-position: left center;
+                }
+                {% elsif collection.description contains "<!-- background-pos-right -->" %}
+                .hero-banner .content_table {
+                  background-position: right center;
+                }
+                {% endif %}
+
+                {% if collection.description contains "<!-- mobile-image -->" %}
+                @media screen and (max-width: 40em) {
+                  .hero-banner .content_table {
+                    background-image: url('{{ collection.description | split: '<!-- mobile-image -->' | last | split: '<!-- end mobile-image -->' | first }}');
+                  }
+                }
+                {% endif %}
+              </style>
+            {% endunless %}
+          </div>
+          <!-- medium-12 columns -->
+        </div>
+        <!-- row -->
+      {% elsif collection.description contains '<!-- countdown -->' %}
+        <div class="row">
+          <div class="medium-12 columns">
+            <div class="hero-banner-wrapper">
+              <div class="hero-banner">
+                <div class="content_table{% if collection.description contains '<!-- large-banner -->' %} large{% endif %}">
+                  <div class="content_table_cell{% if collection.description contains '<!-- border -->' %} border{% endif %}{% if collection.description contains '<!-- overlay -->' %} overlay{% endif %}{% if collection.description contains '<!-- invert -->' %} invert{% endif %}">
+                    <h1>
+                      <a href="{{ collection.url }}">{{ collection.title }}</a>
+                    </h1>
+                    {% if collection.description contains '<!-- description -->' %}
+                      <p
+                        {% if collection.description contains '<!-- secondary-font -->' %}
+                          class="secondary-font large"
+                        {% endif %}
+                      >
+                        {{
+                          collection.description
+                          | split: '<!-- description -->'
+                          | last
+                          | split: '<!-- end description -->'
+                          | first
+                        }}
+                      </p>
+                    {% endif %}
+                    <div id="countdown" class="invert">
+                      <h6>Sale ends in</h6>
+                      <ul>
+                        <li>
+                          <div class="counter">
+                            <span class="days"></span>
+                            <div class="countdown-label">Days</div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="counter">
+                            <span class="hours"></span>
+                            <div class="countdown-label">Hours</div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="counter">
+                            <span class="minutes"></span>
+                            <div class="countdown-label">Minutes</div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="counter">
+                            <span class="seconds"></span>
+                            <div class="countdown-label">Seconds</div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                    <!-- countdown -->
+                    {% if collection.description contains '<!-- legal-text -->' %}
+                      <div class="legal-text">
+                        {{
+                          collection.description
+                          | split: '<!-- legal-text -->'
+                          | last
+                          | split: '<!-- end legal-text -->'
+                          | first
+                        }}
+                      </div>
+                    {% endif %}
+                  </div>
+                  <!-- content_table_cell -->
+                </div>
+                <!-- content_table -->
+              </div>
+              <!-- hero-banner -->
+            </div>
+            <!-- hero-banner-wrapper -->
+            {{ 'jquery.countdown.min.js' | asset_url | script_tag }}
+            {{ 'moment.js' | asset_url | script_tag }}
+            {{ 'moment-timezone.js' | asset_url | script_tag }}
+            <script type="text/javascript">
+               var saleEnd = moment.tz("{{ collection.description | split: '<!-- countdown -->' | last | split: '<!-- end countdown -->' | first }}", "America/New_York");
+               $('#countdown span.days').countdown(saleEnd.toDate(), function(event) {
+                $(this).html(event.strftime('%-D'));
+              });
+              $('#countdown span.hours').countdown(saleEnd.toDate(), function(event) {
+                $(this).html(event.strftime('%-H'));
+              });
+              $('#countdown span.minutes').countdown(saleEnd.toDate(), function(event) {
+                $(this).html(event.strftime('%-M'));
+              });
+              $('#countdown span.seconds').countdown(saleEnd.toDate(), function(event) {
+                $(this).html(event.strftime('%-S'));
+              });
+            </script>
+            <style>
+              .hero-banner .content_table {
+                background-image: url('{{ collection.image.src | img_url: '1900x' }}');
+              }
+              {% if collection.description contains "<!-- mobile-image -->" %}
+              @media screen and (max-width: 40em) {
+                .hero-banner .content_table {
+                  background-image: url('{{ collection.description | split: '<!-- mobile-image -->' | last | split: '<!-- end mobile-image -->' | first }}');
+                }
+              }
+              {% endif %}
+            </style>
+          </div>
+          <!-- medium-12 columns -->
+        </div>
+        <!-- row -->
+
+      {% elsif collection.description contains '<!-- legal-text-only -->' %}
+        <div class="row">
+          <div class="medium-12 columns">
+            <div class="hero-banner-wrapper">
+              <div class="hero-banner">
+                <div class="content_table{% if collection.description contains '<!-- large-banner -->' %} large{% endif %}">
+                  <div class="content_table_cell{% if collection.description contains '<!-- border -->' %} border{% endif %}{% if collection.description contains '<!-- overlay -->' %} overlay{% endif %}{% if collection.description contains '<!-- invert -->' %} invert{% endif %}">
+                    {% if collection.description contains '<!-- legal-text-only -->' %}
+                      <div class="legal-text">
+                        {{
+                          collection.description
+                          | split: '<!-- legal-text-only -->'
+                          | last
+                          | split: '<!-- end legal-text-only -->'
+                          | first
+                        }}
+                      </div>
+                    {% endif %}
+                  </div>
+                  <!-- content_table_cell -->
+                </div>
+                <!-- content_table -->
+              </div>
+              <!-- hero-banner -->
+            </div>
+            <!-- hero-banner-wrapper -->
+            <style>
+              .hero-banner .content_table {
+                background-image: url('{{ collection.image.src | img_url: '1900x' }}');
+              }
+              {% if collection.description contains "<!-- mobile-image -->" %}
+              @media screen and (max-width: 40em) {
+                .hero-banner .content_table {
+                  background-image: url('{{ collection.description | split: '<!-- mobile-image -->' | last | split: '<!-- end mobile-image -->' | first }}');
+                }
+              }
+              {% endif %}
+            </style>
+          </div>
+          <!-- medium-12 columns -->
+        </div>
+        <!-- row -->
+      {% else %}
+        <div class="row collapse">
+          <div class="medium-12 columns">
+            {% if collection.description contains '<!-- video-mp4 -->'
+              or collection.description contains '<!-- video-ogv -->'
+            %}
+              <video
+                class="video"
+                poster="{{ collection.image.src | img_url: '1900x826', crop: 'top' }}"
+                preload="none"
+                controlsList="nodownload"
+                autoplay
+                muted
+                loop
+                playsinline
+                webkit-playsinline
+              >
+                {% if collection.description contains '<!-- video-mp4 -->' %}
+                  <source
+                    src="{{ collection.description | split: '<!-- video-mp4 -->' | last | split: '<!-- end video-mp4 -->' | first }}"
+                    type="video/mp4"
+                  >
+                {% endif %}
+                {% if collection.description contains '<!-- video-ogv -->' %}
+                  <source
+                    src="{{ collection.description | split: '<!-- video-ogv -->' | last | split: '<!-- end video-ogv -->' | first }}"
+                    type="video/ogv"
+                  >
+                {% endif %}
+                Your browser does not support HTML5 video.
+              </video>
+            {% else %}
+              <img
+                src="{{ collection.image.src | img_url: '1900x826', crop: 'top' }}');"
+                alt="{{ collection.title }}"
+                class="{% if collection.description contains "<!-- mobile-image -->" %}hide-for-small-only{% endif %} collection-image"
+              >
+              {% if collection.description contains '<!-- mobile-image -->' %}
+                <img
+                  src="{{ collection.description | split: '<!-- mobile-image -->' | last | split: '<!-- end mobile-image -->' | first }}"
+                  alt="{{ collection.title }}"
+                  class="show-for-small-only collection-image"
+                >
+              {% endif %}
+            {% endif %}
+          </div>
+          <!-- medium-12 columns -->
+        </div>
+        <!-- row collapse -->
+      {% endif %}
+    {% endif %}
+
+    <div class="row">
+      <div class="medium-12 columns">
+        <div class="collection-details{% unless collection.image %} no-banner{% endunless %}">
+          {% unless collection.description contains '<!-- countdown -->'
+            or collection.description contains '<!-- background-image -->'
+          %}
+            <h1
+              {% if collection.description contains '<!-- text-slide-1 -->' %}
+                class="hidden"
+              {% endif %}
+            >
+              <a href="{{ collection.url }}">{{ collection.title }}</a>
+            </h1>
+          {% endunless %}
+
+          {% unless collection.description contains '<!-- background-image -->'
+            or collection.description contains '<!-- countdown -->'
+          %}
+            {% if collection.description contains '<!-- description -->' %}
+              <p class="collection-description{% if collection.description contains '<!-- secondary-font -->' %} secondary-font large{% endif %}">
+                {{
+                  collection.description
+                  | split: '<!-- description -->'
+                  | last
+                  | split: '<!-- end description -->'
+                  | first
+                }}
+              </p>
+            {% endif %}
+          {% endunless %}
+
+          {% if collection.description contains '<!-- below-banner-countdown -->' %}
+            <div class="row">
+              <div class="medium-12 columns">
+                <div id="countdown">
+                  <ul>
+                    <li>
+                      <div class="counter">
+                        <span class="days"></span>
+                        <div class="countdown-label">Days</div>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="counter">
+                        <span class="hours"></span>
+                        <div class="countdown-label">Hours</div>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="counter">
+                        <span class="minutes"></span>
+                        <div class="countdown-label">Minutes</div>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="counter">
+                        <span class="seconds"></span>
+                        <div class="countdown-label">Seconds</div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <!-- countdown -->
+                {{ 'jquery.countdown.min.js' | asset_url | script_tag }}
+                {{ 'moment.js' | asset_url | script_tag }}
+                {{ 'moment-timezone.js' | asset_url | script_tag }}
+                <script type="text/javascript">
+                   var saleEnd = moment.tz("{{ collection.description | split: '<!-- below-banner-countdown -->' | last | split: '<!-- end below-banner-countdown -->' | first }}", "America/New_York");
+                   $('#countdown span.days').countdown(saleEnd.toDate(), function(event) {
+                    $(this).html(event.strftime('%-D'));
+                  });
+                  $('#countdown span.hours').countdown(saleEnd.toDate(), function(event) {
+                    $(this).html(event.strftime('%-H'));
+                  });
+                  $('#countdown span.minutes').countdown(saleEnd.toDate(), function(event) {
+                    $(this).html(event.strftime('%-M'));
+                  });
+                  $('#countdown span.seconds').countdown(saleEnd.toDate(), function(event) {
+                    $(this).html(event.strftime('%-S'));
+                  });
+                </script>
+              </div>
+              <!-- medium-12 columns -->
+            </div>
+            <!-- row -->
+          {% endif %}
+        </div>
+        <!-- collection-details -->
+      </div>
+      <!-- medium-12 columns -->
+    </div>
+    <!-- row -->
+  </div>
+{% endunless %}
+
+{% if collection_list contains collection.handle %}
+  {% liquid
+    if collection_list_1 contains collection.handle
+      assign banner_type = section.settings.collection_list_one_type
+      assign banner_image = section.settings.collection_list_one_image
+      assign background_position = section.settings.collection_list_one_alignment
+      assign banner_image_mobile = section.settings.collection_list_one_image_mobile
+      assign banner_title = section.settings.collection_list_one_title
+      assign banner_link = section.settings.collection_list_one_link
+      assign invert_enable = section.settings.collection_list_one_invert_enable
+      assign overlay_enable = section.settings.collection_list_one_overlay_enable
+      assign bottom_align_enable = section.settings.collection_list_one_bottom_align_enable
+      assign mobile_bottom_align_enable = section.settings.collection_list_one_mobile_bottom_align_enable
+      assign layout_alignment = section.settings.collection_list_one_layout_alignment
+      assign mobile_enable = section.settings.collection_list_one_mobile_enable
+      assign dropshadow_desktop_enable = section.settings.collection_list_one_dropshadow_desktop_enable
+      assign dropshadow_mobile_enable = section.settings.collection_list_one_dropshadow_mobile_enable
+      assign copy = section.settings.collection_list_one_copy
+      assign secondary_font_enable = section.settings.collection_list_one_secondary_font_enable
+      assign action = section.settings.collection_list_one_action
+      assign caption = section.settings.collection_list_one_caption
+      assign video_mp4 = section.settings.collection_list_one_video_mp4
+      assign video_ogv = section.settings.collection_list_one_video_ogv
+  
+    else
+      assign banner_type = section.settings.collection_list_two_type
+      assign banner_image = section.settings.collection_list_two_image
+      assign background_position = section.settings.collection_list_two_alignment
+      assign banner_image_mobile = section.settings.collection_list_two_image_mobile
+      assign banner_title = section.settings.collection_list_two_title
+      assign banner_link = section.settings.collection_list_two_link
+      assign invert_enable = section.settings.collection_list_two_invert_enable
+      assign overlay_enable = section.settings.collection_list_two_overlay_enable
+      assign bottom_align_enable = section.settings.collection_list_two_bottom_align_enable
+      assign mobile_bottom_align_enable = section.settings.collection_list_two_mobile_bottom_align_enable
+      assign layout_alignment = section.settings.collection_list_two_layout_alignment
+      assign mobile_enable = section.settings.collection_list_two_mobile_enable
+      assign dropshadow_desktop_enable = section.settings.collection_list_two_dropshadow_desktop_enable
+      assign dropshadow_mobile_enable = section.settings.collection_list_two_dropshadow_mobile_enable
+      assign copy = section.settings.collection_list_two_copy
+      assign secondary_font_enable = section.settings.collection_list_two_secondary_font_enable
+      assign action = section.settings.collection_list_two_action
+      assign caption = section.settings.collection_list_two_caption
+      assign video_mp4 = section.settings.collection_list_two_video_mp4
+      assign video_ogv = section.settings.collection_list_two_video_ogv
+    endif
+  %}
+  <div
+    data-section-id="{{ section.id }}"
+    data-section-type="hero-banner-section"
+    id="hero-banner-section"
+    {% if banner_type == 'video' %}
+      class="hidden"
+    {% endif %}
+  >
+    {% if banner_image != blank and banner_type == 'image' %}
+      <style>
+        .hero-banner--{{ section.id }} .content_table {
+        	background-position: {{ background_position }}!important;
+        		background-image: url('{{ banner_image | img_url: '1800x' }}');
+        }
+        {% if banner_image_mobile != blank %}
+        @media screen and (max-width: 40em) {
+        	.hero-banner--{{ section.id }} .content_table {
+        		background-image: url('{{ banner_image_mobile | img_url: '800x' }}');
+        		}
+        }
+        {% endif %}
+      </style>
+    {% endif %}
+
+    <div class="hero-banner-wrapper">
+      <div class="hero-banner hero-banner--{{ section.id }}">
+        {% if banner_image != blank and banner_type == 'image' %}
+          <img
+            src="{{ banner_image | img_url: '65x' }}"
+            {% if banner_title != blank %}
+              alt="{{ banner_title }}"
+            {% endif %}
+            style="visibility: hidden; height: 0; position: absolute;"
+            aria-describedby="hero-banner-section"
+          >
+        {% endif %}
+
+        {% if banner_link != blank %}
+          <a href="{{ banner_link }}">
+        {% endif %}
+        <div class="content_table{% if banner_type == 'image' %} no-video{% endif %}">
+          <div class="content_table_cell{% if invert_enable %} invert{% endif %}{% if overlay_enable %} overlay{% endif %}{% if bottom_align_enable %} bottom_align{% endif %}{% if mobile_bottom_align_enable %} mobile_bottom_align{% endif %}">
+            <div class="row collapse {{ layout_alignment }}">
+              <div class="medium-12 columns">
+                <h2 class="h1{% unless mobile_enable %} hide-for-small-only{% endunless %}{% if dropshadow_desktop_enable %} dropshadow-desktop{% endif %}{% if dropshadow_mobile_enable %} dropshadow-mobile{% endif %}">
+                  {% if banner_title == blank -%}
+                      {{- collection.title -}}
+                  {%- else -%}
+                    {{- banner_title -}}
+                  {%- endif %}
+                </h2>
+                {% if copy != blank %}
+                  <p
+                    {% if secondary_font_enable
+                      or dropshadow_desktop_enable
+                      or dropshadow_mobile_enable
+                    %}
+                      class="{% if secondary_font_enable %} secondary-font large{% endif %}{% if dropshadow_desktop_enable %} dropshadow-desktop{% endif %}{% if dropshadow_mobile_enable %} dropshadow-mobile{% endif %}"
+                    {% endif %}
+                  >
+                    {{ copy }}
+                  </p>
+                {% endif %}
+
+                {% if action != blank %}
+                  <div class="action">{{ action | escape }}</div>
+                {% endif %}
+                {% if caption != blank %}
+                  <div class="caption">{{ caption }}</div>
+                {% endif %}
+              </div>
+              <!-- medium-12 columns -->
+            </div>
+            <!-- row collapse -->
+          </div>
+          <!-- content_table_cell -->
+        </div>
+        <!-- content_table -->
+        {% if banner_link != blank %}
+          </a>
+        {% endif %}
+
+        {% if collection.handle == 'all-bridal'
+          or collection.handle == 'bridal-lingerie-gifts'
+          or collection.handle == 'best-dressed-guest'
+          or page.handle == 'here-comes-the-bride'
+          or collection.handle == 'bridal-looks'
+        %}
+          <div class="button-nav">
+            <ul class="row collapse expanded large-up-5 small-up-2">
+              <li class="column">
+                <a
+                  href="/collections/all-bridal#collection-header-section"
+                  {% if collection.handle == 'all-bridal' %}
+                    class="current"
+                  {% endif %}
+                  >All Bridal</a
+                >
+              </li>
+              <li class="column">
+                <a
+                  href="/collections/bridal-looks#collection-header-section"
+                  {% if collection.handle == 'bridal-looks' %}
+                    class="current"
+                  {% endif %}
+                  >Bridal Looks</a
+                >
+              </li>
+              <li class="column">
+                <a
+                  href="/collections/bridal-lingerie-gifts#collection-header-section"
+                  {% if collection.handle == 'bridal-lingerie-gifts' %}
+                    class="current"
+                  {% endif %}
+                  >Lingerie & Gifts</a
+                >
+              </li>
+              <li class="column">
+                <a
+                  href="/collections/best-dressed-guest#collection-header-section"
+                  {% if collection.handle == 'best-dressed-guest' %}
+                    class="current"
+                  {% endif %}
+                  >Best Dressed Guest</a
+                >
+              </li>
+              <li class="column medium-down-wide">
+                <a
+                  href="/pages/here-comes-the-bride#collection-header-section"
+                  {% if page.handle == 'here-comes-the-bride' %}
+                    class="current"
+                  {% endif %}
+                  >Brides in Fleur</a
+                >
+              </li>
+            </ul>
+          </div>
+          <!-- button-nav -->
+        {% endif %}
+
+        {% if collection.handle == 'all-gifts' or collection.handle == 'holiday-gifts' or collection.handle == 'valentines-day-gifts' or collection.handle == 'gifts-under-150' or collection.handle == 'pleasure-gifts' or collection.handle == 'gifts-for-him' or collection.handle == 'bridal-lingerie-gifts' or collection.handle == 'gift-sets' %}
+          <div class="button-nav">
+			<ul class="row collapse expanded large-up-7 small-up-2">
+				<li class="column show-for-large"><a href="/pages/gifts-for-every-lover#collection-header-section"{% if page.handle == 'gifts-for-every-lover' %} class="current"{% endif %}>Le Gift Guide</a></li>
+				<li class="column"><a href="/collections/all-gifts#collection-header-section"{% if collection.handle == 'all-gifts' %} class="current"{% endif %}>All Gifts</a></li>
+				<li class="column"><a href="/collections/gifts-under-150#collection-header-section"{% if collection.handle == 'gifts-under-150' %} class="current"{% endif %}>Under $150</a></li>
+				<li class="column"><a href="/collections/pleasure-gifts#collection-header-section"{% if collection.handle == 'pleasure-gifts' %} class="current"{% endif %}>Pleasure Gifts</a></li>
+				<li class="column"><a href="/collections/gifts-for-him#collection-header-section"{% if collection.handle == 'gifts-for-him' %} class="current"{% endif %}>For Him</a></li>
+				<li class="column"><a href="/collections/bridal-lingerie-gifts#collection-header-section"{% if collection.handle == 'bridal-lingerie-gifts' %} class="current"{% endif %}>Bridal Gifts</a></li>
+				<li class="column"><a href="/collections/gift-sets#collection-header-section"{% if collection.handle == 'gift-sets' %} class="current"{% endif %}>Gift Sets</a></li>
+			</ul>
+
+		</div>
+        {% endif %}
+
+        {% if banner_type == 'video' %}
+          <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                document.getElementById("hero-banner-section").classList.remove("hidden");
+              });
+          </script>
+          <video
+            class="background-video"
+            id="video-{{ section.id }}"
+            poster="{{ banner_image | img_url: '1400x' }}"
+            preload="none"
+            controlsList="nodownload"
+            autoplay
+            muted
+            loop
+            playsinline
+            webkit-playsinline
+          >
+            {% if video_mp4 != blank %}
+              <source src="{{ video_mp4 }}" type="video/mp4">
+            {% endif %}
+            {% if video_ogv != blank %}
+              <source src="{{ video_ogv }}" type="video/ogv">
+            {% endif %}
+            Your browser does not support HTML5 video.
+          </video>
+        {% endif %}
+      </div>
+      <!-- hero-banner -->
+    </div>
+    <!-- hero-banner-wrapper -->
+  </div>
+  <!-- hero-banner-section -->
+{% endif %}
 
 {% schema %}
 {
@@ -68,11 +892,459 @@
       "info": "t:sections.main-collection-banner.settings.show_collection_image.info"
     },
     {
+      "type": "range",
+      "id": "heading_font_size",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Heading Font Size Desktop",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Heading Font Size Mobile",
+      "default": 32
+    },
+    {
+      "type": "select",
+      "id": "desktop_content_alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left",
+      "label": "Desktop Content Alignment"
+    },
+    {
+      "type": "select",
+      "id": "mobile_content_alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left",
+      "label": "Mobile Content Alignment"
+    },
+    {
       "type": "color_scheme",
       "id": "color_scheme",
       "label": "t:sections.all.colors.label",
       "default": "background-1"
-    }
-  ]
+    },
+    {
+      "type": "header",
+      "content": "Content For First List of Collections"
+    },
+    {
+      "type": "paragraph",
+      "content": "save-the-date, bridal-looks, bridal-rtw, bridal-lingerie-gifts, best-dressed-guest, all-bridal, bridal-lingerie-gifts, bridal-gifts-under-150"
+    },
+    {
+      "type": "select",
+      "id": "collection_list_one_type",
+      "label": "Type",
+      "default": "image",
+      "options": [
+          {
+            "value": "image",
+            "label": "Image"
+          },
+          {
+            "value": "video",
+            "label": "Video"
+          }
+        ]
+      },
+      {
+        "type": "image_picker",
+        "id": "collection_list_one_image",
+        "label": "Image",
+        "info": "1800px x 680px @ 72dpi suggested, 1800px x 1000px for the home page. Upload as JPG."
+      },
+      {
+        "type": "image_picker",
+        "id": "collection_list_one_image_mobile",
+        "label": "Mobile Image",
+        "info": "600px x 400px @ 72dpi suggested, upload as JPG."
+      },
+      {
+          "type": "select",
+          "id": "collection_list_one_alignment",
+          "label": "Image alignment",
+          "default": "center center",
+          "options": [
+              {
+                  "value": "left top",
+                  "label": "Left Top"
+              },
+              {
+                  "value": "left center",
+                  "label": "Left Center"
+              },
+              {
+                  "value": "left bottom",
+                  "label": "Left Bottom"
+              },
+              {
+                  "value": "right top",
+                  "label": "Right Top"
+              },
+              {
+                  "value": "right center",
+                  "label": "Right Center"
+              },
+              {
+                  "value": "right bottom",
+                  "label": "Right Bottom"
+              },
+              {
+                  "value": "center top",
+                  "label": "Center Top"
+              },
+              {
+                  "value": "center center",
+                  "label": "Center Center"
+              },
+              {
+                  "value": "center bottom",
+                  "label": "Center Bottom"
+              }
+          ]
+      },
+      {
+        "type": "checkbox",
+        "id": "collection_list_one_overlay_enable",
+        "label": "Display overlay effect",
+        "default": true
+      },
+      {
+          "type": "checkbox",
+          "id": "collection_list_one_bottom_align_enable",
+          "label": "Align to botttom",
+          "default": false
+      },
+      {
+          "type": "checkbox",
+          "id": "collection_list_one_mobile_bottom_align_enable",
+          "label": "Align to botttom on mobile",
+          "default": false
+      },
+      {
+          "type": "checkbox",
+          "id": "collection_list_one_dropshadow_desktop_enable",
+          "label": "Display dropshadow effect on desktop",
+          "default": false
+      },
+      {
+          "type": "checkbox",
+          "id": "collection_list_one_dropshadow_mobile_enable",
+          "label": "Display dropshadow effect on mobile",
+          "default": false
+      },
+      {
+          "type": "checkbox",
+          "id": "collection_list_one_mobile_enable",
+          "label": "Display header on mobile",
+          "default": true
+      },
+      {
+          "type": "checkbox",
+          "id": "collection_list_one_secondary_font_enable",
+          "label": "Display secondary font for small copy",
+          "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "collection_list_one_invert_enable",
+        "label": "Invert colors",
+        "default": true
+      },
+      {
+          "type": "select",
+          "id": "collection_list_one_layout_alignment",
+          "label": "Layout",
+          "default": "align-center",
+          "options": [
+              {
+                "value": "align-left",
+                "label": "Left aligned"
+              },
+              {
+                "value": "align-right",
+                "label": "Right aligned"
+              },
+              {
+                "value": "align-center",
+                "label": "Centered"
+              }
+          ]
+  		},
+  		{
+  			"type": "textarea",
+  			"id": "collection_list_one_title",
+  			"label": "Title"
+  		},
+        {
+          "type": "url",
+          "id": "collection_list_one_link",
+          "label": "Link"
+        },
+        {
+            "type": "textarea",
+            "id": "collection_list_one_copy",
+            "label": "Copy"
+        },
+        {
+          "type": "text",
+          "id": "collection_list_one_action",
+          "label": "Action"
+        },
+  		{
+  			"type": "textarea",
+  			"id": "collection_list_one_caption",
+  			"label": "Caption"
+  		},
+        {
+            "type": "header",
+            "content": "Video"
+        },
+        {
+            "type": "checkbox",
+            "id": "collection_list_one_mobile_video_disable",
+            "label": "Disable video on mobile",
+            "info": "Requires mobile image",
+            "default": false
+        },
+		{
+			"type": "textarea",
+			"id": "collection_list_one_video_mp4",
+			"label": "MP4 File"
+		},
+		{
+			"type": "textarea",
+			"id": "collection_list_one_video_ogv",
+			"label": "OGV File"
+		},
+        {
+          "type": "header",
+          "content": "Content For Second List of Collections"
+        },
+        {
+          "type": "paragraph",
+          "content": "all-gifts, holiday-gifts, valentines-day-gifts, gifts-under-150, pleasure-gifts, gifts-for-him, bridal-lingerie-gifts, gift-sets"
+        },
+        {
+          "type": "select",
+          "id": "collection_list_two_type",
+          "label": "Type",
+          "default": "image",
+          "options": [
+              {
+                "value": "image",
+                "label": "Image"
+              },
+              {
+                "value": "video",
+                "label": "Video"
+              }
+            ]
+          },
+        {
+          "type": "image_picker",
+          "id": "collection_list_two_image",
+          "label": "Image",
+          "info": "1800px x 680px @ 72dpi suggested, 1800px x 1000px for the home page. Upload as JPG."
+        },
+        {
+          "type": "image_picker",
+          "id": "collection_list_two_image_mobile",
+          "label": "Mobile Image",
+          "info": "600px x 400px @ 72dpi suggested, upload as JPG."
+        },
+        {
+            "type": "select",
+            "id": "collection_list_two_alignment",
+            "label": "Image alignment",
+            "default": "center center",
+            "options": [
+                {
+                    "value": "left top",
+                    "label": "Left Top"
+                },
+                {
+                    "value": "left center",
+                    "label": "Left Center"
+                },
+                {
+                    "value": "left bottom",
+                    "label": "Left Bottom"
+                },
+                {
+                    "value": "right top",
+                    "label": "Right Top"
+                },
+                {
+                    "value": "right center",
+                    "label": "Right Center"
+                },
+                {
+                    "value": "right bottom",
+                    "label": "Right Bottom"
+                },
+                {
+                    "value": "center top",
+                    "label": "Center Top"
+                },
+                {
+                    "value": "center center",
+                    "label": "Center Center"
+                },
+                {
+                    "value": "center bottom",
+                    "label": "Center Bottom"
+                }
+            ]
+        },
+        {
+          "type": "checkbox",
+          "id": "collection_list_two_overlay_enable",
+          "label": "Display overlay effect",
+          "default": true
+        },
+        {
+            "type": "checkbox",
+            "id": "collection_list_two_bottom_align_enable",
+            "label": "Align to botttom",
+            "default": false
+        },
+        {
+            "type": "checkbox",
+            "id": "collection_list_two_mobile_bottom_align_enable",
+            "label": "Align to botttom on mobile",
+            "default": false
+        },
+        {
+            "type": "checkbox",
+            "id": "collection_list_two_dropshadow_desktop_enable",
+            "label": "Display dropshadow effect on desktop",
+            "default": false
+        },
+        {
+            "type": "checkbox",
+            "id": "collection_list_two_dropshadow_mobile_enable",
+            "label": "Display dropshadow effect on mobile",
+            "default": false
+        },
+        {
+            "type": "checkbox",
+            "id": "collection_list_two_mobile_enable",
+            "label": "Display header on mobile",
+            "default": true
+        },
+        {
+            "type": "checkbox",
+            "id": "collection_list_two_secondary_font_enable",
+            "label": "Display secondary font for small copy",
+            "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "collection_list_two_invert_enable",
+          "label": "Invert colors",
+          "default": true
+        },
+        {
+            "type": "select",
+            "id": "collection_list_two_layout_alignment",
+            "label": "Layout",
+            "default": "align-center",
+            "options": [
+                {
+                  "value": "align-left",
+                  "label": "Left aligned"
+                },
+                {
+                  "value": "align-right",
+                  "label": "Right aligned"
+                },
+                {
+                  "value": "align-center",
+                  "label": "Centered"
+                }
+            ]
+            },
+        {
+            "type": "textarea",
+            "id": "collection_list_two_title",
+            "label": "Title"
+        },
+        {
+          "type": "url",
+          "id": "collection_list_two_link",
+          "label": "Link"
+        },
+        {
+            "type": "textarea",
+            "id": "collection_list_two_copy",
+            "label": "Copy"
+        },
+        {
+          "type": "text",
+          "id": "collection_list_two_action",
+          "label": "Action"
+        },
+        {
+            "type": "textarea",
+            "id": "collection_list_two_caption",
+            "label": "Caption"
+        },
+        {
+            "type": "header",
+            "content": "Video"
+        },
+        {
+            "type": "checkbox",
+            "id": "collection_list_two_mobile_video_disable",
+            "label": "Disable video on mobile",
+            "info": "Requires mobile image",
+            "default": false
+        },
+        {
+            "type": "textarea",
+            "id": "collection_list_two_video_mp4",
+            "label": "MP4 File"
+        },
+        {
+            "type": "textarea",
+            "id": "collection_list_two_video_ogv",
+            "label": "OGV File"
+        }
+    ]
 }
 {% endschema %}

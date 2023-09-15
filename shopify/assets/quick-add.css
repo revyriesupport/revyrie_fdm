@@ -3,6 +3,7 @@
   grid-row-start: 4;
   margin: 0 0 1rem;
   z-index: 1;
+  text-align: center; 
 }
 
 .card--card .quick-add {
@@ -210,9 +211,10 @@ quick-add-modal .product-form__buttons {
 }
 
 .quick-add__submit {
-  padding: 0.8rem;
-  min-width: 100%;
+  /* padding: 0.8rem; */
+  /* min-width: 100%; */
   box-sizing: border-box;
+  border-bottom: 1px solid black;
 }
 
 quick-add-modal .product-media-container.constrain-height {
@@ -223,4 +225,239 @@ quick-add-modal .product-media-container.constrain-height {
   quick-add-modal .product-media-container.constrain-height {
     --constrained-min-height: 400px;
   }
+}
+
+/* new css */
+
+@media screen and (min-width: 990px){
+.quick-add-modal__content {
+    width: 50% !important;
+    margin-top: 0px;
+}
+
+.quick-add-modal__content {
+    transform: translate(0%);
+}
+}
+@media screen and (min-width: 750px){
+.quick-add-modal__content {
+    --modal-height-offset: 0rem !important;
+}
+.quick-add-modal slider-component.--desktop-slider .product__media-list {
+    width: 100%;
+    display: flex;
+    overflow-x: auto;
+    padding: 0 1.5rem;
+    flex-wrap: nowrap;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    flex-direction: column;
+}
+
+}
+product-info#ProductInfo-quickadd-template--20722264015160__main {
+    padding-top: 18%;
+}
+product-info#ProductInfo-quickadd-template--20722264015160__main h2.h1 {
+        font-size: 14px;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: 'ProximaNova';
+    font-weight: 600;
+}
+product-info#ProductInfo-quickadd-template--20722264015160__main p.product__text.caption-with-letter-spacing {
+    text-align: center;
+    padding-bottom: 10px;
+}
+product-info#ProductInfo-quickadd-template--20722264015160__main .price.price--large.price--show-badge {
+    text-align: center;
+}
+product-info#ProductInfo-quickadd-template--20722264015160__main fieldset.js.product-form__input {
+    text-align: center;
+    padding-top: 7%;
+    padding-bottom: 5%;
+    border-bottom: 1px solid #c7c4c4;
+}
+
+product-info#ProductInfo-quickadd-template--20722264015160__main legend.form__label {
+    display: none;
+}
+product-info#ProductInfo-quickadd-template--20722264015160__main div#Quantity-Form-quickadd-template--20885496758584__main {
+    display: none;
+}
+product-info#ProductInfo-quickadd-template--20722264015160__main p#Inventory-quickadd-template--20885496758584__main {
+    display: none;
+}
+@media screen and (max-width: 749px){
+.quick-add-modal__content {
+    --modal-height-offset: 0rem;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%);
+    margin: var(--modal-height-offset) auto 0;
+    width: 100%;
+    background-color: rgb(var(--color-background));
+    overflow: hidden;
+    max-width: var(--page-width);
+    width: 100%;
+    padding:10px;
+  
+}
+slider-component.--desktop-slider .product__media-list .product__media-item {
+    width: 60% !important;
+    flex-shrink: 0;
+    display: block;
+    scroll-snap-align: start;
+}
+}
+@media only screen and (min-device-width: 1024px){
+.quick-add-modal .grid__item.product__media-wrapper .product__column-sticky {
+    display: grid;
+    grid-template-columns: initial !important;
+}}
+@media screen and (min-width: 750px){
+.quick-add-modal slider-component.--desktop-slider .product__media-list {
+    padding: 0; 
+}}
+.quick-add-modal .product-form__input input[type=radio]+label {
+    font-size: 10px !important;
+    text-transform: uppercase !important;
+    border-color: #f2f2f2 !important;
+    transition: background-color var(--duration-short) ease;
+    display: inline-block !important;
+    margin: 0.7rem 0.5rem 0.2rem 0 !important;
+    padding: 1rem 2rem !important;
+    font-size: 1.4rem !important;
+    letter-spacing: .1rem !important;
+    line-height: 1 !important;
+    border-radius: 20px;
+    color: rgb(var(--color-foreground));
+    padding: 6px 0;
+    line-height: 1.7;
+    text-align: center;
+    width: initial;
+    height: initial;
+}
+@media screen and (min-width: 750px){
+.quick-add-modal .product:not(.product--no-media) .product__info-wrapper {
+    padding-left: 4rem;
+    max-width: 54%;
+    width: calc(54% - var(--grid-desktop-horizontal-spacing) / 2);
+    margin-top: 10%;
+}}
+/*===== Custom css ====*/
+.quick-add-modal__content-info {
+    padding-top: 0;
+    padding-left: 0;
+    padding-bottom: 0;
+}
+.quick-add-modal__content slider-component.slider-mobile-gutter.--desktop-slider {
+    margin: 0;
+}
+.quick-add-modal__content .quick_box img {
+    max-width: 162px;
+    margin: 0 auto;
+}
+.quick-add-modal__content .color-swatch {
+    text-align: center;
+    margin-top: 40px;
+    border-bottom: 1px solid #000;
+}
+.quick-add-modal fieldset.js.product-form__input.color {
+    display: none;
+}
+.quick-add-modal .product .price__container {
+    font-size: 12px;
+    margin-top: 10px;
+}
+.quick-add-modal .product__title>a {
+    margin-top: 5px;
+}
+.quick-add-modal .product-form__input input[type=radio]+label {
+    border-radius: 50%;
+    color: rgb(var(--color-foreground));
+    padding: 10px 0 !important;
+    line-height: 1.7;
+    text-align: center;
+    width: 30px;
+    height: 30px;
+    font-size: 10px !important;
+    background-color: #f2f2f2;
+    text-transform: uppercase;
+    border-color: #f2f2f2;
+    transition: background-color var(--duration-short) ease;
+}
+.quick-add-modal__content .color-swatch label {
+    margin-bottom: 15px;
+}
+.quick-add-modal .complete_the_look_section {
+    display: none;
+}
+.quick-add-modal .sizeguide_box {
+    display: none;
+}
+.quick-add-modal .sizeguide_box.quick_view_size {
+    display: block;
+    margin-top: 30px;
+}
+.quick-add-modal .bra-sizing {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #000;
+    text-align: center;
+    margin-bottom: 0;
+}
+.quick-add-modal .bra-sizing .label-wrapper {
+    justify-content: center;
+}
+.quick-add-modal .bra-sizing-button .columns-6 {
+    padding-right: 10px;
+}
+.quick-add-modal .bra-sizing-button a {
+    padding: 0 7px;
+}
+.quick-add-modal .final-sale {
+    text-align: center;
+}
+.quick-add-modal  .product__info-container .list-social {
+    display: none;
+}
+quick-add-modal .product:not(.featured-product) .product__view-details{
+   justify-content: center;
+}
+quick-add-modal fieldset.js.product-form__input{
+    border-bottom: 1px solid #000 !important;
+}
+.quick-add-modal .product-form__input input[type=radio]+label:hover {
+    background: #000;
+    color: #fff;
+}
+.quick-add-modal  fieldset.js.product-form__input {
+    padding-top: 0;
+}
+.quick-add-modal .product__info-container .product-form {
+  margin: 20px 0;
+}
+@media screen and (min-width: 750px) {
+  .quick-add-modal slider-component.--desktop-slider .product__media-list {
+      column-gap: 0;
+      row-gap: 0;
+  }
+  .quick-add-modal .slider-desktop-buttons.--visible {
+      display: none;
+  }
+  .quick-add-modal .product:not(.product--no-media) .product__info-wrapper {
+    height: 100vh;
+    position: fixed;
+    left: 43%;
+    top: 0;
+    margin-top: 26px;
+  }
+  .quick-add-modal__content {
+    height: 110vh;
+    overflow: initial;
+  }
+      
 }

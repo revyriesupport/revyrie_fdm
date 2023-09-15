@@ -41,6 +41,80 @@
   .search__button .icon {
     height: 1.8rem;
   }
+  /*== Search css Start ==*/
+  .template-search__header h1 {
+    display: none;
+  }
+  .template-search__search .field:after {
+    box-shadow: none;
+    border-bottom: 1px solid #000;
+  }
+  .template-search__search input#Search-In-Template {
+    
+    padding: 1.5rem;
+    padding-left:0;
+  }
+  .template-search__search .search__input.field__input:focus {
+    padding-top: 1.5rem;
+  }
+  .template-search__search input#Search-In-Template:after {
+    border: transparent;
+    box-shadow: none;
+  }
+  .template-search__search .field:after {
+      box-shadow: none;
+      border-bottom: 1px solid #000;
+  }
+  .template-search__search .field:hover:after {
+      box-shadow: none;
+      border-bottom: 1px solid #000;
+  }
+  .template-search__search .field:focus-visible {
+      box-shadow: none;
+      border: transparent;
+      outline: none;
+  }
+  .template-search__search .field:before, .template-search__search .field:focus-visible {
+      box-shadow: none;
+  }
+  .template-search__search .search__input.field__input:focus {
+      outline: none;
+      box-shadow: none;
+    padding: 1.5rem;
+  }
+  .template-search__search .search__input.field__input:focus ~ label {
+      top: 50%;
+      padding: 0;
+  }
+  .template-search__search label.field__label {
+    display: none;
+  }
+  .template-search__search .search__input.field__input::placeholder {
+    opacity: 1;
+    font-size: 14px;
+  }
+  .template-search__header p[role] {
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: var(--font-weight-bold);
+  }
+  .template-search__search {
+    margin-bottom: 60px;
+  }
+  button.search__button.field__button {
+    justify-content: end;
+  }
+  ul.search_suggestions_when_non_found {
+    text-align: center;
+    font-family: var(--font-custom-family-heading);
+  }
+  ul.search_suggestions_when_non_found li a {
+    font-size: 20px;
+    letter-spacing: .8px;
+  }
+  button.reset__button.field__button {
+      display: none;
+  }
 </style>
 
 {%- liquid
@@ -85,6 +159,7 @@
                     id="Search-In-Template"
                     type="search"
                     name="q"
+                    placeholder="Search me baby"
                     value="{{ search.terms | escape }}"
                     placeholder="{{ 'general.search.search' | t }}"
                     {%- if settings.predictive_search_enabled -%}
@@ -121,9 +196,10 @@
                     </svg>
                   </button>
                   <button type="submit" class="search__button field__button" aria-label="{{ 'general.search.search' | t }}">
-                    <svg class="icon icon-search" aria-hidden="true" focusable="false">
+                    <!-- <svg class="icon icon-search" aria-hidden="true" focusable="false">
                       <use xlink:href="#icon-search">
-                    </svg>
+                    </svg> -->
+                     <svg id="submit-icon" enable-background="new 13.292 2.375 11.314 22.63" height="22.63" viewBox="13.292 2.375 11.314 22.63" width="11.314" xmlns="http://www.w3.org/2000/svg"><path d="m13.292 2.375v11.315 11.314c0-6.25 5.066-11.314 11.314-11.314-6.248 0-11.314-5.066-11.314-11.315"/></svg>                               
                   </button>
                 </div>
               </form>
@@ -141,6 +217,23 @@
         {%- endunless -%}
         {%- if search.results_count == 0 and search.filters == empty -%}
           <p role="status">{{ 'templates.search.no_results' | t: terms: search.terms }}</p>
+          <ul class="search_suggestions_when_non_found">
+          {% if settings.search_suggestion_1 != '' %}
+          <li><a href="/search?type=product&q={{ settings.search_suggestion_1 | handleize }}">{{ settings.search_suggestion_1 }}</a></li>
+          {% endif %}
+          {% if settings.search_suggestion_2 != '' %}
+          <li><a href="/search?type=product&q={{ settings.search_suggestion_2 | handleize }}">{{ settings.search_suggestion_2 }}</a></li>
+          {% endif %}
+          {% if settings.search_suggestion_3 != '' %}
+          <li><a href="/search?type=product&q={{ settings.search_suggestion_3 | handleize }}">{{ settings.search_suggestion_3 }}</a></li>
+          {% endif %}
+          {% if settings.search_suggestion_4 != '' %}
+          <li><a href="/search?type=product&q={{ settings.search_suggestion_4 | handleize }}">{{ settings.search_suggestion_4 }}</a></li>
+          {% endif %}
+          {% if settings.search_suggestion_5 != '' %}
+          <li><a href="/search?type=product&q={{ settings.search_suggestion_5 | handleize }}">{{ settings.search_suggestion_5 }}</a></li>
+          {% endif %}
+        </ul>
         {%- endif -%}
       {%- endif -%}
     </div>

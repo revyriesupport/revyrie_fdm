@@ -22,6 +22,24 @@ import { ERROR_MESSAGES } from '@/lib/error-messages.js';
 import { cleanProductVariantId } from '@/lib/utilities-graphql'
 import { miniCartRevertedOrder } from '@/lib/store-definition'
 
+const {
+  giftLoverEnable,
+  giftLoverTitle,
+  giftLoverProduct,
+  giftLoverContent,
+  giftLoverNote,
+  giftLoverNoteLinkText,
+  giftLoverNoteTextLink,
+  giftLoverNoteContent,
+  giftLoverButtonText,
+  giftLoverImage,
+  giftLoverImageAlt,
+  giftLoverImageLink,
+  giftLoverProductSelect,
+  giftLoverProductVariant,
+  giftLoverProductVariantPriceSize,
+  giftLoverProductVariantPriceSizeTwo,
+} = window.cartGiftLover
 
 const useCartStoreDefinition = defineStore({
   id: 'cart',
@@ -30,9 +48,28 @@ const useCartStoreDefinition = defineStore({
     isOpen: false,
     isLoading: false,
     note: '',
-    cartRequested: false
+    cartRequested: false,
+    giftLoverEnable: giftLoverEnable,
+    giftLoverTitle: giftLoverTitle,
+    giftLoverProduct: giftLoverProduct,
+    giftLoverContent: giftLoverContent,
+    giftLoverNote: giftLoverNote,
+    giftLoverNoteLinkText: giftLoverNoteLinkText,
+    giftLoverNoteTextLink: giftLoverNoteTextLink,
+    giftLoverButtonText: giftLoverButtonText,
+    giftLoverImage: giftLoverImage,
+    giftLoverImageAlt: giftLoverImageAlt,
+    giftLoverImageLink: giftLoverImageLink,
+    giftLoverProductSelect: giftLoverProductSelect,
+    giftLoverProductVariant: giftLoverProductVariant,
+    giftLoverProductVariantPriceSize: giftLoverProductVariantPriceSize,
+    giftLoverProductVariantPriceSizeTwo: giftLoverProductVariantPriceSizeTwo
   }),
   getters: {
+    variantsProduct() {
+      var productVariantSize = JSON.parse(giftLoverProductVariant);
+      return productVariantSize;
+    },
     listItems() {
       return miniCartRevertedOrder ? this.items.reverse() : this.items;
     },
@@ -269,6 +306,10 @@ const useCartStoreDefinition = defineStore({
       const checkoutUrl = `/checkout?note=${encodeURIComponent(this.note)}`;
       window.location.href = checkoutUrl;
     },
+
+    customAddtoCart(e) {
+      e.preventDefault();
+    }
   }
 })
 

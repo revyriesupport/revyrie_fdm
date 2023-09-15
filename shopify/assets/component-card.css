@@ -89,7 +89,7 @@
 }
 
 .card-information {
-  text-align: var(--text-alignment);
+  text-align: center;
 }
 
 .card__media,
@@ -134,8 +134,9 @@
 }
 
 .card__information {
+  text-align: center;
   grid-row-start: 2;
-  padding: 1.3rem 1rem;
+  /* padding: 1.3rem 1rem; */
 }
 
 .card:not(.ratio)>.card__content {
@@ -150,7 +151,7 @@
 
 @media screen and (min-width: 750px) {
   .card__information {
-    padding-bottom: 1.7rem;
+    /* padding-bottom: 1.7rem; */
     padding-top: 1.7rem;
   }
 }
@@ -159,6 +160,9 @@
   align-self: flex-end;
   grid-row-start: 3;
   justify-self: flex-start;
+}
+.card__badge span {
+  width: 135px;
 }
 
 .card__badge.top {
@@ -188,6 +192,9 @@
 .card__heading {
   margin-top: 0;
   margin-bottom: 0;
+}
+.card__heading a:hover {
+  text-decoration: none !important;
 }
 
 .card__heading:last-child {
@@ -267,22 +274,23 @@
 
   .card .media.media--hover-effect>img:only-child,
   .card-wrapper .media.media--hover-effect>img:only-child {
-    transition: transform var(--duration-long) ease;
+    /* transition: transform var(--duration-long) ease; */
   }
 
   .card:hover .media.media--hover-effect>img:first-child:only-child,
   .card-wrapper:hover .media.media--hover-effect>img:first-child:only-child {
-    transform: scale(1.03);
+    /* transform: scale(1.03); */
   }
 
   .card-wrapper:hover .media.media--hover-effect>img:first-child:not(:only-child) {
+    width:50%; 
     opacity: 0;
   }
 
   .card-wrapper:hover .media.media--hover-effect>img+img {
     opacity: 1;
-    transition: transform var(--duration-long) ease;
-    transform: scale(1.03);
+    /* transition: transform var(--duration-long) ease;
+    transform: scale(1.03); */
   }
 
   .underline-links-hover:hover a {
@@ -466,4 +474,33 @@
   .grid__item:nth-child(8n) .product-card-wrapper:hover .shape--blob {
     clip-path: polygon(var(--shape--blob-5));
   }
+}
+
+.badge_bottom_center {
+  position: absolute;
+  right: 0;
+  bottom: -9px;
+  left: 0;
+  margin: 0 auto;
+  text-align: center;
+}
+.badge_bottom_center span {
+  /* padding-top: 0px;
+  padding-bottom: 0px; */
+}
+.quick-add__submit {
+  margin-top: 0px !important;
+  font-size: 12px;
+  line-height: 0.9;
+}
+.product_card_heading {
+  text-decoration: none !important;
+}
+@media screen and (max-width: 750px) {
+  .card__information {
+    padding-top: 15px;
+  }
+}
+.card__badge {
+  text-transform: capitalize;
 }

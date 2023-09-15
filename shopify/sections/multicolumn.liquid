@@ -6,11 +6,30 @@
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
   }
+  .multicolumn-card__info p {
+    font-size: {{ section.settings.content_font_size_mobile }}px;
+  }
 
   @media screen and (min-width: 750px) {
     .section-{{ section.id }}-padding {
       padding-top: {{ section.settings.padding_top }}px;
       padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+    .multicolumn-card__info p {
+      font-size: {{ section.settings.content_font_size }}px;
+    }
+    .multicolumn-card {
+      padding-left: 19px;
+      padding-right: 19px;
+    }
+  }
+  @media screen and (min-width:769px) and (max-width:1023px) {
+    .multicolumn-list__item-medium {
+      width: calc(33.33% - var(--grid-desktop-horizontal-spacing) * 2 / 3) !important;
+    }
+    .multicolumn-medium {
+      margin-left: 0px !important;
+      margin-right: 0px !important;
     }
   }
 {%- endstyle -%}
@@ -23,7 +42,7 @@
   endif
 -%}
 
-<div class="multicolumn color-{{ section.settings.color_scheme }} gradient{% unless section.settings.background_style == 'none' and settings.text_boxes_border_thickness > 0 or settings.text_boxes_shadow_opacity > 0 %} background-{{ section.settings.background_style }}{% endunless %}{% if section.settings.title == blank %} no-heading{% endif %}">
+<div class="multicolumn multicolumn-medium color-{{ section.settings.color_scheme }} gradient{% unless section.settings.background_style == 'none' and settings.text_boxes_border_thickness > 0 or settings.text_boxes_shadow_opacity > 0 %} background-{{ section.settings.background_style }}{% endunless %}{% if section.settings.title == blank %} no-heading{% endif %}">
   <div
     class="page-width section-{{ section.id }}-padding isolate{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
     {% if settings.animations_reveal_on_scroll %}
@@ -68,7 +87,7 @@
 
           <li
             id="Slide-{{ section.id }}-{{ forloop.index }}"
-            class="multicolumn-list__item grid__item{% if section.settings.swipe_on_mobile %} slider__slide{% endif %}{% if section.settings.column_alignment == 'center' %} center{% endif %}{{ empty_column }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+            class="multicolumn-list__item grid__item{% if section.settings.swipe_on_mobile %} slider__slide{% endif %}{% if section.settings.column_alignment == 'center' %} center{% endif %}{{ empty_column }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %} multicolumn-list__item-medium"
             {{ block.shopify_attributes }}
             {% if settings.animations_reveal_on_scroll %}
               data-cascade
@@ -119,12 +138,12 @@
                   </div>
                 </div>
               {%- endif -%}
-              <div class="multicolumn-card__info">
+              <div class="multicolumn-card__info" style="text-align:{{ section.settings.content_alignment }};">
                 {%- if block.settings.title != blank -%}
-                  <h3 class="inline-richtext">{{ block.settings.title }}</h3>
+                  <h3 class="inline-richtext" style="color:{{ section.settings.text_color }};">{{ block.settings.title }}</h3>
                 {%- endif -%}
                 {%- if block.settings.text != blank -%}
-                  <div class="rte">{{ block.settings.text }}</div>
+                  <div class="rte" style="color:{{ section.settings.text_color }};">{{ block.settings.text }}</div>
                 {%- endif -%}
                 {%- if block.settings.link_label != blank -%}
                   <a
@@ -153,9 +172,9 @@
             name="previous"
             aria-label="{{ 'general.slider.previous_slide' | t }}"
           >
-            {% render 'icon-caret' %}
+            <svg class="previous-button-icon slider-button-icon" viewBox="0 0 100 100"><path d="M 10,50 L 60,100 L 70,90 L 30,50  L 70,10 L 60,0 Z" class="arrow"></path></svg>
           </button>
-          <div class="slider-counter caption">
+          <div class="slider-counter caption" style="display:none;">
             <span class="slider-counter--current">1</span>
             <span aria-hidden="true"> / </span>
             <span class="visually-hidden">{{ 'general.slider.of' | t }}</span>
@@ -167,7 +186,7 @@
             name="next"
             aria-label="{{ 'general.slider.next_slide' | t }}"
           >
-            {% render 'icon-caret' %}
+            <svg class="next-button-icon slider-button-icon" viewBox="0 0 100 100"><path d="M 10,50 L 60,100 L 70,90 L 30,50  L 70,10 L 60,0 Z" class="arrow" transform="translate(100, 100) rotate(180) "></path></svg>
           </button>
         </div>
       {%- endif -%}
@@ -327,6 +346,12 @@
       "default": "background-1"
     },
     {
+        "type": "color",
+        "id": "text_color",
+        "default": "#000000",
+        "label": "Text Color"
+    },
+    {
       "type": "header",
       "content": "t:sections.multicolumn.settings.header_mobile.content"
     },
@@ -375,6 +400,42 @@
       "unit": "px",
       "label": "t:sections.all.padding.padding_bottom",
       "default": 36
+    },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.multicolumn.settings.content_alignment.options__1.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.multicolumn.settings.content_alignment.options__2.label"
+        }
+      ],
+      "default": "center",
+      "label": "t:sections.multicolumn.settings.content_alignment.label"
+    },
+    {
+      "type": "range",
+      "id": "content_font_size",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Content Font Size Desktop",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "content_font_size_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Content Font Size Mobile",
+      "default": 18
     }
   ],
   "blocks": [

@@ -26,7 +26,7 @@
                 {{ block.shopify_attributes }}
                 {% if settings.animations_reveal_on_scroll %}
                   data-cascade
-                  style="--animation-order: {{ forloop.index }};"
+                  style="--animation-order: {{ forloop.index }};color:{{ section.settings.text_color }};"
                 {% endif %}
               >
                 {{ block.settings.heading }}
@@ -37,7 +37,7 @@
                 {{ block.shopify_attributes }}
                 {% if settings.animations_reveal_on_scroll %}
                   data-cascade
-                  style="--animation-order: {{ forloop.index }};"
+                  style="--animation-order: {{ forloop.index }};color:{{ section.settings.text_color }};"
                 {% endif %}
               >
                 {{ block.settings.caption | escape }}
@@ -48,7 +48,7 @@
                 {{ block.shopify_attributes }}
                 {% if settings.animations_reveal_on_scroll %}
                   data-cascade
-                  style="--animation-order: {{ forloop.index }};"
+                  style="--animation-order: {{ forloop.index }};color:{{ section.settings.text_color }};"
                 {% endif %}
               >
                 {{ block.settings.text }}
@@ -149,6 +149,12 @@
       "id": "color_scheme",
       "label": "t:sections.all.colors.label",
       "default": "background-1"
+    },
+    {
+        "type": "color",
+        "id": "text_color",
+        "default": "#000000",
+        "label": "Text Color"
     },
     {
       "type": "checkbox",

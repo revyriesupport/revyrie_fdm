@@ -4,8 +4,8 @@
     "theme_name": "Myntr",
     "theme_version": "2.0.0",
     "theme_author": "Shopify + Myntr",
-    "theme_documentation_url": "https://help.shopify.com/manual/online-store/themes",
-    "theme_support_url": "https://support.shopify.com/"
+    "theme_documentation_url": "https:\/\/help.shopify.com\/manual\/online-store\/themes",
+    "theme_support_url": "https:\/\/support.shopify.com\/"
   },
   {
     "name": "t:settings_schema.logo.name",
@@ -24,6 +24,16 @@
         "default": 100,
         "unit": "px",
         "label": "t:settings_schema.logo.settings.logo_width.label"
+      },
+      {
+        "type": "range",
+        "id": "mobile_logo_width",
+        "min": 50,
+        "max": 300,
+        "step": 10,
+        "default": 100,
+        "unit": "px",
+        "label": "Mobile Logo Width"
       },
       {
         "type": "image_picker",
@@ -888,6 +898,20 @@
         "unit": "px",
         "label": "t:settings_schema.global.settings.blur.label",
         "default": 0
+      },
+      {
+        "type": "header",
+        "content": "t:settings_schema.global.settings.header__blogimage.content"
+      },
+      {
+        "type": "image_picker",
+        "id": "blog_image",
+        "label": "t:settings_schema.global.settings.blog_image.label"
+      },
+      {
+        "type": "url",
+        "id": "blog_image_url",
+        "label": "t:settings_schema.global.settings.blog_image_url.label"
       }
     ]
   },
@@ -1239,6 +1263,10 @@
           {
             "value": "top right",
             "label": "t:settings_schema.badges.settings.position.options__4.label"
+          },
+          {
+            "value": "badge_bottom_center",
+            "label": "t:settings_schema.badges.settings.position.options__5.label"
           }
         ],
         "default": "bottom left",
@@ -1256,6 +1284,12 @@
       },
       {
         "type": "color_scheme",
+        "id": "tag_badge_color_scheme",
+        "label": "t:settings_schema.badges.settings.tag_badge_color_scheme.label",
+        "default": "accent-2"
+      },
+      {
+        "type": "color_scheme",
         "id": "sale_badge_color_scheme",
         "label": "t:settings_schema.badges.settings.sale_badge_color_scheme.label",
         "default": "accent-2"
@@ -1265,6 +1299,18 @@
         "id": "sold_out_badge_color_scheme",
         "label": "t:settings_schema.badges.settings.sold_out_badge_color_scheme.label",
         "default": "inverse"
+      }
+    ]
+  },
+  {
+    "name": "t:settings_schema.color-swatch.name",
+    "settings": [
+      {
+        "type": "textarea",
+        "id": "color_swatch_config",
+        "label": "t:settings_schema.color-swatch.settings.label",
+        "info": "t:settings_schema.color-swatch.settings.info",
+        "default": "black:#000000\nblue:#166BB3\nbrown:#8C4013\ngold:#EDC700\ngray:#DFDFDD\ngreen:#008D6F\nivory\/white:#FFF6EA\norange:#FF7A00\npink:#F3BBD0\npurple:#9353E5\nred:#ED1422\nsilver:#C4C4C4\ntan\/beige:#F2E2C9\nyellow:#FFFA7E\nmulti:linear-gradient(90deg, rgba(245,44,54,1) 0%, rgba(245,44,54,1) 12.5%, rgba(252,122,56,1) 12.5%, rgba(252,122,56,1) 29.2%, rgba(255,240,55,1) 29.2%, rgba(255,240,55,1) 41.7%, rgba(0,158,82,1) 41.7%, rgba(0,158,82,1) 58.3%, rgba(1,165,233,1) 58.3%, rgba(1,165,233,1) 70.8%, rgba(53,56,135,1) 70.8%, rgba(53,56,135,1) 87.5%, rgba(120,80,151,1) 87.5%, rgba(120,80,151,1) 100%)"
       }
     ]
   },
@@ -1373,6 +1419,36 @@
         "content": "t:settings_schema.search_input.settings.header.content"
       },
       {
+        "type": "text",
+        "id": "search_suggestion_1",
+        "label": "t:settings_schema.search_input.settings.search_suggestion_1.label",
+        "default": "silk"
+      },
+      {
+        "type": "text",
+        "id": "search_suggestion_2",
+        "label": "t:settings_schema.search_input.settings.search_suggestion_2.label",
+        "default": "bras"
+      },
+      {
+        "type": "text",
+        "id": "search_suggestion_3",
+        "label": "t:settings_schema.search_input.settings.search_suggestion_3.label",
+        "default": "Bodysuits"
+      },
+      {
+        "type": "text",
+        "id": "search_suggestion_4",
+        "label": "t:settings_schema.search_input.settings.search_suggestion_4.label",
+        "default": "Hoisery"
+      },
+      {
+        "type": "text",
+        "id": "search_suggestion_5",
+        "label": "t:settings_schema.search_input.settings.search_suggestion_5.label",
+        "default": "Sleepwear"
+      },
+      {
         "type": "checkbox",
         "id": "predictive_search_enabled",
         "default": true,
@@ -1433,7 +1509,7 @@
             "label": "t:settings_schema.cart.settings.cart_type.notification.label"
           }
         ],
-        "default": "drawer",
+        "default": "notification",
         "label": "t:settings_schema.cart.settings.cart_type.label"
       },
       {
@@ -1449,6 +1525,12 @@
         "default": false
       },
       {
+        "type": "checkbox",
+        "id": "cart_special_message_enable",
+        "label": "t:settings_schema.cart.settings.cart_special_message_enable.label",
+        "default": false
+      },
+      {
         "type": "header",
         "content": "t:settings_schema.cart.settings.cart_drawer.header"
       },
@@ -1457,6 +1539,73 @@
         "id": "cart_drawer_collection",
         "label": "t:settings_schema.cart.settings.cart_drawer.collection.label",
         "info": "t:settings_schema.cart.settings.cart_drawer.collection.info"
+      },
+      {
+        "type": "header",
+        "content": "Cart gift"
+      },
+      {
+        "type": "checkbox",
+        "id": "gift_cart_lover_enable",
+        "label": "t:settings_schema.cart.settings.gift_cart_lover_enable.label",
+        "info": "t:settings_schema.cart.settings.gift_cart_lover_enable.info"
+      },
+      {
+        "type": "textarea",
+        "id": "gift_cart_lover_title",
+        "label": "t:settings_schema.cart.settings.gift_cart_lover_title.label"
+      },
+      {
+        "type": "product",
+        "id": "gift_cart_lover_product",
+        "label": "t:settings_schema.cart.settings.gift_cart_lover_product.label"
+      },
+      {
+        "type": "textarea",
+        "id": "gift_lover_content",
+        "label": "t:settings_schema.cart.settings.gift_lover_content.label",
+        "info": "t:settings_schema.cart.settings.gift_lover_content.info"
+      },
+      {
+        "type": "textarea",
+        "id": "gift_lover_note",
+        "label": "t:settings_schema.cart.settings.gift_lover_note.label"
+      },
+      {
+        "type": "text",
+        "id": "gift_lover_note_link_text",
+        "label": "t:settings_schema.cart.settings.gift_lover_note_link_text.label"
+      },
+      {
+        "type": "text",
+        "id": "gift_lover_note_text_link",
+        "label": "t:settings_schema.cart.settings.gift_lover_note_text_link.label"
+      },
+      {
+        "type": "text",
+        "id": "gift_lover_button_text",
+        "label": "t:settings_schema.cart.settings.gift_lover_button_text.label"
+      },
+      {
+        "type": "image_picker",
+        "id": "gift_lover_image",
+        "label": "t:settings_schema.cart.settings.gift_lover_image.label",
+        "info": "t:settings_schema.cart.settings.gift_lover_image.info"
+      },
+      {
+        "type": "text",
+        "id": "gift_lover_image_alt",
+        "label": "t:settings_schema.cart.settings.gift_lover_image_alt.label"
+      },
+      {
+        "type": "url",
+        "id": "gift_lover_image_link",
+        "label": "t:settings_schema.cart.settings.gift_lover_image_link.label"
+      },
+      {
+        "type": "product",
+        "id": "gift_product_select",
+        "label": "t:settings_schema.cart.settings.gift_product_select.label"
       }
     ]
   },

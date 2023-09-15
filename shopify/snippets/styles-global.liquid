@@ -3,6 +3,7 @@
   assign body_font_italic = settings.type_body_font | font_modify: 'style', 'italic'
   assign body_font_bold_italic = body_font_bold | font_modify: 'style', 'italic'
 -%}
+<link rel="stylesheet" href="https://use.typekit.net/ebu3ief.css">
 
 {%- style -%}
   {{ settings.type_body_font | font_face: font_display: 'swap' }}
@@ -163,6 +164,14 @@
     --variant-pills-shadow-horizontal-offset: {{ settings.variant_pills_shadow_horizontal_offset }}px;
     --variant-pills-shadow-vertical-offset: {{ settings.variant_pills_shadow_vertical_offset }}px;
     --variant-pills-shadow-blur-radius: {{ settings.variant_pills_shadow_blur }}px;
+
+    --font-custom-family-heading: "Dala Floda Web Roman Regular";
+    --font-custom-family-heading-italic: "Dala Floda Web Roman Italic";
+    --font-custom-family-body: proxima-nova,Helvetica,Roboto,Arial,sans-serif;
+    --font-weight-bold: 600;
+    --font-weight-mediumbold: 500;
+    --black-text-color: #000000;
+    --body-font-size: 13.6px;
   }
 
   *,
@@ -186,9 +195,11 @@
     font-size: 1.5rem;
     letter-spacing: 0.06rem;
     line-height: calc(1 + 0.8 / var(--font-body-scale));
-    font-family: var(--font-body-family);
+    /* font-family: var(--font-body-family); */
+    font-family: var(--font-custom-family-body);
     font-style: var(--font-body-style);
     font-weight: var(--font-body-weight);
+    line-height: 1.7;
   }
 
   @media screen and (min-width: 750px) {

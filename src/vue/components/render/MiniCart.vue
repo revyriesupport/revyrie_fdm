@@ -54,15 +54,15 @@ export default {
 </script>
 <template>
   <div
-    class="visible fixed bottom-0 top-0 right-0 z-50 flex w-full max-w-lg flex-col border-ink bg-white shadow-lg transition duration-300 ease-in-out lg:max-w-xl"
+    class="visible fixed bottom-0 top-0 right-0 z-50 flex w-full max-w-lg flex-col border-ink bg-white shadow-lg transition duration-300 ease-in-out lg:max-w-xl cart_drawer_slide"
     :class="{ 'translate-x-full': !cart.isOpen }"
     role="dialog"
     aria-modal="true"
     aria-labelledby="cartTitle"
   >
     <!-- Header -->
-    <div class="flex items-center justify-between bg-white p-4">
-      <p class="text-xl font-medium text-ink" id="cartTitle">My Cart</p>
+    <div class="flex items-center justify-between bg-white p-4 cart_drawer_header">
+      <p class="text-xl font-medium text-ink" id="cartTitle">Perfect fit. Free returns within 30 days.</p>
       <button
         type="button"
         id="close-mini-cart"
@@ -87,7 +87,44 @@ export default {
       </button>
     </div>
     <shipping-progress-bar></shipping-progress-bar>
-
+    <div class="gift_lover_section">  
+      <div class="gift_lover_left column-4">
+        <a :href="cart.giftLoverImageLink"><img :src="cart.giftLoverImage" :alt="cart.giftLoverImageAlt"></a>
+      </div> 
+      <div class="gift_lover_right column-8">
+        <h5>{{ cart.giftLoverTitle }}</h5>
+        <p>{{ cart.giftLoverContent }}</p>
+        <p>{{ cart.giftLoverNoteContent }}</p>
+        <div class="variantsizebox">
+          <p v-for="giftVariant in cart.variantsProduct">{{ money(giftVariant.price) }} {{ giftVariant.title }} Box</p>
+        </div>
+        <div class="product_size_box">
+          <select id="select_size">
+            <option v-for="giftVariant in cart.variantsProduct"  :value="giftVariant.id">{{ giftVariant.title }}</option>
+          </select>  
+          <div class="addcart_button">
+            <form method="post" action="/cart/add" id="product-form-gift-lover" accept-charset="UTF-8" class="form" enctype="multipart/form-data" novalidate="novalidate" data-type="add-to-cart-form"><input type="hidden" name="form_type" value="product">
+            <input type="hidden" name="utf8" value="✓">
+            <input type="hidden" name="id" value="46838188605752" class="product-variant-id">
+            <div class="product-form__buttons">
+              <button id="ProductSubmitButton-gift-lover" type="submit" name="add" class="product-form__submit button button--full-width button--secondary" @click="cart.updateCartItemFetch"> 
+            <span>Add to cart</span>
+            <div class="loading-overlay__spinner hidden">
+              <svg aria-hidden="true" focusable="false" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
+              </svg>
+            </div>
+          </button>
+          </div>
+            </form>
+           
+          </div>
+        </div>
+        <div class="gift_lover_note">
+        <p>{{ cart.giftLoverNote }} <a :href="cart.giftLoverNoteTextLink">{{cart.giftLoverNoteLinkText}}</a>.</p>
+        </div>
+      </div> 
+    </div>
     <div
       v-if="cart.isEmpty"
       class="flex w-full flex-1 items-center justify-center p-4 text-center text-ink"

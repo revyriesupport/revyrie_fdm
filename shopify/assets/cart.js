@@ -12,6 +12,63 @@ class CartRemoveButton extends HTMLElement {
 
 customElements.define('cart-remove-button', CartRemoveButton);
 
+
+
+class CartSizeButton extends HTMLElement {
+  constructor() {
+    super();
+
+   async function addItem(variantId, quantity) {
+    const result = await fetch("/cart/add.json", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify({
+            id: variantId,
+            quantity: quantity,
+        })
+     
+       
+    })
+    // console.log(result.json());
+  //return result.json();
+}
+    
+    this.children[0].addEventListener('change', (e) => {
+         const sizevariant = this.children[0].value;
+         e.preventDefault();
+          console.log(sizevariant);
+        addItem(sizevariant, 1);
+      //console.log(window.theme)
+//alert();
+     // updateQuantity('0', '1', 'T-BACK COWL SLIP', '46523376632120');
+
+      setTimeout(function(){
+     
+           fetch(`${routes.cart_url}?section_id=main-cart-items`)
+            .then((response) => response.text())
+            .then((responseText) => {
+              const html = new DOMParser().parseFromString(responseText, 'text/html');
+              const sourceQty = html.querySelector('cart-items');
+             const cartitem = document.getElementById('main-cart-items');
+              cartitem.innerHTML = sourceQty.innerHTML;
+            })
+
+            .catch((e) => {
+              console.error(e);
+            });
+         }, 1000);
+      })
+  }
+}
+
+customElements.define('cart-size-button', CartSizeButton);
+
+
+
+
 class CartItems extends HTMLElement {
   constructor() {
     super();
@@ -43,7 +100,10 @@ class CartItems extends HTMLElement {
   }
 
   onChange(event) {
-    this.updateQuantity(event.target.dataset.index, event.target.value, document.activeElement.getAttribute('name'), event.target.dataset.quantityVariantId);
+    //alert(typeof event.target.dataset.index);
+    if(typeof event.target.dataset.index != 'undefined'){
+      this.updateQuantity(event.target.dataset.index, event.target.value, document.activeElement.getAttribute('name'), event.target.dataset.quantityVariantId);
+    }
   }
 
   onCartUpdate() {
@@ -100,6 +160,11 @@ class CartItems extends HTMLElement {
         section: document.getElementById('main-cart-footer').dataset.id,
         selector: '.js-contents',
       },
+      {
+        id: 'main-cart-footer-header',
+        section: document.getElementById('main-cart-footer-header').dataset.id,
+        selector: '.js-contents',
+      },
     ];
   }
 
@@ -109,10 +174,12 @@ class CartItems extends HTMLElement {
     const body = JSON.stringify({
       line,
       quantity,
+      variantId,
       sections: this.getSectionsToRender().map((section) => section.section),
       sections_url: window.location.pathname,
     });
 
+    //alert(line +'--'+ quantity + '--'+ name +'--'+ variantId);
     fetch(`${routes.cart_change_url}`, { ...fetchConfig(), ...{ body } })
       .then((response) => {
         return response.text();
@@ -222,6 +289,9 @@ class CartItems extends HTMLElement {
     cartItemElements.forEach((overlay) => overlay.classList.add('hidden'));
     cartDrawerItemElements.forEach((overlay) => overlay.classList.add('hidden'));
   }
+
+  
+
 }
 
 customElements.define('cart-items', CartItems);

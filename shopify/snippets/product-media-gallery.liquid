@@ -71,6 +71,8 @@
   role="region"
   {% if section.settings.enable_sticky_info %}
     class="product__column-sticky"
+  {% else %}
+    class="product__column_image"
   {% endif %}
   aria-label="{{ 'products.product.media.gallery_viewer' | t }}"
   {% if media_with_color_alt %}data-has-variant-images="true"{% endif  %}
@@ -198,7 +200,10 @@
         name="previous"
         aria-label="{{ 'general.slider.previous_slide' | t }}"
       >
+        <svg viewBox="0 0 100 100"><path d="M 10,50 L 60,100 L 70,90 L 30,50  L 70,10 L 60,0 Z" class="arrow"></path></svg>
+        {% comment %}
         {% render 'icon-caret' %}
+        {% endcomment %}
       </button>
       <button
         type="button"
@@ -206,7 +211,10 @@
         name="next"
         aria-label="{{ 'general.slider.next_slide' | t }}"
       >
+        <svg viewBox="0 0 100 100"><path d="M 10,50 L 60,100 L 70,90 L 30,50  L 70,10 L 60,0 Z" class="arrow" transform="translate(100, 100) rotate(180) "></path></svg>
+        {% comment %}
         {% render 'icon-caret' %}
+        {% endcomment %}
       </button>
     </div>
 

@@ -7,7 +7,7 @@
       "login_form_password_placeholder": "Your password",
       "login_form_error": "Wrong password!",
       "login_form_submit": "Enter",
-      "admin_link_html": "Are you the store owner? <a href=\"/admin\" class=\"link underlined-link\">Log in here</a>",
+      "admin_link_html": "Are you the store owner? <a href=\"\/admin\" class=\"link underlined-link\">Log in here<\/a>",
       "powered_by_shopify_html": "This shop will be powered by {{ shopify }}"
     },
     "social": {
@@ -104,6 +104,17 @@
     "product_title": "Example product title",
     "collection_title": "Your collection's name"
   },
+  "collections": {
+    "general": {
+      "no_matches": "Sorry babe, we're sold out! Check back soon for restocks.",
+      "link_title": "Browse our {{ title }} collection.",
+      "scroll_top": "Back to top"
+    },
+    "form": {
+      "signup_form_email_placeholder": "Enter your email to be alerted",
+      "signup_form_success": "You're in, lover."
+    }
+  },
   "products": {
     "product": {
       "add_to_cart": "Add to cart",
@@ -119,6 +130,7 @@
       "sku": "SKU",
       "on_sale": "Sale",
       "product_variants": "Product variants",
+      "coming_soon": "Coming Soon",
       "media": {
         "gallery_viewer": "Gallery Viewer",
         "load_image": "Load image {{ index }} in gallery view",
@@ -130,29 +142,29 @@
         "play_video": "Play video"
       },
       "quantity": {
-        "label": "Quantity",
+        "label": "Qty",
         "input_label": "Quantity for {{ product }}",
         "increase": "Increase quantity for {{ product }}",
         "decrease": "Decrease quantity for {{ product }}",
         "minimum_of": "Minimum of {{ quantity }}",
         "maximum_of": "Maximum of {{ quantity }}",
         "multiples_of": "Increments of {{ quantity }}",
-        "in_cart_html": "<span class=\"quantity-cart\">{{ quantity }}</span> in cart",
+        "in_cart_html": "<span class=\"quantity-cart\">{{ quantity }}<\/span> in cart",
         "note": "View quantity rules"
       },
       "volume_pricing": {
         "title": "Volume Pricing",
         "note": "Volume pricing available",
         "minimum": "{{ quantity }}+",
-        "price_at_each": "at {{ price }}/ea",
+        "price_at_each": "at {{ price }}\/ea",
         "price_range": "{{ minimum }} - {{ maximum }}"
       },
       "pickup_availability": {
         "view_store_info": "View store information",
         "check_other_stores": "Check availability at other stores",
         "pick_up_available": "Pickup available",
-        "pick_up_available_at_html": "Pickup available at <span class=\"color-foreground\">{{ location_name }}</span>",
-        "pick_up_unavailable_at_html": "Pickup currently unavailable at <span class=\"color-foreground\">{{ location_name }}</span>",
+        "pick_up_available_at_html": "Pickup available at <span class=\"color-foreground\">{{ location_name }}<\/span>",
+        "pick_up_unavailable_at_html": "Pickup currently unavailable at <span class=\"color-foreground\">{{ location_name }}<\/span>",
         "unavailable": "Couldn't load pickup availability",
         "refresh": "Refresh"
       },
@@ -173,7 +185,49 @@
       "xr_button": "View in your space",
       "xr_button_label": "View in your space, loads item in augmented reality window",
       "include_taxes": "Tax included.",
-      "shipping_policy_html": "<a href=\"{{ link }}\">Shipping</a> calculated at checkout."
+      "shipping_policy_html": "<a href=\"{{ link }}\">Shipping<\/a> calculated at checkout.",
+      "final_sale": "Final Sale",
+      "promotion_html": "Take an additional <b>30% off<\/b> with code <b>FLEURLOVERS30<\/b>",
+      "promotion_secondary_html": "Extra 20% off with code <b>springisforlovers<\/b>",
+      "materials_care": {
+        "title": "Materials & Care",
+        "details": "Details:",
+        "fabrications": "Fabrications:",
+        "care": "Care:"
+      },
+      "size_fit": {
+        "title": "Size & Fit",
+        "lift_lining": "Lift & Lining:",
+        "fit": "Fit:",
+        "straps_hooks": "Straps & Hooks:",
+        "fit_finder_link_html": "<a class=\"fit-finder\" href=\"\/pages\/size-guide\" target=\"_blank\">Find My Bra Size<\/a>",
+        "fit_finder_link_short_html": "<a class=\"fit-finder\" href=\"\/pages\/size-guide\" target=\"_blank\">Find Size<\/a>"
+      },
+      "specs": "Specifications",
+      "shipping_returns": "Shipping & Returns",
+      "select": "Select Size",
+      "sizing_chart": "Size Guide"
+    },
+    "help": {
+      "title": "Need help?",
+      "copy_html": " "
+    },
+    "welcome_offer": {
+      "title": "Get 10% off",
+      "copy_html": "<p><a href=\"\/pages\/subscribe\" target=\"_blank\">Subscribe<\/a> & enjoy 10% off your next full-price purchase.<\/p>"
+    },
+    "bridal": {
+      "title": "Bridal Services",
+      "copy_html": "<p>Here comes the Fleur bride.<\/p><ul><li>Book a bridal or bachelorette party private shopping appointment <a href=\"https:\/\/calendly.com\/fleurdumalnyc\/private-shopping-appointment-mon-wed?back=1&month=2021-06&date=2021-06-30\" target=\"_blank\">here<\/a>.<\/li><li>For custom monogramming email <a href=\"mailto:fleur@fleurdumal.com\" target=\"_blank\">fleur@fleurdumal.com<\/a>.<\/li><li>Gift wrapping available at our NYC and LA flagship boutiques. <a href=\"\/pages\/visit-us\" target=\"_blank\">Visit us, baby.<\/a><\/li><li>Shop curated <a href=\"\/collections\/gift-sets\" target=\"_blank\">gift sets<\/a>.<\/li><\/ul>"
+    },
+    "shipping_html": "<li>Enjoy complementary shipping on all U.S. orders. <a href=\"\/pages\/faq#shipping-delivery\" target=\"_blank\" >Click here<\/a> to learn more.<\/li>",
+    "holiday_shipping_html": "<li>For holiday shipping deadlines <a href=\"\/pages\/faq#shipping-delivery\" target=\"_blank\" >click here<\/a>.<\/li>",
+    "returns": {
+      "full_price_html": "<li>This item is returnable for refund, store credit or exchange.<\/li><li>Please see our full return policy <a href=\"\/pages\/faq#returns-exchanges\" target=\"_blank\">here<\/a>.<\/li>",
+      "marked_down_html": "<li>This item is returnable for store credit only.<\/li><li>Please see our full return policy <a href=\"\/pages\/faq#returns-exchanges\" target=\"_blank\">here<\/a>.<\/li>",
+      "final_sale_html": "<li>This item is final sale and non-returnable.<\/li><li>Please see our full return policy <a href=\"\/pages\/faq#returns-exchanges\" target=\"_blank\">here<\/a>.<\/li>",
+      "sample_sale_html": "<li>For U.S. customers Le Private Sale items can be exchanged for an alternate size only. No refunds.<\/li><li>International orders are final sale.<\/li><li>If you are interested in beginning an exchange for an item purchased during our Private Sale, please reach out to our Client Care team at <a href=\"mailto:fleur@fleurdumal.com\">fleur@fleurdumal.com<\/a>.<\/li>",
+      "gift_box_html": "<li>Fleur du Mal's pre-packed gift boxes are non-refundable. Individual items from gift boxes are exchangeable for alternate sizes only, please reach out to client services for assistance.<\/li><li>If you are interested in beginning an exchange for a gift boxed item please reach out to our Client Care team at <a href=\"mailto:fleur@fleurdumal.com\">fleur@fleurdumal.com<\/a>.<\/li>"
     },
     "modal": {
       "label": "Media gallery"
@@ -211,7 +265,7 @@
   },
   "templates": {
     "search": {
-      "no_results": "No results found for “{{ terms }}”. Check the spelling or use a different word or phrase.",
+      "no_results": "No Results Found, Try these suggestions",
       "page": "Page",
       "products": "Products",
       "results_pages_with_count": {
@@ -231,8 +285,8 @@
         "other": "{{ count }} results"
       },
       "results_with_count_and_term": {
-        "one": "{{ count }} result found for “{{ terms }}”",
-        "other": "{{ count }} results found for “{{ terms }}”"
+        "one": "{{ count }} search result ",
+        "other": "{{ count }} search results"
       },
       "title": "Search results",
       "search_for": "Search for “{{ terms }}”",
@@ -267,29 +321,31 @@
       "announcement": "Announcement",
       "announcement_bar": "Announcement bar"
     },
-
     "header": {
       "announcement": "Announcement",
       "menu": "Menu",
+      "backto_menu": "Back to Main Menu",
       "cart_count": {
         "one": "{{ count }} item",
         "other": "{{ count }} items"
       }
     },
     "cart": {
-      "title": "Your cart",
+      "title": "shopping bag",
       "caption": "Cart items",
       "remove_title": "Remove {{ title }}",
       "estimated_total": "Estimated total",
       "new_estimated_total": "New estimated total",
-      "note": "Order special instructions",
-      "checkout": "Check out",
-      "empty": "Your cart is empty",
+      "note": "Include Gift Message",
+      "checkout": "Proceed to Checkout",
+      "empty": "shopping bag",
+      "empty_content": "Your shopping bag is currently empty.",
+      "continue_browsing_html": "Continue browsing <a href=\"\/collections\/all\">here<\/a>.",
       "cart_error": "There was an error while updating your cart. Please try again.",
       "cart_quantity_error_html": "You can only add {{ quantity }} of this item to your cart.",
-      "taxes_and_shipping_policy_at_checkout_html": "Taxes, Discounts and <a href=\"{{ link }}\">shipping</a> calculated at checkout",
+      "taxes_and_shipping_policy_at_checkout_html": "Taxes, Discounts and <a href=\"{{ link }}\">shipping<\/a> calculated at checkout",
       "taxes_included_but_shipping_at_checkout": "Tax included and shipping and discounts calculated at checkout",
-      "taxes_included_and_shipping_policy_html": "Tax included. <a href=\"{{ link }}\">Shipping</a> and discounts calculated at checkout.",
+      "taxes_included_and_shipping_policy_html": "Tax included. <a href=\"{{ link }}\">Shipping<\/a> and discounts calculated at checkout.",
       "taxes_and_shipping_at_checkout": "Taxes, discounts and shipping calculated at checkout",
       "headings": {
         "product": "Product",
@@ -301,8 +357,13 @@
       "update": "Update",
       "login": {
         "title": "Have an account?",
-        "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">Log in</a> to check out faster."
-      }
+        "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">Log in<\/a> to check out faster."
+      },
+      "note_html": "Please note, the final purchase price may change when you select your delivery address.",
+      "message_html": "Free shipping & returns on all U.S. orders. Some items may ship separately.",
+      "cart_special_message_enable": "Thank you for your donation",
+      "special_message_html": "10% of this purchase goes to <b>The Ali Forney Center<\/b> - <i>The non-profit dedicated to protecting LGBTQ youth from homelessness.<\/i>",
+      "chars_remain": "Characters remaining"
     },
     "footer": {
       "payment": "Payment methods"
@@ -322,7 +383,7 @@
     "collection_template": {
       "empty": "No products found",
       "title": "Collection",
-      "use_fewer_filters_html": "Use fewer filters or <a class=\"{{ class }}\" href=\"{{ link }}\">remove all</a>"
+      "use_fewer_filters_html": "Use fewer filters or <a class=\"{{ class }}\" href=\"{{ link }}\">remove all<\/a>"
     },
     "video": {
       "load_video": "Load video: {{ description }}"
@@ -342,7 +403,7 @@
     "quick_order_list": {
       "product_total": "Product subtotal",
       "view_cart": "View cart",
-      "each": "{{ money }}/ea",
+      "each": "{{ money }}\/ea",
       "product": "Product",
       "variant": "Variant",
       "variant_total": "Variant total",
@@ -362,10 +423,10 @@
     }
   },
   "localization": {
-    "country_label": "Country/region",
+    "country_label": "Country\/region",
     "language_label": "Language",
     "update_language": "Update language",
-    "update_country": "Update country/region"
+    "update_country": "Update country\/region"
   },
   "customer": {
     "account": {
@@ -394,9 +455,9 @@
       "address1": "Address 1",
       "address2": "Address 2",
       "city": "City",
-      "country": "Country/region",
+      "country": "Country\/region",
       "province": "Province",
-      "zip": "Postal/ZIP code",
+      "zip": "Postal\/ZIP code",
       "phone": "Phone",
       "set_default": "Set as default address",
       "add": "Add address",
@@ -467,7 +528,8 @@
       "last_name": "Last name",
       "email": "Email",
       "password": "Password",
-      "submit": "Create"
+      "submit": "Create",
+      "sign_up": "Sign Up"
     },
     "reset_password": {
       "title": "Reset account password",
