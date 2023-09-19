@@ -1,0 +1,6 @@
+.badges {
+  @apply flex flex-wrap gap-x-2 gap-y-1;
+}
+.badge {
+  @apply inline-block rounded-xl bg-grey px-3 py-1 text-xs text-black;
+}

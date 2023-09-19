@@ -1,0 +1,144 @@
+@media screen and (max-width: 749px) {
+  .collection .grid__item:only-child {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+
+@media screen and (max-width: 989px) {
+  .collection .slider.slider--tablet {
+    margin-bottom: 1.5rem;
+  }
+}
+
+.collection .loading-overlay {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: none;
+  width: 100%;
+  padding: 0 1.5rem;
+  opacity: 0.7;
+  z-index: 150;
+  position:fixed;
+}
+#collection_loader img {
+  margin: auto;
+  top: 45%;
+  position: relative;
+}
+
+@media screen and (min-width: 750px) {
+  .collection .loading-overlay {
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
+}
+
+.collection.loading .loading-overlay {
+  display: block;
+}
+
+.collection--empty .title-wrapper {
+  margin-top: 10rem;
+  margin-bottom: 15rem;
+}
+
+@media screen and (max-width: 989px) {
+  .collection .slider--tablet.product-grid {
+    scroll-padding-left: 1.5rem;
+  }
+}
+
+.collection__description > * {
+  margin: 0;
+}
+
+.collection__title.title-wrapper {
+  margin-bottom: 2.5rem;
+}
+
+.collection__title .title:not(:only-child) {
+  margin-bottom: 1rem;
+}
+
+@media screen and (min-width: 990px) {
+  .collection__title--desktop-slider .title {
+    margin-bottom: 2.5rem;
+  }
+
+  .collection__title.title-wrapper--self-padded-tablet-down {
+    padding: 0 5rem;
+  }
+
+  .collection slider-component:not(.page-width-desktop) {
+    padding: 0;
+  }
+
+  .collection--full-width slider-component:not(.slider-component-desktop) {
+    /* padding: 0 1.5rem; */
+    padding:0 8px;
+    max-width: none;
+  }
+}
+
+.collection__view-all a:not(.link) {
+  margin-top: 1rem;
+}
+
+@media screen and (max-width: 767px) {
+  .grid-switcher {
+    display: none;
+  }
+}
+.grid-switcher {
+  align-self: center;
+  position: relative;
+  text-align: right;
+  display: inline-flex;
+  gap: 5px;
+}
+.grid-switcher-option svg rect {
+  stroke: #dadada;
+}
+
+.grid-switcher-option.active svg rect {
+  stroke: #000000;
+}
+.grid-switcher-option:hover svg rect {
+  stroke: #000000 !important;
+  cursor: pointer;
+}
+#AjaxinatePagination {
+  width: max-content;
+  margin: auto;
+}
+#AjaxinatePagination #load-more-btn {
+  text-transform: uppercase;
+  --border-offset: -1px;
+} 
+#AjaxinatePagination #load-more-btn:hover {
+  color: #d4857b;
+} 
+#AjaxinatePagination #load-more-btn:before {
+  box-shadow: 0 0 0 1px !important;
+}  
+#AjaxinatePagination #load-more-btn:after {
+  box-shadow: none !important;
+}
+#loading-status {
+  display: none;
+  text-align: center;
+  margin-top: 5px;
+}
+#loading-status img {
+  margin: auto;
+}
+#verticalTitle {
+  cursor: pointer;
+  text-transform: uppercase;
+}
+#FacetsWrapperDesktop details {
+  opacity: 0;
+}

@@ -1,0 +1,586 @@
+{
+  "sections": {
+    "3b57793d-aba8-4c19-8385-82959f0cb42e": {
+      "type": "slideshow",
+      "blocks": {
+        "template--21003507761464__3b57793d-aba8-4c19-8385-82959f0cb42e-slide-1": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/08.29_HP_MAIN_HERO_BANNER_-_new_arrivals.jpg",
+            "mobile_image": "shopify:\/\/shop_images\/08.29-HP-MAIN-HERO-BANNER-MOBILE---new-arrivals.jpg",
+            "heading": "new arrivals",
+            "heading_size": "h1",
+            "heading_color": "#ffffff",
+            "heading_font_size_desktop": 80,
+            "heading_font_size_mobile": 20,
+            "subheading": "",
+            "subheading_color": "#ffffff",
+            "subheading_font_size_desktop": 22,
+            "subheading_font_size_mobile": 16,
+            "text_style": "heading_font",
+            "button_label": "SHOP NOW",
+            "link": "#",
+            "button_color": "#ffffff",
+            "button_style_secondary": false,
+            "box_align": "middle-center",
+            "show_text_box": false,
+            "text_alignment": "center",
+            "image_overlay_opacity": 0,
+            "color_scheme": "",
+            "text_alignment_mobile": "center"
+          }
+        }
+      },
+      "block_order": [
+        "template--21003507761464__3b57793d-aba8-4c19-8385-82959f0cb42e-slide-1"
+      ],
+      "settings": {
+        "layout": "full_bleed",
+        "slide_height": "medium",
+        "slider_visual": "counter",
+        "auto_rotate": false,
+        "change_slides_speed": 5,
+        "image_behavior": "none",
+        "show_text_below": false,
+        "accessibility_info": "Slideshow about our brand"
+      }
+    },
+    "6bd03fdb-5b66-40de-90ea-0d91b3b5e4e7": {
+      "type": "collection-list",
+      "blocks": {
+        "template--21003507761464__6bd03fdb-5b66-40de-90ea-0d91b3b5e4e7-featured_collection-1": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "lingerie",
+            "show_collection_image": true,
+            "show_overlay": true,
+            "collection_image": "shopify:\/\/shop_images\/Frame-1---Lingerie.jpg",
+            "image_position": "center top",
+            "show_collection_video": false,
+            "collection_video": "",
+            "button_text": "SHOP"
+          }
+        },
+        "template--21003507761464__6bd03fdb-5b66-40de-90ea-0d91b3b5e4e7-featured_collection-2": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "dress",
+            "show_collection_image": false,
+            "show_overlay": true,
+            "image_position": "center top",
+            "show_collection_video": true,
+            "collection_video": "https:\/\/cdn.shopify.com\/videos\/c\/o\/v\/bdb63b6d3af743c59a219e82f2222286.mp4",
+            "button_text": "SHOP NOW"
+          }
+        },
+        "template--21003507761464__6bd03fdb-5b66-40de-90ea-0d91b3b5e4e7-featured_collection-3": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "best-seller",
+            "show_collection_image": true,
+            "show_overlay": true,
+            "collection_image": "shopify:\/\/shop_images\/08.29-HP-BOX-3---BEST-SELLERS_700x_crop_center_babbf497-08ef-4bc7-8ee7-c7d03a25e4af.jpg",
+            "image_position": "center center",
+            "show_collection_video": false,
+            "collection_video": "",
+            "button_text": "SHOP NOW"
+          }
+        },
+        "120fd3ad-30ca-4861-a7cf-7f5e3fb1c4bc": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "bras",
+            "show_collection_image": true,
+            "show_overlay": true,
+            "collection_image": "shopify:\/\/shop_images\/Frame_4_-_Bras_1_672x_crop_center_5d147148-d873-4242-80bb-00f9fa7a187a.jpg",
+            "image_position": "center top",
+            "show_collection_video": false,
+            "collection_video": "",
+            "button_text": "SHOP NOW"
+          }
+        }
+      },
+      "block_order": [
+        "template--21003507761464__6bd03fdb-5b66-40de-90ea-0d91b3b5e4e7-featured_collection-1",
+        "template--21003507761464__6bd03fdb-5b66-40de-90ea-0d91b3b5e4e7-featured_collection-2",
+        "template--21003507761464__6bd03fdb-5b66-40de-90ea-0d91b3b5e4e7-featured_collection-3",
+        "120fd3ad-30ca-4861-a7cf-7f5e3fb1c4bc"
+      ],
+      "settings": {
+        "title": "",
+        "heading_size": "h1",
+        "image_ratio": "square",
+        "columns_desktop": 4,
+        "color_scheme": "",
+        "show_view_all": false,
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "heading_font_style": "italic",
+        "heading_font_size": 40,
+        "heading_font_size_mobile": 32,
+        "content_color": "#ffffff"
+      }
+    },
+    "image_banner": {
+      "type": "image-banner",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "pleasure",
+            "heading_size": "h1",
+            "heading_font_size": 64,
+            "heading_font_mobile_size": 40,
+            "heading_font_style": "regular"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "Whether it's for partnered or solo playtime, indulge in heart-racing toys, experiment with sexual wellness products & seduce with Fleurotic accessories.",
+            "text_style": "heading_font",
+            "content_font_size": 22,
+            "content_font_mobile_size": 17
+          }
+        },
+        "button": {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "SHOP NOW",
+            "button_link_1": "shopify:\/\/collections\/all",
+            "button_style_secondary_1": false,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "text",
+        "button"
+      ],
+      "settings": {
+        "show_video": true,
+        "video_url": "https:\/\/cdn.shopify.com\/videos\/c\/o\/v\/c28832f8a51f41ad9f6379a795a7b0a9.mp4",
+        "image": "shopify:\/\/shop_images\/HP-2---BOX-HERO-1-LEFT-TEXT---pleasure_1800x_ed12157e-44c4-426e-989c-9b000dfd6ea3.jpg",
+        "image_overlay_opacity": 0,
+        "image_height": "medium",
+        "desktop_content_position": "middle-left",
+        "show_text_box": false,
+        "desktop_content_alignment": "center",
+        "banner_color": "#ffffff",
+        "banner_color_mobile": "#ffffff",
+        "color_scheme": "inverse",
+        "image_behavior": "none",
+        "mobile_content_alignment": "center",
+        "stack_images_on_mobile": false,
+        "show_text_below": false
+      }
+    },
+    "f70e5b7b-48f4-49a2-9581-110da11054e1": {
+      "type": "collection-product-slider",
+      "settings": {
+        "title": "new arrivals",
+        "heading_size": "h1",
+        "heading_font_size": 32,
+        "heading_font_mobile_size": 24,
+        "subtitle": "",
+        "subtitle_font_size": 19,
+        "subtitle_mobile_font_size": 19,
+        "text_position": "center",
+        "collection": "all",
+        "products_to_show": 10,
+        "columns_desktop": 3,
+        "image_ratio": "adapt",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "enable_quick_add": true,
+        "columns_mobile": "2",
+        "margin_bottom": 10,
+        "padding_top": 64,
+        "padding_bottom": 24
+      }
+    },
+    "rich_text": {
+      "type": "rich-text",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Talk about your brand",
+            "heading_size": "h1"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Share information about your brand with your customers. Describe a product, make announcements, or welcome customers to your store.<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "text"
+      ],
+      "disabled": true,
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "background-1",
+        "text_color": "#000000",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 0
+      }
+    },
+    "44961b9c-e8b4-4ae8-a775-ac7e3883b9e4": {
+      "type": "image-banner",
+      "blocks": {
+        "template--21003507761464__44961b9c-e8b4-4ae8-a775-ac7e3883b9e4-heading-1": {
+          "type": "heading",
+          "settings": {
+            "heading": "le panty bar",
+            "heading_size": "h1",
+            "heading_font_size": 64,
+            "heading_font_mobile_size": 40,
+            "heading_font_style": "regular"
+          }
+        },
+        "template--21003507761464__44961b9c-e8b4-4ae8-a775-ac7e3883b9e4-text-1": {
+          "type": "text",
+          "settings": {
+            "text": "Fill your top drawer with Fleur’s best-selling & most essential silhouettes. Build le perfect panty bundle.",
+            "text_style": "heading_font",
+            "content_font_size": 22,
+            "content_font_mobile_size": 17
+          }
+        },
+        "template--21003507761464__44961b9c-e8b4-4ae8-a775-ac7e3883b9e4-buttons-1": {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "SHOP NOW",
+            "button_link_1": "#",
+            "button_style_secondary_1": false,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "template--21003507761464__44961b9c-e8b4-4ae8-a775-ac7e3883b9e4-heading-1",
+        "template--21003507761464__44961b9c-e8b4-4ae8-a775-ac7e3883b9e4-text-1",
+        "template--21003507761464__44961b9c-e8b4-4ae8-a775-ac7e3883b9e4-buttons-1"
+      ],
+      "settings": {
+        "show_video": false,
+        "video_url": "",
+        "image": "shopify:\/\/shop_images\/HP-2---BOX-HERO-2-RIGHT-TEXT---le-panty-bar.jpg",
+        "image_mobile": "shopify:\/\/shop_images\/HP-2---BOX-HERO-2-RIGHT-TEXT---le-panty-bar.jpg",
+        "image_overlay_opacity": 20,
+        "image_height": "large",
+        "desktop_content_position": "middle-right",
+        "show_text_box": false,
+        "desktop_content_alignment": "center",
+        "banner_color": "#000000",
+        "banner_color_mobile": "#ffffff",
+        "color_scheme": "",
+        "image_behavior": "none",
+        "mobile_content_alignment": "center",
+        "stack_images_on_mobile": false,
+        "show_text_below": false
+      }
+    },
+    "14a8825c-15d6-4aee-8055-d8775ec40022": {
+      "type": "collection-product-slider",
+      "settings": {
+        "title": "best sellers",
+        "heading_size": "h1",
+        "heading_font_size": 32,
+        "heading_font_mobile_size": 24,
+        "subtitle": "luxury lingerie & clothing",
+        "subtitle_font_size": 22,
+        "subtitle_mobile_font_size": 22,
+        "text_position": "center",
+        "collection": "pleasure",
+        "products_to_show": 10,
+        "columns_desktop": 3,
+        "image_ratio": "adapt",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "enable_quick_add": false,
+        "columns_mobile": "2",
+        "margin_bottom": 30,
+        "padding_top": 64,
+        "padding_bottom": 36
+      }
+    },
+    "featured_collection": {
+      "type": "featured-collection",
+      "disabled": true,
+      "settings": {
+        "title": "Featured products",
+        "heading_size": "h2",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "collection": "all",
+        "products_to_show": 8,
+        "columns_desktop": 4,
+        "full_width": false,
+        "show_view_all": false,
+        "view_all_style": "solid",
+        "enable_desktop_slider": false,
+        "color_scheme": "background-1",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "enable_quick_add": false,
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 28,
+        "padding_bottom": 36
+      }
+    },
+    "video": {
+      "type": "video",
+      "disabled": true,
+      "settings": {
+        "heading": "",
+        "heading_size": "h1",
+        "enable_video_looping": false,
+        "video_url": "https:\/\/www.youtube.com\/watch?v=_9VUPq3SxOc",
+        "description": "",
+        "full_width": false,
+        "color_scheme": "background-1",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "multicolumn": {
+      "type": "multicolumn",
+      "blocks": {
+        "column1": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/vogue.png",
+            "title": "",
+            "text": "<p>“The line seeks to create pieces that are stylish and wearable, feminine, powerful, and sexy.”<\/p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column2": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/who-what-wear.png",
+            "title": "",
+            "text": "<p>“A cult NYC label, Fleur du Mal creates sassy lingerie that’s just made to be seen.”<\/p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column3": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/the-zoe-report.png",
+            "title": "",
+            "text": "<p>\"Scores of sexy, ultra-femme wares that inspire a natural confidence in its wearers.\"<\/p>",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "column1",
+        "column2",
+        "column3"
+      ],
+      "settings": {
+        "title": "",
+        "heading_size": "h1",
+        "image_width": "half",
+        "image_ratio": "adapt",
+        "columns_desktop": 3,
+        "column_alignment": "center",
+        "background_style": "none",
+        "button_label": "",
+        "button_link": "",
+        "color_scheme": "background-1",
+        "text_color": "#000000",
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "padding_top": 36,
+        "padding_bottom": 52,
+        "content_alignment": "center",
+        "content_font_size": 16,
+        "content_font_size_mobile": 10
+      }
+    },
+    "d4acb95f-4ce8-4a20-bce6-88b9fcc4302f": {
+      "type": "image-banner-version-two",
+      "blocks": {
+        "template--21003507761464__d4acb95f-4ce8-4a20-bce6-88b9fcc4302f-heading-1": {
+          "type": "heading",
+          "settings": {
+            "heading": "our boutiques",
+            "heading_size": "h1"
+          }
+        },
+        "template--21003507761464__d4acb95f-4ce8-4a20-bce6-88b9fcc4302f-text-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Drop by our boutiques to shop fresh collections and other just-arrived styles.<\/p>"
+          }
+        },
+        "b6201743-0056-4d3b-a9ae-36d02a06a7a2": {
+          "type": "heading",
+          "settings": {
+            "heading": "New York City",
+            "heading_size": "h1"
+          }
+        },
+        "1acfc471-dda3-45df-8785-aefed0748ad6": {
+          "type": "text",
+          "settings": {
+            "text": "<p>175 Mott Street<br\/>Monday - Saturday 12pm-7pm<br\/>Sunday 12pm-6pm<\/p>"
+          }
+        },
+        "784c9aa5-a76d-4df2-ba8e-a20df8b1c16f": {
+          "type": "heading",
+          "settings": {
+            "heading": "west hollywood",
+            "heading_size": "h1"
+          }
+        },
+        "6fc7bfb9-739d-4241-9d3d-803c1cd8f641": {
+          "type": "text",
+          "settings": {
+            "text": "<p>519 N Almont Dr<br\/>Monday- Saturday 11am-6pm<br\/>Sunday 12pm-6pm<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "template--21003507761464__d4acb95f-4ce8-4a20-bce6-88b9fcc4302f-heading-1",
+        "template--21003507761464__d4acb95f-4ce8-4a20-bce6-88b9fcc4302f-text-1",
+        "b6201743-0056-4d3b-a9ae-36d02a06a7a2",
+        "1acfc471-dda3-45df-8785-aefed0748ad6",
+        "784c9aa5-a76d-4df2-ba8e-a20df8b1c16f",
+        "6fc7bfb9-739d-4241-9d3d-803c1cd8f641"
+      ],
+      "settings": {
+        "image": "shopify:\/\/shop_images\/HP-2---BOX-HERO-3-RIGHT-TEXT---stores.jpg",
+        "image_mobile": "shopify:\/\/shop_images\/HP-2---BOX-HERO-3-RIGHT-TEXT---stores.jpg",
+        "image_overlay_opacity": 0,
+        "image_height": "medium",
+        "desktop_content_position": "middle-right",
+        "show_text_box": true,
+        "desktop_content_alignment": "center",
+        "banner_color": "#ffffff",
+        "banner_color_mobile": "#ffffff",
+        "heading_font_size": 32,
+        "heading_font_mobile_size": 22,
+        "heading_font_style": "regular",
+        "text_style": "heading_font",
+        "content_font_size": 13,
+        "content_font_mobile_size": 13,
+        "mobile_content_alignment": "center",
+        "stack_images_on_mobile": false,
+        "show_text_below": false
+      }
+    },
+    "53afda23-9639-4e1a-9244-14c7dbc246d0": {
+      "type": "rich-text",
+      "blocks": {
+        "template--21003507761464__53afda23-9639-4e1a-9244-14c7dbc246d0-text-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Marilyn Monroe™ and the Marilyn Monroe signature are trademarks of The Estate of Marilyn Monroe LLC.<br\/>Rights of Publicity and Persona Rights are used with permission of The Estate of Marilyn Monroe LLC. Photography © The Bert Stern Trust<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "template--21003507761464__53afda23-9639-4e1a-9244-14c7dbc246d0-text-1"
+      ],
+      "custom_css": [
+        ".rich-text__text {font-size: 65%;}"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "background-1",
+        "text_color": "#000000",
+        "full_width": true,
+        "padding_top": 60,
+        "padding_bottom": 0
+      }
+    },
+    "80e9a575-9d2f-4d4c-9678-9aad2759eda0": {
+      "type": "collapsible-rich-text",
+      "blocks": {
+        "template--21003507761464__80e9a575-9d2f-4d4c-9678-9aad2759eda0-heading-1": {
+          "type": "heading",
+          "settings": {
+            "heading": "<p>luxury lingerie & ready-to-wear<\/p>",
+            "heading_size": "h2",
+            "heading_font_size": 30,
+            "heading_font_size_mobile": 30
+          }
+        },
+        "template--21003507761464__80e9a575-9d2f-4d4c-9678-9aad2759eda0-text-1": {
+          "type": "text",
+          "settings": {
+            "short_text": "<p>Lingerie has a rich history, from 18th-century corsets to the intimates-as-outerwear trend that’s evolved to include everything from ‘90s silk slip dresses and bustier tops to pajama dressing and visible thongs.<br\/><br\/>Lingerie goes far beyond mere function or seduction to serve as a means of self-expression, rebellion, and creativity. It’s an instant confidence boost, even if no one sees what you have on underneath. For the boardroom and the bedroom, the right lingerie has long laid the foundation for moving through the world more confidently.<\/p>",
+            "full_text": "<p>At <a href=\"\/pages\/about-us\" title=\"\/pages\/about-us\">Fleur du Mal<\/a>, we design our lingerie collection with luxury fabrics, like French Leavers lace and lustrous silks, made with the highest craftsmanship.<\/p><p><br\/>We know high-quality intimates and a focus on fit are key to feeling beautiful and confident. That’s why we create everything from couture quality lingerie sets in luxe embroideries and laces to chic loungewear or something killer for Valentine’s Day or your next date night.<br\/><br\/>Keep reading, lover, and discover Fleur du Mal’s luxury lingerie.<br\/><br\/><\/p><h3>Luxury Lingerie at a Glance<br\/><br\/><\/h3><p><a href=\"https:\/\/www.fitnyc.edu\/museum\/exhibitions\/exposed-history-of-lingerie.php\" title=\"https:\/\/www.fitnyc.edu\/museum\/exhibitions\/exposed-history-of-lingerie.php\">Lingerie<\/a> has existed in various forms throughout history — and we’re often drawing inspiration from vintage collections, art, music, and style icons. Read on, baby, and get to know some of our signature lingerie styles.<br\/><br\/><\/p><h3>Panties<br\/><br\/><\/h3><p>Turn the other cheek. Our signature Fleur du Mal <a href=\"https:\/\/fleurdumal.com\/collections\/panties-garters\">panties <\/a>include all your top drawer favorites, like thongs, v-strings, hip-hugger undies, cheeky pairs, high-waisted styles, and more.<br\/><br\/>Fleur du Mal is designed to inspire dressing up — and undressing — whether that's in our Essentiel pieces with design-minded functionality that still seduces or our playful fashion styles with cheeky details in chantilly lace, colorful tulle, delicate ruffles, and more (and don’t forget to throw in a garter belt to complete the look) for the boudoir.<br\/><br\/>Our essential no-show, seamless panties can be worn underneath just about anything — even the most body-con shapes and fabrics.<\/p>",
+            "content_font_size": 12,
+            "content_font_size_mobile": 12
+          }
+        },
+        "template--21003507761464__80e9a575-9d2f-4d4c-9678-9aad2759eda0-button-1": {
+          "type": "button",
+          "settings": {
+            "button_label": "> Show More",
+            "button_label_2": "< Show Less"
+          }
+        }
+      },
+      "block_order": [
+        "template--21003507761464__80e9a575-9d2f-4d4c-9678-9aad2759eda0-heading-1",
+        "template--21003507761464__80e9a575-9d2f-4d4c-9678-9aad2759eda0-text-1",
+        "template--21003507761464__80e9a575-9d2f-4d4c-9678-9aad2759eda0-button-1"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "text-left",
+        "color_scheme": "background-1",
+        "text_color": "#000000",
+        "full_width": true,
+        "padding_top": 28,
+        "padding_bottom": 52,
+        "link_color": "#dd1d1d"
+      }
+    }
+  },
+  "order": [
+    "3b57793d-aba8-4c19-8385-82959f0cb42e",
+    "6bd03fdb-5b66-40de-90ea-0d91b3b5e4e7",
+    "image_banner",
+    "f70e5b7b-48f4-49a2-9581-110da11054e1",
+    "rich_text",
+    "44961b9c-e8b4-4ae8-a775-ac7e3883b9e4",
+    "14a8825c-15d6-4aee-8055-d8775ec40022",
+    "featured_collection",
+    "video",
+    "multicolumn",
+    "d4acb95f-4ce8-4a20-bce6-88b9fcc4302f",
+    "53afda23-9639-4e1a-9244-14c7dbc246d0",
+    "80e9a575-9d2f-4d4c-9678-9aad2759eda0"
+  ]
+}

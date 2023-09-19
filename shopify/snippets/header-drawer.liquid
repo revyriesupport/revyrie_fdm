@@ -1,0 +1,476 @@
+{% comment %}
+  Renders a header drawer menu for mobile and desktop.
+
+  Usage:
+  {% render 'header-drawer' %}
+{% endcomment %}
+
+<header-drawer data-breakpoint="{% if section.settings.menu_type_desktop == 'drawer' %}desktop{% else %}tablet{% endif %}">
+  <details id="Details-menu-drawer-container" class="menu-drawer-container">
+    <summary
+      class="header__icon header__icon--menu header__icon--summary link focus-inset"
+      aria-label="{{ 'sections.header.menu' | t }}"
+    >
+      <span>
+        {% render 'icon-hamburger' %}
+        {% render 'icon-close' %}
+      </span>
+    </summary>
+    <div id="menu-drawer" class="gradient menu-drawer motion-reduce color-{{ section.settings.menu_color_scheme }}">
+      <div class="menu-drawer__inner-container">
+        <div class="menu-drawer__navigation-container">
+          <div class="account-menu">
+          	<a href="{{ routes.account_login_url }}">{{ 'customer.login_page.sign_in' | t }}</a> / <a href="{{ routes.account_register_url }}">{{ 'customer.register.sign_up' | t }}</a>
+          </div>
+          <nav class="menu-drawer__navigation">
+            <ul class="menu-drawer__menu has-submenu list-menu" role="list">
+              {%- for link in section.settings.menu.links -%}
+                <li>
+                  {%- if link.links != blank -%}
+                    <details id="Details-menu-drawer-menu-item-{{ forloop.index }}">
+                      <summary
+                        id="HeaderDrawer-{{ link.handle }}"
+                        class="menu-drawer__menu-item list-menu__item link link--text focus-inset{% if link.child_active %} menu-drawer__menu-item--active{% endif %}"
+                      >
+                        {{ link.title | escape }}
+                        {% render 'icon-arrow' %}
+                        {% render 'icon-caret' %}
+                      </summary>
+                      <div
+                        id="link-{{ link.handle | escape }}"
+                        class="menu-drawer__submenu has-submenu gradient motion-reduce"
+                        tabindex="-1"
+                      >
+                        <div class="menu-drawer__inner-submenu">
+                          <button class="menu-drawer__close-button link link--text focus-inset" aria-expanded="true">
+                            {% render 'icon-arrow' %}
+                            {{ 'sections.header.backto_menu' | t }} {% comment %}{{ link.title | escape }}{% endcomment %}
+                          </button>
+                          <ul class="menu-drawer__menu list-menu" role="list" tabindex="-1">
+                            {%- for childlink in link.links -%}
+                              <li>
+                                {%- if childlink.links == blank -%}
+                                  <a
+                                    id="HeaderDrawer-{{ link.handle }}-{{ childlink.handle }}"
+                                    href="{{ childlink.url }}"
+                                    class="menu-drawer__menu-item link link--text list-menu__item focus-inset{% if childlink.current %} menu-drawer__menu-item--active{% endif %}"
+                                    {% if childlink.current %}
+                                      aria-current="page"
+                                    {% endif %}
+                                  >
+                                    {{ childlink.title | escape }}
+                                  </a>
+                                {%- else -%}
+                                  <details id="Details-menu-drawer-{{ link.handle }}-{{ childlink.handle }}">
+                                    <summary
+                                      id="HeaderDrawer-{{ link.handle }}-{{ childlink.handle }}"
+                                      class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
+                                    >
+                                      {{ childlink.title | escape }}
+                                      {% render 'icon-arrow' %}
+                                      {% render 'icon-caret' %}
+                                    </summary>
+                                    <div
+                                      id="childlink-{{ childlink.handle | escape }}"
+                                      class="menu-drawer__submenu has-submenu gradient motion-reduce"
+                                    >
+                                      <button
+                                        class="menu-drawer__close-button link link--text focus-inset"
+                                        aria-expanded="true"
+                                      >
+                                        {% render 'icon-arrow' %}
+                                        {{ childlink.title | escape }}
+                                      </button>
+                                      <ul
+                                        class="menu-drawer__menu list-menu"
+                                        role="list"
+                                        tabindex="-1"
+                                      >
+                                        {%- for grandchildlink in childlink.links -%}
+                                          <li>
+                                            <a
+                                              id="HeaderDrawer-{{ link.handle }}-{{ childlink.handle }}-{{ grandchildlink.handle }}"
+                                              href="{{ grandchildlink.url }}"
+                                              class="menu-drawer__menu-item link link--text list-menu__item focus-inset{% if grandchildlink.current %} menu-drawer__menu-item--active{% endif %}"
+                                              {% if grandchildlink.current %}
+                                                aria-current="page"
+                                              {% endif %}
+                                            >
+                                              {{ grandchildlink.title | escape }}
+                                            </a>
+                                          </li>
+                                        {%- endfor -%}
+                                        {% assign megamenu_title =  link.title | escape %}
+                                  {%- for block in section.blocks -%}
+                                     {% if megamenu_title == block.settings.mega_menu_title %}
+                                        {% if block.settings.hide_mobile_1 == false %}
+                                          {% if block.settings.image_1 != blank %}
+                                            <li class="header_image_block header_img_content_one {% if block.settings.marge_one == true %}blockwidth_fifty{% endif %}"  data-index="{{ forloop.index }}">
+                                                <a href="{{ block.settings.block_link_1 }}" aria-label="{{ block.settings.heading_1 }}">
+                                                  <div class="header_image_top"></div>
+                                                  <div class="header_img_content">
+                                                    <h5>{{ block.settings.heading_1 }} <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-arrow-right" viewBox="0 0 10 20"><path d="M0 20c0-5.5 4.5-10 10-10C4.5 10 0 5.5 0 0v20"></path></svg></h5>
+                                                    <div>{{ block.settings.content_1 }}</div>
+                                                  </div>
+                                                </a>
+                                            </li>
+                                            <style>
+                                                div#menu-drawer .header_img_content_one[data-index="{{ forloop.index }}"] .header_image_top{
+                                                  {% if block.settings.image_1_mobile != blank %}
+                                                  background-image: url({{ block.settings.image_1_mobile | img_url: 'master' }});
+                                                  {% else %}
+                                                  background-image: url({{ block.settings.image_1 | img_url: 'master' }});
+                                                  {% endif %}
+                                                }
+                                                div#menu-drawer .header_img_content_one[data-index="{{ forloop.index }}"] .header_img_content{
+                                                  text-align: {{ block.settings.text_position_one }};
+                                                }
+                                                div#menu-drawer .header_img_content_one[data-index="{{ forloop.index }}"] h5{
+                                                  font-size: {{ block.settings.heading_1_font_size_mobile }}px;
+                                                  color: {{ block.settings.heading_1_color }};
+                                                  justify-content: {{ block.settings.text_position_one }};
+                                                }
+                                                div#menu-drawer .header_img_content_one[data-index="{{ forloop.index }}"] div.header_img_content div{
+                                                  font-size: {{ block.settings.content_1_font_size }}px;
+                                                  color: {{ block.settings.content_1_color }};
+                                                }
+                                            </style>
+                                           {% endif %}
+                                         {% endif %}
+                                         {% if block.settings.hide_mobile_2 == false %}
+                                           {%- if block.settings.image_2 != blank -%}
+                                              <li class="header_image_block header_img_content_two {% if block.settings.marge_two == true %}blockwidth_fifty{% endif %}" data-index="{{ forloop.index }}">
+                                                <a href="{{ block.settings.block_link_2 }}" aria-label="{{ block.settings.heading_2 }}">
+                                                  <div class="header_image_top"></div>
+                                                  <div class="header_img_content" data-index="{{ forloop.index }}">
+                                                    <h5>{{ block.settings.heading_2 }} <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-arrow-right" viewBox="0 0 10 20"><path d="M0 20c0-5.5 4.5-10 10-10C4.5 10 0 5.5 0 0v20"></path></svg></h5>
+                                                    <div>{{ block.settings.content_2 }}</div>
+                                                  </div>
+                                                </a>
+                                              </li>
+                                              <style>
+                                                  div#menu-drawer .header_img_content_two[data-index="{{ forloop.index }}"] .header_image_top{
+                                                    {% if block.settings.image_2_mobile != blank %}
+                                                    background-image: url({{ block.settings.image_2_mobile | img_url: 'master' }});
+                                                    {% else %}
+                                                    background-image: url({{ block.settings.image_2 | img_url: 'master' }});
+                                                    {% endif %}
+                                                  }
+                                                  div#menu-drawer .header_img_content_two[data-index="{{ forloop.index }}"] .header_img_content{
+                                                    text-align: {{ block.settings.text_position_two }};
+                                                  }
+                                                  div#menu-drawer .header_img_content_two[data-index="{{ forloop.index }}"] h5{
+                                                    font-size: {{ block.settings.heading_2_font_size_mobile }}px;
+                                                    color: {{ block.settings.heading_2_color }};
+                                                    justify-content: {{ block.settings.text_position_two }};
+                                                  }
+                                                  div#menu-drawer .header_img_content_two[data-index="{{ forloop.index }}"] div.header_img_content div{
+                                                    font-size: {{ block.settings.content_2_font_size }}px;
+                                                    color: {{ block.settings.content_2_color }};
+                                                  }
+                                              </style>
+                                            {%- endif -%}
+                                          {%- endif -%}
+                                          {% if block.settings.hide_mobile_3 == false %}
+                                            {%- if block.settings.image_3 != blank -%}
+                                              <li class="header_image_block header_img_content_three {% if block.settings.marge_three == true %}blockwidth_fifty{% endif %}" data-index="{{ forloop.index }}">
+                                                <a href="{{ block.settings.block_link_3 }}" aria-label="{{ block.settings.heading_3 }}">
+                                                  <div class="header_image_top"></div>
+                                                  <div class="header_img_content">
+                                                    <h5>{{ block.settings.heading_3 }} <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-arrow-right" viewBox="0 0 10 20"><path d="M0 20c0-5.5 4.5-10 10-10C4.5 10 0 5.5 0 0v20"></path></svg></h5>
+                                                    <div>{{ block.settings.content_3 }}</div>
+                                                  </div>
+                                                </a>
+                                              </li>
+                                              <style>
+                                                  div#menu-drawer .header_img_content_three[data-index="{{ forloop.index }}"] .header_image_top{
+                                                    {% if block.settings.image_3_mobile != blank %}
+                                                    background-image: url({{ block.settings.image_3_mobile | img_url: 'master' }});
+                                                    {% else %}
+                                                    background-image: url({{ block.settings.image_3 | img_url: 'master' }});
+                                                    {% endif %}
+                                                  }
+                                                  div#menu-drawer .header_img_content_three[data-index="{{ forloop.index }}"] .header_img_content{
+                                                    text-align: {{ block.settings.text_position_three }};
+                                                  }
+                                                  div#menu-drawer .header_img_content_three[data-index="{{ forloop.index }}"] h5{
+                                                    font-size: {{ block.settings.heading_3_font_size_mobile }}px;
+                                                    color: {{ block.settings.heading_3_color }};
+                                                    justify-content: {{ block.settings.text_position_three }};
+                                                  }
+                                                  div#menu-drawer .header_img_content_three[data-index="{{ forloop.index }}"] div.header_img_content div{
+                                                    font-size: {{ block.settings.content_3_font_size }}px;
+                                                    color: {{ block.settings.content_3_color }};
+                                                  }
+                                              </style>
+                                            {%- endif -%}
+                                          {% endif %}
+                                          {% if block.settings.hide_mobile_4 == false %}
+                                          {%- if block.settings.image_4 != blank -%}
+                                            <li class="header_image_block header_img_content_four {% if block.settings.marge_four == true %}blockwidth_fifty{% endif %}" data-index="{{ forloop.index }}">
+                                              <a href="{{ block.settings.block_link_4 }}" aria-label="{{ block.settings.heading_4 }}">
+                                                <div class="header_image_top"></div>
+                                                <div class="header_img_content">
+                                                  <h5>{{ block.settings.heading_4 }} <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-arrow-right" viewBox="0 0 10 20"><path d="M0 20c0-5.5 4.5-10 10-10C4.5 10 0 5.5 0 0v20"></path></svg></h5>
+                                                  <div>{{ block.settings.content_4 }}</div>
+                                                </div>
+                                              </a>
+                                            </li>
+                                            <style>
+                                                div#menu-drawer .header_img_content_four[data-index="{{ forloop.index }}"] .header_image_top{
+                                                  {% if block.settings.image_4_mobile != blank %}
+                                                  background-image: url({{ block.settings.image_4_mobile | img_url: 'master' }});
+                                                  {% else %}
+                                                  background-image: url({{ block.settings.image_4 | img_url: 'master' }});
+                                                  {% endif %}
+                                                }
+                                                div#menu-drawer .header_img_content_four[data-index="{{ forloop.index }}"] .header_img_content{
+                                                  text-align: {{ block.settings.text_position_four }};
+                                                }
+                                                div#menu-drawer .header_img_content_four[data-index="{{ forloop.index }}"] h5{
+                                                  font-size: {{ block.settings.heading_4_font_size_mobile }}px;
+                                                  color: {{ block.settings.heading_4_color }};
+                                                  justify-content: {{ block.settings.text_position_four }};
+                                                }
+                                                div#menu-drawer .header_img_content_four[data-index="{{ forloop.index }}"] div.header_img_content div{
+                                                  font-size: {{ block.settings.content_4_font_size }}px;
+                                                  color: {{ block.settings.content_4_color }};
+                                                }
+                                            </style>
+                                          {%- endif -%}
+                                          {% endif %}
+                                       {% endif %}
+                                    {% endfor %}
+                                      </ul>
+                                    </div>
+                                  </details>
+                                {%- endif -%}
+                              </li>
+                            {%- endfor -%}
+                          </ul>
+                        </div>
+                      </div>
+                    </details>
+                  {%- else -%}
+                    <a
+                      id="HeaderDrawer-{{ link.handle }}"
+                      href="{{ link.url }}"
+                      class="menu-drawer__menu-item list-menu__item link link--text focus-inset{% if link.current %} menu-drawer__menu-item--active{% endif %}"
+                      {% if link.current %}
+                        aria-current="page"
+                      {% endif %}
+                    >
+                      {{ link.title | escape }}
+                    </a>
+                  {%- endif -%}
+                </li>
+              {%- endfor -%}
+            </ul>
+          </nav>
+          
+          <div class="menu-drawer__utility-links">
+              <div class="header_left mobile_blog_image">
+                <a href="{{ settings.blog_image_url }}" aria-label="Read The Fleur Files">
+                  <img src="{{ settings.blog_image | image_url }}" alt="The Fleur Files">
+                </a>
+              </div>
+              {% for link in linklists.mobile-menu-secondary.links %}
+                    <div class="accordionItem">
+                      <div class="accordionitem_title">{{ link.title }}</div>
+                      <div class="accordionContent">
+                          <ul class="mobile_category_list">
+                            {% for sub_link in link.links %}
+							<li><a href="{{ sub_link.url }}">{{ sub_link.title }}</a></li>
+							{% endfor %}
+                          </ul>
+                      </div>
+                  </div>
+    		{% endfor %}
+            {% if section.settings.freeshipping_text != blank %}
+                  <div class="free-shipping">{{ section.settings.freeshipping_text }}</div>
+            {% endif %} 
+            {%- if shop.customer_accounts_enabled -%}
+              <a
+                href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
+                class="menu-drawer__account link focus-inset h5 medium-hide large-up-hide"
+              >
+                {% render 'icon-account' %}
+                {%- liquid
+                  if customer
+                    echo 'customer.account_fallback' | t
+                  else
+                    echo 'customer.log_in' | t
+                  endif
+                -%}
+              </a>
+            {%- endif -%}
+            {%- if localization.available_countries or localization.available_languages -%}
+              <div class="menu-drawer__localization header-localization">
+                {%- if localization.available_countries and localization.available_countries.size > 1 -%}
+                  <noscript>
+                    {%- form 'localization', id: 'HeaderCountryMobileFormNoScriptDrawer', class: 'localization-form' -%}
+                      <div class="localization-form__select">
+                        <h2 class="visually-hidden" id="HeaderCountryMobileLabelNoScriptDrawer">
+                          {{ 'localization.country_label' | t }}
+                        </h2>
+                        <select
+                          class="localization-selector link"
+                          name="country_code"
+                          aria-labelledby="HeaderCountryMobileLabelNoScriptDrawer"
+                        >
+                          {%- for country in localization.available_countries -%}
+                            <option
+                              value="{{ country.iso_code }}"
+                              {%- if country.iso_code == localization.country.iso_code %}
+                                selected
+                              {% endif %}
+                            >
+                              {{ country.name }} ({{ country.currency.iso_code }}
+                              {{ country.currency.symbol }})
+                            </option>
+                          {%- endfor -%}
+                        </select>
+                        {% render 'icon-caret' %}
+                      </div>
+                      <button class="button button--tertiary">{{ 'localization.update_country' | t }}</button>
+                    {%- endform -%}
+                  </noscript>
+
+                  <localization-form class="no-js-hidden">
+                    {%- form 'localization', id: 'HeaderCountryMobileForm', class: 'localization-form' -%}
+                      <div>
+                        <h2 class="visually-hidden" id="HeaderCountryMobileLabel">
+                          {{ 'localization.country_label' | t }}
+                        </h2>
+                        {%- render 'country-localization', localPosition: 'HeaderCountryMobile' -%}
+                      </div>
+                    {%- endform -%}
+                  </localization-form>
+                {% endif %}
+
+                {%- if localization.available_languages and localization.available_languages.size > 1 -%}
+                  <noscript>
+                    {%- form 'localization',
+                      id: 'HeaderLanguageMobileFormNoScriptDrawer',
+                      class: 'localization-form'
+                    -%}
+                      <div class="localization-form__select">
+                        <h2 class="visually-hidden" id="HeaderLanguageMobileLabelNoScriptDrawer">
+                          {{ 'localization.language_label' | t }}
+                        </h2>
+                        <select
+                          class="localization-selector link"
+                          name="locale_code"
+                          aria-labelledby="HeaderLanguageMobileLabelNoScriptDrawer"
+                        >
+                          {%- for language in localization.available_languages -%}
+                            <option
+                              value="{{ language.iso_code }}"
+                              lang="{{ language.iso_code }}"
+                              {%- if language.iso_code == localization.language.iso_code %}
+                                selected
+                              {% endif %}
+                            >
+                              {{ language.endonym_name | capitalize }}
+                            </option>
+                          {%- endfor -%}
+                        </select>
+                        {% render 'icon-caret' %}
+                      </div>
+                      <button class="button button--tertiary">{{ 'localization.update_language' | t }}</button>
+                    {%- endform -%}
+                  </noscript>
+
+                  <localization-form class="no-js-hidden">
+                    {%- form 'localization', id: 'HeaderLanguageMobileForm', class: 'localization-form' -%}
+                      <div>
+                        <h2 class="visually-hidden" id="HeaderLanguageMobileLabel">
+                          {{ 'localization.language_label' | t }}
+                        </h2>
+                        {%- render 'language-localization', localPosition: 'HeaderLanguageMobile' -%}
+                      </div>
+                    {%- endform -%}
+                  </localization-form>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+            <ul class="list list-social list-unstyled" role="list">
+              {%- if settings.social_twitter_link != blank -%}
+                <li class="list-social__item">
+                  <a href="{{ settings.social_twitter_link }}" class="list-social__link link">
+                    {%- render 'icon-twitter' -%}
+                    <span class="visually-hidden">{{ 'general.social.links.twitter' | t }}</span>
+                  </a>
+                </li>
+              {%- endif -%}
+              {%- if settings.social_facebook_link != blank -%}
+                <li class="list-social__item">
+                  <a href="{{ settings.social_facebook_link }}" class="list-social__link link">
+                    {%- render 'icon-facebook' -%}
+                    <span class="visually-hidden">{{ 'general.social.links.facebook' | t }}</span>
+                  </a>
+                </li>
+              {%- endif -%}
+              {%- if settings.social_pinterest_link != blank -%}
+                <li class="list-social__item">
+                  <a href="{{ settings.social_pinterest_link }}" class="list-social__link link">
+                    {%- render 'icon-pinterest' -%}
+                    <span class="visually-hidden">{{ 'general.social.links.pinterest' | t }}</span>
+                  </a>
+                </li>
+              {%- endif -%}
+              {%- if settings.social_instagram_link != blank -%}
+                <li class="list-social__item">
+                  <a href="{{ settings.social_instagram_link }}" class="list-social__link link">
+                    {%- render 'icon-instagram' -%}
+                    <span class="visually-hidden">{{ 'general.social.links.instagram' | t }}</span>
+                  </a>
+                </li>
+              {%- endif -%}
+              {%- if settings.social_tiktok_link != blank -%}
+                <li class="list-social__item">
+                  <a href="{{ settings.social_tiktok_link }}" class="list-social__link link">
+                    {%- render 'icon-tiktok' -%}
+                    <span class="visually-hidden">{{ 'general.social.links.tiktok' | t }}</span>
+                  </a>
+                </li>
+              {%- endif -%}
+              {%- if settings.social_tumblr_link != blank -%}
+                <li class="list-social__item">
+                  <a href="{{ settings.social_tumblr_link }}" class="list-social__link link">
+                    {%- render 'icon-tumblr' -%}
+                    <span class="visually-hidden">{{ 'general.social.links.tumblr' | t }}</span>
+                  </a>
+                </li>
+              {%- endif -%}
+              {%- if settings.social_snapchat_link != blank -%}
+                <li class="list-social__item">
+                  <a href="{{ settings.social_snapchat_link }}" class="list-social__link link">
+                    {%- render 'icon-snapchat' -%}
+                    <span class="visually-hidden">{{ 'general.social.links.snapchat' | t }}</span>
+                  </a>
+                </li>
+              {%- endif -%}
+              {%- if settings.social_youtube_link != blank -%}
+                <li class="list-social__item">
+                  <a href="{{ settings.social_youtube_link }}" class="list-social__link link">
+                    {%- render 'icon-youtube' -%}
+                    <span class="visually-hidden">{{ 'general.social.links.youtube' | t }}</span>
+                  </a>
+                </li>
+              {%- endif -%}
+              {%- if settings.social_vimeo_link != blank -%}
+                <li class="list-social__item">
+                  <a href="{{ settings.social_vimeo_link }}" class="list-social__link link">
+                    {%- render 'icon-vimeo' -%}
+                    <span class="visually-hidden">{{ 'general.social.links.vimeo' | t }}</span>
+                  </a>
+                </li>
+              {%- endif -%}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </details>
+</header-drawer>

@@ -1,0 +1,275 @@
+{% comment %}
+  Renders a megamenu for the header.
+
+  Usage:
+  {% render 'header-mega-menu' %}
+{% endcomment %}
+
+<nav class="header__inline-menu">
+  <ul class="list-menu list-menu--inline" role="list">
+    {%- for link in section.settings.menu.links -%}
+      <li>
+        {%- if link.links != blank -%}
+          <header-menu>
+            <details id="Details-HeaderMenu-{{ forloop.index }}" class="mega-menu">
+              <summary
+                id="HeaderMenu-{{ link.handle }}"
+                class="header__menu-item list-menu__item link focus-inset"
+              >
+                <span
+                  {%- if link.child_active %}
+                    class="header__active-menu-item"
+                  {% endif %}
+                >
+                  {{- link.title | escape -}}
+                </span>
+                {% render 'icon-caret' %}
+              </summary>
+              <div
+                id="MegaMenu-Content-{{ forloop.index }}"
+                class="mega-menu__content color-{{ section.settings.menu_color_scheme }} gradient motion-reduce global-settings-popup"
+                tabindex="-1"
+              >
+                <ul
+                  class="mega-menu__list page-width{% if link.levels == 1 %} mega-menu__list--condensed{% endif %}"
+                  role="list"
+                >
+                  {%- for childlink in link.links -%}
+                    <li>
+                      <a
+                        id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}"
+                        href="{{ childlink.url }}"
+                        class="mega-menu__link mega-menu__link--level-2 link{% if childlink.current %} mega-menu__link--active{% endif %}"
+                        {% if childlink.current %}
+                          aria-current="page"
+                        {% endif %}
+                      >
+                        {{ childlink.title | escape }}
+                      </a>
+                      {%- if childlink.links != blank -%}
+                        <ul class="list-unstyled" role="list">
+                          {%- for grandchildlink in childlink.links -%}
+                            <li>
+                              <a
+                                id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}-{{ grandchildlink.handle }}"
+                                href="{{ grandchildlink.url }}"
+                                class="mega-menu__link link{% if grandchildlink.current %} mega-menu__link--active{% endif %}"
+                                {% if grandchildlink.current %}
+                                  aria-current="page"
+                                {% endif %}
+                              >
+                                {{ grandchildlink.title | escape }}
+                              </a>
+                            </li>
+                          {%- endfor -%}
+                          {% assign childlinktitle = childlink.title %}
+                          {%- for block in section.blocks -%}
+                            {% assign grandchind_index = forloop.index %}
+                            {%- if link.title ==  block.settings.mega_menu_title -%}
+                              {%- if childlinktitle == block.settings.mega_menu_child_title -%}
+                                  {%- if block.settings.horizontal_line_1 == true -%}
+                                      <li><hr></li>                              
+                                  {%- endif -%}
+                                  {%- if block.settings.grandchild_heading_1 != blank -%}
+                                    <li>
+                                      <a href="#" class="mega-menu__link--level-2 grandchild_menu_heading">
+                                          {{ block.settings.grandchild_heading_1 }}
+                                      </a>
+                                    </li>
+                                  {%- endif -%}
+                                  {%- for megamenuchild in block.settings.megamenu_child_1.links -%}
+                                    {% assign megamenuchildtitle_one_link = megamenuchild.title | replace:" ","_" | downcase %}
+                                    <li>
+                                        <a href="{{ megamenuchild.url }}" class="mega-menu__link menu_color_one link{% if megamenuchild.current %} mega-menu__link--active{% endif %} {{ megamenuchildtitle_one_link }}"{% if megamenuchild.current %} aria-current="page"{% endif %} data-index="{{ grandchind_index }}">
+                                          {{ megamenuchild.title | escape }}
+                                        </a> 
+                                    </li>
+                                    <style>
+                                         .mega-menu__link.menu_color_one[data-index="{{ grandchind_index }}"] {
+                                           color: {{ block.settings.grandchild_color_1 }};
+                                         }               
+                                    </style>
+                                {%- endfor -%}
+                              {%- endif -%}
+                              {%- if childlinktitle == block.settings.mega_menu_child_title_2 -%}
+                                  {%- if block.settings.horizontal_line_2 == true -%}
+                                      <li><hr></li>                              
+                                  {%- endif -%}
+                                  {%- if block.settings.grandchild_heading_2 != blank -%}
+                                    <li>
+                                      <a href="#" class="mega-menu__link--level-2 grandchild_menu_heading">
+                                          {{ block.settings.grandchild_heading_2 }}
+                                      </a>
+                                    </li>
+                                  {%- endif -%}
+                                  {%- for megamenuchild_2 in block.settings.megamenu_child_2.links -%}
+                                      {% assign megamenuchildtitle_link = megamenuchild_2.title | replace:" ","_" | downcase %}
+                                      <li>
+                                        <a href="{{ megamenuchild_2.url }}" class="mega-menu__link menu_color_two link{% if megamenuchild_2.current %} mega-menu__link--active{% endif %} {{ megamenuchildtitle_link }}"{% if megamenuchild_2.current %} aria-current="page"{% endif %} data-index="{{ grandchind_index }}">
+                                          {{ megamenuchild_2.title | escape }}
+                                        </a> 
+                                      </li>
+                                      <style>
+                                         .mega-menu__link.menu_color_two[data-index="{{ grandchind_index }}"] {
+                                           color: {{ block.settings.grandchild_color_2 }};
+                                         }                
+                                    </style>
+                                  {%- endfor -%}
+                              {%- endif -%}
+                            {%- endif -%}
+                          {%- endfor -%}
+                        </ul>
+                      {%- endif -%}
+                    </li>
+                  {%- endfor -%}
+                  {% assign megamenu_title =  link.title | escape %}
+                          {%- for block in section.blocks -%}
+                             {% if megamenu_title == block.settings.mega_menu_title %}
+                                {%- if block.settings.hide_desktop_1 == false -%}
+                                  {%- if block.settings.image_1 != blank -%}
+                                    <li class="header_image_block header_img_content_one {% if block.settings.marge_one == true %}blockwidth_fifty{% endif %}"  data-index="{{ forloop.index }}">
+                                        <a href="{{ block.settings.block_link_1 }}" aria-label="{{ block.settings.heading_1 }}">
+                                          <div class="header_image_top"></div>
+                                          <div class="header_img_content">
+                                            <h5>{{ block.settings.heading_1 }} <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-arrow-right" viewBox="0 0 10 20"><path d="M0 20c0-5.5 4.5-10 10-10C4.5 10 0 5.5 0 0v20"></path></svg></h5>
+                                            <div>{{ block.settings.content_1 }}</div>
+                                          </div>
+                                        </a>
+                                    </li>
+                                    <style>
+                                        .header_img_content_one[data-index="{{ forloop.index }}"] .header_image_top{
+                                          background-image: url({{ block.settings.image_1 | img_url: 'master' }});
+                                        }
+                                        .header_img_content_one[data-index="{{ forloop.index }}"] .header_img_content{
+                                          text-align: {{ block.settings.text_position_one }};
+                                        }
+                                        .header_img_content_one[data-index="{{ forloop.index }}"] h5{
+                                          font-size: {{ block.settings.heading_1_font_size }}px;
+                                          color: {{ block.settings.heading_1_color }};
+                                          justify-content: {{ block.settings.text_position_one }};
+                                        }
+                                        .header_img_content_one[data-index="{{ forloop.index }}"] div.header_img_content div{
+                                          font-size: {{ block.settings.content_1_font_size }}px;
+                                          color: {{ block.settings.content_1_color }};
+                                        }
+                                    </style>
+                                 {%- endif -%}
+                               {%- endif -%}
+                               {%- if block.settings.hide_desktop_2 == false -%}
+                                 {%- if block.settings.image_2 != blank -%}
+                                    <li class="header_image_block header_img_content_two {% if block.settings.marge_two == true %}blockwidth_fifty{% endif %}" data-index="{{ forloop.index }}">
+                                      <a href="{{ block.settings.block_link_2 }}" aria-label="{{ block.settings.heading_2 }}">
+                                        <div class="header_image_top"></div>
+                                        <div class="header_img_content" data-index="{{ forloop.index }}">
+                                          <h5>{{ block.settings.heading_2 }} <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-arrow-right" viewBox="0 0 10 20"><path d="M0 20c0-5.5 4.5-10 10-10C4.5 10 0 5.5 0 0v20"></path></svg></h5>
+                                          <div>{{ block.settings.content_2 }}</div>
+                                        </div>
+                                        </a>
+                                    </li>
+                                    <style>
+                                        .header_img_content_two[data-index="{{ forloop.index }}"] .header_image_top{
+                                          background-image: url({{ block.settings.image_2 | img_url: 'master' }});
+                                        }
+                                        .header_img_content_two[data-index="{{ forloop.index }}"] .header_img_content{
+                                          text-align: {{ block.settings.text_position_two }};
+                                        }
+                                        .header_img_content_two[data-index="{{ forloop.index }}"] h5{
+                                          font-size: {{ block.settings.heading_2_font_size }}px;
+                                          color: {{ block.settings.heading_2_color }};
+                                          justify-content: {{ block.settings.text_position_two }};
+                                        }
+                                        .header_img_content_two[data-index="{{ forloop.index }}"] div.header_img_content div{
+                                          font-size: {{ block.settings.content_2_font_size }}px;
+                                          color: {{ block.settings.content_2_color }};
+                                        }
+                                    </style>
+                                  {%- endif -%}
+                                {%- endif -%}
+                                {%- if block.settings.hide_desktop_3 == false -%}
+                                  {%- if block.settings.image_3 != blank -%}
+                                    <li class="header_image_block header_img_content_three {% if block.settings.marge_three == true %}blockwidth_fifty{% endif %}" data-index="{{ forloop.index }}">
+                                      <a href="{{ block.settings.block_link_3 }}" aria-label="{{ block.settings.heading_3 }}">
+                                        <div class="header_image_top"></div>
+                                        <div class="header_img_content">
+                                          <h5>{{ block.settings.heading_3 }} <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-arrow-right" viewBox="0 0 10 20"><path d="M0 20c0-5.5 4.5-10 10-10C4.5 10 0 5.5 0 0v20"></path></svg></h5>
+                                          <div>{{ block.settings.content_3 }}</div>
+                                        </div>
+                                      </a>
+                                    </li>
+                                    <style>
+                                        .header_img_content_three[data-index="{{ forloop.index }}"] .header_image_top{
+                                          background-image: url({{ block.settings.image_3 | img_url: 'master' }});
+                                        }
+                                        .header_img_content_three[data-index="{{ forloop.index }}"] .header_img_content{
+                                          text-align: {{ block.settings.text_position_three }};
+                                        }
+                                        .header_img_content_three[data-index="{{ forloop.index }}"] h5{
+                                          font-size: {{ block.settings.heading_3_font_size }}px;
+                                          color: {{ block.settings.heading_3_color }};
+                                          justify-content: {{ block.settings.text_position_three }};
+                                        }
+                                        .header_img_content_three[data-index="{{ forloop.index }}"] div.header_img_content div{
+                                          font-size: {{ block.settings.content_3_font_size }}px;
+                                          color: {{ block.settings.content_3_color }};
+                                        }
+                                    </style>
+                                  {%- endif -%}
+                                {%- endif -%}
+                                {%- if block.settings.hide_desktop_4 == false -%}
+                                {%- if block.settings.image_4 != blank -%}
+                                  <li class="header_image_block header_img_content_four {% if block.settings.marge_four == true %}blockwidth_fifty{% endif %}" data-index="{{ forloop.index }}">
+                                    <a href="{{ block.settings.block_link_4 }}" aria-label="{{ block.settings.heading_4 }}">
+                                      <div class="header_image_top"></div>
+                                      <div class="header_img_content">
+                                        <h5>{{ block.settings.heading_4 }} <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-arrow-right" viewBox="0 0 10 20"><path d="M0 20c0-5.5 4.5-10 10-10C4.5 10 0 5.5 0 0v20"></path></svg></h5>
+                                        <div>{{ block.settings.content_4 }}</div>
+                                      </div>
+                                    </a>
+                                  </li>
+                                  <style>
+                                      .header_img_content_four[data-index="{{ forloop.index }}"] .header_image_top{
+                                        background-image: url({{ block.settings.image_4 | img_url: 'master' }});
+                                      }
+                                      .header_img_content_four[data-index="{{ forloop.index }}"] .header_img_content{
+                                        text-align: {{ block.settings.text_position_four }};
+                                      }
+                                      .header_img_content_four[data-index="{{ forloop.index }}"] h5{
+                                        font-size: {{ block.settings.heading_4_font_size }}px;
+                                        color: {{ block.settings.heading_4_color }};
+                                        justify-content: {{ block.settings.text_position_four }};
+                                      }
+                                      .header_img_content_four[data-index="{{ forloop.index }}"] div.header_img_content div{
+                                        font-size: {{ block.settings.content_4_font_size }}px;
+                                        color: {{ block.settings.content_4_color }};
+                                      }
+                                  </style>
+                                {%- endif -%}
+                                {%- endif -%}
+                             {%- endif -%}
+                          {%- endfor -%}
+                </ul>
+              </div>
+            </details>
+          </header-menu>
+        {%- else -%}
+          <a
+            id="HeaderMenu-{{ link.handle }}"
+            href="{{ link.url }}"
+            class="header__menu-item list-menu__item link link--text focus-inset"
+            {% if link.current %}
+              aria-current="page"
+            {% endif %}
+          >
+            <span
+              {%- if link.current %}
+                class="header__active-menu-item"
+              {% endif %}
+            >
+              {{- link.title | escape -}}
+            </span>
+          </a>
+        {%- endif -%}
+      </li>
+    {%- endfor -%}
+  </ul>
+</nav>

@@ -1,0 +1,580 @@
+<div id="sizing-modal" class="reveal{% if bra_bikini_top_sizing %} full{% endif %}" data-reveal data-overlay="false">
+	{{ 'component-tabs.css' | asset_url | stylesheet_tag }}
+	{{ 'snippet-sizing-modal.css' | asset_url | stylesheet_tag }}
+
+
+
+	<a href="javascript:;" class="close-button" name="close-button" data-close>&#215;</a>
+
+	{% if underwire_styles_not_bra_sized_sizing %}
+	<h2 class="center">Underwire Styles/Not Bra Sized</h2>
+	<h3 class="center">Size chart</h3>
+	  <table summary="Underwire Styles Sizing Chart">
+	    <thead>
+	      <tr>
+	        <th>Fleur Size</th>
+	        <th>XS</th>
+	        <th>S</th>
+	        <th>M</th>
+	        <th>L</th>
+					<th>XL</th>
+    	</tr>
+	    </thead>
+	    <tbody>
+	      <tr>
+	        <td>Bust</td>
+	        <td>32-33"</td>
+	        <td>34-35"</td>
+	        <td>36-37"</td>
+	        <td>37-38"</td>
+					<td>34DD / 36D / 38C</td>
+     	</tr>
+	    </tbody>
+	  </table>
+		{% endif %}
+	{% if bra_bikini_top_sizing %}
+	<h2 class="center">Bra Size Conversion Charts</h2>
+	<div class="tabs sizing">
+	<ul class="tab-nav center">
+		<li class="tab-link"><a href="#tab-conversionchart" class="active" data-tab-target="#tab-conversionchart">Intl Bra Sizes</a></li>
+		 <li class="tab-link"><a href="#tab-sizechart" data-tab-target="#tab-sizechart">Soft Bra Sizing</a></li>
+		 {% if product.type == 'Bras' %}<li><a href="/pages/size-guide" target="_blank">Find My Size</a></li>{% endif %}
+		<!--<li><a href="#tab-sizechart">Size Chart</a></li>-->
+	 	<!--<li><a href="#tab-conversionchart">Conversion Chart</a></li>-->
+		</ul><!-- tab-nav center-->
+
+
+		<div class="tab-content active" id="tab-conversionchart" data-tab-content="active">
+			<table summary="Conversion Chart">
+				<thead>
+					<tr>
+						<th>Fleur du Mal</th>
+						<th>UK</th>
+						<th>Europe</th>
+						<th>France</th>
+						<th>Italy</th>
+						<th>Australia</th>
+						<th>Japan</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>32B</td>
+						<td>32B</td>
+						<td>70B</td>
+						<td>85B</td>
+						<td>1B</td>
+						<td>10B</td>
+						<td>70C</td>
+					</tr>
+					<tr>
+						<td>32C</td>
+						<td>32C</td>
+						<td>70C</td>
+						<td>85C</td>
+						<td>1C</td>
+						<td>10C</td>
+						<td>70D</td>
+					</tr>
+					<tr>
+						<td>32D</td>
+						<td>32D</td>
+						<td>70D</td>
+						<td>85D</td>
+						<td>1D</td>
+						<td>10D</td>
+						<td>70E</td>
+					</tr>
+					<tr>
+						<td>32DD</td>
+						<td>32DD</td>
+						<td>70E</td>
+						<td>85E</td>
+						<td>1E</td>
+						<td>10DD</td>
+						<td>70F</td>
+					</tr>
+					<tr>
+						<td>32F</td>
+						<td>32E</td>
+						<td>70F</td>
+						<td>85F</td>
+						<td>1F</td>
+						<td>10F</td>
+						<td>70G</td>
+					</tr>
+					<tr>
+						<td>32G</td>
+						<td>32F</td>
+						<td>70G</td>
+						<td>85G</td>
+						<td>1G</td>
+						<td>10G</td>
+						<td>70H</td>
+					</tr>
+					<tr>
+						<td>34B</td>
+						<td>34B</td>
+						<td>75B</td>
+						<td>90B</td>
+						<td>2B</td>
+						<td>12B</td>
+						<td>75C</td>
+					</tr>
+					<tr>
+						<td>34C</td>
+						<td>34C</td>
+						<td>75C</td>
+						<td>90C</td>
+						<td>2C</td>
+						<td>12C</td>
+						<td>75D</td>
+					</tr>
+					<tr>
+						<td>34D</td>
+						<td>34D</td>
+						<td>75D</td>
+						<td>90D</td>
+						<td>2D</td>
+						<td>12D</td>
+						<td>75E</td>
+					</tr>
+					<tr>
+						<td>34DD</td>
+						<td>34DD</td>
+						<td>75E</td>
+						<td>90E</td>
+						<td>2E</td>
+						<td>12DD</td>
+						<td>75F</td>
+					</tr>
+					<tr>
+						<td>34F</td>
+						<td>34E</td>
+						<td>75F</td>
+						<td>90F</td>
+						<td>2F</td>
+						<td>12F</td>
+						<td>75G</td>
+					</tr>
+					<tr>
+						<td>34G</td>
+						<td>34F</td>
+						<td>75G</td>
+						<td>90G</td>
+						<td>2G</td>
+						<td>12G</td>
+						<td>75H</td>
+					</tr>
+					<tr>
+						<td>36B</td>
+						<td>36B</td>
+						<td>80B</td>
+						<td>95B</td>
+						<td>3B</td>
+						<td>14B</td>
+						<td>80C</td>
+					</tr>
+					<tr>
+						<td>36C</td>
+						<td>36C</td>
+						<td>80C</td>
+						<td>95C</td>
+						<td>3C</td>
+						<td>14C</td>
+						<td>80D</td>
+					</tr>
+					<tr>
+						<td>36D</td>
+						<td>36D</td>
+						<td>80D</td>
+						<td>95D</td>
+						<td>3D</td>
+						<td>14D</td>
+						<td>80E</td>
+					</tr>
+					<tr>
+						<td>36DD</td>
+						<td>36DD</td>
+						<td>80E</td>
+						<td>95E</td>
+						<td>3E</td>
+						<td>14DD</td>
+						<td>80F</td>
+					</tr>
+					<tr>
+						<td>36F</td>
+						<td>36E</td>
+						<td>80F</td>
+						<td>95F</td>
+						<td>3F</td>
+						<td>14F</td>
+						<td>80G</td>
+					</tr>
+					<tr>
+						<td>36G</td>
+						<td>36F</td>
+						<td>80G</td>
+						<td>95G</td>
+						<td>3G</td>
+						<td>14G</td>
+						<td>80H</td>
+					</tr>
+				</tbody>
+			</table>
+
+
+			</div><!-- tab-content -->
+
+
+			<div class="tab-content" id="tab-sizechart" data-tab-content>
+
+				<table summary="Soft Bra Sizing Chart">
+						<thead>
+							<tr>
+								<th>XS</th>
+								<th>S</th>
+								<th>M</th>
+								<th>L</th>
+								<th>XL</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>30B / 30C / 32A / 32B</td>
+								<td>30D / 32C / 34B	</td>
+								<td>32D / 34C</td>
+								<td>34D / 36B / 36C</td>
+								<td>34DD / 36D / 38C</td>
+							</tr>
+						</tbody>
+					</table>
+
+			</div><!-- tab-content -->
+
+
+
+
+
+	</div><!-- tabs-sizing -->
+	{% endif %}
+
+	{% if panty_bikini_bottom_extended_sizing %}
+		<h2 class="center">Panty/Bikini Bottom</h2>
+		<h3 class="center">Size chart</h3>
+		  <table summary="Panty/Bikini Bottom Sizing Chart">
+		    <thead>
+		      <tr>
+		        <th>Fleur Size</th>
+		        <th>1X</th>
+		        <th>2X</th>
+		        <th>3X</th>
+		      </tr>
+		    </thead>
+		    <tbody>
+		      <tr>
+		        <td>Numeric</td>
+		        <td>16-18"</td>
+		        <td>20-22"</td>
+		        <td>24-26"</td>
+		      </tr>
+					<tr>
+						<td>Waist</td>
+						<td>36.5-40"</td>
+						<td>40-44"</td>
+						<td>44-48"</td>
+					</tr>
+					<tr>
+						<td>Hip</td>
+						<td>46.5-50"</td>
+						<td>50-54"</td>
+						<td>54-58"</td>
+					</tr>
+		    </tbody>
+		  </table>
+			{% endif %}
+{% if panty_bikini_bottom_sizing %}
+	<h2 class="center">Panty/Bikini Bottom</h2>
+	<h3 class="center">Size chart</h3>
+	  <table summary="Panty/Bikini Bottom Sizing Chart">
+	    <thead>
+	      <tr>
+	        <th>Fleur Size</th>
+	        <th>1</th>
+	        <th>2</th>
+	        <th>3</th>
+					<th>4</th>
+					<th>5</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+				<tr>
+					<td>Size Equivalent</td>
+					<td>XS</td>
+					<td>S</td>
+					<td>M</td>
+					<td>L</td>
+					<td>XL</td>
+				</tr>
+				<tr>
+					<td>Dress Size</td>
+					<td>0</td>
+					<td>2-4</td>
+					<td>4-6</td>
+					<td>8-10</td>
+					<td>10-12</td>
+				</tr>
+				<tr>
+					<td>Waist</td>
+					<td>24-25.5"</td>
+					<td>26-27.5"</td>
+					<td>28-29.5"</td>
+					<td>30.31.5"</td>
+					<td>32-33.5"</td>
+				</tr>
+				<tr>
+					<td>Hip</td>
+					<td>34-36"</td>
+					<td>36.5-37.5"</td>
+					<td>38-39"</td>
+					<td>39.5-40.5"</td>
+					<td>41-42.5"</td>
+				</tr>
+	    </tbody>
+	  </table>
+		{% endif %}
+	{% if bodysuit_one_piece_swim_sizing %}
+	{% if has_two_sizing_guides %}<hr>{% endif %}
+	<h2 class="center">Bodysuit/One Piece Swim</h2>
+	<h3 class="center">Size chart</h3>
+	  <table summary="Bodysuit/One Piece Swim Sizing Chart">
+	    <thead>
+	      <tr>
+	        <th>Fleur Size</th>
+	        <th>XS</th>
+	        <th>S</th>
+	        <th>M</th>
+	        <th>L</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <tr>
+	        <td>Bust</td>
+	        <td>30-32"</td>
+	        <td>33-34.5"</td>
+	        <td>35-36.5"</td>
+	        <td>37-38"</td>
+	      </tr>
+	      <tr>
+	        <td>Waist</td>
+	        <td>24-26"</td>
+	        <td>26.5-28"</td>
+	        <td>28.5-29.5"</td>
+	        <td>30-31"</td>
+	      </tr>
+	      <tr>
+	        <td>Hip</td>
+	        <td>34-36"</td>
+	        <td>36.5-38"</td>
+	        <td>38-39.5"</td>
+	        <td>39.5-41"</td>
+	      </tr>
+	      <tr>
+	        <td>Across shoulder</td>
+	        <td>15 1/8"</td>
+	        <td>15 1/2"</td>
+	        <td>15 7/8"</td>
+	        <td>16 1/4"</td>
+	      </tr>
+	    </tbody>
+	  </table>
+		{% endif %}
+
+		{% if ready_to_wear_numeric_extended_sizing %}
+		{% if has_two_sizing_guides %}<hr>{% endif %}
+		<h2 class="center">Ready to Wear</h2>
+		<h3 class="center">Size chart</h3>
+					<table summary="Ready to Wear Sizing Chart">
+						<thead>
+							<tr>
+								<th>Fleur Size</th>
+								<th>10</th>
+								<th>12</th>
+								<th>14</th>
+								<th>16</th>
+								<th>18</th>
+								<th>20</th>
+								<th>22</th>
+								<th>24</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Bust</td>
+								<td>38"</td>
+								<td>40"</td>
+								<td>42"</td>
+								<td>44"</td>
+								<td>46"</td>
+								<td>48"</td>
+								<td>50"</td>
+								<td>52"</td>
+							</tr>
+							<tr>
+								<td>Waist</td>
+								<td>30"</td>
+								<td>32"</td>
+								<td>34"</td>
+								<td>36"</td>
+								<td>38"</td>
+								<td>40"</td>
+								<td>42"</td>
+								<td>44"</td>
+							</tr>
+							<tr>
+								<td>Hip</td>
+								<td>40"</td>
+								<td>42"</td>
+								<td>44"</td>
+								<td>46"</td>
+								<td>48"</td>
+								<td>50"</td>
+								<td>52"</td>
+								<td>54"</td>
+							</tr>
+						</tbody>
+					</table>
+					{% endif %}
+
+
+
+	{% if ready_to_wear_numeric_sizing %}
+	{% if has_two_sizing_guides %}<hr>{% endif %}
+	<h2 class="center">Ready to Wear</h2>
+	<h3 class="center">Size chart</h3>
+	      <table summary="Ready to Wear Sizing Chart">
+	        <thead>
+	          <tr>
+	            <th>Fleur Size</th>
+	            <th>0</th>
+	            <th>2</th>
+	            <th>4</th>
+	            <th>6</th>
+	            <th>8</th>
+	            <th>10</th>
+	          </tr>
+	        </thead>
+	        <tbody>
+	          <tr>
+	            <td>Bust</td>
+	            <td>31-32"</td>
+	            <td>33-34"</td>
+	            <td>34-35"</td>
+	            <td>35-36"</td>
+	            <td>36.5-37.5"</td>
+	            <td>38-38.5"</td>
+	          </tr>
+	          <tr>
+	            <td>Waist</td>
+	            <td>24-25"</td>
+	            <td>26"</td>
+	            <td>27-28"</td>
+	            <td>28-28.5"</td>
+	            <td>29-29.5"</td>
+	            <td>30-31"</td>
+	          </tr>
+	          <tr>
+	            <td>Hip</td>
+	            <td>34-35.5"</td>
+	            <td>36-36.5"</td>
+	            <td>37-38"</td>
+	            <td>38-39"</td>
+							<td>39-39.5"</td>
+							<td>40"</td>
+	          </tr>
+	        </tbody>
+	      </table>
+				{% endif %}
+			{% if ready_to_wear_alpha_sizing %}
+			{% if has_two_sizing_guides %}<hr>{% endif %}
+ 			<h2 class="center">Ready to Wear</h2>
+	      <h3 class="center">Size chart</h3>
+	            <table summary="Ready to Wear Sizing Chart">
+	              <thead>
+	                <tr>
+	                  <th>Fleur Size</th>
+	                  <th>XS</th>
+	                  <th>S</th>
+	                  <th>M</th>
+	                  <th>L</th>
+	                </tr>
+	              </thead>
+	              <tbody>
+	                <tr>
+	                  <td>Bust</td>
+	                  <td>31-32"</td>
+	                  <td>33-34.5"</td>
+	                  <td>35-36.5"</td>
+	                  <td>37-38"</td>
+	                </tr>
+	                <tr>
+	                  <td>Waist</td>
+	                  <td>24-26"</td>
+	                  <td>26.5-28"</td>
+	                  <td>28.5-29.5"</td>
+	                  <td>30-31"</td>
+	                </tr>
+	                <tr>
+	                  <td>Hip</td>
+	                  <td>34-36"</td>
+	                  <td>36.5-38"</td>
+	                  <td>38-39.5"</td>
+	                  <td>39.5-41"</td>
+	                </tr>
+	                <tr>
+	                  <td>Inseam</td>
+	                  <td>30 3/4"</td>
+	                  <td>31"</td>
+	                  <td>31 1/4"</td>
+	                  <td>31 1/2"</td>
+	                </tr>
+	              </tbody>
+	            </table>
+							{% endif %}
+
+
+							{% if product.title contains 'Unisex' %}
+							<hr>
+							<h3 class="center">Men's Size chart</h3>
+										<table summary="Men's Sizing Chart">
+											<thead>
+												<tr>
+													<th>Fleur Size</th>
+													<th>XS</th>
+													<th>S</th>
+													<th>M</th>
+													<th>L</th>
+													<th>XL</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>Men's Size Equivalent</td>
+													<td>XXS</td>
+													<td>XS</td>
+													<td>S</td>
+													<td>M</td>
+													<td>L</td>
+												</tr>
+											</tbody>
+										</table>
+
+
+										{% endif %}
+
+								      <div class="row align-center center top-margin-small">
+								        <div class="small-12 columns">
+												  <p>{% if product.type == 'Bras' %}<a href="/pages/size-guide" target="_blank">Click here</a> to find your bra size.<br>{% endif %}For further questions, please reach out to our client care team via LiveChat, <a href="mailto:fleur@fleurdumal.com">Email</a> or phone +1 (646) 791.3656.</p>
+								        </div><!-- small-12 columns-->
+								      </div><!-- row align-center center top-margin-small-->
+</div><!-- sizing-modal-->

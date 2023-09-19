@@ -1,0 +1,6 @@
+@multiple-tailwind;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@config "../tailwind/product-template.config.js";

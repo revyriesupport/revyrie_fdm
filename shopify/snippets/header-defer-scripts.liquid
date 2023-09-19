@@ -1,0 +1,5 @@
+{%- if template contains 'product' -%}
+  <script type="module" src="{{ 'product-template.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
+
+<script type="text/javascript" src="{{ 'delay.js' | asset_url }}" defer="defer"></script>

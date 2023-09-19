@@ -1,0 +1,485 @@
+{{ 'section-multicolumn.css' | asset_url | stylesheet_tag }}
+{{ 'component-newsletter.css' | asset_url | stylesheet_tag }}
+{{ 'newsletter-section.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+  .multicolumn-card svg {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    fill: currentColor;
+  }
+  
+  {% if section.settings.full_width == true %}
+      @media screen and (min-width: 769px) {
+        .multicolumn-footer {
+            margin-left: 0% !important;
+            margin-right: 0% !important;
+        }
+      }
+  {% endif %}
+  .multicolumn-newsletter-grid h5, .multicolumn-newsletter-grid p, .multicolumn-newsletter-form__field-wrapper {
+    text-align: {{ section.blocks[0].settings.desktop_column_alignment }} !important;
+  }
+
+  @media screen and (max-width: 768px) {
+    .multicolumn-newsletter-grid h5, .multicolumn-newsletter-grid p {
+      text-align: {{ section.blocks[0].settings.mobile_column_alignment }} !important;
+    }
+  }
+  @media screen and (max-width: 1023px) {
+    /* .multicolumn-newsletter-form {
+      align-items: center !important;
+    }
+    .multicolumn-newsletter-grid {
+      text-align: center !important;
+    } */
+    .multicolumn-list__item {
+      width: calc(18% - var(--grid-desktop-horizontal-spacing) * 3 / 4) !important;
+    }
+    .multicolumn-newsletter-grid {
+      width: calc(35% - var(--grid-desktop-horizontal-spacing) * 3 / 4) !important;
+    }
+  }
+  .multicolumn-newsletter-wrapper {
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+  }
+  .multicolumn-newsletter-form {
+    max-width: unset !important;
+  }
+  #NewsletterForm--{{ section.id }} {
+    background-color: currentColor;
+    border-color: currentColor;
+    height: 40px;
+    margin: 1px;
+    vertical-align: top;
+    line-height: 1;
+    box-shadow: none;
+    transition: none;
+  }
+  #NewsletterForm--{{ section.id }}::placeholder, #submit-icon {
+    color: black;
+    opacity: 1;
+  }
+  .multicolumn_grid_heading {
+    font-size: {{ section.settings.heading_font_size }}px;
+    color: {{ section.settings.text_color }} !important;
+  }
+  .multicolumn_grid_content {
+    font-size: {{ section.settings.content_font_size }}px;
+  }
+  @media screen and (max-width: 768px) {
+    .multicolumn_grid_heading {
+      font-size: {{ section.settings.heading_font_size_mobile }}px;
+    }
+    .multicolumn_grid_content {
+        font-size: {{ section.settings.content_font_size_mobile }}px;
+    }
+  }
+  #NewsletterForm--{{ section.id }} {
+    color: black;
+    background-color: white;
+    padding: 1.5rem;
+  }
+  #NewsletterForm--{{ section.id }}:focus {
+    padding: 1.5rem;
+  }
+  #NewsletterForm--{{ section.id }}::placeholder {
+    color: #cacaca;
+  }
+  .footer-newsletter-form__button:focus {
+    background-color: inherit !important;
+    box-shadow: inherit !important;
+    outline: none !important;
+  }
+  .multicolumn-card__info h5, .multicolumn_grid_heading {
+    margin-bottom: 10px;
+  }
+  .multicolumn-footer, .multicolumn-newsletter-wrapper, .multicolumn-footer-card {
+    background-color: {{ section.settings.background_color }} !important;
+    color: {{ section.settings.text_color }} !important;
+  }
+  .mobile-footer-social-icons a {
+    color: {{ section.settings.text_color }} !important;
+  }
+{%- endstyle -%}
+
+{% assign has_social_icons = true %}
+{% if settings.social_facebook_link == blank and settings.social_instagram_link == blank and settings.social_youtube_link == blank and settings.social_tiktok_link == blank and settings.social_twitter_link == blank and settings.social_pinterest_link == blank and settings.social_snapchat_link == blank and settings.social_tumblr_link == blank and settings.social_vimeo_link == blank %}
+  {% assign has_social_icons = false %}
+{% endif %}
+
+<div class="multicolumn multicolumn-footer gradient">
+  <div class="page-width section-{{ section.id }}-padding isolate">
+      <ul
+        class="multicolumn-list contains-content-container grid-config grid--1-col-tablet-down grid--{{ section.settings.columns_desktop }}-col-desktop"
+        role="list"
+      >
+        {%- for block in section.blocks -%}
+          {% if block.type == "column" %}
+            {%- assign empty_column = '' -%}
+            {%- if block.settings.title == blank
+              and block.settings.text == blank
+              and block.settings.icon == blank
+            -%}
+              {%- assign empty_column = ' multicolumn-list__item--empty' -%}
+            {%- endif -%}
+  
+            <li id="multicolumn_list_item_{{ forloop.index }}"
+              class="multicolumn-list__item grid__item{{ empty_column }} {% if block.settings.hide_on_mobile == true %} mobile_hide{% endif %}"
+              style="text-align:{{ block.settings.column_alignment }};"
+              {{ block.shopify_attributes }}
+            >
+              <div class="multicolumn-card multicolumn-footer-card content-container">
+                <div class="multicolumn-card__info">
+                  {%- if block.settings.icon != blank -%}
+                    {{ block.settings.icon }}
+                  {%- endif -%}
+                  {%- if block.settings.title != blank -%}
+                    <h5 class="{{ block.settings.heading_size }} multicolumn_grid_heading">{{ block.settings.title | escape }}</h5>
+                  {%- endif -%}
+                  {%- if block.settings.text != blank -%}
+                    <div class="rte multicolumn_grid_content">{{ block.settings.text }}</div>
+                  {%- endif -%}
+                </div>
+              </div>
+            </li>
+          {% else if block.type == "newsletter" %}
+            <li id="multicolumn_list_item_{{ forloop.index }}"
+              class="multicolumn-list__item grid__item multicolumn-newsletter-grid"
+              style="text-align:{{ block.settings.desktop_column_alignment }};"  
+              {{ block.shopify_attributes }}
+            >
+                <div class="newsletter center">
+                  <div class="multicolumn-newsletter-wrapper newsletter__wrapper gradient content-container isolate{% if section.settings.full_width %} content-container--full-width{% endif %} section-{{ section.id }}-padding">
+                      <h5 class="{{ block.settings.heading_size }} multicolumn_grid_heading" {{ block.shopify_attributes }}>
+                        {{ block.settings.heading | escape }}
+                      </h5>    
+                      <p class="newsletter__subheading multicolumn_grid_content rte" {{ block.shopify_attributes }}>{{ block.settings.text }}</p>
+                         <div {{ block.shopify_attributes }}>
+                            {% form 'customer', class: 'newsletter-form multicolumn-newsletter-form' %}
+                              <input type="hidden" name="contact[tags]" value="newsletter">
+                              <div class="newsletter-form__field-wrapper multicolumn-newsletter-form__field-wrapper">
+                                <div class="field">
+                                  <input
+                                    id="NewsletterForm--{{ section.id }}"
+                                    type="email"
+                                    name="contact[email]"
+                                    class="field__input"
+                                    value="{{ form.email }}"
+                                    aria-required="true"
+                                    autocorrect="off"
+                                    autocapitalize="off"
+                                    autocomplete="email"
+                                    {% if form.errors %}
+                                      autofocus
+                                      aria-invalid="true"
+                                      aria-describedby="Newsletter-error--{{ section.id }}"
+                                    {% elsif form.posted_successfully? %}
+                                      aria-describedby="Newsletter-success--{{ section.id }}"
+                                    {% endif %}
+                                    placeholder="{{ block.settings.heading | capitalize }}"
+                                    required
+                                  >
+                                  <button
+                                    type="submit"
+                                    class="newsletter-form__button field__button footer-newsletter-form__button"
+                                    name="commit"
+                                    id="Subscribe"
+                                    aria-label="{{ 'newsletter.button_label' | t }}"
+                                  >
+                                    
+                                    <svg id="submit-icon" enable-background="new 13.292 2.375 11.314 22.63" height="22.63" viewBox="13.292 2.375 11.314 22.63" width="11.314" xmlns="http://www.w3.org/2000/svg"><path d="m13.292 2.375v11.315 11.314c0-6.25 5.066-11.314 11.314-11.314-6.248 0-11.314-5.066-11.314-11.315"/></svg>
+                                  </button>
+                                </div>
+                                {%- if form.posted_successfully? -%}
+                                  <h3
+                                    class="newsletter-form__message newsletter-form__message--success form__message"
+                                    id="Newsletter-success--{{ section.id }}"
+                                    tabindex="-1"
+                                    autofocus
+                                  >
+                                    {% render 'icon-success' -%}
+                                    {{- 'newsletter.success' | t }}
+                                  </h3>
+                                {%- endif -%}
+                                {%- if form.errors -%}
+                                  <small class="newsletter-form__message form__message" id="Newsletter-error--{{ section.id }}">
+                                    {%- render 'icon-error' -%}
+                                    {{- form.errors.translated_fields.email | capitalize }}
+                                    {{ form.errors.messages.email -}}
+                                  </small>
+                                {%- endif -%}
+                                {% if block.settings.caption != blank %}
+                                    <small>{{ block.settings.caption }}</small>
+                                  {% endif %}
+                                {%- if block.settings.show_social_on_mobile and has_social_icons -%}
+                                  <div style="margin-top: 15px;" class="desktop_hide mobile-footer-social-icons">
+                                    {%- render 'social-icons' -%}
+                                  </div>
+                                {%- endif -%}
+                              </div>
+                            {% endform %}
+                          </div>
+                  </div>
+                </div>
+            </li>
+          {% endif %}
+        {%- endfor -%}
+      </ul>
+  </div>
+</div>
+                                      
+{% schema %}
+{
+  "name": "t:sections.multicolumn_footer.name",
+  "class": "section",
+  "tag": "section",
+  "disabled_on": {
+    "groups": ["header"]
+  },
+  "settings": [
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        {
+          "value": "h2",
+          "label": "t:sections.all.heading_size.options__1.label"
+        },
+        {
+          "value": "h1",
+          "label": "t:sections.all.heading_size.options__2.label"
+        },
+        {
+          "value": "h0",
+          "label": "t:sections.all.heading_size.options__3.label"
+        }
+      ],
+      "default": "h1",
+      "label": "t:sections.all.heading_size.label"
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Heading Font Size Desktop",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Heading Font Size Mobile",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "content_font_size",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Content Font Size Desktop",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "content_font_size_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Content Font Size Mobile",
+      "default": 18
+    },
+    {
+        "type": "color",
+        "id": "background_color",
+        "default": "#000000",
+        "label": "Background Color"
+    },
+    {
+        "type": "color",
+        "id": "text_color",
+        "default": "#FFFFFF",
+        "label": "Text Color"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 52
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "default": true,
+      "label": "t:sections.multicolumn_footer.settings.full_width.label"
+    },
+    {
+      "type": "paragraph",
+      "content": "t:sections.multicolumn_footer.settings.paragraph.content"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "newsletter",
+      "name": "t:sections.multicolumn_footer.blocks.newsletter.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "Subscribe to our emails",
+          "label": "t:sections.multicolumn_footer.blocks.newsletter.settings.heading.label"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "<p>Be the first to know about new collections and exclusive offers.</p>",
+          "label": "t:sections.multicolumn_footer.blocks.newsletter.settings.paragraph.label"
+        },
+        {
+          "type": "text",
+          "id": "caption",
+          "label": "t:sections.multicolumn_footer.blocks.newsletter.settings.caption.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_social_on_mobile",
+          "default": true,
+          "label": "t:sections.multicolumn_footer.blocks.newsletter.settings.show_social.label"
+        },
+        {
+          "type": "select",
+          "id": "desktop_column_alignment",
+          "options": [
+            {
+              "value": "left",
+              "label": "t:sections.multicolumn_footer.blocks.newsletter.settings.desktop_column_alignment.options__1.label"
+            },
+            {
+              "value": "center",
+              "label": "t:sections.multicolumn_footer.blocks.newsletter.settings.desktop_column_alignment.options__2.label"
+            }
+          ],
+          "default": "left",
+          "label": "t:sections.multicolumn_footer.blocks.newsletter.settings.desktop_column_alignment.label"
+        },
+        {
+          "type": "select",
+          "id": "mobile_column_alignment",
+          "options": [
+            {
+              "value": "left",
+              "label": "t:sections.multicolumn_footer.blocks.newsletter.settings.mobile_column_alignment.options__1.label"
+            },
+            {
+              "value": "center",
+              "label": "t:sections.multicolumn_footer.blocks.newsletter.settings.mobile_column_alignment.options__2.label"
+            }
+          ],
+          "default": "center",
+          "label": "t:sections.multicolumn_footer.blocks.newsletter.settings.mobile_column_alignment.label"
+        }
+      ]
+    },
+    {
+      "type": "column",
+      "name": "t:sections.multicolumn_footer.blocks.column.name",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "default": "Column",
+          "label": "t:sections.multicolumn_footer.blocks.column.settings.heading.label"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "<p>Column details</p>",
+          "label": "t:sections.multicolumn_footer.blocks.column.settings.paragraph.label"
+        },
+        {
+          "type": "textarea",
+          "id": "icon",
+          "label": "t:sections.multicolumn_footer.blocks.column.settings.icon.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "hide_on_mobile",
+          "default": true,
+          "label": "Hide on Mobile"
+        },
+        {
+          "type": "select",
+          "id": "column_alignment",
+          "options": [
+            {
+              "value": "left",
+              "label": "t:sections.multicolumn_footer.blocks.column.settings.column_alignment.options__1.label"
+            },
+            {
+              "value": "center",
+              "label": "t:sections.multicolumn_footer.blocks.column.settings.column_alignment.options__2.label"
+            }
+          ],
+          "default": "center",
+          "label": "t:sections.multicolumn_footer.blocks.column.settings.column_alignment.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.multicolumn_footer.presets.name",
+      "blocks": [
+        {
+          "type": "newsletter"
+        },
+        {
+          "type": "column"
+        },
+        {
+          "type": "column"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

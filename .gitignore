@@ -1,0 +1,24 @@
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+node_modules
+
+# # ignore all files inside shopify/assets/ except files with 'static' keyword in their filename
+# shopify/assets/*
+# !shopify/assets/*static*
+shopify/assets/global.css
+shopify/assets/global-template.js
+shopify/assets/product-template.js
+shopify/assets/homepage-template.js
+shopify/assets/collection-template.js
+shopify/assets/account-template.js
+shopify/assets/storefront.js
+shopify/assets/cart-state.js
+shopify/assets/product-state.js
+shopify/assets/_plugin-vue_export-helper.js

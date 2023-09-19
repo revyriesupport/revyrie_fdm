@@ -1,0 +1,49 @@
+<div class="page-width m-auto">
+  <div class="py-24">
+    <p class="text-3xl text-ink text-center">{{ section.settings.title }}</p>
+    <div class="min-h-[380px]">
+      <product-slider
+        vue="component"
+        :shopify-data="{
+          collectionHandle: '{{ section.settings.collectionHandle }}',
+          limit: '{{ section.settings.limit }}'
+        }">
+      </product-slider>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product Slider",
+  "class": "section",
+  "tag": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collectionHandle",
+      "label": "Collection"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Product Slider"
+    },
+    {
+      "type": "text",
+      "id": "limit",
+      "label": "Limit of products",
+      "default": "10"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Slider"
+    }
+  ]
+}
+{% endschema %}

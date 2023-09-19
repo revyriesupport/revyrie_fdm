@@ -1,0 +1,24 @@
+<div class="w-full mx-auto">
+  <div class="w-full grid grid-cols-2 gap-4">
+    <product-gallery
+      :media="remainingMedia"
+      active-color="{{ active_color }}"
+      v-slot="{ loadedImages, imagesPerColor }"
+    >
+      <div
+        v-for="media in imagesPerColor"
+        class="relative aspect-square bg-grey"
+      >
+        <img
+          v-if="media.media_type == 'image'"
+          :src="media.src"
+          :alt="media.alt" 
+          class="inset-0 w-full h-full absolute object-cover"
+        >
+          <button href="#" class="absolute top-2 right-2 p-2 bg-white bg-opacity-70 hover:bg-opacity-100 text-gray-800">
+            {%- render 'icon-zoom' -%}
+          </button>
+      </div>
+    </product-gallery>
+  </div>
+</div>

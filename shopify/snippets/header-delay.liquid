@@ -1,0 +1,12 @@
+{% comment %}
+<script delay="{{ '.js' | asset_url }}" delayed-time="1000"></script>
+
+<script delay="{{ '.js' | asset_url }}" run-after-load="script_1,script_two"></script>
+<script await="{{ '.js' | asset_url }}" run-after-load="script_3,script_4" id="script_1"></script>
+<script await="{{ '.js' | asset_url }}" id="script_3"></script>
+<script await="{{ '.js' | asset_url }}" id="script_4" delayed-time="300"></script>
+
+<script await="{{ '.js' | asset_url }}" id="script_two" delayed-time="1000"></script>
+{% endcomment %}
+
+<script delay="{{ 'delay-injection.js' | asset_url }}"></script>

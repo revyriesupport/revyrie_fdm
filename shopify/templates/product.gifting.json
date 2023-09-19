@@ -1,0 +1,59 @@
+{
+  "sections": {
+    "33e90518-6b15-412c-93a5-e34cf15e82c5": {
+      "type": "main-product-gifting",
+      "blocks": {
+        "d7b8a558-9de5-4b3a-bff4-da406115fb39": {
+          "type": "title",
+          "settings": {
+            "custom_heading": "luxury is to give pleasure"
+          }
+        },
+        "866ec635-ebdb-40f4-9c2b-6082b78ecd8c": {
+          "type": "description",
+          "settings": {
+          }
+        },
+        "51ee8b7d-383a-4b33-8c56-d53825f595fb": {
+          "type": "quantity_selector",
+          "settings": {
+          }
+        },
+        "49c11de5-bade-44a4-9f83-31599f544e85": {
+          "type": "price",
+          "settings": {
+          }
+        },
+        "b71a06b2-498c-4005-b523-f241debc5170": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "dropdown"
+          }
+        },
+        "a867b050-174a-42a9-bdfa-29f4ca84c21e": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": false
+          }
+        }
+      },
+      "block_order": [
+        "d7b8a558-9de5-4b3a-bff4-da406115fb39",
+        "866ec635-ebdb-40f4-9c2b-6082b78ecd8c",
+        "51ee8b7d-383a-4b33-8c56-d53825f595fb",
+        "49c11de5-bade-44a4-9f83-31599f544e85",
+        "b71a06b2-498c-4005-b523-f241debc5170",
+        "a867b050-174a-42a9-bdfa-29f4ca84c21e"
+      ],
+      "settings": {
+        "gift_image": "shopify:\/\/shop_images\/banner_gifting.jpg",
+        "page_select": "gifting",
+        "padding_top": 0,
+        "padding_bottom": 68
+      }
+    }
+  },
+  "order": [
+    "33e90518-6b15-412c-93a5-e34cf15e82c5"
+  ]
+}

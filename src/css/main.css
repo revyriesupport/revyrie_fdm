@@ -1,0 +1,36 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@import "./components/_global-elements.css";
+
+@layer base {
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+.section-header {
+  @apply z-[100] !important;
+}
+
+/* * {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-base-background-2) var(--color-base-text);
+}
+*::-webkit-scrollbar {
+  width: 15px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--color-base-text);
+  border-radius: 5px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--color-base-background-2);
+  border-radius: 14px;
+  border: 3px solid var(--color-base-text);
+} */

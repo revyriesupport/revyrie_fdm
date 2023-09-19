@@ -1,0 +1,21 @@
+{%- assign product_options = product.options_with_values -%}
+
+<template>
+  <div id="product-swatches">
+    {%- for option in product_options -%}
+      <ProductSwatches :product-options="{{ product_options | json }}" :option-name="{{ option.name | json }}" v-slot="{ swatches }">
+        <div class="swatch-group">
+          <h3>{{ option.name }}</h3>
+          <ul class="swatches">
+            {%- for swatch in swatches -%}
+              <li class="swatch">
+                <img v-if="swatch.image" :src="swatch.image.src" :alt="swatch.name" loading="lazy" />
+                <span v-else>{{ swatch.name }}</span>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      </ProductSwatches>
+    {%- endfor -%}
+  </div>
+</template>

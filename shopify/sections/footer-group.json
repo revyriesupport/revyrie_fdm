@@ -1,0 +1,227 @@
+{
+  "name": "t:sections.footer.name",
+  "type": "footer",
+  "sections": {
+    "daafa2f0-def1-44b4-8e15-0af9f770cf81": {
+      "type": "multicolumn-footer",
+      "blocks": {
+        "sections--21003507138872__daafa2f0-def1-44b4-8e15-0af9f770cf81-newsletter-1": {
+          "type": "newsletter",
+          "settings": {
+            "heading": "SUBSCRIBE FOR 10% OFF",
+            "text": "<p>Plus, the juiciest news & access to special promotions.<\/p>",
+            "caption": "Discount code available to U.S. customers only.",
+            "show_social_on_mobile": true,
+            "desktop_column_alignment": "left",
+            "mobile_column_alignment": "center"
+          }
+        },
+        "sections--21003507138872__daafa2f0-def1-44b4-8e15-0af9f770cf81-column-1": {
+          "type": "column",
+          "settings": {
+            "title": "Free Shipping",
+            "text": "<p>On all orders within the U.S.<\/p>",
+            "icon": "<svg xmlns=\"http:\/\/www.w3.org\/2000\/svg\" viewbox=\"0 0 448 512\" class=\"icon\" alt=\"Free Shipping\"><!-- Font Awesome Pro 5.15.4 by @fontawesome - https:\/\/fontawesome.com License - https:\/\/fontawesome.com\/license (Commercial License) --><path d=\"M447.9 176c0-10.6-2.6-21-7.6-30.3l-49.1-91.9c-4.3-13-16.5-21.8-30.3-21.8H87.1c-13.8 0-26 8.8-30.4 21.9L7.6 145.8c-5 9.3-7.6 19.7-7.6 30.3C.1 236.6 0 448 0 448c0 17.7 14.3 32 32 32h384c17.7 0 32-14.3 32-32 0 0-.1-211.4-.1-272zm-87-112l50.8 96H286.1l-12-96h86.8zM192 192h64v64h-64v-64zm49.9-128l12 96h-59.8l12-96h35.8zM87.1 64h86.8l-12 96H36.3l50.8-96zM32 448s.1-181.1.1-256H160v64c0 17.7 14.3 32 32 32h64c17.7 0 32-14.3 32-32v-64h127.9c0 74.9.1 256 .1 256H32z\"><\/path><\/svg>",
+            "hide_on_mobile": true,
+            "column_alignment": "center"
+          }
+        },
+        "sections--21003507138872__daafa2f0-def1-44b4-8e15-0af9f770cf81-column-2": {
+          "type": "column",
+          "settings": {
+            "title": "We're here to help",
+            "text": "<p>We've got you via phone, email or text<\/p>",
+            "icon": "<svg xmlns=\"http:\/\/www.w3.org\/2000\/svg\" viewbox=\"0 0 512 512\" class=\"icon\" alt=\"We're here to help\"><!-- Font Awesome Pro 5.15.4 by @fontawesome - https:\/\/fontawesome.com License - https:\/\/fontawesome.com\/license (Commercial License) --><path d=\"M464 64H48C21.5 64 0 85.5 0 112v288c0 26.5 21.5 48 48 48h416c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48zM48 96h416c8.8 0 16 7.2 16 16v41.4c-21.9 18.5-53.2 44-150.6 121.3-16.9 13.4-50.2 45.7-73.4 45.3-23.2.4-56.6-31.9-73.4-45.3C85.2 197.4 53.9 171.9 32 153.4V112c0-8.8 7.2-16 16-16zm416 320H48c-8.8 0-16-7.2-16-16V195c22.8 18.7 58.8 47.6 130.7 104.7 20.5 16.4 56.7 52.5 93.3 52.3 36.4.3 72.3-35.5 93.3-52.3 71.9-57.1 107.9-86 130.7-104.7v205c0 8.8-7.2 16-16 16z\"><\/path><\/svg>",
+            "hide_on_mobile": true,
+            "column_alignment": "center"
+          }
+        }
+      },
+      "block_order": [
+        "sections--21003507138872__daafa2f0-def1-44b4-8e15-0af9f770cf81-newsletter-1",
+        "sections--21003507138872__daafa2f0-def1-44b4-8e15-0af9f770cf81-column-1",
+        "sections--21003507138872__daafa2f0-def1-44b4-8e15-0af9f770cf81-column-2"
+      ],
+      "settings": {
+        "heading_size": "h1",
+        "heading_font_size": 18,
+        "heading_font_size_mobile": 18,
+        "content_font_size": 16,
+        "content_font_size_mobile": 16,
+        "color_scheme": "inverse",
+        "padding_top": 16,
+        "padding_bottom": 8,
+        "full_width": true
+      }
+    },
+    "67146b21-1c5f-40f9-bc2a-a61cbe74cfeb": {
+      "type": "footer-mobile",
+      "blocks": {
+        "sections--21003507138872__67146b21-1c5f-40f9-bc2a-a61cbe74cfeb-heading-1": {
+          "type": "heading",
+          "settings": {
+            "heading": "<p>Contact Client Services<\/p>",
+            "heading_size": "h2"
+          }
+        },
+        "sections--21003507138872__67146b21-1c5f-40f9-bc2a-a61cbe74cfeb-text-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Monday-Friday, 10AM-6PM EST<\/p>"
+          }
+        },
+        "sections--21003507138872__67146b21-1c5f-40f9-bc2a-a61cbe74cfeb-button-1": {
+          "type": "button",
+          "settings": {
+            "icon": "<svg xmlns=\"http:\/\/www.w3.org\/2000\/svg\" viewbox=\"0 0 512 512\" class=\"icon\" alt=\"We're here to help\"><path d=\"M464 64H48C21.5 64 0 85.5 0 112v288c0 26.5 21.5 48 48 48h416c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48zM48 96h416c8.8 0 16 7.2 16 16v41.4c-21.9 18.5-53.2 44-150.6 121.3-16.9 13.4-50.2 45.7-73.4 45.3-23.2.4-56.6-31.9-73.4-45.3C85.2 197.4 53.9 171.9 32 153.4V112c0-8.8 7.2-16 16-16zm416 320H48c-8.8 0-16-7.2-16-16V195c22.8 18.7 58.8 47.6 130.7 104.7 20.5 16.4 56.7 52.5 93.3 52.3 36.4.3 72.3-35.5 93.3-52.3 71.9-57.1 107.9-86 130.7-104.7v205c0 8.8-7.2 16-16 16z\"><\/path><\/svg>",
+            "button_label": "Email",
+            "button_link": "mailto:fleur@fleurdumal.com"
+          }
+        },
+        "sections--21003507138872__67146b21-1c5f-40f9-bc2a-a61cbe74cfeb-button-2": {
+          "type": "button",
+          "settings": {
+            "icon": "",
+            "button_label": "Call Us",
+            "button_link": "tel:6467913656"
+          }
+        },
+        "sections--21003507138872__67146b21-1c5f-40f9-bc2a-a61cbe74cfeb-button-3": {
+          "type": "button",
+          "settings": {
+            "icon": "",
+            "button_label": "Returns",
+            "button_link": "https:\/\/fleurdumal.com\/pages\/returns-center"
+          }
+        },
+        "sections--21003507138872__67146b21-1c5f-40f9-bc2a-a61cbe74cfeb-collapsible_row-1": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "COMPANY INFO",
+            "heading_size": "h2",
+            "menu": "company-info",
+            "first_row_content": "",
+            "image_ratio": "adapt",
+            "second_row_content": ""
+          }
+        },
+        "sections--21003507138872__67146b21-1c5f-40f9-bc2a-a61cbe74cfeb-collapsible_row-2": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "GET HELP",
+            "heading_size": "h2",
+            "menu": "get-help",
+            "first_row_content": "",
+            "image_ratio": "adapt",
+            "second_row_content": ""
+          }
+        },
+        "sections--21003507138872__67146b21-1c5f-40f9-bc2a-a61cbe74cfeb-collapsible_row-3": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "STAY CONNECTED",
+            "heading_size": "h2",
+            "menu": "",
+            "first_row_content": "<p>Sign up for SMS alerts to be the first to know about new drops & more (U.S. only).<\/p>",
+            "image_ratio": "adapt",
+            "second_row_content": ""
+          }
+        },
+        "sections--21003507138872__67146b21-1c5f-40f9-bc2a-a61cbe74cfeb-collapsible_row-4": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "VISIT US",
+            "heading_size": "h2",
+            "menu": "",
+            "first_row_content": "<p>Visit our boutiques in NYC or LA to shop fresh collections, store exclusives & other just arrived styles.<\/p>",
+            "image": "shopify:\/\/shop_images\/visit_us_mobile.jpg",
+            "image_ratio": "adapt",
+            "second_row_content": "<p><strong>Los Angeles<\/strong><br\/>519 N Almont Drive<\/p><p><br\/><strong>New York City<\/strong><br\/>175 Mott Street<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "sections--21003507138872__67146b21-1c5f-40f9-bc2a-a61cbe74cfeb-heading-1",
+        "sections--21003507138872__67146b21-1c5f-40f9-bc2a-a61cbe74cfeb-text-1",
+        "sections--21003507138872__67146b21-1c5f-40f9-bc2a-a61cbe74cfeb-button-1",
+        "sections--21003507138872__67146b21-1c5f-40f9-bc2a-a61cbe74cfeb-button-2",
+        "sections--21003507138872__67146b21-1c5f-40f9-bc2a-a61cbe74cfeb-button-3",
+        "sections--21003507138872__67146b21-1c5f-40f9-bc2a-a61cbe74cfeb-collapsible_row-1",
+        "sections--21003507138872__67146b21-1c5f-40f9-bc2a-a61cbe74cfeb-collapsible_row-2",
+        "sections--21003507138872__67146b21-1c5f-40f9-bc2a-a61cbe74cfeb-collapsible_row-3",
+        "sections--21003507138872__67146b21-1c5f-40f9-bc2a-a61cbe74cfeb-collapsible_row-4"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "text-left",
+        "full_width": true,
+        "show_policy": true,
+        "heading_font_size": 12,
+        "content_font_size": 13,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "a236d6ec-c23c-4697-b8a5-dd71dd15e0be": {
+          "type": "text",
+          "settings": {
+            "heading": "CONTACT US",
+            "subtext": "<p><strong>Customer Service Hours<\/strong><br\/>M-F, 10AM-6PM EST<br\/><br\/><\/p><p><strong>Email us<\/strong><br\/><a href=\"mailto:fleur@fleurdumal.com\" title=\"mailto:fleur@fleurdumal.com\">fleur@fleurdumal.com<br\/><\/a><br\/><\/p><p>Call or text us<br\/><a href=\"tel:6467913656\" title=\"tel:6467913656\">+1 (646) 791-3656<br\/><\/a><br\/><\/p><p><strong>Returns<\/strong><br\/><a href=\"\/pages\/contact\" title=\"Contact\">Visit Returns Center<\/a><\/p>"
+          }
+        },
+        "footer-0": {
+          "type": "link_list",
+          "settings": {
+            "heading": "COMPANY INFO",
+            "menu": "company-info"
+          }
+        },
+        "footer-1": {
+          "type": "link_list",
+          "settings": {
+            "heading": "GET HELP",
+            "menu": "get-help"
+          }
+        },
+        "footer-2": {
+          "type": "text",
+          "settings": {
+            "heading": "Fleur Boutiques",
+            "subtext": "<p>Visit our boutiques to shop fresh collections of lingerie, ready-to-wear & swim.<br\/><br\/><\/p><p><strong>Los Angeles<\/strong><br\/>519 N Almont Drive<\/p><p><strong><br\/>New York City<\/strong><br\/>175 Mott Street<\/p>",
+            "image": "shopify:\/\/shop_images\/visit_us_e708057a-26af-41cc-bcc1-8bb1dcbf4610.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "a236d6ec-c23c-4697-b8a5-dd71dd15e0be",
+        "footer-0",
+        "footer-1",
+        "footer-2"
+      ],
+      "settings": {
+        "color_scheme": "background-2",
+        "newsletter_enable": false,
+        "newsletter_heading": "Subscribe to our emails",
+        "enable_follow_on_shop": false,
+        "show_social": true,
+        "enable_country_selector": false,
+        "enable_language_selector": false,
+        "payment_enable": false,
+        "show_policy": true,
+        "heading_font_size": 13,
+        "content_font_size": 14,
+        "margin_top": 0,
+        "padding_top": 36,
+        "padding_bottom": 16
+      }
+    }
+  },
+  "order": [
+    "daafa2f0-def1-44b4-8e15-0af9f770cf81",
+    "67146b21-1c5f-40f9-bc2a-a61cbe74cfeb",
+    "footer"
+  ]
+}

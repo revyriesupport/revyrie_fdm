@@ -1,0 +1,10 @@
+{%- assign badge_prefix = "config:badge:" -%}
+
+<div class="badges">
+{%- for tag in _tags -%}
+  {%- if tag contains badge_prefix -%}
+    {%- assign badge_text = tag | remove: badge_prefix -%}
+    <span class="badge">{{ badge_text }}</span>
+  {%- endif -%}
+{%- endfor -%}
+</div>
