@@ -3,7 +3,7 @@
 {{ 'component-card.css' | asset_url | stylesheet_tag }}
 {{ 'component-price.css' | asset_url | stylesheet_tag }}
 
-<script src="{{ 'collection-template.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'collection.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'ajaxinate.min.js' | asset_url }}" defer="defer"></script>
 
 {% if section.settings.image_shape == 'blob' %}
@@ -56,9 +56,9 @@
     {%- if section.settings.enable_sorting and section.settings.filter_type == 'vertical' -%}
       {%
          render 'vertical-facets',
-         collection: collection,
-         enable_grid_changer: enable_grid_changer,
-         grid_count: grid_count, %}
+       collection: collection,
+       enable_grid_changer: enable_grid_changer,
+       grid_count: grid_count, %}
     {%- endif -%}
 
     <div class="{% if section.settings.filter_type == 'vertical' %} facets-vertical page-width{% endif %}">
@@ -70,7 +70,7 @@
           class="facets-wrapper{% unless section.settings.enable_filtering %} facets-wrapper--no-filters{% endunless %}{% if section.settings.filter_type != 'vertical' %} page-width{% endif %}"
           id="main-collection-filters"
           data-id="{{ section.id }}">
-          {% render 'facets'
+          {% render 'facets' 
            , results: collection,
            collectionSettings: section.settings,
            enable_filtering: section.settings.enable_filtering,
@@ -85,9 +85,7 @@
       <div
         class="product-grid-container{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
         id="ProductGridContainer"
-        {% if settings.animations_reveal_on_scroll %}
-        data-cascade
-        {% endif %}>
+        {% if settings.animations_reveal_on_scroll %}data-cascade{% endif %}>
         {%- if collection.products.size == 0 -%}
           <div
             class="collection collection--empty page-width"
@@ -100,7 +98,7 @@
                 <br>
                 {{
                    'sections.collection_template.use_fewer_filters_html'
-                   | t: link: collection.url, class: 'underlined-link link' }}
+                 | t: link: collection.url, class: 'underlined-link link' }}
               </h2>
             </div>
           </div>
@@ -120,22 +118,17 @@
               id="product-grid"
               data-id="{{ section.id }}"
               class="
-                                grid product-grid grid--{{ section.settings.columns_mobile }}-col-tablet-down
-                                grid--{{ desktop_columns }}-col-tablet
-                                grid--{{ desktop_columns }}-col-desktop
-                              ">
+                                                grid product-grid grid--{{ section.settings.columns_mobile }}-col-tablet-down
+                                                grid--{{ desktop_columns }}-col-tablet
+                                                grid--{{ desktop_columns }}-col-desktop
+                                              ">
               {%- for product in collection.products -%}
                 {% assign lazy_load = false %}
                 {%- if forloop.index > desktop_columns -%}
                   {%- assign lazy_load = true -%}
                 {%- endif -%}
-                <li
-                  class="grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-                  {% if settings.animations_reveal_on_scroll %}
-                  data-cascade
-                  style="--animation-order: {{ forloop.index }};"
-                  {% endif %}>
-                  {% render 'card-product'
+                <li class="grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}" {% if settings.animations_reveal_on_scroll %}data-cascadestyle="--animation-order: {{ forloop.index }};"{% endif %}>
+                  {% render 'card-product' 
                    , card_product: product,
                    media_aspect_ratio: section.settings.image_ratio,
                    image_shape: section.settings.image_shape,
