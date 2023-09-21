@@ -12,32 +12,16 @@
             class="facet-filters__sort select__select caption-large"
             id="SortBy"
             aria-describedby="a11y-refresh-page-message">
-            <option
-              value="manual"
-              {% if sort_by == 'manual' %}
-              selected="selected"
-              {% endif %}>
+            <option value="manual" {% if sort_by == 'manual' %}selected="selected"{% endif %}>
               Recommended
             </option>
-            <option
-              value="created-descending"
-              {% if sort_by == 'created-descending' %}
-              selected="selected"
-              {% endif %}>
+            <option value="created-descending" {% if sort_by == 'created-descending' %}selected="selected"{% endif %}>
               New In
             </option>
-            <option
-              value="price-descending"
-              {% if sort_by == 'price-descending' %}
-              selected="selected"
-              {% endif %}>
+            <option value="price-descending" {% if sort_by == 'price-descending' %}selected="selected"{% endif %}>
               Price High to Low
             </option>
-            <option
-              value="price-ascending"
-              {% if sort_by == 'price-ascending' %}
-              selected="selected"
-              {% endif %}>
+            <option value="price-ascending" {% if sort_by == 'price-ascending' %}selected="selected"{% endif %}>
               Price Low to High
             </option>
           </select>
