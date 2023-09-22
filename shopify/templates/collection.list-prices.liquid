@@ -1,0 +1,103 @@
+{% layout none %}
+{%- for filter in collection.filters -%}
+  {%- liquid
+    assign total_active_values = total_active_values | plus: filter.active_values.size
+    assign filter_type = 'horizontal'
+  -%}
+    {% case filter.type %}
+    {% when 'price_range' %}
+    {%- liquid
+        assign priceLow = 0
+        assign priceHight = 0
+        if collection and collection.products_count > 0
+          paginate collection.products by collection.all_products_count
+            assign priceLow = 99999999999999
+            assign priceHight = 0
+            for product in collection.products
+              if product.price < priceLow
+                assign priceLow = product.price
+              endif
+              if product.price > priceHight
+                assign priceHight = product.price
+              endif
+            endfor
+          endpaginate
+        endif
+      -%}
+    <!-- price double range -->
+
+    {% assign range_max = filter.range_max | divided_by: 100 %}
+
+    {% assign number = priceHight | divided_by: 100 %}
+    {% assign remainder = number | modulo: 25 %}
+    {% if remainder >= 13 %}
+      {% assign rounded_number = number | plus: 25 | minus: remainder %}
+    {% else %}
+      {% assign rounded_number = number | minus: remainder %}
+    {% endif %}
+
+    {% assign numberMaxCollection = range_max %}
+    {% assign remainderMaxCollection = numberMaxCollection | modulo: 25 %}
+    {% if remainderMaxCollection >= 13 %}
+      {% assign rounded_numberMaxCollection = numberMaxCollection | plus: 25 | minus: remainderMaxCollection %}
+    {% else %}
+      {% assign rounded_numberMaxCollection = numberMaxCollection | minus: remainderMaxCollection %}
+    {% endif %}
+
+    <div class="{{ priceHight | round: 25 }}">
+      <caption></caption>
+
+      <div class="zp-double-range">
+        <div class="zp-range-track"></div>
+        <input
+          step="25"
+          type="range"
+          name="filter.v.price.gte"
+          data-checked="false"
+          id="price-min"
+          class="price-min-slide"
+          min="0"
+          max="{{ rounded_number | round | plus: 50 }}"
+          value="0">
+        <span></span>
+        <input
+          step="25"
+          type="range"
+          name="filter.v.price.lte"
+          data-checked="false"
+          id="price-max"
+          class="price-max-slide"
+          min="0"
+          max="{{ rounded_number | round | plus: 50 }}"
+          value="{{ rounded_number | round | plus: 50  }}"
+          data-rangemax="{{ rounded_number | round | plus: 50  }}">
+        <span></span>
+        <div class="values">
+          <div class="number-dollar-overlay">
+            <p>FROM</p>
+            <label class="number-dollar-input centered min-val">
+              <span class="min-selected-copy">$</span>
+              <input
+                class="no-qty price-range-value-1 hidden"
+                value="0"
+                type="number">
+            </label>
+          </div>
+          <div class="number-dollar-overlay">
+            <p>TO</p>
+            <label class="number-dollar-input centered max-val">
+              <span class="max-selected-copy">$</span>
+              <input
+                class="no-qty price-range-value-2 hidden"
+                value="0"
+                type="number">
+            </label>
+          </div>
+        </div>
+
+        <span class="range-min-number price-label">$ 0</span>
+        <span class="range-max-number price-label">$ {{ rounded_number | round | plus: 50 }}</span>
+      </div>
+    </div>
+  {% endcase %}
+{%- endfor -%}

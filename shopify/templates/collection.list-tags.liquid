@@ -1,0 +1,14 @@
+{%- liquid
+  layout none
+  assign tags = '' | split: '=;='
+  if collection and collection.products_count > 0
+    paginate collection.products by collection.all_products_count
+      for product in collection.products
+        if product.available
+          assign tags = tags | concat: product.tags
+        endif
+      endfor
+    endpaginate
+  endif
+  echo tags | uniq | join: '=;='
+-%}
