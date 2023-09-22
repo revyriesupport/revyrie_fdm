@@ -62,17 +62,17 @@
             <div class="additional_field">
                   <div class="gift_email additional_gift_field">
                     <label for="gift-card-sender">Your Email</label>
-                    <input class="gifting_properties" id="gift-card-sender" cols="45" form="{{ product_form_id }}" rows="5" name="properties[Your Email]" maxlength="100" type="text" required>
+                    <input id="gift-card-sender" cols="45" form="{{ product_form_id }}" rows="5" name="properties[Your Email]" maxlength="100" type="text" required>
                   </div>
                   <div class="lover_email additional_gift_field">
                     <label for="gift-card-recipient" class="top-margin-small">Lover's Email</label>
-                    <input class="gifting_properties" id="gift-card-recipient" cols="45" rows="5" form="{{ product_form_id }}" name="properties[Lover's Email]" maxlength="100" type="text" required>
+                    <input id="gift-card-recipient" cols="45" rows="5" form="{{ product_form_id }}" name="properties[Lover's Email]" maxlength="100" type="text" required>
                   </div>
             </div>
             <div class="additional_field gift_card_message_box">
                   <div class="gift_email additional_gift_field">
                        <label for="gift-card-message" class="top-margin-small">Say Something Sweet</label>
-                      <textarea class="gifting_properties" name="properties[SaySomethingSweet]"  type="text" rows="5" cols="0" id="gift-card-message" maxlength="100"></textarea>
+                      <textarea name="properties[SaySomethingSweet]"  type="text" rows="5" cols="0" id="gift-card-message" maxlength="100"></textarea>
                   </div>
               </div>
         {% endif %}
@@ -90,9 +90,11 @@
               assign quantity_rule_soldout = true
             endif
           -%}
-          <p id="custom_variant_selector__error-{{ section_id }}" class="custom_variant_selector__error" style="display: none;">Please select your size</p>
-          {% if product.handle == "physical-gift-card"%}
-            <button
+          {% if product.description contains "<!-- full-cup-size -->"  %}
+            <div class="full-cup-size-link"><a href="{{ product.description | split: '<!-- full-cup-size -->' | last | split: '<!-- end full-cup-size -->' | first }}">This style is available in fuller cup sizing (D++)</a></div>
+          {% endif %}
+
+          <button
             id="ProductSubmitButton-{{ section_id }}"
             type="submit"
             name="add"
@@ -104,6 +106,8 @@
             <span>
               {%- if product.selected_or_first_available_variant.available == false or quantity_rule_soldout -%}
                 {{ 'products.product.sold_out' | t }}
+              {%- elsif product.tags contains 'coming soon'-%}
+                Join Waitlist
               {%- else -%}
                 {{ 'products.product.add_to_cart' | t }}
               {%- endif -%}
@@ -120,71 +124,26 @@
               </svg>
             </div>
           </button>
-          {% else %}
-          <a
-            href="#"
-            id="ProductCustomButton-{{ section_id }}"
-            class="custom_addtocart_button button button--full-width quick-add-hidden {% if show_dynamic_checkout %}button--secondary{% else %}button--secondary{% endif %}"
-           >
-            <span>
-                {{ 'products.product.add_to_cart' | t }}
-            </span>
-            
-          </a>
-          <button
-            id="ProductSubmitButton-{{ section_id }}"
-            type="submit"
-            name="add"
-            class="product-form__submit button button--full-width {% if show_dynamic_checkout %}button--secondary{% else %}button--secondary{% endif %} hidden"
-            {% if product.selected_or_first_available_variant.available == false or quantity_rule_soldout %}
-              disabled
-            {% endif %}
-          >
-            <span>
-              {%- if product.selected_or_first_available_variant.available == false or quantity_rule_soldout -%}
-                {{ 'products.product.sold_out' | t }}
-              {%- else -%}
-                {{ 'products.product.add_to_cart' | t }}
-              {%- endif -%}
-            </span>
-            <div class="loading-overlay__spinner hidden">
-              <svg
-                aria-hidden="true"
-                focusable="false"
-                class="spinner"
-                viewBox="0 0 66 66"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
-              </svg>
-            </div>
-          </button>
-          {% endif %}
           {%- if show_dynamic_checkout -%}
             {{ form | payment_button }}
           {%- endif -%}
-        </div>
-        {% if settings.lovelist_enable %}
-          <div class="lovelist-wrapper text-center">
-          <button data-with-epi="true" class="swym-pdp swym-button swym-add-to-wishlist-view-product product_{{product.id}}" data-swaction="addToWishlist" data-product-id="{{product.id | json}}" data-variant-id="{{product.variants[0].id}}" data-product-url="{{ shop.url }}{{ product.url }}"></button>
-          </div><!-- lovelist-wrapper-->
-          {% endif %}
           {% if settings.lovelist_enable %}
             {% comment %}{% include 'swym-product-view' %}{% endcomment %}
           {% endif %}
+
+        </div>
+        {% if product.tags contains 'Final Sale' %}
+          <div class="final-sale">Final Sale</div>
+        {% endif %}
+        <p class="back-order errors{% unless current_variant.inventory_policy == 'continue' and current_variant.inventory_quantity <= 0 %} hidden{% endunless %}">
+          The selected size is available for pre-order, it will be shipped {% if product.description contains '<!-- back-order -->'  %}on or before <b>{{ product.description | split: '<!-- back-order -->' | last | split: '<!-- end back-order -->' | first }}</b>{% else %}when it becomes available{% endif %}.
+        </p><!-- backorder -->
         {% if product.tags contains 'return_policy:full_price' and product.description contains '<!-- back-order -->' %}
           <input id="preorder" type="hidden" name="properties[Preorder]" value="{{ product.description | split: '<!-- back-order -->' | last | split: '<!-- end back-order -->' | first }}" >
         {% endif %}
-        {% if product.tags contains 'Private SaleDISABLED' %}
+        {% if product.tags contains 'Private Sale' %}
             <input id="private-sale" type="hidden" value="Private Sale" name="properties[Note]">
         {% endif %}
-        {% if product.tags contains 'le_weekend_sale_exclusionDISABLED' %}
-          <p class="errors">This product is not eligible for the Le Weekend Sale discount.</p>
-        {% endif %}
-        <p class="back-order errors{% unless current_variant.inventory_policy == 'continue' and current_variant.inventory_quantity <= 0 %} hidden{% endunless %}">
-          The selected size is available for preorder, it will be shipped {% if product.description contains '<!-- back-order -->' %}{{ product.description | split: '<!-- back-order -->' | last | split: '<!-- end back-order -->' | first }}{% else %}when it becomes available{% endif %}.
-        </p><!-- backorder -->
-        
       {%- endform -%}
     </product-form>
   {%- else -%}
@@ -233,4 +192,16 @@
 
     <script src="{{ 'pickup-availability.js' | asset_url }}" defer="defer"></script>
   {%- endif -%}
+
+  <div class="sold-out{% if current_variant.available %} hidden{% endif %}">
+    {% if product.description contains "<!-- waitlist -->"  %}
+    {{ product.description | split: '<!-- waitlist -->' | last | split: '<!-- end waitlist -->' | first }}
+    {% elsif product.tags contains 'coming soon' %}
+    The selected style is coming soon. Fill out the form below to be notified when it becomes available.
+    {% else %}
+    The selected style is sold out online. Fill out the form below to be notified when it becomes available again.
+    {% endif %}
+    <a class="btn wide" id="BIS_trigger">Join waitlist</a>
+  
+  </div><!-- sold-out hidden -->
 </div>

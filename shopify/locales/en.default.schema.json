@@ -425,6 +425,18 @@
         },
         "gift_product_select": {
           "label": "Select Product"
+        },
+        "bundle_text": {
+          "label": "Bundle text"
+        },
+        "bundle_image_3": {
+          "label": "Bundle image 3"
+        },
+        "bundle_image_4": {
+          "label": "Bundle image 4"
+        },
+        "bundle_image_5": {
+          "label": "Bundle image 5"
         }
       }
     },

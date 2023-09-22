@@ -21,7 +21,7 @@
 %}
 
 {%- unless product.has_only_default_variant -%}
-  {%- if block.settings.picker_type == 'button' -%}
+  {%- if block.settings.picker_type == 'button' and product_handle != "digital-gift-card"-%}
       <div class="color-swatch">
         {% assign product_title_main = product.title | handleize %}
     
@@ -266,7 +266,7 @@
           {% else %}
               <legend class="form__label">{{ option.name }}</legend>  
           {% endif %}
-          {% render 'product-variant-options', product: product, option: option, block: block %}
+          {% render 'product-variant-options', product: product, option: option, block: block, product_handle: product_handle %}
         </fieldset>
       {%- endfor -%}
       <script type="application/json">
@@ -287,9 +287,15 @@
     >
       {%- for option in product.options_with_values -%}
         <div class="product-form__input product-form__input--dropdown">
-          <label class="form__label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
-            {{ option.name }}
-          </label>
+          {% if option.name == 'Amount' %}
+            <label class="form__label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
+              Select {{ option.name }}
+            </label>
+          {% else %}
+            <label class="form__label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
+              {{ option.name }}
+            </label>
+          {% endif %}
           <div class="select">
             <select
               id="Option-{{ section.id }}-{{ forloop.index0 }}"
@@ -297,7 +303,7 @@
               name="options[{{ option.name | escape }}]"
               form="{{ product_form_id }}"
             >
-              {% render 'product-variant-options', product: product, option: option, block: block %}
+              {% render 'product-variant-options', product: product, option: option, block: block, product_handle: product_handle %}
             </select>
             {% render 'icon-caret' %}
           </div>

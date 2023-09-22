@@ -45,7 +45,7 @@
     endfor
   -%}
   
-  {%- if product_handle == "digital-gift-card" or product_handle == "physical-gift-card" -%}
+  {%- if product_handle == "digital-gift-card" -%}
     <option
       value="{{ value | escape }}"
       {% if option.selected_value == value %}

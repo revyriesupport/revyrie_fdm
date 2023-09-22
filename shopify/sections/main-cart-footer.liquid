@@ -17,7 +17,7 @@
   }
 {%- endstyle -%}
 
-<div class="page-width{% if cart == empty %} is-empty{% endif %}" id="main-cart-footer" data-id="{{ section.id }}">
+<div class="page-width footer_cartsubtotal {% if cart == empty %} is-empty{% endif %}" id="main-cart-footer" data-id="{{ section.id }}">
   <div>
     <div class="cart__footer section-{{ section.id }}-padding">
       <div class="cart__blocks">
@@ -154,6 +154,13 @@
       document.querySelector('#cart').submit();
     });
   });
+
+
+  var cartfooter = document.querySelector('.shopify-section.cart__footer-wrapper #main-cart-footer');
+  var cartfooterid = cartfooter.getAttribute("data-id");
+
+  var side_cartfooter = document.querySelector('div#main-cart-footer.sidetotal');
+  side_cartfooter.setAttribute('data-id', cartfooterid);
 </script>
 
 {% schema %}

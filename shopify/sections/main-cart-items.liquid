@@ -84,7 +84,117 @@
               -->
 
               <tbody>
+                {% liquid
+                    assign cartItemSize = 0
+                    assign cartItemBYOB = false
+                    assign cartItemsBYOB = ''
+                    for cartItem in cart.items
+                      if cartItem.properties['_bundle_id']
+                        assign cartItemBYOB = true
+                        unless cartItemsBYOB contains cartItem.properties['_bundle_id']
+                          if cartItemsBYOB != ''
+                            assign cartItemsBYOB = cartItemsBYOB | append: ','
+                          endif
+                          assign cartItemsBYOB = cartItemsBYOB | append: cartItem.properties['_bundle_id']
+                        endunless
+                      endif
+                    endfor
+                    if cartItemBYOB == true
+                      assign cartItemsBYOB = cartItemsBYOB | split: ','
+                    endif
+                  %}
+
+                  {% if cartItemsBYOB.size > 0 %}
+                    {% for BYOBItem in cartItemsBYOB %}
+                      {% liquid
+                        assign itemBYOBSize = 0
+                        assign itemBYOBSize = 0
+                        assign itemBYOBPrice = 0
+                        assign itemBYOBOriginalPrice = 0
+                        assign itemBYOBDiscountsApplied = false
+                        assign itemBYOBEdit = ""
+                        assign itemBYOBRemove = ""
+                        assign itemBYOBFinalSale = 0
+                        for item in cart.items
+                          if item.properties['_bundle_id'] == BYOBItem
+                            if itemBYOBEdit != ""
+                              assign itemBYOBEdit = itemBYOBEdit | append: "-;-"
+                            endif
+                            assign itemBYOBEdit = itemBYOBEdit | append: item.key | append: '-:-' | append: item.quantity
+                            if itemBYOBRemove != ""
+                              assign itemBYOBRemove = itemBYOBRemove | append: "&"
+                            endif
+                            assign itemBYOBRemove = itemBYOBRemove | append: "updates[" | append: item.key | append: "]=0"
+                            assign itemBYOBSize = itemBYOBSize | plus: item.quantity
+                            assign itemBYOBPrice = itemBYOBPrice | plus: item.line_price
+                            assign itemBYOBOriginalPrice = itemBYOBOriginalPrice | plus: item.original_line_price
+                            if itemBYOBDiscountsApplied != true
+                              if item.line_price == item.original_line_price
+                                assign itemBYOBDiscountsApplied = false
+                              else
+                                assign itemBYOBDiscountsApplied = true
+                              endif
+                            endif
+                            if item.product.tags contains 'badge:final sale'
+                              assign itemBYOBFinalSale = itemBYOBFinalSale | plus: 1
+                            endif
+                          endif
+                        endfor
+                        if itemBYOBSize <= 3
+                          assign itemBYOBimage = settings.bundle_image_3 | img_url: 'medium'
+                        elsif itemBYOBSize <= 4
+                          assign itemBYOBimage = settings.bundle_image_4 | img_url: 'medium'
+                        else
+                          assign itemBYOBimage = settings.bundle_image_5 | img_url: 'medium'
+                        endif
+                        if itemBYOBFinalSale > 0
+                          if itemBYOBFinalSale > 1
+                            assign itemBYOBFinalSale = itemBYOBFinalSale | append: ' items in your bundle are final sale'
+                          else
+                            assign itemBYOBFinalSale = itemBYOBFinalSale | append: ' ítem in your bundle is final sale'
+                          endif
+                        else
+                          assign itemBYOBFinalSale = ''
+                        endif
+                        assign itemBYOBRemove = routes.cart_update_url | append: '?' | append: itemBYOBRemove
+                      -%}
+                      <tr class="cart-item row cart-products-product" id="CartItem-bundle-{{ item.index | plus: 1 }}" data-id="bundle-{{itemBYOBRemove}}">
+                        <td class="cart-item__media">
+                          {% if itemBYOBimage %}
+                            <div class="cart-item__image-container gradient global-media-settings">
+                              <img
+                                src="{{ itemBYOBimage }}"
+                                class="cart-item__image cart-product-image"
+                                alt="{{ itemBYOBimage.alt | escape }}"
+                                loading="lazy"
+                                width="150"
+                                height="auto"
+                              >
+                            </div>
+                          
+                          {% endif %}
+                        </td><!-- large-3 medium-4 small-5 columns-->
+                       <td class="cart-item__details">
+                          <div class="cart-product-name cart-bundle-name">{{ settings.bundle_text }}</div>
+
+                          <div class="cart-product-money cart-bundle-price" data-price="{{ itemBYOBPrice | money }}" data-price-original="{{ itemBYOBOriginalPrice }}">
+                            <span class="money" data-pricejs="{{itemBYOBPrice | money}}">{{ itemBYOBPrice | money }}</span>
+                            {% if itemBYOBDiscountsApplied %}
+                            <del><span class="money" data-pricejs="{{ itemBYOBOriginalPrice | money }}">{{ itemBYOBOriginalPrice | money }}</span></del>
+                            {% endif %}
+                          </div>
+                          <div class="cart-product-preorder">{{ itemBYOBFinalSale }}</div>
+                          <div class="cartbundle_box">
+                          <div class="cart-bundle-edit" style="display:inline-block;padding:0 5px;"><a href="/collections/build-your-bundle?edit-bundle={{ itemBYOBEdit }}" style="font-size:10.4px;text-transform:uppercase;">Edit</a></div>
+                          
+                      <div class="cart-bundle-remove" style="display:inline-block;padding:0 5px;"><a href="{{ itemBYOBRemove }}" data-ids="{{ itemBYOBRemoveIds }}" class="ajaxifyCart--removeBundle" style="font-size:10.4px;text-transform:uppercase;">Remove</a></div>
+                          </div>    
+                      </td>
+                      </tr>
+                    {% endfor %}
+                {% endif %}
                 {%- for item in cart.items -%}
+                  {%- if item.properties['_product_from'] != 'byob' -%}
                   <tr class="cart-item" id="CartItem-{{ item.index | plus: 1 }}">
                     <td class="cart-item__media">
                       {% if item.image %}
@@ -109,6 +219,17 @@
                       {%- endif -%}
 
                       <a href="{{ item.url }}" class="cart-item__name h4 break">{{ item.product.title | escape }}</a>
+
+                      {% if item.product.tags contains 'preorder' %}
+                          <div class="cart-product-preorder">
+                            Preorder, will ship {% if item.product.description contains '<!-- back-order -->'  %}<b>{{ item.product.description | split: '<!-- back-order -->' | last | split: '<!-- end back-order -->' | first }}</b>{% else %}when it becomes available{% endif %}.
+                          </div><!-- preorder -->
+                      {% endif %}
+                      {% if item.product.tags contains 'badge:final sale' %}
+                          <div class="cart-product-final-sale">
+                            Final Sale
+                          </div><!-- cart-product-final-sale -->
+                      {% endif %}
 
                       {%- if item.product.has_only_default_variant == false
                         or item.properties.size != 0
@@ -560,6 +681,7 @@
                       </td>
                     {% endcomment %}
                   </tr>
+                  {%- endif -%}
                 {%- endfor -%}
               </tbody>
             </table>
@@ -582,7 +704,7 @@
   <div
     class="sidetotal {% if cart == empty %} is-empty{% endif %}"
     id="main-cart-footer"
-    data-id="template--21003508318520__cart-footer"
+    data-id=""
   >
     <div class="cart-summary">
       <h5>Order Summary</h5>

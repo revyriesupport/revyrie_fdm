@@ -48,7 +48,6 @@
         "heading_font_size_mobile": 18,
         "content_font_size": 16,
         "content_font_size_mobile": 16,
-        "color_scheme": "inverse",
         "padding_top": 16,
         "padding_bottom": 8,
         "full_width": true

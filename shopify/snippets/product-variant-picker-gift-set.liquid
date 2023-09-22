@@ -1,0 +1,515 @@
+{% comment %}
+  Renders product variant-picker
+
+  Accepts:
+  - product: {Object} product object.
+  - block: {Object} passing the block information.
+  - product_form_id: {String} Id of the product form to which the variant picker is associated.
+  - update_url: {Boolean} whether or not to update url when changing variants. If false, the url isn't updated. Default: true (optional).
+  Usage:
+  {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
+{% endcomment %}
+
+{% liquid
+  assign color_option_index = -1
+  for option in product.options_with_values
+    if option.name == 'Color'
+      assign color_option_index = forloop.index0
+      break
+    endif
+  endfor
+%}
+
+{%- unless product.has_only_default_variant -%}
+  {%- if block.settings.picker_type == 'button' and product_handle != "digital-gift-card"-%}
+      <div class="color-swatch">
+        {% assign product_title_main = product.title | handleize %}
+    
+        {% unless product_title_main == product.handle  %}
+        {% if product.tags contains 'batch1'  %}
+        {% assign collection_select = collections.batch1 %}
+        {% elsif product.tags contains 'batch2'  %}
+        {% assign collection_select = collections.batch2 %}
+        {% elsif product.tags contains 'batch3'  %}
+        {% assign collection_select = collections.batch3 %}
+        {% elsif product.tags contains 'batch4'  %}
+        {% assign collection_select = collections.batch4 %}
+        {% elsif product.tags contains 'batch5'  %}
+        {% assign collection_select = collections.batch5 %}
+        {% elsif product.tags contains 'batch6'  %}
+        {% assign collection_select = collections.batch6 %}
+        {% elsif product.tags contains 'batch7'  %}
+        {% assign collection_select = collections.batch7 %}
+        {% elsif product.tags contains 'batch8'  %}
+        {% assign collection_select = collections.batch8 %}
+        {% elsif product.tags contains 'batch9'  %}
+        {% assign collection_select = collections.batch9 %}
+        {% elsif product.tags contains 'batch10'  %}
+        {% assign collection_select = collections.batch10 %}
+        {% elsif product.tags contains 'batch11'  %}
+        {% assign collection_select = collections.batch11 %}
+        {% elsif product.tags contains 'batch12'  %}
+        {% assign collection_select = collections.batch12 %}
+        {% elsif product.tags contains 'batch13'  %}
+        {% assign collection_select = collections.batch13 %}
+        {% elsif product.tags contains 'batch14'  %}
+        {% assign collection_select = collections.batch14 %}
+        {% elsif product.tags contains 'batch15'  %}
+        {% assign collection_select = collections.batch15 %}
+        {% elsif product.tags contains 'batch16'  %}
+        {% assign collection_select = collections.batch16 %}
+        {% elsif product.tags contains 'batch17'  %}
+        {% assign collection_select = collections.batch17 %}
+        {% elsif product.tags contains 'batch18'  %}
+        {% assign collection_select = collections.batch18 %}
+        {% elsif product.tags contains 'batch19'  %}
+        {% assign collection_select = collections.batch19 %}
+        {% elsif product.tags contains 'batch20'  %}
+        {% assign collection_select = collections.batch20 %}
+        {% elsif product.tags contains 'batch21'  %}
+        {% assign collection_select = collections.batch21 %}
+        {% elsif product.tags contains 'batch22'  %}
+        {% assign collection_select = collections.batch22 %}
+        {% elsif product.tags contains 'batch23'  %}
+        {% assign collection_select = collections.batch23 %}
+        {% elsif product.tags contains 'batch24'  %}
+        {% assign collection_select = collections.batch24 %}
+        {% elsif product.tags contains 'batch25'  %}
+        {% assign collection_select = collections.batch25 %}
+        {% elsif product.tags contains 'batch26'  %}
+        {% assign collection_select = collections.batch26 %}
+        {% elsif product.tags contains 'batch27'  %}
+        {% assign collection_select = collections.batch27 %}
+        {% elsif product.tags contains 'batch28'  %}
+        {% assign collection_select = collections.batch28 %}
+        {% elsif product.tags contains 'batch29'  %}
+        {% assign collection_select = collections.batch29 %}
+        {% elsif product.tags contains 'batch30'  %}
+        {% assign collection_select = collections.batch30 %}
+        {% else %}
+        {% assign collection_select = collections.all %}
+        {% endif %}
+        {% assign file_extension = 'png' %}
+        {% assign current_product = product %}
+        {% assign current_product_handle = product.handle %}
+
+        {% assign product_true_handle = product.title | handleize | append: '-' %}
+        {% assign product_color = product.handle | replace: product_true_handle, '' %}
+        <label>{% comment %}{{ 'products.product.color' | t }}: {% endcomment %}<span>{{ product_color | replace: '-', ' ' }}</span></label>
+        <ul class="color-swatch-options">
+            {% for product in collection_select.products %}
+                {% assign product_true_handle = product.title | handleize | append: '-' %}
+                {% assign product_color = product.handle | replace: product_true_handle, '' %}
+
+                {% if product.title == current_product.title %}
+                {% if product.handle == current_product.handle %}
+                 <li class="color-swatch-element color current">
+                  <label style="background-color: {{ product_color }}; background-image: url({{ product_color | append: '.' | append: file_extension | asset_url }})" >
+                    <div class="tooltip hide-for-small-only">{{ product_color | replace: '-', ' ' }}</div>
+                    {% assign product_color_current = product_color | replace: '-', ' ' %}
+                  </label>
+                </li>
+                {% else %}
+                <li class="color-swatch-element color">
+                  <a href="{{ product.url | within: collection }}">
+                  <label style="background-color: {{ product_color }}; background-image: url({{ product_color | append: '.' | append: file_extension | asset_url }})" >
+                    <div class="tooltip hide-for-small-only">{{ product_color | replace: '-', ' ' }}</div>
+                  </label>
+                </a>
+                </li>
+                {% endif %}
+              {% endif %}
+           {% endfor %}
+        </ul><!-- swatch-options-->
+       {% endunless %}
+    </div><!-- swatch-->
+
+    
+    <variant-radios
+      id="variant-radios-{{ section.id }}"
+      class="no-js-hidden"
+      data-section="{{ section.id }}"
+      data-url="{{ product.url }}"
+      {% if color_option_index >= 0 %}data-color-option-index="{{ color_option_index }}"{% endif %}
+      {% if update_url == false %}
+        data-update-url="false"
+      {% endif %}
+      {{ block.shopify_attributes }}
+    >
+      {%- for option in product.options_with_values -%}
+        {% if option.name contains 'Size' or option.name == 'Amount' or option.name == 'Monogram' %}
+        <div class="selector-wrapper js">
+          <label for="SingleOptionSelector-{{ forloop.index0 }}">
+            {{ 'products.product.select' | t }} {{ option.name }}
+          </label>
+          <select id="SingleOptionSelector-{{ forloop.index0 }}" data-single-option-selector data-index="option{{ option.position }}" class="small">
+            {% for value in option.values %}
+              <option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %}>{{ value }}</option>
+            {% endfor %}
+          </select>
+          <div class="inventory-warning">{% unless current_variant.inventory_quantity <= 0 %}{% unless current_variant.inventory_policy == 'continue' %}{% if current_variant.inventory_quantity == 1 %}(Only {{ current_variant.inventory_quantity }} left){% elsif current_variant.inventory_quantity < 5 %}(Only a few left){% endif %}{% endunless %}{% endunless %}</div><!-- inventory-warning -->
+
+         {% if option.name == 'Size' %}
+          {% for collection in product.collections %}
+            {% for tag in product.tags %}
+              {% if tag contains 'sizing-guide:' %}
+                {% assign sizing_guide = tag | remove: 'sizing-guide:' %}
+                {% assign has_sizing_guide = false %}
+                {% assign underwire_styles_not_bra_sized_sizing = false %}
+                {% assign bra_bikini_top_sizing = false %}
+                {% assign panty_bikini_bottom_extended_sizing = false %}
+                {% assign panty_bikini_bottom_sizing = false %}
+                {% assign bodysuit_one_piece_swim_sizing = false %}
+                {% assign ready_to_wear_numeric_extended_sizing = false %}
+                {% assign ready_to_wear_numeric_sizing = false %}
+                {% assign ready_to_wear_alpha_sizing = false %}
+                {% assign has_two_sizing_guides = false %}
+        
+                {% case sizing_guide %}
+        
+                {% when 'Underwire Styles/Not Bra Sized' %}
+                  {% assign underwire_styles_not_bra_sized_sizing = true %}
+                  {% assign has_sizing_guide = true %}
+        
+                {% when 'Panty/Bikini Bottom Extended' %}
+                  {% assign panty_bikini_bottom_extended_sizing = true %}
+                  {% assign has_sizing_guide = true %}
+        
+                {% when 'Panty/Bikini Bottom' %}
+                  {% assign panty_bikini_bottom_sizing = true %}
+                  {% assign has_sizing_guide = true %}
+        
+                {% when 'Bra/Bikini Top' %}
+                  {% assign bra_bikini_top_sizing = true %}
+                  {% assign has_sizing_guide = true %}
+        
+                {% when 'Bodysuit/One Piece Swim' %}
+                  {% assign bodysuit_one_piece_swim_sizing = true %}
+                  {% assign has_sizing_guide = true %}
+        
+                {% when 'Bodysuit/One Piece Swim and Bra/Bikini Top' %}
+                  {% assign bra_bikini_top_sizing = true %}
+                  {% assign bodysuit_one_piece_swim_sizing = true %}
+                  {% assign has_sizing_guide = true %}
+                  {% assign has_two_sizing_guides = true %}
+        
+                {% when 'Ready to Wear Numeric Extended' %}
+                  {% assign ready_to_wear_numeric_extended_sizing = true %}
+                  {% assign has_sizing_guide = true %}
+        
+                {% when 'Ready to Wear Numeric' %}
+                  {% assign ready_to_wear_numeric_sizing = true %}
+                  {% assign has_sizing_guide = true %}
+        
+                {% when 'Ready to Wear Alpha' %}
+                  {% assign ready_to_wear_alpha_sizing = true %}
+                  {% assign has_sizing_guide = true %}
+        
+                {% when 'Ready to Wear Numeric and Bra/Bikini Top' %}
+                  {% assign bra_bikini_top_sizing = true %}
+                  {% assign ready_to_wear_numeric_sizing = true %}
+                  {% assign has_sizing_guide = true %}
+                  {% assign has_two_sizing_guides = true %}
+        
+                {% when 'Ready to Wear Alpha and Bra/Bikini Top' %}
+                  {% assign bra_bikini_top_sizing = true %}
+                  {% assign ready_to_wear_alpha_sizing = true %}
+                  {% assign has_sizing_guide = true %}
+                  {% assign has_two_sizing_guides = true %}
+                {% endcase %}
+              {% endif %}
+            {% endfor %}
+          {% endfor %}
+          {% comment %}
+          {% render 'sizing-modal', 
+              has_sizing_guide: has_sizing_guide,
+              underwire_styles_not_bra_sized_sizing: underwire_styles_not_bra_sized_sizing,
+              bra_bikini_top_sizing: bra_bikini_top_sizing,
+              ready_to_wear_alpha_sizing: ready_to_wear_alpha_sizing,
+              panty_bikini_bottom_extended_sizing: panty_bikini_bottom_extended_sizing,
+              panty_bikini_bottom_sizing: panty_bikini_bottom_sizing,
+              bodysuit_one_piece_swim_sizing: bodysuit_one_piece_swim_sizing,
+              ready_to_wear_numeric_extended_sizing: ready_to_wear_numeric_extended_sizing,
+              ready_to_wear_numeric_sizing: ready_to_wear_numeric_sizing,
+              ready_to_wear_alpha_sizing: ready_to_wear_alpha_sizing,
+              has_two_sizing_guides: has_two_sizing_guides
+            %}
+           {% endcomment %}
+           
+        {% endif %}
+        <fieldset class="js product-form__input {{ option.name | downcase }}">
+            <legend class="form__label">{{ option.name }}</legend> 
+            <div class="sizeguide_box">
+              {% if has_sizing_guide %}
+                <div class="sizeguide_text">
+                    <a href="javascript:;" data-open="sizing-modal">{{ 'products.product.sizing_chart' | t }}</a>
+                </div>
+              {% endif %}
+            </div>
+               
+          {% render 'product-variant-options-gift-set', product: product, option: option, block: block, product_handle: product_handle %}
+        </fieldset>
+        {% endif %}
+        {% if option.name == 'Monogram' and product.tags contains 'monogram' %}
+              <script>
+              $(document).ready( function() {
+                $('#SingleOptionSelector-2').bind('change', function (e) {
+                  if( $('#SingleOptionSelector-2').val() == 'none') {
+                    $('#monogram-details').hide();
+                  $('#monogram').val('');
+                  $("input#monogram").attr("required", false);
+
+                  }
+                  else if( $('#SingleOptionSelector-2').val() == 'personalized') {
+                  $('#monogram-details').show();
+                  $("input#monogram").attr("required", true);
+                  }
+                }).trigger('change');
+              });
+              </script>
+              <a data-open="monogram-modal" class="learn-more hidden">Info</a>
+              <div id="monogram-details">
+              <label for="monogram" class="hidden">Monogram text</label>
+                  <input autocomplete="off" id="monogram" cols="45" rows="5" name="properties[monogram]" placeholder="Write your text here" type="text">
+                  <small><span name="countchars" id="countchars"></span> Characters Remaining</small>
+                  <script>
+                  $(document).ready(function(){
+                    {% if product.tags contains 'monogram-1'%}
+                    var totalChars      = 1; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-2'%}
+                    var totalChars      = 2; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-3'%}
+                    var totalChars      = 3; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-4'%}
+                    var totalChars      = 4; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-5'%}
+                    var totalChars      = 5; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-6'%}
+                    var totalChars      = 6; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-7'%}
+                    var totalChars      = 7; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-8'%}
+                    var totalChars      = 8; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-9'%}
+                    var totalChars      = 9; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-10'%}
+                    var totalChars      = 10; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-11'%}
+                    var totalChars      = 11; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-12'%}
+                    var totalChars      = 12; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-13'%}
+                    var totalChars      = 13; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-14'%}
+                    var totalChars      = 14; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-15'%}
+                    var totalChars      = 15; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-16'%}
+                    var totalChars      = 16; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-17'%}
+                    var totalChars      = 17; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-18'%}
+                    var totalChars      = 18; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-19'%}
+                    var totalChars      = 19; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-20'%}
+                    var totalChars      = 20; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-21'%}
+                    var totalChars      = 21; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-22'%}
+                    var totalChars      = 22; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-23'%}
+                    var totalChars      = 23; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-24'%}
+                    var totalChars      = 24; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-25'%}
+                    var totalChars      = 25; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-26'%}
+                    var totalChars      = 26; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-27'%}
+                    var totalChars      = 27; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-28'%}
+                    var totalChars      = 28; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-29'%}
+                    var totalChars      = 29; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-30'%}
+                    var totalChars      = 30; //Total characters allowed in textarea
+                    {% endif %}
+
+                    var countTextBox    = $('#monogram') // Textarea input box
+                    var charsCountEl    = $('#countchars'); // Remaining chars count will be displayed here
+
+                    charsCountEl.text(totalChars); //initial value of countchars element
+                    countTextBox.keyup(function() { //user releases a key on the keyboard
+                      var thisChars = this.value.replace(/{.*}/g, '').length; //get chars count in textarea
+                      if(thisChars > totalChars) //if we have more chars than it should be
+                      {
+                        var CharsToDel = (thisChars-totalChars); // total extra chars to delete
+                        this.value = this.value.substring(0,this.value.length-CharsToDel); //remove excess chars from textarea
+                      }else{
+                        charsCountEl.text( totalChars - thisChars ); //count remaining chars
+                      }
+                    });
+                  });
+                  </script>
+              </div><!-- monogram-details-->
+              {% endif %}
+      {%- endfor -%}
+      <script type="application/json">
+        {{ product.variants | json }}
+      </script>
+    </variant-radios>
+  {%- else -%}
+    <variant-selects
+      id="variant-selects-{{ section.id }}"
+      class="no-js-hidden"
+      data-section="{{ section.id }}"
+      data-url="{{ product.url }}"
+      {% if color_option_index >= 0 %}data-color-option-index="{{ color_option_index }}"{% endif %}
+      {% if update_url == false %}
+        data-update-url="false"
+      {% endif %}
+      {{ block.shopify_attributes }}
+    >
+      {%- for option in product.options_with_values -%}
+        <div class="product-form__input product-form__input--dropdown">
+          {% if option.name == 'Amount' %}
+            <label class="form__label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
+              Select {{ option.name }}
+            </label>
+          {% else %}
+            <label class="form__label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
+              {{ option.name }}
+            </label>
+          {% endif %}
+          <div class="select">
+            <select
+              id="Option-{{ section.id }}-{{ forloop.index0 }}"
+              class="select__select"
+              name="options[{{ option.name | escape }}]"
+              form="{{ product_form_id }}"
+            >
+              {% render 'product-variant-options', product: product, option: option, block: block, product_handle: product_handle %}
+            </select>
+            {% render 'icon-caret' %}
+          </div>
+        </div>
+      {%- endfor -%}
+
+      <script type="application/json">
+        {{ product.variants | json }}
+      </script>
+    </variant-selects>
+  {%- endif -%}
+{%- endunless -%}
+
+<noscript class="product-form__noscript-wrapper-{{ section.id }}">
+  <div class="product-form__input{% if product.has_only_default_variant %} hidden{% endif %}">
+    <label class="form__label" for="Variants-{{ section.id }}">
+      {{- 'products.product.product_variants' | t -}}
+    </label>
+    <div class="select">
+      <select
+        name="id"
+        id="Variants-{{ section.id }}"
+        class="select__select"
+        form="{{ product_form_id }}"
+      >
+        {%- for variant in product.variants -%}
+          <option
+            {% if variant == product.selected_or_first_available_variant %}
+              selected="selected"
+            {% endif %}
+            {% if variant.available == false %}
+              disabled
+            {% endif %}
+            value="{{ variant.id }}"
+          >
+            {%- liquid
+              echo variant.title
+              echo variant.price | money | strip_html | prepend: ' - '
+              if variant.available == false
+                echo 'products.product.sold_out' | t | prepend: ' - '
+              endif
+              if variant.quantity_rule.increment > 1
+                echo 'products.product.quantity.multiples_of' | t: quantity: variant.quantity_rule.increment | prepend: ' - '
+              endif
+              if variant.quantity_rule.min > 1
+                echo 'products.product.quantity.minimum_of' | t: quantity: variant.quantity_rule.min | prepend: ' - '
+              endif
+              if variant.quantity_rule.max != null
+                echo 'products.product.quantity.maximum_of' | t: quantity: variant.quantity_rule.max | prepend: ' - '
+              endif
+              # TODO: enable theme-check once `item_count_for_variant` is accepted as valid filter
+              # theme-check-disable
+              assign cart_quantity = cart | item_count_for_variant: variant.id
+              # theme-check-enable
+              if cart_quantity > 0
+                echo 'products.product.quantity.in_cart_html' | t: quantity: cart_quantity | prepend: ' - '
+              endif
+            -%}
+          </option>
+        {%- endfor -%}
+      </select>
+      {% render 'icon-caret' %}
+    </div>
+  </div>
+</noscript>

@@ -100,7 +100,7 @@ export default {
         </svg>
       </button>
     </div>
-    <shipping-progress-bar></shipping-progress-bar>
+    <!-- <shipping-progress-bar></shipping-progress-bar> -->
     <div class="gift_lover_section">  
       <div class="gift_lover_left column-4">
         <a :href="cart.giftLoverImageLink"><img :src="cart.giftLoverImage" :alt="cart.giftLoverImageAlt"></a>
@@ -153,23 +153,10 @@ export default {
     </div>
 
     <div
-      class="text-gray-800 flex w-full items-center justify-between self-end border-t border-ink/20 bg-cream p-4 text-lg font-medium"
+      class="text-gray-800 flex w-full items-center justify-between self-end border-ink/20 p-4 text-lg font-medium sidecart_footer_block"
     >
       <div class="flex w-full flex-col px-6 text-ink">
-        <div class="mb-8">
-          <label class="text-gray-800 mb-2 block font-medium" for="note"
-            >Order Note:</label
-          >
-          <textarea
-            v-model="cart.note"
-            class="m-0 w-full border border-ink/50 py-2 px-3 placeholder:text-sm focus:border-accent2 focus:ring-2 focus:ring-accent2 focus:ring-opacity-50"
-            name="note"
-            rows="2"
-            placeholder="Add note about your order (optional)"
-            aria-label="Order note"
-          ></textarea>
-        </div>
-
+        <!--
         <div class="mb-2 flex items-center justify-between text-ink">
           <span>Subtotal:</span>
           <span class="text-ink" aria-live="polite">{{
@@ -183,9 +170,9 @@ export default {
         <div class="mb-2 flex items-center justify-between text-ink">
           <span class="text-ink">Shipping:</span>
           <span class="text-ink">{{ money(cart.shipping) }}</span>
-        </div>
-        <div class="mb-2 flex items-center justify-between">
-          <span class="text-xl font-medium text-ink">Total:</span>
+        </div> -->
+        <div class="sidecart_total">
+          <span class="text-xl font-medium text-ink">Estimated total</span>
           <span class="text-xl font-medium text-ink">{{
             money(cart.total)
           }}</span>
@@ -194,11 +181,45 @@ export default {
         <button
           @click="cart.checkout"
           type="button"
-          class="bg-black text-white w-full px-4 py-2 transition duration-150 ease-in-out focus:outline-none"
-          aria-label="Go to Checkout"
+          class="bg-black text-white w-full px-4 py-2 transition duration-150 ease-in-out focus:outline-none sidecartcheckout_button"
+          aria-label="Proceed to Checkout"
         >
-          Go to Checkout
+          Proceed to Checkout
         </button>
+        <a href="/cart" class="viewcart_button">View Bag</a>
+        <a href="/cart/clear" class="cartclear">Clear Bag</a>
+        <div class="make_personal_block">
+          <div class="giftrow1">
+            <div class="leftimage">
+              <img src="//myntr-revyrie.myshopify.com/cdn/shop/t/20/assets/gift_note.png?v=107661720097093712641694517656" loading="lazy" alt="Gift Note" width="" height="">
+            </div>
+            <div class="righttext">
+              <h6>Make it Personal</h6>
+              <p>
+                Add a <b>FREE</b> gift note with your order, printed directly onto a letter-pressed, Fleur logo notecard.
+              </p>
+            </div>
+          </div>
+          <div class="mb-8">
+            <input type="checkbox" id="gift_message">
+            <label class="text-gray-800 mb-2 block font-medium" for="gift_message" @click="cart.giftMessage"
+              >  Include Gift Message</label
+            >
+            <textarea
+              v-model="cart.note"
+              class="m-0 w-full border border-ink/50 py-2 px-3 placeholder:text-sm focus:border-accent2 focus:ring-2 focus:ring-accent2 focus:ring-opacity-50"
+              id="SideCartSpecialInstructions"
+              name="note"
+              rows="2"
+              placeholder="Type a message..."
+              aria-label="Order note"
+              disabled maxlength="200" 
+            ></textarea>
+            <div class="countchars-wrapper">
+              <small><span name="countchars" id="sidecountchars">200</span> Characters remaining</small>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

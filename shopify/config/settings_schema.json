@@ -1606,6 +1606,32 @@
         "type": "product",
         "id": "gift_product_select",
         "label": "t:settings_schema.cart.settings.gift_product_select.label"
+      },
+      {
+        "type": "header",
+        "content": "Bundle Image"
+      },
+      {
+        "type": "text",
+        "id": "bundle_text",
+        "label": "t:settings_schema.cart.settings.bundle_text.label",
+        "default": "Le Panty Bar",
+        "info": "Le Panty Bar"
+      },
+      {
+        "type": "image_picker",
+        "id": "bundle_image_3",
+        "label": "t:settings_schema.cart.settings.bundle_image_3.label"
+      },
+      {
+        "type": "image_picker",
+        "id": "bundle_image_4",
+        "label": "t:settings_schema.cart.settings.bundle_image_4.label"
+      },
+      {
+        "type": "image_picker",
+        "id": "bundle_image_5",
+        "label": "t:settings_schema.cart.settings.bundle_image_5.label"
       }
     ]
   },

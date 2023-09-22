@@ -456,6 +456,9 @@ quick-add-modal fieldset.js.product-form__input{
 .quick-add-modal .product__info-container .product-form {
   margin: 20px 0;
 }
+.quick-add-modal .product__info-container .product-form .product-form__submit {
+  display: block !important;
+}
 @media screen and (min-width: 750px) {
   .quick-add-modal slider-component.--desktop-slider .product__media-list {
       column-gap: 0;

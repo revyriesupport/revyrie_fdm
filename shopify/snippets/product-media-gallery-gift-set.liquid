@@ -1,0 +1,229 @@
+{% comment %}
+  Renders a product media gallery. Should be used with 'media-gallery.js'
+  Also see 'product-media-modal'
+
+  Accepts:
+  - product: {Object} Product liquid object
+  - variant_images: {Array} Product images associated with a variant
+  - is_duplicate: {Boolean} Prevents rendering uneeded elements and duplicate ids for subsequent instances
+
+  Usage:
+  {% render 'product-media-gallery', is_duplicate: true %}
+{% endcomment %}
+
+{%- liquid
+  if section.settings.hide_variants and variant_images.size == product.media.size
+    assign single_media_visible = true
+  endif
+
+  assign media_with_color_alt = false
+  assign media_count = product.images.size
+
+  for media in product.media
+    if media.alt contains 'color:'
+      assign media_with_color_alt = true
+      break
+    endif
+  endfor
+  # if section.settings.hide_variants and media_count > 1 and variant_images.size > 0
+    # assign media_count = media_count | minus: variant_images.size | plus: 1
+  # endif
+
+  if media_count == 1 or single_media_visible
+    assign single_media_visible_mobile = true
+  endif
+
+  if media_count == 0 or single_media_visible_mobile or section.settings.mobile_thumbnails == 'show' or section.settings.mobile_thumbnails == 'columns' and media_count < 3
+    assign hide_mobile_slider = true
+  endif
+
+  if section.settings.media_size == 'large'
+    assign media_width = 0.65
+  elsif section.settings.media_size == 'medium'
+    assign media_width = 0.55
+  elsif section.settings.media_size == 'small'
+    assign media_width = 0.45
+  endif
+
+  assign desktop_slider = desktop_slider | default: true 
+
+  assign id_append = ''
+  if is_duplicate
+    assign id_append = '-duplicate'
+  endif
+
+  assign active_color = false
+  if section.settings.only_current_color_images
+    assign active_variant = product.selected_or_first_available_variant
+    assign color_option_index = 0
+    for option in product.options_with_values
+      if option.name == 'Color'
+        assign color_option_index = forloop.index0
+        assign active_color = active_variant.options[color_option_index] | handle
+        break
+      endif
+    endfor
+  endif
+-%}
+
+<media-gallery
+  id="MediaGallery-{{ section.id }}{{ id_append }}"
+  role="region"
+  {% if section.settings.enable_sticky_info %}
+    class="product__column-sticky"
+  {% else %}
+    class="product__column_image"
+  {% endif %}
+  aria-label="{{ 'products.product.media.gallery_viewer' | t }}"
+  {% if media_with_color_alt %}data-has-variant-images="true"{% endif  %}
+  data-total-media-count="{{ media_count }}"
+  data-desktop-layout="{{ section.settings.gallery_layout }}"
+  {% if active_color -%}
+    data-color-option-index="{{ color_option_index }}"
+    data-active-color="{{ active_color }}"
+  {%- endif -%}
+>
+  {% if product.images.size > 0 %}
+    <div class="product-gallery">
+    {% if product.type == 'Gift Cards' %}
+    <div class="gallery">
+      <img src="{{ product.images[0] | img_url: '900x' }}" alt="{{ product.title }}">
+    </div><!-- gallery -->
+    {% else %}
+    {% if product.images[0].alt contains '.mp4' %}
+    <div class="gallery">
+  <video poster="{{ product.images[0] | img_url: '900x' }}" preload="none" controlsList="nodownload" autoplay muted loop playsinline webkit-playsinline>
+    <source src="{{ product.images[0].alt }}" type="video/mp4">
+    Your browser does not support the video tag.
+    </video>
+  </div><!-- gallery -->
+      {% else %}
+    <div class="gallery zoom">
+      <img src="{{ product.images[0] | img_url: '2600x' }}" alt="{{ product.title }}">
+    </div><!-- gallery zoom -->
+    {% endif %}
+    {% endif %}
+    {% if product.images.size == 2 %}
+    {% if image.alt contains '.mp4' %}
+    <div class="gallery">
+  <video poster="{{ product.images[1] | img_url: '900x' }}" preload="none" controlsList="nodownload" autoplay muted loop playsinline webkit-playsinline>
+    <source src="{{ product.images[1].alt }}" type="video/mp4">
+    Your browser does not support the video tag.
+    </video>
+</div><!-- gallery -->
+    {% else %}
+    <div class="gallery zoom">
+      <img src="{{ product.images[1] | img_url: '2600x' }}" alt="{{ product.title }}">
+    </div><!-- gallery zoom -->
+    {% endif %}
+    {% endif %}
+    {% if product.images.size > 2 %}
+    <div class="row collapse">
+      <div class="medium-6 columns">
+        {% if image.alt contains '.mp4' %}
+        <div class="gallery">
+          <video poster="{{ product.images[1] | img_url: '900x' }}" preload="none" controlsList="nodownload" autoplay muted loop playsinline webkit-playsinline>
+        <source src="{{ product.images[1].alt }}" type="video/mp4">
+        Your browser does not support the video tag.
+        </video>
+        </div><!-- gallery -->
+        {% else %}
+        <div class="gallery zoom">
+          <img src="{{ product.images[1] | img_url: '1200x' }}" alt="{{ product.title }}">
+        </div><!-- gallery zoom -->
+        {% endif %}
+      </div><!-- medium-6 columns -->
+      <div class="medium-6 columns">
+        {% if product.images[2].alt contains '.mp4' %}
+        <div class="gallery">
+          <video poster="{{ product.images[2] | img_url: '900x' }}" preload="none" controlsList="nodownload" autoplay muted loop playsinline webkit-playsinline>
+        <source src="{{ product.images[2].alt }}" type="video/mp4">
+        Your browser does not support the video tag.
+        </video>
+        </div><!-- gallery -->
+        {% else %}
+        <div class="gallery zoom">
+          <img src="{{ product.images[2] | img_url: '1200x' }}" alt="{{ product.title }}">
+        </div><!-- gallery zoom -->
+        {% endif %}
+      </div><!-- medium-6 columns -->
+    </div><!-- row collapse -->
+    {% endif %}
+    {% if product.images.size == 4 or product.images.size > 4 %}
+    {% if product.images[3].alt contains '.mp4' %}
+    <div class="gallery">
+  <video poster="{{ product.images[3] | img_url: '900x' }}" preload="none" controlsList="nodownload" autoplay muted loop playsinline webkit-playsinline>
+    <source src="{{ product.images[3].alt }}" type="video/mp4">
+    Your browser does not support the video tag.
+    </video>
+    </div><!-- gallery -->
+    {% else %}
+    <div class="gallery zoom">
+      <img src="{{ product.images[3] | img_url: '2600x' }}" alt="{{ product.title }}">
+    </div><!-- gallery zoom -->
+    {% endif %}
+    {% endif %}
+    {% if product.images.size > 5 %}
+    <div class="row collapse">
+      <div class="medium-6 columns">
+        {% if product.images[4].alt contains '.mp4' %}
+        <div class="gallery">
+          <video poster="{{ product.images[4] | img_url: '900x' }}" preload="none" controlsList="nodownload" autoplay muted loop playsinline webkit-playsinline>
+        <source src="{{ product.images[4].alt }}" type="video/mp4">
+        Your browser does not support the video tag.
+        </video>
+        </div><!-- gallery -->
+        {% else %}
+        <div class="gallery zoom">
+          <img src="{{ product.images[4] | img_url: '1200x' }}" alt="{{ product.title }}">
+        </div><!-- gallery zoom -->
+        {% endif %}
+      </div><!-- medium-6 columns -->
+      <div class="medium-6 columns">
+        {% if product.images[5].alt contains '.mp4' %}
+        <div class="gallery">
+          <video poster="{{ product.images[5] | img_url: '900x' }}" preload="none" controlsList="nodownload" autoplay muted loop playsinline webkit-playsinline>
+        <source src="{{ product.images[5].alt }}" type="video/mp4">
+        Your browser does not support the video tag.
+        </video>
+        </div><!-- gallery -->
+        {% else %}
+        <div class="gallery zoom">
+          <img src="{{ product.images[5] | img_url: '1200x' }}" alt="{{ product.title }}">
+        </div><!-- gallery zoom -->
+        {% endif %}
+      </div><!-- medium-6 columns -->
+    </div><!-- row collapse -->
+    {% for image in product.images offset:6 %}
+    {% if product.images[6].alt contains '.mp4' %}
+    <div class="gallery">
+    <video poster="{{ image.src | img_url: '900x' }}" preload="none" controlsList="nodownload" autoplay muted loop playsinline webkit-playsinline>
+    <source src="{{ product.images[4].alt }}" type="video/mp4">
+    Your browser does not support the video tag.
+    </video>
+    </div><!-- gallery -->
+    {% else %}
+    <div class="gallery zoom">
+      <img src="{{ image.src | img_url: '2600x' }}" alt="{{ product.title }}">
+    </div><!-- gallery zoom -->
+    {% endif %}
+    {% endfor %}
+    {% else %}
+    {% for image in product.images offset:4 %}
+    {% if image.alt contains '.mp4' %}
+    <div class="gallery">
+    <video poster="{{ image.src | img_url: '900x' }}" preload="none" controlsList="nodownload" autoplay muted loop playsinline webkit-playsinline>
+    <source src="{{ image.alt }}" type="video/mp4">
+    Your browser does not support the video tag.
+    </video>
+    </div><!-- gallery -->
+    {% else %}
+    <div class="gallery zoom">
+      <img src="{{ image.src | img_url: '2600x' }}" alt="{{ product.title }}">
+    </div><!-- gallery zoom -->
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+  </div><!-- product-gallery -->
+  {% endif %}
+</media-gallery>

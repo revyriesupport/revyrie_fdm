@@ -632,7 +632,9 @@
               %}{% endcomment %}
                 {%- render 'social-share' -%}
             {%- when 'variant_picker' -%}
-              {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
+              {% assign product_handle = product.handle %}
+              {% render 'product-variant-picker', product: product, block: block, product_handle: product_handle, product_form_id: product_form_id %}
+              
             {%- when 'buy_buttons' -%}
               {%- render 'buy-buttons', block: block, product: product, product_form_id: product_form_id, section_id: section.id, show_pickup_availability: true -%}
               {% if product.tags contains 'le_weekend_sale_exclusionDISABLED' %}
@@ -916,6 +918,43 @@
             %}
         {% endif %}
         {% endfor %}
+
+    <!-- ATC Button Sticky Mobile -->
+    <div class="mobile-sticky-atc only_mobile quick-add-hidden">
+    <div class="mobile_column mobile-sticky-image">
+        <img src="{{ product.featured_image | img_url: '100x' }}" alt="{{product.featured_image.alt}}">
+    </div>
+    <div class="mobile_column mobile-sticky-data-description">
+        <div class="info">
+            <span class="product-title">{{ product.title }}</span>
+            {% for variant in product.variants %}
+                {% if forloop.first %}
+                    <span class="mobile_color">Color: {{ variant.option1 }}</span>
+                {% endif %}
+            {% endfor %}
+            {% for option in product.options %}
+                {% if option == 'Size' %}
+                    {% assign index = forloop.index0 %}
+                    {% assign sizelist = '' %}
+                    {% assign size = '' %}
+                    {% for variant in product.variants %}
+                        {% capture size %}{{ variant.options[index] }}{% endcapture %}
+                        {% unless sizelist contains size %}
+                            {% if forloop.first %}
+                                <span class="mobile_size">Size:</span>
+                            {% endif %}
+                        {% endunless %}
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    <div class="mobile_column mobile-sticky-button-atc">
+        <a href="#" id="add-to-cart">Select Size</a>
+    </div>
+</div>
+
+
   {%- if product.media.size > 0 -%}
     <script src="{{ 'product-modal.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'media-gallery.js' | asset_url }}" defer="defer"></script>
@@ -969,8 +1008,8 @@
     
     
             
-    const sizeguides = document.querySelectorAll('.sizeguide_text a[data-open="sizing-modal"]');
-    sizeguides.forEach(sizeguide => {
+    const productsizeguides = document.querySelectorAll('.sizeguide_text a[data-open="sizing-modal"]');
+    productsizeguides.forEach(sizeguide => {
          sizeguide.addEventListener('click', (e) => { 
              document.querySelector('div#sizing-modal').style.display = "block";
          })
@@ -1007,6 +1046,37 @@
         freeScroll: true,
         contain: true
     });
+
+
+    const floatAddToCart = document.querySelector('.mobile-sticky-atc');
+const addTocartMobile = document.querySelector('.mobile-sticky-atc #add-to-cart');
+const btnAddToBagForm = document.querySelector('button#ProductSubmitButton-{{ section.id }}');
+const addtocartoffset = btnAddToBagForm.offsetTop + 500;
+    window.addEventListener('scroll', () => {
+        if (scrollY > addtocartoffset) {
+            floatAddToCart.classList.remove('mobileCart_hidden');
+        } else {
+            floatAddToCart.classList.add('mobileCart_hidden');
+        }
+    });
+ 
+    addTocartMobile.addEventListener("click", (event) => {
+        event.preventDefault();
+        const addcarttext =  addTocartMobile.innerHTML;
+        if(addcarttext == "Select Size"){
+          document.querySelector('#ProductCustomButton-{{ section.id }}').scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
+        }else{
+          btnAddToBagForm.click('click');
+          document.querySelector('.mobile-sticky-atc').classList.add('hidden');
+        }
+      });
+
+      const varientSelect = document.querySelector('#ProductCustomButton-{{ section.id }}');
+      varientSelect.addEventListener("click", (event) => {
+        event.preventDefault();
+          document.querySelector('#custom_variant_selector__error-{{ section.id }}').style.display = 'block';
+      });
+
   </script>
 
   {%- liquid

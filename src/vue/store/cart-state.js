@@ -271,7 +271,12 @@ const useCartStoreDefinition = defineStore({
           await generateFetchRequest('/cart/update.js', 'POST', updateRequestBody, null)
 
         this.items = response.data.items
-        this.open();
+        const cartTemplate = document.querySelector('body[data-template="cart"]');
+        if(cartTemplate){
+          
+        }else{
+          this.open()
+        }
         temporalUpdateBubbleCartCount(this.totalItems)
 
         return handleResponseOrError(response, null);
@@ -339,7 +344,22 @@ const useCartStoreDefinition = defineStore({
       const checkoutUrl = `/checkout?note=${encodeURIComponent(this.note)}`;
       window.location.href = checkoutUrl;
     },
+    giftMessage() {
+      var textArea = document.getElementById('SideCartSpecialInstructions')
+      textArea.disabled = !textArea.disabled
+      
+      var totalChars      = 200; //Total characters allowed in textarea
+      var countTextBox    = document.getElementById('SideCartSpecialInstructions') // Textarea input box
+      var charsCountEl    = document.getElementById('sidecountchars'); // Remaining chars count will be displayed here
 
+        charsCountEl.innerHTML = totalChars;
+        countTextBox.addEventListener("keyup", (event) => {
+          var thisChars = countTextBox.value.length;
+          var remaingtext = totalChars - thisChars;
+          charsCountEl.innerHTML = remaingtext;
+
+      });
+    }
   }
 })
 

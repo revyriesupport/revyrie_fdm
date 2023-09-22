@@ -956,6 +956,7 @@ class VariantSelects extends HTMLElement {
   constructor() {
     super();
     this.addEventListener('change', this.onVariantChange);
+    this.addEventListener('click', this.onVariantChange);
   }
 
   onVariantChange() {
@@ -1032,12 +1033,39 @@ class VariantSelects extends HTMLElement {
       input.value = this.currentVariant.id;
       input.dispatchEvent(new Event('change', { bubbles: true }));
     });
+
+
+    
+    if (window.location.href.indexOf("digital-gift-card") > -1) {
+      document.querySelector(`#ProductCustomButton-${this.dataset.section}`).classList.add('hidden');
+      document.querySelector(`#ProductSubmitButton-${this.dataset.section}`).classList.remove('hidden');
+      document.querySelector(`#custom_variant_selector__error-${this.dataset.section}`).style.display = "none";
+      document.querySelector('.mobile_color').innerHTML = "Amount:" + this.currentVariant.option1;
+      document.querySelector('#add-to-cart').innerHTML = "Add to bag";
+      //console.log(this.currentVariant.option1); 
+    }else if(window.location.href.indexOf("physical-gift-card") > -1) {
+
+    }else{
+      document.querySelector(`#ProductCustomButton-${this.dataset.section}`).classList.add('hidden');
+      document.querySelector(`#ProductSubmitButton-${this.dataset.section}`).classList.remove('hidden');
+      document.querySelector(`#custom_variant_selector__error-${this.dataset.section}`).style.display = "none";
+      document.querySelector('.mobile_size').innerHTML = "Size:" + this.currentVariant.option2;
+      document.querySelector('#add-to-cart').innerHTML = "Add to bag";
+      //console.log(this.currentVariant.option2);
+    }
+
+    const custominputWrappers = this.querySelectorAll('.product-form__input input');
+    custominputWrappers.forEach((mainoption) => {
+      mainoption.classList.remove('active');
+    });
+    
   }
 
   updateVariantStatuses() {
     const selectedOptionOneVariants = this.variantData.filter(
       (variant) => this.querySelector(':checked').value === variant.option1
     );
+    //console.log(selectedOptionOneVariants);
     const inputWrappers = [...this.querySelectorAll('.product-form__input')];
     inputWrappers.forEach((option, index) => {
       if (index === 0) return;

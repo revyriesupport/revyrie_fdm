@@ -2001,6 +2001,7 @@ fieldset.product-form__input .form__label {
 }
 .bra-sizing-button .columns-6 {
     padding-right: 16px;
+    columns: initial;
 }
 .bra-sizing-button .columns-6:last-child {
     padding-right: 0;
@@ -2129,6 +2130,88 @@ fieldset.product-form__input .form__label {
     height: 18px;
     fill: #fff;
 }
+.only_mobile {
+    display: none;
+}
+.product__info-container .product__description li {
+    list-style: disc;
+    font-size: var(--body-font-size);
+    letter-spacing: 0;
+}
+.product__info-container .product__description li {
+    font-weight: bolder;
+}
+.product-form__input .select {
+    max-width: 100%;
+}
+.product-form__input .select:before, .product-form__input .select:after, .product-form__input .select:before, .product-form__input .select:hover:after, .product-form__input .select:before, .product-form__input .select:hover:before {
+    box-shadow: none;
+}
+.product-form__input .select {
+    max-width: 100%;
+    border: 1px solid #000;
+}
+.product-form__input .select select:focus {
+    box-shadow: none;
+}
+.product-form__input .select select {
+    font-size: 14.4px;
+    color: #000;
+    height: 43px;
+    padding: 0 12.8px;
+}
+.select__select {
+    font-family: var(--font-custom-family-body);
+    font-weight: var(--font-weight-bold);
+}
+.product-form__input--dropdown label.form__label {
+   font-weight: var(--font-weight-bold);
+       margin-bottom: 10px;
+}
+.product__info-container .product__description p {
+    margin-bottom: 15px;
+}
+.product__info-container .product__description p:last-child {
+    margin-bottom: 0;
+}
+.product-form__input input[type=radio].active:checked+label {
+    background: #f2f2f2;
+    color: #000;
+}
+.product-form__input input[type=radio].active:checked+label:hover {
+    background: #000;
+    color: #fff;
+}
+.rte a {
+  color: #d4857b;
+}
+.custom_addtocart_button {
+    border: 1px solid #000;
+    background: #000;
+    color: #fff;
+    text-transform: uppercase;
+    height: 45px;
+    line-height: 45px;
+    min-height: 45px;
+}
+.custom_addtocart_button:before, .custom_addtocart_button:after {
+    box-shadow: none;
+}
+.custom_addtocart_button:hover {
+  color: #d4857b;
+}
+.custom_variant_selector__error {
+    font-size: 14px;
+    line-height: normal;
+    letter-spacing: 0.16px;
+    color: red;
+    display: none;
+    margin-bottom: 10px;
+}
+.share-contact-options ul.contact-options svg {
+    width: 25px;
+    height: 25px;
+}
 @media only screen and (min-device-width: 1024px) {
   .grid__item.product__media-wrapper .product__column_image {
       display: grid;
@@ -2176,5 +2259,67 @@ fieldset.product-form__input .form__label {
   .product__media-zoom-hover, 
   .product__media-icon--hover {
     display: none;
+  }
+  .product-form__buttons {
+    max-width: 100%;
+  }
+  .only_mobile {
+    display: block;
+  }
+  /*==== Mobile sticky =====*/
+  .mobile-sticky-atc {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    bottom: 10px;
+    width: 100%;
+    background-color: white;
+    max-width: 95%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 1px solid #F2F2F2;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.04);
+    z-index: 1;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  .mobile-sticky-atc .info span {
+      float: left;
+      width: 100%;
+  }
+  .mobile-sticky-atc .mobile_column {
+      width: 33.3%;
+  }
+  .mobile-sticky-atc .product-title {
+      font-size: 12px;
+      line-height: 12px;
+      font-weight: 600;
+      text-transform: initial;
+      display: block;
+      margin-bottom: 5px;
+      letter-spacing: 0;
+  }
+  .mobile-sticky-atc .mobile_color, .mobile-sticky-atc .mobile_size {
+      font-size: 10px;
+      color: #585858;
+      text-transform: capitalize;
+      display: block;
+      font-weight: var(--font-weight-bold);
+      line-height: 12px;
+  }
+  .mobile-sticky-atc #add-to-cart {
+      background-color: #000;
+      text-align: center;
+      color: #fff;
+      display: block;
+      text-transform: uppercase;
+      padding: 13px 0;
+      font-size: 12px;
+      line-height: 12px;
+      font-weight: var(--font-weight-bold);
+  }
+  .mobile-sticky-atc.only_mobile.mobileCart_hidden {
+      display: none;
   }
 }
