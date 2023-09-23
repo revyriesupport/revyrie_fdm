@@ -1,6 +1,6 @@
-<div class="announcement-bar color-{{ section.settings.color_scheme }} gradient" role="region" aria-label="{{ 'sections.header.announcement' | t }}" {{ block.shopify_attributes }}>
+<div class="announcement-bar gradient" role="region" aria-label="{{ 'sections.header.announcement' | t }}" {{ block.shopify_attributes }} style="background: {{ section.settings.announcement_background_color}};">
   <div class="page-width">
-    <p class="announcement-bar__message {{ section.settings.text_alignment }} h5" style="font-size: {{ section.settings.heading_font_size_announcement_bar }}px;">
+    <p class="announcement-bar__message h5" style="font-size: {{ section.settings.heading_font_size_announcement_bar }}px; color: {{ section.settings.font_color }};">
       <span style="color: {{ section.settings.font_color }};">{{ block.settings.text | escape }}</span>
     </p>
   </div>
@@ -88,6 +88,12 @@
       "label": "t:sections.announcement-bar-version-two.settings.font_color.label",
       "default": "#000000" 
     },
+     {
+      "type": "color",
+      "id": "announcement_background_color",
+      "label": "t:sections.announcement-bar-version-two.settings.announcement_background_color.label",
+      "default": "#000000"
+    },
     {
       "type": "range",
       "id": "heading_font_size_announcement_bar",
@@ -145,64 +151,52 @@
       "type": "checkbox",
       "id": "msg_4th_enabled",
       "label": "t:sections.announcement-bar-version-two.settings.msg_4th_enabled.label"
-    },    {
+    }, {
       "type": "textarea",
       "id": "msg_4th_text",
       "label": "t:sections.announcement-bar-version-two.settings.msg_4th_text.label",
       "info": "t:sections.announcement-bar-version-two.settings.msg_1st_text.info"
+    },{
+      "type":"header",
+      "content":"cookie"
     },
     {
-      "type": "select",
-      "id": "text_alignment",
-      "options": [
-        {
-          "value": "left",
-          "label": "t:sections.announcement-bar-version-two.settings.announcement.settings.text_alignment.options__1.label"
-        },
-        {
-          "value": "center",
-          "label": "t:sections.announcement-bar-version-two.settings.announcement.settings.text_alignment.options__2.label"
-        },
-        {
-          "value": "right",
-          "label": "t:sections.announcement-bar-version-two.settings.announcement.settings.text_alignment.options__3.label"
-        }
-      ],
-      "default": "center",
-      "label": "t:sections.announcement-bar-version-two.settings.announcement.settings.text_alignment.label"
+    "type": "checkbox",
+    "id": "cookie_config",
+    "label": "t:sections.announcement-bar-version-two.settings.cookie_config.label"
     },
     {
-      "type": "select",
-      "id": "color_scheme",
-      "options": [
-        {
-          "value": "accent-1",
-          "label": "t:sections.all.colors.accent_1.label"
-        },
-        {
-          "value": "accent-2",
-          "label": "t:sections.all.colors.accent_2.label"
-        },
-        {
-          "value": "background-1",
-          "label": "t:sections.all.colors.background_1.label"
-        },
-        {
-          "value": "background-2",
-          "label": "t:sections.all.colors.background_2.label"
-        },
-        {
-          "value": "inverse",
-          "label": "t:sections.all.colors.inverse.label"
-        }
-      ],
-      "default": "accent-1",
-      "label": "t:sections.all.colors.label"
+    "type": "text",
+    "id":"cookie_text",
+    "label": "t:sections.announcement-bar-version-two.settings.cookie_name.label"
+    },
+    {
+    "type": "radio",
+    "id": "cookie_expire_time",
+    "label": "Time Before Expiration",
+    "options": [{
+    "value": "1",
+    "label": "1 day"
+    },{
+    "value": "5",
+    "label": "5 days"
+    },
+    {
+      "value": "7",
+      "label": "7 days"
+      },{
+      "value": "30",
+      "label": "30 days"
+      },{
+      "value": "365",
+      "label": "365 days"
+      }],
+      "default": "365"
     }
   ],
   "presets": [
     {
-      "name": "announcement bar version two"
+      "name": "t:sections.announcement-bar-version-two.presets.name"
     }
   ]
 }
