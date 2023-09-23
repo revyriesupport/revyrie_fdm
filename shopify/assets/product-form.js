@@ -35,40 +35,17 @@ if (!customElements.get('product-form')) {
           "YOUR EMAIL": your_email,
           "LOVER'S EMAIL": lovers_email,
           "SAY SOMETHING SWEET": card_msg
-        }
+        };
+
+      }else{
+        var obj = {};
+      }
+
+
         await window.theme.addToCart({
         id,
         quantity: quantity || 0,
         properties: obj,
-
-      }).then((result) => {
-          if (result.error) {
-            this.handleErrorMessage(result.error);
-
-            const soldOutMessage = this.submitButton.querySelector('.sold-out-message');
-            if (!soldOutMessage) return;
-            this.submitButton.setAttribute('aria-disabled', true);
-            this.submitButton.querySelector('span').classList.add('hidden');
-            soldOutMessage.classList.remove('hidden');
-            soldOutMessage.textContent = result.error;
-            this.error = true;
-            return
-          }
-          this.error = false;
-          const quickAddModal = this.closest('quick-add-modal');
-          if (quickAddModal) {
-            quickAddModal.hide(true);
-          }
-        }).finally(() => {
-          this.submitButton.classList.remove('loading');
-          if (!this.error) this.submitButton.removeAttribute('aria-disabled');
-          this.querySelector('.loading-overlay__spinner').classList.add('hidden');
-        });
-      }else{
-        await window.theme.addToCart({
-        id,
-        quantity: quantity || 0,
-
       })
         .then((result) => {
           if (result.error) {
@@ -93,8 +70,6 @@ if (!customElements.get('product-form')) {
           if (!this.error) this.submitButton.removeAttribute('aria-disabled');
           this.querySelector('.loading-overlay__spinner').classList.add('hidden');
         });
-
-      }
 
    
 

@@ -109,9 +109,51 @@ const useCartStoreDefinition = defineStore({
         : 0
     },
     totalItems() {
-      return !this.isEmpty
-        ? calculateTotal(this.items, (item) => item.quantity)
-        : 0
+      if(this.isEmpty)
+                {
+                  return 0;
+                }
+              else
+                {
+                  var cartItemSize = 0;
+                  var cartItemBYOB = false;
+                  var cartItemsBYOB = '';
+                  this.items.forEach((item) => {
+                    var productBYOB = false;
+                    if(item.properties['_product_from'] == 'byob')
+                    {
+                        productBYOB = true;
+                cartItemBYOB = true;
+                    }
+
+                    if(item.properties['_bundle_id'] == 'byob')
+                    {
+                      if(!cartItemsBYOB.includes(item.properties['_bundle_id']))
+                      {
+                        if(cartItemsBYOB != '')
+                        {
+                          cartItemsBYOB = cartItemsBYOB.concat(",");
+                        }
+                        cartItemsBYOB = cartItemsBYOB.concat(item.properties['_bundle_id']);
+                      }                 
+                    }
+
+                    if(productBYOB == false)
+                    {
+                      cartItemSize = parseInt(cartItemSize) + item.quantity; 
+                    }
+                  });
+
+                  if(cartItemBYOB == true)
+                  {
+                    cartItemsBYOB = cartItemsBYOB.split(",");
+                    cartItemSize = parseInt(cartItemSize) + cartItemsBYOB.length
+                  }
+                  return cartItemSize
+                }
+      // return !this.isEmpty
+      //   ? calculateTotal(this.items, (item) => item.quantity)
+      //   : 0
     },
     hasProductType(productType) {
       if (!productType || this.items.length == 0) return false
@@ -177,7 +219,7 @@ const useCartStoreDefinition = defineStore({
       }
     },
 
-    async addToCart({ id, quantity = 1, properties = false, selling_plan = null }) {
+    async addToCart({ id, quantity = 1, properties = {}, selling_plan = null }) {
       const error = validateCartItem({ id, quantity, properties });
       if (error) {
         return handleResponseOrError(null, error);
