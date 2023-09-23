@@ -1,23 +1,47 @@
-{% if template contains 'collection' %}
-		{% if collection.products_count > 24 %}
-<div class="scroll-top scroll-top-sticky">
-<a href="#shopify-section-header">
-	<img src="{{ 'arrow-top.svg' | asset_url }}" alt="{{ 'collections.general.scroll_top' | t }}">
-	{{ 'collections.general.scroll_top' | t }}
-</a>
-</div><!-- scroll-top scroll-top-sticky -->
+<style>
+  .scroll-top-sticky {
+    opacity: 0; /* Initially, set the opacity to 0 */
+    transition: opacity 0.3s ease; /* Add a transition for opacity */
+  }
+
+  .scroll-top-sticky.show {
+    opacity: 1; /* When the element is shown, set the opacity to 1 */
+  }
+</style>
+
+<div class="scroll-top scroll-top-sticky page-width">
+  <a href="#" id="scroll-top-link">
+    <img
+      src="{{ 'arrow-top.svg' | asset_url }}"
+      alt="{{ 'collections.general.scroll_top' | t }}"
+      id="scroll-sticky-img"
+      class="custom-img-style"
+    >
+    <span id="text-scroll-sticky">{{ 'collections.general.scroll_top' | t }}</span>
+  </a>
+</div>
+<!-- scroll-top scroll-top-sticky -->
 
 <script>
-$(document).scroll(function() {
-  var y = $(this).scrollTop();
-  if (y > 1000) {
-    $('.scroll-top-sticky').fadeIn();
-  } else {
-    $('.scroll-top-sticky').fadeOut();
-  }
-});
+  document.addEventListener("DOMContentLoaded", function() {
+    var scrollSticky = document.querySelector('.scroll-top-sticky');
+    var scrollThreshold = 500; // Adjust this value to your desired scroll distance threshold
+
+    // Add a scroll event listener to show/hide the scroll-top element with fading effect
+    window.addEventListener("scroll", function() {
+      var y = window.scrollY || document.documentElement.scrollTop;
+
+      if (y > scrollThreshold) {
+        scrollSticky.classList.add('show'); // Add the 'show' class to trigger the fade-in effect
+      } else {
+        scrollSticky.classList.remove('show'); // Remove the 'show' class to trigger the fade-out effect
+      }
+    });
+
+    // Add a click event listener to the scroll-top link
+    document.querySelector('#scroll-top-link').addEventListener('click', function(event) {
+      event.preventDefault(); // Prevent the default link behavior
+      window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to the top of the page smoothly
+    });
+  });
 </script>
-
-
-{% endif %}
-{% endif %}

@@ -1,14 +1,4 @@
-{% comment %}settings.infinite_scroll_enable{% endcomment %}
-{% assign infinite_scroll_enable = true %}
-{%-liquid
-   
-    if infinite_scroll_enable
-        assign paginate_count = '45'
-    else
-        assign paginate_count = '51'
-    endif
-    assign view_class = 'medium-up-3 small-up-2'
--%}
+{{ 'byobv.css' | asset_url | stylesheet_tag }}
 
 <div class="build-your-kit wrapper" id="build-your-kit-sticky">
   <h1 class="title-tab">{{ collection.title }}</h1>
@@ -187,10 +177,15 @@
                     ADD TO BAG
                 </div>
                 <div class="copy-shipping"></div>
-                <div class="cart__clear-bag{% if itemsBYOBfound == false %} disable" style="display:none;"{% else %}"{% endif %}>
+                <div class="cart__clear-bag{% if itemsBYOBfound == false %} disable" style="display:none;"{% endif %}>
                     Clear Bag
                 </div>
             </div>
         </div>
     </div>
 </div>
+{% schema %}
+  {
+    "name": "Collection Header ByoBv"
+  }
+{% endschema %}
