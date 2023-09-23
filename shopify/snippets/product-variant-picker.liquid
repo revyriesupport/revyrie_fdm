@@ -267,6 +267,18 @@
               <legend class="form__label">{{ option.name }}</legend>  
           {% endif %}
           {% render 'product-variant-options', product: product, option: option, block: block, product_handle: product_handle %}
+
+          <!-- For Quick view option -->
+          {% if option.name == 'Size' or option.name == 'Amount' or option.name == 'Monogram' %}
+            <div class="sizeguide_box quick_view_size">
+              {% if has_sizing_guide %}
+                <div class="sizeguide_text">
+                    <a href="javascript:;" data-open="sizing-modal">{{ 'products.product.sizing_chart' | t }}</a>{% if product.type == 'Bras' %} / {{ 'products.product.size_fit.fit_finder_link_short_html' | t }}{% endif %}
+                </div>
+              {% endif %}
+            </div>
+          {% endif %}
+          
         </fieldset>
       {%- endfor -%}
       <script type="application/json">

@@ -83,6 +83,7 @@
         data-url="{{ product.url }}"
         class="product__info-container{% if section.settings.enable_sticky_info %} product__column-sticky{% endif %}"
       >
+        <div class="quick_box"><img src="{{ 'fdm_logo.png' | asset_url }}" alt="FDM logo"></div>
         {%- assign product_form_id = 'product-form-' | append: section.id -%}
 
         {%- for block in section.blocks -%}
@@ -791,7 +792,7 @@
         {%- endfor -%}
         <a href="{{ product.url }}" class="link product__view-details animate-arrow">
           {{ 'products.product.view_full_details' | t }}
-          {% render 'icon-arrow' %}
+          {% comment %}{% render 'icon-arrow' %}{% endcomment %}
         </a>
       </product-info>
     </div>

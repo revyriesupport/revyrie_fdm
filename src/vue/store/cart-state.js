@@ -419,5 +419,9 @@ window.theme = {
     const cart = useCartStoreDefinition();
     const response = await cart.addToCart(item);
     return response
+  },
+  totalItems: () => {
+    const cart = useCartStoreDefinition();
+    cart.totalItems();
   }
 }

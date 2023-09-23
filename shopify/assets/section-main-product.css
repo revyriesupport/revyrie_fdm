@@ -2323,3 +2323,15 @@ fieldset.product-form__input .form__label {
       display: none;
   }
 }
+.bra-sizing-button a:hover {
+  font-weight: var(--font-weight-mediumbold);
+}
+.bra-sizing-button a.active:hover {
+    font-weight: var(--font-weight-bold);
+}
+.product:not(.featured-product) .quick_box {
+    display: none;
+}
+.product:not(.featured-product) .sizeguide_box.quick_view_size {
+    display: none;
+}
