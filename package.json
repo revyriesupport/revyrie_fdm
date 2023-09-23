@@ -29,7 +29,6 @@
     "fix:shopify": "shopify theme check -a --path shopify"
   },
   "dependencies": {
-    "@shopify/cli": "^3.49.3",
     "graphql": "^16.6.0",
     "graphql-request": "^5.2.0",
     "pinia": "^2.0.33",
