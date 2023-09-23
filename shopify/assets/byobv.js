@@ -402,6 +402,9 @@ function scriptByob(arrayProductsAdd, countAdd) {
                 jsonData['quantity'] = tempQty * unit ;
                 jsonData['productId'] = slides[i].getAttribute('data-product');
                 jsonData['id'] = slides[i].getAttribute('data-product-variant');
+                jsonData['property_product_form'] = 'byob';
+                jsonData['property_byo'] = slides.length;
+                jsonData['property_bundle_id'] = bundleId;
                 jsonData['properties[_product_from]'] = 'byob';
                 jsonData['properties[_byo]'] = slides.length;
                 jsonData['properties[_bundle_id]'] = bundleId;
@@ -473,48 +476,44 @@ function scriptByob(arrayProductsAdd, countAdd) {
                 // successMessage is whatever we passed in the resolve(...) function above.
                 // It doesn't have to be a string, but if it is only a succeed message, it probably will be.
                 console.log(`Yay! ${successMessage}`);
-                $.ajax({
-                    type: 'POST',
-                    url: window.Shopify.routes.root + 'cart/add.js',
-                    data: {
-                        items : viewData['items']
-                    },
-                    dataType: 'json',
-                    success: function (data) {
-                        //console.log('data',data);
+                viewData.items.forEach((item, index) => {
+                    localStorage.setItem('bundle_size', index+1);
+                  window.theme.addToCart({
+                    id: item.id,
+                    quantity: item.quantity,
+                    properties: {"_product_from" : item.property_product_form, "_byo" : item.property_byo, "_bundle_id" : item.property_bundle_id}
+                    }).then((response) => {
+                        item = response.response.data;
                         window.dataLayer = window.dataLayer || [];
-                        data.items.forEach((item, index) => {
-                            let color = '', size = '';
-                            item.options_with_values.forEach((option, index) => {
-                                if (option.name.toLowerCase() == 'color') {
-                                    color = option.value
-                                }
-                                if (option.name.toLowerCase() == 'size') {
-                                    size = option.value
-                                }
-                            }),
-                            window.dataLayer.push({
-                                'event': 'byoAddToBag',
-                                'itemName': item.product_title,
-                                'itemSize': size,
-                                'itemColor': color,
-                                'itemQty': item.quantity,
-                                'itemPrice': item.price,
-                                'itemTotal': item.line_price
-                            });
+                        let color = '', size = '';
+                        item.options_with_values.forEach((option, index) => {
+                            if (option.name.toLowerCase() == 'color') {
+                                color = option.value
+                            }
+                            if (option.name.toLowerCase() == 'size') {
+                                size = option.value
+                            }
                         }),
-                        clearProducts(),
-                        localStorage.removeItem('itemsAdd'),
-                        localStorage.removeItem('priceNow'),
-                        localStorage.removeItem('priceOld'),
-                        localStorage.removeItem('typeBundle'),
-                        setTimeout(() => {
-                            Shopify.getCart(ajaxifyShopify.cartUpdateCallback);
-                        }, 250);
-                    }, error: function(x,y,z){
-                        console.log(z);
+                        window.dataLayer.push({
+                            'event': 'byoAddToBag',
+                            'itemName': item.product_title,
+                            'itemSize': size,
+                            'itemColor': color,
+                            'itemQty': item.quantity,
+                            'itemPrice': item.price,
+                            'itemTotal': item.line_price
+                        });
+                    if(viewData.items.length == localStorage.getItem('bundle_size'))
+                    {
+                      clearProducts();
+                      localStorage.removeItem('itemsAdd');
+                      localStorage.removeItem('priceNow');
+                      localStorage.removeItem('priceOld');
+                      localStorage.removeItem('typeBundle');
+                      localStorage.removeItem('bundle_size');
                     }
                 });
+              });
             });
         }
     }
