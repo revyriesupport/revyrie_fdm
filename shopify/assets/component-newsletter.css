@@ -69,3 +69,6 @@
 .newsletter-form__button .icon {
   width: 1.5rem;
 }
+form#email_signup_footer {
+  width: 100%;
+}

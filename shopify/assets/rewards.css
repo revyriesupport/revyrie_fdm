@@ -1,0 +1,205 @@
+.yotpo-vip-tiers-card-container {
+    display: none !important;
+}
+.yotpo-vip-tiers-widget *, .yotpo-vip-tiers-widget :after, .yotpo-vip-tiers-widget :before {
+    color: black !important;
+}
+.yotpo-vip-tiers-widget .yotpo-progress-bar-container {
+    display: none;
+}
+.yotpo-vip-tiers-widget .yotpo-widget-clear, .yotpo-vip-tiers-widget .yotpo-widget-clear button, .yotpo-vip-tiers-widget .yotpo-widget-clear form input, .yotpo-vip-tiers-widget .yotpo-widget-clear span {
+    font-family: inherit !important;
+    font-weight: inherit !important;
+}
+.yotpo-vip-tiers-widget .yotpo-vip-tiers-headline {
+    display: none !important;
+}
+.yotpo-vip-tiers-widget .yotpo-vip-tiers-list {
+    padding: 0 !important;
+}
+.yotpo-vip-tiers-widget .yotpo-vip-tiers-progress-bar-wrapper {
+    background: none !important;
+    margin: 15px auto 0px auto !important;
+    padding: 0px !important;
+    width: 100% !important;
+    text-align: center;
+}
+.klaviyo-form-TnxB8x form {
+    padding: 0px !important;
+}
+.klaviyo-form-TnxB8x input {
+    padding-left: 8px !important;
+}
+.klaviyo-form-TnxB8x label {
+    font-size: 0.8rem !important;
+    line-height: 1 !important;
+    margin-bottom: 10px !important;
+    font-weight: 500 !important;
+    cursor: inherit !important;
+    display: block !important;
+    padding-bottom: 0px !important;
+    font-family: "proxima-nova", Helvetica, Roboto, Arial, sans-serif !important;
+    text-rendering: optimizeLegibility !important;
+    font-variant-ligatures: none !important;
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+}
+.klaviyo-form-TnxB8x button {
+    display: inline-block !important;
+    width: auto !important;
+    text-decoration: none !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    white-space: nowrap !important;
+    background: #000 !important;
+    color: #fff !important;
+    font-size: 0.8rem !important;
+    padding-top: 0rem !important;
+    padding-bottom: 0rem !important;
+    padding-right: 1rem !important;
+    padding-left: 1rem !important;
+    letter-spacing: 0.075rem !important;
+    cursor: pointer !important;
+    font-family: "proxima-nova", Helvetica, Roboto, Arial, sans-serif !important;
+    border: 1px solid #000 !important;
+    text-transform: uppercase !important;
+    font-weight: 600 !important;
+    border-radius: 0px !important;
+    height: 45px !important;
+    line-height: 45px !important;
+}
+@media screen and (min-width: 1024px) {
+    .klaviyo-form-TnxB8x button {
+        letter-spacing: 0.075rem !important;
+   }
+}
+.klaviyo-form-TnxB8x button:hover, .klaviyo-form-TnxB8x button:focus {
+    border-color: #000 !important;
+    color: #fff-hover !important;
+}
+.yotpo-buttons {
+    margin-top: 15px;
+}
+.hero-banner-wrapper .hero-banner.bottom {
+    margin-bottom: 80px;
+}
+.hero-banner-wrapper .hero-banner p span.large, .hero-banner-wrapper .hero-banner p.large {
+    font-family: "Dala Floda Roman", "Times New Roman", Times, serif;
+}
+.hero-banner-wrapper .hero-banner p.xlarge {
+    font-size: 1.8rem;
+    font-family: "Dala Floda Roman", "Times New Roman", Times, serif;
+}
+@media screen and (min-width: 1024px) {
+    .hero-banner-wrapper .hero-banner ul.buttons li {
+        margin-right: 40px;
+        display: inline-block;
+   }
+    .hero-banner-wrapper .hero-banner ul.buttons li:last-child {
+        margin-right: 0px;
+   }
+}
+@media screen and (max-width: 1023px) {
+    .hero-banner-wrapper .hero-banner ul.buttons .btn {
+        margin-top: 15px;
+   }
+}
+@media screen and (max-width: 639px) {
+    .hero-banner-wrapper .hero-banner ul.buttons .btn {
+        width: 100px;
+        display: inherit;
+        margin-left: auto;
+        margin-right: auto;
+   }
+}
+.swell-tier-details {
+    text-align: center;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin-bottom: 80px;
+    background: #fcefef;
+}
+@media screen and (max-width: 639px) {
+    .swell-tier-details {
+        margin-bottom: 40px;
+   }
+}
+.swell-tier-details h2 {
+    margin-top: 0px;
+    font-family: "Dala Floda Italic", "Times New Roman", Times, serif;
+    font-size: 4rem;
+    line-height: 1;
+}
+@media screen and (min-width: 640px) and (max-width: 1023px) {
+    .swell-tier-details h2 {
+        font-size: 3rem;
+   }
+}
+@media screen and (max-width: 639px) {
+    .swell-tier-details h2 {
+        font-size: 2.5rem;
+   }
+}
+.swell-tier-details p {
+    font-family: "Dala Floda Roman", "Times New Roman", Times, serif;
+    font-size: 1.2rem;
+}
+.swell-tier-list h2 {
+    font-family: "Dala Floda Italic", "Times New Roman", Times, serif;
+    font-size: 4rem;
+    line-height: 1;
+}
+.swell-tier-list .tier {
+    margin-bottom: 80px;
+}
+@media screen and (max-width: 639px) {
+    .swell-tier-list .tier {
+        margin-bottom: 40px;
+        align-items: flex-end !important;
+   }
+}
+.swell-tier-list .tier h3 {
+    font-family: "Dala Floda Roman", "Times New Roman", Times, serif;
+    font-weight: 600;
+    font-size: 1.8rem;
+    text-transform: inherit;
+}
+@media screen and (min-width: 1400px) {
+    .swell-tier-list .tier h3 {
+        font-size: 2rem;
+   }
+}
+@media screen and (min-width: 1024px) {
+    .swell-tier-list .tier h3 {
+        line-height: 1;
+   }
+}
+@media screen and (min-width: 640px) and (max-width: 1023px) {
+    .swell-tier-list .tier h3 {
+        font-size: 1.5rem;
+   }
+}
+@media screen and (max-width: 639px) {
+    .swell-tier-list .tier h3 {
+        font-size: 1.3rem;
+        margin-top: 15px;
+   }
+}
+.swell-tier-list .tier ul li {
+    font-family: "Dala Floda Roman", "Times New Roman", Times, serif;
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+@media screen and (max-width: 1023px) {
+    .swell-tier-list .tier ul li {
+        font-size: 1.1rem;
+   }
+}
+.swell-faq #faq h2 {
+    text-align: center;
+    margin-top: 0px;
+    font-family: "Dala Floda Italic", "Times New Roman", Times, serif;
+    font-size: 4rem;
+    line-height: 1;
+}
+

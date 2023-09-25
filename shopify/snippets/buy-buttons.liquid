@@ -233,4 +233,9 @@
 
     <script src="{{ 'pickup-availability.js' | asset_url }}" defer="defer"></script>
   {%- endif -%}
+  {% if settings.lovelist_enable %}
+      <div class="lovelist-wrapper text-center">
+      <button data-with-epi="true" class="swym-pdp swym-button swym-add-to-wishlist-view-product product_{{product.id}}" data-swaction="addToWishlist" data-product-id="{{product.id | json}}" data-variant-id="{{product.variants[0].id}}" data-product-url="{{ shop.url }}{{ product.url }}"></button>
+      </div><!-- lovelist-wrapper-->
+      {% endif %} 
 </div>
