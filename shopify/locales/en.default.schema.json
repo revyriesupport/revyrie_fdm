@@ -4269,7 +4269,7 @@
               "label": "Use outline button style"
             },
             "box_align": {
-              "label": "Desktop content position",
+              "label": "Content position",
               "info": "Position is automatically optimized for mobile.",
               "options__1": {
                 "label": "Top left"

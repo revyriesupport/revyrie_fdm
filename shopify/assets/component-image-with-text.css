@@ -337,6 +337,9 @@
   .image-with-text__content {
     padding: 6rem 7rem 7rem;
   }
+  .image-with-text-modular .image-with-text__content{
+    padding: 6rem 9rem 7rem;
+  }
 }
 
 .image-with-text__content > * + * {
@@ -493,4 +496,8 @@ image-with-text__grid .image-with-text__text {
     padding-bottom: 100% !important;
     filter: brightness(0.7);
   }
+}
+.image-with-text-modular .image-with-text__heading,
+.image-with-text-modular .image-with-text__text{
+  max-width: 417px;
 }

@@ -1244,6 +1244,15 @@ a.product__text {
   margin: 0;
   border-radius: calc(var(--media-radius) - var(--media-border-width));
 }
+@media only screen and (max-device-width:767px){
+  .product__modal-opener .image-magnify-full-size,
+  .product-media-container .product__modal-opener>.loading-overlay__spinner{
+    display: none !important;
+  }
+  .product__modal-opener .image-magnify-full-size{
+    background: none !important;
+  }
+}
 
 .image-magnify-hover {
   cursor: zoom-in;
