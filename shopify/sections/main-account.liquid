@@ -1,4 +1,5 @@
 {{ 'customer.css' | asset_url | stylesheet_tag }}
+{{ 'rewards.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
   .section-{{ section.id }}-padding {
@@ -137,8 +138,21 @@
         {%- endif -%}
       {% endpaginate %}
     </div>
+<!-- newly added while app intergation -->
+<div>
+          {% if settings.lovelist_enable %}
+          <h2 class="h1 center small">Loyalty</h2>
+          <div class="center bottom-margin"><a href="/pages/swym-wishlist" class="btn">Discover</a></div>
+          <hr>
+          {% endif %}
 
+          <h2 class="h1 center small">Lovelist</h2>
+          <div class="yotpo-widget-instance" data-yotpo-instance-id="94458"></div><br>
+          <div class="center bottom-margin"><a href="/pages/loyalty" class="btn">View Lovelist</a></div>
+          <hr>
+</div>
     <div>
+
       <h2>{{ 'customer.account.details' | t }}</h2>
 
       {{ customer.default_address | format_address }}
@@ -149,6 +163,9 @@
     </div>
   </div>
 </div>
+
+<div class="yotpo-widget-instance" data-yotpo-instance-id="81810"></div>
+<script src="https://cdn-widgetsrepository.yotpo.com/v1/loader/ddNMZttCqpWM3TpAK4Iccw" async></script>
 
 {% schema %}
 {

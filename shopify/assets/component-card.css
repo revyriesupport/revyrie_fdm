@@ -504,3 +504,15 @@
 .card__badge {
   text-transform: capitalize;
 }
+.collection-video{
+    height: inherit;
+    overflow: hidden;
+    /* z-index: 1; */
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+.collection-video video{
+  width: 100%;
+  position: relative;
+}

@@ -30,6 +30,9 @@ slideshow-component .slideshow.banner {
   .slideshow--placeholder.banner--adapt_image:not(.banner--mobile-bottom) {
     height: 28rem;
   }
+  .desktop_graphic{
+    display:none;
+  }
 }
 
 @media screen and (min-width: 750px) {
@@ -211,6 +214,8 @@ slideshow-component:not(.page-width) .slider-buttons {
 @media screen and (min-width: 750px) {
   .slideshow__text.banner__box {
       max-width: 89rem;
+  }  
+  .mobilep_graphic{
+    display:none;
   }
-  
 }

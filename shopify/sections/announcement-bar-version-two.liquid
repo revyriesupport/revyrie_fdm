@@ -1,52 +1,59 @@
-<div class="announcement-bar color-{{ section.settings.color_scheme }} gradient" role="region" aria-label="{{ 'sections.header.announcement' | t }}" {{ block.shopify_attributes }}>
-  <div class="page-width">
-    <p class="announcement-bar__message {{ section.settings.text_alignment }} h5" style="font-size: {{ section.settings.heading_font_size_announcement_bar }}px;">
-      <span style="color: {{ section.settings.font_color }};">{{ block.settings.text | escape }}</span>
-    </p>
-  </div>
-  <style>
-    @media (max-width: 768px) {
-      .announcement-bar__message {
-        font-size: {{ section.settings.heading_font_size_mobile_announcement_bar }}px !important;
+<div id="GlobaleFreeShippingBannerContainer">
+  <div
+    class="announcement-bar gradient"
+    role="region"
+    aria-label="{{ 'sections.header.announcement' | t }}"
+    {{ block.shopify_attributes }}
+    style="background: {{ section.settings.announcement_background_color}};">
+    <div class="page-width">
+      <p class="announcement-bar__message h5" style="font-size: {{ section.settings.heading_font_size_announcement_bar }}px; color: {{ section.settings.font_color }};">
+        <span style="color: {{ section.settings.font_color }};">{{ block.settings.text | escape }}</span>
+      </p>
+    </div>
+    <style>
+      @media(max-width: 768px) {
+        .announcement-bar__message {
+          font-size: {{ section.settings.heading_font_size_mobile_announcement_bar }}
+          px !important;
+        }
       }
-    }
-  </style>
-  <div class="announce_slide">
-    {% assign messages = "" %}
-    {% if section.settings.msg_1st_enabled %}
-      {% if section.settings.msg_1st_text != blank %}
-        {% assign messages = messages | append: section.settings.msg_1st_text | append: "||" %}
+    </style>
+    <div class="announce_slide">
+      {% assign messages = "" %}
+      {% if section.settings.msg_1st_enabled %}
+        {% if section.settings.msg_1st_text != blank %}
+          {% assign messages = messages | append: section.settings.msg_1st_text | append: "||" %}
+        {% endif %}
       {% endif %}
-    {% endif %}
-    {% if section.settings.msg_2nd_enabled %}
-      {% if section.settings.msg_2nd_text != blank %}
-        {% assign messages = messages | append: section.settings.msg_2nd_text | append: "||" %}
+      {% if section.settings.msg_2nd_enabled %}
+        {% if section.settings.msg_2nd_text != blank %}
+          {% assign messages = messages | append: section.settings.msg_2nd_text | append: "||" %}
+        {% endif %}
       {% endif %}
-    {% endif %}
-    {% if section.settings.msg_3rd_enabled %}
-      {% if section.settings.msg_3rd_text != blank %}
-        {% assign messages = messages | append: section.settings.msg_3rd_text | append: "||" %}
+      {% if section.settings.msg_3rd_enabled %}
+        {% if section.settings.msg_3rd_text != blank %}
+          {% assign messages = messages | append: section.settings.msg_3rd_text | append: "||" %}
+        {% endif %}
       {% endif %}
-    {% endif %}
-    {% if section.settings.msg_4th_enabled %}
-      {% if section.settings.msg_4th_text != blank %}
-        {% assign messages = messages | append: section.settings.msg_4th_text | append: "||" %}
+      {% if section.settings.msg_4th_enabled %}
+        {% if section.settings.msg_4th_text != blank %}
+          {% assign messages = messages | append: section.settings.msg_4th_text | append: "||" %}
+        {% endif %}
       {% endif %}
-    {% endif %}
-    {% assign message_array = messages | split: "||" %}
-    {% assign message_count = message_array.size %}
-    <script>
-      var messages = {{ message_array | json }};
-      var messageIndex = 0;
-      function rotateMessages() {
-        var message = messages[messageIndex];
-        var messageElement = document.querySelector(".announcement-bar__message");
-        messageElement.innerHTML = '<span style="color: {{ section.settings.font_color }};">' + message + '</span>';
-        messageIndex = (messageIndex + 1) % {{ message_count }};
-        setTimeout(rotateMessages, 2000); // Change message every 2 seconds
-      }
-      rotateMessages();
-    </script>
+      {% assign message_array = messages | split: "||" %}
+      {% assign message_count = message_array.size %}
+      <script>
+        var messages = {{ message_array | json }};
+        var messageIndex = 0;
+        function rotateMessages() {
+          var message = messages[messageIndex];
+          var messageElement = document.querySelector(".announcement-bar__message");
+          messageElement.innerHTML = '<span style="color:  {{ section.settings.font_color }} ;">' + message + '</span>';
+          messageIndex = (messageIndex + 1) % {{ message_count }};
+          setTimeout(rotateMessages, 2000); // Change message every 2 seconds
+        }rotateMessages();
+      </script>
+    </div>
   </div>
 </div>
 <script>
@@ -63,149 +70,135 @@
   });
 </script>
 <style>
-.announcement-bar__message {
+  .announcement-bar__message {
     padding: 7px 0;
     letter-spacing: 0.4px;
-      min-height: auto;
-}
-.announcement-bar__message a {
+    min-height: auto;
+  }
+  .announcement-bar__message a {
     text-decoration: underline;
-}
-.announcement-bar-section.is-sticky {
+  }
+  .announcement-bar-section.is-sticky {
     position: fixed;
     width: 100%;
-}
+  }
 </style>
 {% schema %}
 
-{
-  "name": "t:sections.announcement-bar-version-two.name",
-  "class": "announcement-bar-section",
-  "settings": [
-    {
-      "type": "color",
-      "id": "font_color",
-      "label": "t:sections.announcement-bar-version-two.settings.font_color.label",
-      "default": "#000000" 
-    },
-    {
-      "type": "range",
-      "id": "heading_font_size_announcement_bar",
-      "min": 0,
-      "max": 20,
-      "step": 1,
-      "unit": "px",
-      "label": "t:sections.announcement-bar-version-two.settings.heading_font_size_announcement_bar.label",
-      "default": 13
-    },
-    {
-      "type": "range",
-      "id": "heading_font_size_mobile_announcement_bar",
-      "min": 0,
-      "max": 20,
-      "step": 1,
-      "unit": "px",
-      "label": "t:sections.announcement-bar-version-two.settings.heading_font_size_mobile_announcement_bar.label",
-      "default": 13
-    },
-    {
-      "type": "checkbox",
-      "id": "msg_1st_enabled",
-      "label": "t:sections.announcement-bar-version-two.settings.msg_1st_enabled.label"
-    },
-    {
-      "type": "textarea",
-      "id": "msg_1st_text",
-      "label": "t:sections.announcement-bar-version-two.settings.msg_1st_text.label",
-      "info": "t:sections.announcement-bar-version-two.settings.msg_1st_text.info"
-    },
-    {
-      "type": "checkbox",
-      "id": "msg_2nd_enabled",
-      "label": "t:sections.announcement-bar-version-two.settings.msg_2nd_enabled.label"
-    },
-    {
-      "type": "textarea",
-      "id": "msg_2nd_text",
-      "label": "t:sections.announcement-bar-version-two.settings.msg_2nd_text.label",
-      "info": "t:sections.announcement-bar-version-two.settings.msg_1st_text.info"
-    },
-    {
-      "type": "checkbox",
-      "id": "msg_3rd_enabled",
-      "label": "t:sections.announcement-bar-version-two.settings.msg_3rd_enabled.label"
-    },
-    {
-      "type": "textarea",
-      "id": "msg_3rd_text",
-      "label": "t:sections.announcement-bar-version-two.settings.msg_3rd_text.label",
-      "info": "t:sections.announcement-bar-version-two.settings.msg_1st_text.info"
-    },
-    {
-      "type": "checkbox",
-      "id": "msg_4th_enabled",
-      "label": "t:sections.announcement-bar-version-two.settings.msg_4th_enabled.label"
-    },    {
-      "type": "textarea",
-      "id": "msg_4th_text",
-      "label": "t:sections.announcement-bar-version-two.settings.msg_4th_text.label",
-      "info": "t:sections.announcement-bar-version-two.settings.msg_1st_text.info"
-    },
-    {
-      "type": "select",
-      "id": "text_alignment",
-      "options": [
-        {
-          "value": "left",
-          "label": "t:sections.announcement-bar-version-two.settings.announcement.settings.text_alignment.options__1.label"
-        },
-        {
-          "value": "center",
-          "label": "t:sections.announcement-bar-version-two.settings.announcement.settings.text_alignment.options__2.label"
-        },
-        {
-          "value": "right",
-          "label": "t:sections.announcement-bar-version-two.settings.announcement.settings.text_alignment.options__3.label"
-        }
-      ],
-      "default": "center",
-      "label": "t:sections.announcement-bar-version-two.settings.announcement.settings.text_alignment.label"
-    },
-    {
-      "type": "select",
-      "id": "color_scheme",
-      "options": [
-        {
-          "value": "accent-1",
-          "label": "t:sections.all.colors.accent_1.label"
-        },
-        {
-          "value": "accent-2",
-          "label": "t:sections.all.colors.accent_2.label"
-        },
-        {
-          "value": "background-1",
-          "label": "t:sections.all.colors.background_1.label"
-        },
-        {
-          "value": "background-2",
-          "label": "t:sections.all.colors.background_2.label"
-        },
-        {
-          "value": "inverse",
-          "label": "t:sections.all.colors.inverse.label"
-        }
-      ],
-      "default": "accent-1",
-      "label": "t:sections.all.colors.label"
-    }
-  ],
-  "presets": [
-    {
-      "name": "announcement bar version two"
-    }
-  ]
-}
+  {
+    "name": "t:sections.announcement-bar-version-two.name",
+    "class": "announcement-bar-section",
+    "settings": [
+      {
+        "type": "color",
+        "id": "font_color",
+        "label": "t:sections.announcement-bar-version-two.settings.font_color.label",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "announcement_background_color",
+        "label": "t:sections.announcement-bar-version-two.settings.announcement_background_color.label",
+        "default": "#000000"
+      },
+      {
+        "type": "range",
+        "id": "heading_font_size_announcement_bar",
+        "min": 0,
+        "max": 20,
+        "step": 1,
+        "unit": "px",
+        "label": "t:sections.announcement-bar-version-two.settings.heading_font_size_announcement_bar.label",
+        "default": 13
+      },
+      {
+        "type": "range",
+        "id": "heading_font_size_mobile_announcement_bar",
+        "min": 0,
+        "max": 20,
+        "step": 1,
+        "unit": "px",
+        "label": "t:sections.announcement-bar-version-two.settings.heading_font_size_mobile_announcement_bar.label",
+        "default": 13
+      }, {
+        "type": "checkbox",
+        "id": "msg_1st_enabled",
+        "label": "t:sections.announcement-bar-version-two.settings.msg_1st_enabled.label"
+      }, {
+        "type": "textarea",
+        "id": "msg_1st_text",
+        "label": "t:sections.announcement-bar-version-two.settings.msg_1st_text.label",
+        "info": "t:sections.announcement-bar-version-two.settings.msg_1st_text.info"
+      }, {
+        "type": "checkbox",
+        "id": "msg_2nd_enabled",
+        "label": "t:sections.announcement-bar-version-two.settings.msg_2nd_enabled.label"
+      }, {
+        "type": "textarea",
+        "id": "msg_2nd_text",
+        "label": "t:sections.announcement-bar-version-two.settings.msg_2nd_text.label",
+        "info": "t:sections.announcement-bar-version-two.settings.msg_1st_text.info"
+      }, {
+        "type": "checkbox",
+        "id": "msg_3rd_enabled",
+        "label": "t:sections.announcement-bar-version-two.settings.msg_3rd_enabled.label"
+      }, {
+        "type": "textarea",
+        "id": "msg_3rd_text",
+        "label": "t:sections.announcement-bar-version-two.settings.msg_3rd_text.label",
+        "info": "t:sections.announcement-bar-version-two.settings.msg_1st_text.info"
+      }, {
+        "type": "checkbox",
+        "id": "msg_4th_enabled",
+        "label": "t:sections.announcement-bar-version-two.settings.msg_4th_enabled.label"
+      }, {
+        "type": "textarea",
+        "id": "msg_4th_text",
+        "label": "t:sections.announcement-bar-version-two.settings.msg_4th_text.label",
+        "info": "t:sections.announcement-bar-version-two.settings.msg_1st_text.info"
+      }, {
+        "type": "header",
+        "content": "cookie"
+      }, {
+        "type": "checkbox",
+        "id": "cookie_config",
+        "label": "t:sections.announcement-bar-version-two.settings.cookie_config.label"
+      }, {
+        "type": "text",
+        "id": "cookie_text",
+        "label": "t:sections.announcement-bar-version-two.settings.cookie_name.label"
+      }, {
+        "type": "radio",
+        "id": "cookie_expire_time",
+        "label": "Time Before Expiration",
+        "options": [
+          {
+            "value": "1",
+            "label": "1 day"
+          },
+          {
+            "value": "5",
+            "label": "5 days"
+          },
+          {
+            "value": "7",
+            "label": "7 days"
+          },
+          {
+            "value": "30",
+            "label": "30 days"
+          }, {
+            "value": "365",
+            "label": "365 days"
+          }
+        ],
+        "default": "365"
+      }
+    ],
+    "presets": [
+      {
+        "name": "t:sections.announcement-bar-version-two.presets.name"
+      }
+    ]
+  }
 {% endschema %}
-
-

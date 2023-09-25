@@ -464,9 +464,15 @@ image-with-text__grid .image-with-text__text {
 .image-with-text-modular.image-with-text .image-with-text__text-item.grid__item{
     position: absolute;
     z-index: 2;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 .image-with-text-modular.image-with-text.image-with-text-modular--overlap .image-with-text__text-item.grid__item{
-    position:inherit
+    position:inherit;
+    top: auto;
+    left: auto;
+    transform: none;
 }
  .image-with-text-modular .image-with-text__heading{
    margin-top:0;
@@ -480,4 +486,11 @@ image-with-text__grid .image-with-text__text {
 }
 .image-with-text.image-with-text-modular .image-with-text__media.global-media-settings{
   border:none;
+}
+
+@media only screen and (max-device-width:767px){
+  .image-with-text.image-with-text-modular .image-with-text__media.global-media-settings{
+    padding-bottom: 100% !important;
+    filter: brightness(0.7);
+  }
 }

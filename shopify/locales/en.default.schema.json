@@ -617,10 +617,13 @@
       }
     },
     "announcement-bar-version-two": {
-      "name": "Announcement bar",
+      "name": "Header Message",
       "settings": {
         "font_color": {
           "label": "Font Color"
+        },
+        "announcement_background_color": {
+          "label": "Background Color"
         },
         "heading_font_size_announcement_bar": {
           "label": "Heading Font Size Desktop"
@@ -653,6 +656,12 @@
         "msg_4th_text": {
           "label": "4th Message"
         },
+        "cookie_config": {
+          "label": "Enable Cookie"
+        },
+        "cookie_name": {
+          "label": "Cookie"
+        },
         "announcement": {
           "name": "Announcement",
           "settings": {
@@ -676,6 +685,9 @@
             }
           }
         }
+      },
+      "presets": {
+        "name": "Header Message"
       }
     },
     "apps": {
@@ -1004,7 +1016,7 @@
         },
         "show_rating": {
           "label": "Show product rating",
-          "info": "To display a rating, add a product rating app. [Learn more](https:\/\/help.shopify.com\/manual\/online-store\/themes\/theme-structure\/theme-features#featured-collection-show-product-rating)"
+          "info": "To display a rating, add a product rating app. (This field in not in use) [Learn more](https:\/\/help.shopify.com\/manual\/online-store\/themes\/theme-structure\/theme-features#featured-collection-show-product-rating)"
         },
         "enable_quick_buy": {
           "label": "Enable quick add button",
@@ -1083,7 +1095,7 @@
         },
         "show_rating": {
           "label": "Show product rating",
-          "info": "To display a rating, add a product rating app.(This field in not in use.) [Learn more](https:\/\/help.shopify.com\/manual\/online-store\/themes\/theme-structure\/theme-features#featured-collection-show-product-rating)"
+          "info": "To display a rating, add a product rating app. [Learn more](https:\/\/help.shopify.com\/manual\/online-store\/themes\/theme-structure\/theme-features#featured-collection-show-product-rating)"
         },
         "enable_quick_buy": {
           "label": "Enable quick add button",
@@ -4202,6 +4214,13 @@
             },
             "mobile_image": {
               "label": "Mobile image"
+            },
+            "graphic": {
+              "label": "Graphic",
+              "info": "upload as transparent PNG"
+            },
+            "mobile_graphic": {
+              "label": "Mobile Graphic"
             },
             "heading": {
               "label": "Heading"

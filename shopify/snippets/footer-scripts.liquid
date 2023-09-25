@@ -1,0 +1,60 @@
+{% if template == 'product' %}
+
+<!-- Klaviyo -->
+<script text="text/javascript">
+  var _learnq = _learnq || [];
+
+  var item = {
+    Name: {{ product.title|json }},
+    ProductID: {{ product.id|json }},
+    Categories: {{ product.collections|map:'title'|json }},
+    ImageURL: "https:{{ product.featured_image.src|img_url:'grande' }}",
+    URL: "{{ shop.secure_url }}{{ product.url }}",
+    Brand: {{ product.vendor|json }},
+    Price: {{ product.price|money|json }},
+    CompareAtPrice: {{ product.compare_at_price_max|money|json }}
+  };
+
+  _learnq.push(['track', 'Viewed Product', item]);
+  _learnq.push(['trackViewedItem', {
+    Title: item.Name,
+    ItemId: item.ProductID,
+    Categories: item.Categories,
+    ImageUrl: item.ImageURL,
+    Url: item.URL,
+    Metadata: {
+      Brand: item.Brand,
+      Price: item.Price,
+      CompareAtPrice: item.CompareAtPrice
+    }
+  }]);
+</script>
+
+<script text="text/javascript">
+	var _learnq = _learnq || [];
+	document.getElementById("AddToCart").addEventListener('click',function (){
+ 		_learnq.push(['track', 'Added to Cart', item]);
+	});
+</script>
+<!-- End Klaviyo -->
+
+
+<!-- Google Shopping -->
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org/",
+  "@type": "Product",
+  "name": "{{ product.title }}",
+  "sku": "{{ product.variants.first.sku }}",
+  "gtin14": "{{ product.variants.first.barcode }}",
+    "offers": {
+    "@type": "Offer",
+    "priceCurrency": "{{ shop.currency }}",
+	"price": "{{ product.price |money_without_currency | strip_html }}",
+	"itemCondition" : "http://schema.org/NewCondition",
+	"availability" : "{% if product.available == true %}http://schema.org/InStock{% else %}http://schema.org/OutOfStock{% endif %}"
+  }
+}
+</script>
+<!-- End Google Shopping -->
+{% endif %}
