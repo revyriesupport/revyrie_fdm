@@ -85,12 +85,13 @@
             {%- when 'caption' -%}
               {% style %}
               #ImageWithText--{{ section.id }} .image-with-text__text--caption {
-              color: {{ block.settings.caption_color_mobile }};
-              font-family: var(--font-custom-family-heading);
+                color: {{ block.settings.caption_color_mobile }};
+                font-family: var(--font-custom-family-heading);
+                margin-top:20px;
               }
               @media only screen and (min-device-width: 768px){
               #ImageWithText--{{ section.id }} .image-with-text__text--caption {
-              color:{{ block.settings.caption_color }};
+                color:{{ block.settings.caption_color }};
               }
               }
               
