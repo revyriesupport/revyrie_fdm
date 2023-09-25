@@ -205,6 +205,10 @@ const useCartStoreDefinition = defineStore({
       }
     },
 
+    updateBubbleCartCount(){
+      temporalUpdateBubbleCartCount(this.totalItems);
+    },
+
     async fetchCart() {
       this.isLoading = true
       try {
@@ -420,8 +424,12 @@ window.theme = {
     const response = await cart.addToCart(item);
     return response
   },
-  totalItems: () => {
+  updateBubbleCartCount: () => {
     const cart = useCartStoreDefinition();
-    cart.totalItems();
+    cart.updateBubbleCartCount();
+  },
+  fetchCart: () =>{
+    const cart = useCartStoreDefinition();
+    cart.fetchCart();
   }
 }
