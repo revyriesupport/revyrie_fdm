@@ -205,9 +205,7 @@ const useCartStoreDefinition = defineStore({
       }
     },
 
-    updateBubbleCartCount(){
-      temporalUpdateBubbleCartCount(this.totalItems);
-    },
+    
 
     async fetchCart() {
       this.isLoading = true
@@ -217,6 +215,7 @@ const useCartStoreDefinition = defineStore({
         this.note = response.data.note || ''
         this.isLoading = false
         this.cartRequested = true
+        temporalUpdateBubbleCartCount(this.totalItems)
       } catch (error) {
         this.isLoading = false
         return handleResponseOrError(null, error);
@@ -423,10 +422,6 @@ window.theme = {
     const cart = useCartStoreDefinition();
     const response = await cart.addToCart(item);
     return response
-  },
-  updateBubbleCartCount: () => {
-    const cart = useCartStoreDefinition();
-    cart.updateBubbleCartCount();
   },
   fetchCart: () =>{
     const cart = useCartStoreDefinition();

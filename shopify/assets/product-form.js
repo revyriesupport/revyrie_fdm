@@ -36,12 +36,10 @@ if (!customElements.get('product-form')) {
           "LOVER'S EMAIL": lovers_email,
           "SAY SOMETHING SWEET": card_msg
         };
-
       }else{
         var obj = {};
       }
-
-
+      
         await window.theme.addToCart({
         id,
         quantity: quantity || 0,

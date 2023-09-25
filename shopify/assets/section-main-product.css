@@ -2335,3 +2335,15 @@ fieldset.product-form__input .form__label {
 .product:not(.featured-product) .sizeguide_box.quick_view_size {
     display: none;
 }
+.product-form__input input[type=radio]+label {
+  letter-spacing: 0;
+}
+.complete_the_look_slider .grid__item .collection-video {
+    height: 92px;
+}
+/*.product-form__submit[disabled="disabled"] {
+    display: none;
+}
+.swym-button-bar.swym-wishlist-button-bar.swym-inject {
+    display: none;
+}*/

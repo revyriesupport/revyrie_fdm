@@ -400,6 +400,36 @@ Disabled currently in favor of Vue Cart
         <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-search" viewBox="0 0 20 20"><path d="M13.3 13.9c-3.4 3-8.3 2.6-11.1-.5-2.9-3.1-2.9-7.8 0-10.8C5-.5 9.7-.9 12.9 1.7c1.8 1.4 2.8 3.3 3 5.5.2 2.3-.5 4.2-2 6h.1l5.9 5.9c.1.1.2.3.1.5-.1.3-.5.4-.7.2 0 0-.1 0-.1-.1-1.9-1.8-3.9-3.8-5.9-5.8zM8 .9C4.1.9 1 4 .9 7.8.8 11.8 4 15 8 15c3.9 0 7.1-3.2 7.1-7.1-.1-3.8-3.2-7-7.1-7z"></path></svg>
       </a>
       <a href="{{ routes.cart_url }}" class="header__icon header__icon--cart link focus-inset" id="cart-icon-bubble">
+        
+        {%- liquid
+          assign cartItemSize = 0
+          assign cartItemBYOB = false
+          assign cartItemsBYOB = ''
+          for cartItem in cart.items
+            assign productBYOB = false
+            if cartItem.properties['_product_from'] == 'byob'
+              assign productBYOB = true
+              assign cartItemBYOB = true
+            endif
+            if cartItem.properties['_bundle_id']
+              unless cartItemsBYOB contains cartItem.properties['_bundle_id']
+                if cartItemsBYOB != ''
+                  assign cartItemsBYOB = cartItemsBYOB | append: ','
+                endif
+                assign cartItemsBYOB = cartItemsBYOB | append: cartItem.properties['_bundle_id']
+              endunless
+            endif
+            if productBYOB == false
+              assign cartItemSize = cartItemSize | plus: cartItem.quantity
+            endif
+          endfor
+          if cartItemBYOB == true
+            assign cartItemsBYOB = cartItemsBYOB | split: ','
+            assign cartItemSize = cartItemSize | plus: cartItemsBYOB.size
+          endif
+         
+        -%}
+
         {%- liquid
           if cart == empty
             render 'icon-cart-myntr'
@@ -411,15 +441,15 @@ Disabled currently in favor of Vue Cart
         {%- if cart != empty -%}
           <div class="cart-count-bubble">
             {%- if cart.item_count < 100 -%}
-              <span aria-hidden="true">{{ cart.item_count }}</span>
+              <span aria-hidden="true">{{ cartItemSize }}</span>
             {%- endif -%}
-            <span class="visually-hidden">{{ 'sections.header.cart_count' | t: count: cart.item_count }}</span>
+            <span class="visually-hidden">{{ 'sections.header.cart_count' | t: count: cartItemSize }}</span>
           </div>
         {% else %}
             {%- if cart.item_count < 100 -%}
               <span aria-hidden="true">0</span>
             {%- endif -%}
-            <span class="visually-hidden">{{ 'sections.header.cart_count' | t: count: cart.item_count }}</span>
+            <span class="visually-hidden">{{ 'sections.header.cart_count' | t: count: cartItemSize }}</span>
         {%- endif -%}
       </a>
     </div>
