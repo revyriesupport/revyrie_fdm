@@ -1,0 +1,180 @@
+.dropdown-pane#help {
+	min-width: 350px;
+	padding: 20px;
+}
+.dropdown-pane#help ul li {
+	display: block;
+}
+.dropdown-pane#help ul li a {
+	text-decoration: underline;
+}
+.dropdown-pane#account {
+	min-width: 220px;
+	padding: 0px;
+}
+.dropdown-pane#account ul.subcategory li {
+	display: block;
+	border-bottom: 1px solid #f3f3f3;
+	margin-right: 0px;
+	padding-left: 20px;
+	padding-right: 0px;
+}
+.dropdown-pane#account ul.subcategory li:first-child a {
+	padding-top: 15px;
+	padding-bottom: 15px;
+	font-weight: 600;
+}
+.dropdown-pane#account ul.subcategory li a {
+	padding-top: 12px;
+	padding-bottom: 12px;
+}
+.dropdown-pane#account ul.subcategory li:last-child {
+	border-bottom: none;
+}
+.dropdown-pane#account, .dropdown-pane#help {
+	box-shadow: rgba(149, 157, 165, 0.2) 0px 4px 12px;
+	width: auto;
+	border-color: #f3f3f3;
+	border-radius: 0px;
+}
+.dropdown-pane#account ul, .dropdown-pane#help ul {
+	text-align: left;
+}
+.dropdown-pane#account ul li, .dropdown-pane#help ul li {
+	margin-right: 0;
+	padding-left: 0px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+}
+.dropdown-pane#help111 {
+	visibility: visible !important;
+	display: block !important;
+}
+/*================ DROPDOWN MENU ================*/
+/* MEGA MENU DROPDOWN */
+/* .dropdown-pane-nen{
+	visibility: visible!important;
+	display: block!important;
+}
+*/
+.dropdown-pane.mega-menu {
+	max-width: 88rem;
+	margin-left: auto;
+	margin-right: auto;
+	background: #fff;
+	border: none;
+	border-bottom: 1px solid #ececec;
+	padding: 15px 0px 45px 0px;
+	border-radius: 0px;
+	min-height: 350px;
+	max-width: 100%;
+	left: 0px !important;
+	display: block;
+	width: calc(100% - 0px);
+}
+@media screen and (max-width: 1023px) {
+	.dropdown-pane.mega-menu {
+		display: none;
+ }
+}
+.dropdown-pane.mega-menu.message-bar-enable {
+	padding: 15px 0px 0px 0px;
+}
+.dropdown-pane.mega-menu .row {
+	max-width: 88rem;
+	margin: 0 auto;
+}
+.dropdown-pane.mega-menu .row ul.dropdown-nav li {
+	text-transform: initial;
+	font-size: 0.8rem;
+	line-height: 1.8;
+	margin-bottom: 4px;
+}
+.dropdown-pane.mega-menu .row ul.dropdown-nav li a {
+	color: #000;
+	text-decoration: none;
+}
+.dropdown-pane.mega-menu .row ul.dropdown-nav li a:hover, .dropdown-pane.mega-menu .row ul.dropdown-nav li a:focus {
+	text-decoration: underline;
+}
+.dropdown-pane.mega-menu .row ul.dropdown-nav li a.find-my-bra-size, .dropdown-pane.mega-menu .row ul.dropdown-nav li a.le-panty-bar, .dropdown-pane.mega-menu .row ul.dropdown-nav li a.panty-bar {
+	color: #a51661;
+	font-weight: 600;
+}
+.dropdown-pane.mega-menu .row ul.dropdown-nav li h4 {
+	color: #000;
+	text-transform: uppercase;
+	line-height: 1;
+	margin-bottom: 15px;
+	font-size: 0.9rem;
+}
+.dropdown-pane.mega-menu .row h5 {
+	color: #000;
+	text-transform: inherit;
+	font-size: 0.9rem;
+	line-height: 1;
+	letter-spacing: 0.02rem;
+}
+@media screen and (min-width: 1400px) {
+	.dropdown-pane.mega-menu .row h5 {
+		font-size: 1rem;
+ }
+}
+.dropdown-pane.mega-menu .row h5 svg {
+	width: 15px;
+	height: 15px;
+}
+.dropdown-pane.mega-menu .row hr {
+	margin-top: 15px;
+	margin-bottom: 15px;
+	width: 20px;
+	margin-left: 0px;
+	border-color: #000;
+}
+.dropdown-pane.mega-menu .row a:hover .panel, .dropdown-pane.mega-menu .row a:focus .panel {
+	opacity: 0.6;
+}
+.dropdown-pane.mega-menu .row .panel {
+	height: 250px;
+	transition: opacity 1s;
+	margin-bottom: 15px;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+	border: 1px solid #ececec;
+}
+.dropdown-pane.mega-menu .row .panel-copy {
+	color: #000;
+	text-transform: inherit;
+	font-size: 0.75rem;
+	letter-spacing: 0.015rem;
+}
+.dropdown-pane.mega-menu .dropdown-message {
+	margin-top: 30px;
+	border-top: 1px solid #ececec;
+	text-align: left;
+	font-family: "Dala Floda Italic", "Times New Roman", Times, serif;
+	font-size: 0.95rem;
+	font-style: italic;
+	line-height: 38px;
+}
+.dropdown-pane.mega-menu .dropdown-message a {
+	color: #000;
+	font-family: "proxima-nova", Helvetica, Roboto, Arial, sans-serif;
+	text-transform: uppercase;
+	font-size: 0.75rem;
+	text-decoration: none;
+	font-weight: 600;
+	font-style: normal;
+}
+.dropdown-pane.mega-menu .dropdown-message a:hover, .dropdown-pane.mega-menu .dropdown-message a:focus {
+	color: #f4f4f4;
+}
+.dropdown-pane.mega-menu .dropdown-message a:hover .icon, .dropdown-pane.mega-menu .dropdown-message a:focus .icon {
+	fill: #f4f4f4;
+}
+.dropdown-pane.mega-menu .dropdown-message a .icon {
+	width: 24px;
+	height: 24px;
+	margin-right: 4px;
+}

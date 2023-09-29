@@ -1,31 +1,5 @@
 {
   "sections": {
-    "collection-header": {
-      "type": "collection-header",
-      "settings": {
-        "options_enable": true,
-        "filter_size_enable": true,
-        "filter_size": "30A,30B,30C,30D,30DD,32A,32B,32C,32D,32DD,32F,32G,34A,34B,34C,34D,34DD,34F,34G,36A,36B,36C,36D,36DD,36F,36G,38D,38DD,38F,38G,40B,40C,40D,40DD,40F,40G,OS,XS,S,s,M,L,XL,00,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14",
-        "filter_material_enable": false,
-        "filter_material": "silk,knit,cotton",
-        "filter_category_enable": false,
-        "filter_category_general": "bras,panties,bodysuits,accessories,menswear,garters & belts,hosiery,play,bags,robes,slips & dresses,lingerie,toys,lubricant,games & books,wellness,boxers,outerwear,sleepwear & lounge,swim,tops,bottoms",
-        "filter_category_bestsellers": "bras,panties,lingerie,robes,bodysuits,clothing,tops,bottoms,dresses & slips,sleepwear & lounge, swim, accessories, garters & belts",
-        "filter_category_tops": "camis & tanks,bustiers & bra tops,t-shirts & short sleeves,bodysuits,long sleeve",
-        "filter_category_bottoms": "shorts & skirts,pants,sleepwear & lounge,shorts & skirts",
-        "filter_category_swim": "one pieces,bikinis,beach bags,cover ups",
-        "filter_category_sleepwear": "tops,bottoms,dresses & slips,robes,boxers",
-        "filter_category_lingerie": "bras,panties,garters & belts,bodysuits,dresses & slips,accessories,menswear,robes",
-        "filter_category_pleasure": "lingerie,toys,accessories,lubricant,games & books",
-        "filter_category_clothing": "dresses & slips,tops,bottoms,knitwear,sleepwear,outerwear,bodysuits,jumpsuits & rompers",
-        "filter_category_essentials": "bras,panties,bodysuits,menswear,garters & belts,stockings,play,facemasks,bags,garters & hosiery,robes,dresses & slips,lingerie,toys,lubricant,games & books,wellness,boxers,outerwear,sleepwear & lounge,swim",
-        "filter_category_sale": "bras,panties,lingerie,robes,bodysuits,clothing,tops,bottoms,dresses & slips,sleepwear & lounge, swim, accessories, garters & belts",
-        "filter_type_enable": false,
-        "filter_type_bodysuits": "lace,ouvert & bondage,clothing,lingerie",
-        "filter_type_bras": "essentials,Underwire,lined,bralettes,bondage & peekaboo,bra tops,fuller cup,triangle,mastectomy,nursing, strapless",
-        "filter_type_panty": "essentials,thongs,cheekys & hiphuggers,ouvert,high waisted,garters & belts,hosiery"
-      }
-    },
     "banner": {
       "type": "main-collection-banner",
       "settings": {
@@ -100,6 +74,7 @@
       "type": "collection-description",
       "settings": {
         "full_width": true,
+        "collection_seo_title": false,
         "desktop_content_alignment": "left",
         "color_scheme": "background-1",
         "mobile_content_alignment": "center",
@@ -116,7 +91,6 @@
     }
   },
   "order": [
-    "collection-header",
     "banner",
     "product-grid",
     "collection-description"

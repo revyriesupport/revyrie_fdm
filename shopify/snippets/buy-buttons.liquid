@@ -79,7 +79,11 @@
         {%- if gift_card_recipient_feature_active -%}
           {%- render 'gift-card-recipient-form', product: product, form: form, section: section -%}
         {%- endif -%}
-
+        
+        {% if product.description contains "<!-- full-cup-size -->"  %}
+          <div class="full-cup-size-link"><a href="{{ product.description | split: '<!-- full-cup-size -->' | last | split: '<!-- end full-cup-size -->' | first }}">This style is available in fuller cup sizing (D++)</a></div><!-- full-cup-size-link -->
+        {% endif %}
+        
         <div class="product-form__buttons">
           {%- liquid
             assign check_against_inventory = true
@@ -166,12 +170,15 @@
         </div>
         {% if settings.lovelist_enable %}
           <div class="lovelist-wrapper text-center">
-          <button data-with-epi="true" class="swym-pdp swym-button swym-add-to-wishlist-view-product product_{{product.id}}" data-swaction="addToWishlist" data-product-id="{{product.id | json}}" data-variant-id="{{product.variants[0].id}}" data-product-url="{{ shop.url }}{{ product.url }}"></button>
+          <button data-with-epi="true" class="swym-pdp swym-button swym-add-to-wishlist-view-product product_{{product.id}} custom_product_swym" data-swaction="addToWishlist" data-product-id="{{product.id | json}}" data-variant-id="{{product.variants[0].id}}" data-product-url="{{ shop.url }}{{ product.url }}"></button>
           </div><!-- lovelist-wrapper-->
           {% endif %}
           {% if settings.lovelist_enable %}
-            {% comment %}{% include 'swym-product-view' %}{% endcomment %}
+            {% render 'swym-product-view' %}
           {% endif %}
+        {% if product.tags contains 'preorder' and product.description contains '<!-- back-order -->' %}
+          <input id="preorder" type="hidden" name="properties[Preorder]" value="{{ product.description | split: '<!-- back-order -->' | last | split: '<!-- end back-order -->' | first }}" >
+        {% endif %}
         {% if product.tags contains 'return_policy:full_price' and product.description contains '<!-- back-order -->' %}
           <input id="preorder" type="hidden" name="properties[Preorder]" value="{{ product.description | split: '<!-- back-order -->' | last | split: '<!-- end back-order -->' | first }}" >
         {% endif %}
@@ -184,7 +191,19 @@
         <p class="back-order errors{% unless current_variant.inventory_policy == 'continue' and current_variant.inventory_quantity <= 0 %} hidden{% endunless %}">
           The selected size is available for preorder, it will be shipped {% if product.description contains '<!-- back-order -->' %}{{ product.description | split: '<!-- back-order -->' | last | split: '<!-- end back-order -->' | first }}{% else %}when it becomes available{% endif %}.
         </p><!-- backorder -->
-        
+        <div class="sold-out{% if product.selected_or_first_available_variant.available == true %} hidden{% endif %}">
+            {% if product.description contains "<!-- waitlist -->"  %}
+            {{ product.description | split: '<!-- waitlist -->' | last | split: '<!-- end waitlist -->' | first }}
+            {% elsif product.tags contains 'coming soon' %}
+            {{ 'products.product.coming_soon_message' | t }}
+            {% else %}
+            {{ 'products.product.sold_out_message' | t }}
+            {% endif %}
+          <a class="button button--full-width" href="javascript;" id="BIS_trigger">{{ 'products.product.sold_out_message_action' | t }}</a>
+          {% comment %}
+          <a class="btn wide klaviyo-bis-trigger" href="">{{ 'products.product.sold_out_message_action' | t }}</a>
+          {% endcomment %}
+        </div><!-- sold-out hidden -->
       {%- endform -%}
     </product-form>
   {%- else -%}
@@ -233,9 +252,11 @@
 
     <script src="{{ 'pickup-availability.js' | asset_url }}" defer="defer"></script>
   {%- endif -%}
+  {% comment %}
   {% if settings.lovelist_enable %}
       <div class="lovelist-wrapper text-center">
       <button data-with-epi="true" class="swym-pdp swym-button swym-add-to-wishlist-view-product product_{{product.id}}" data-swaction="addToWishlist" data-product-id="{{product.id | json}}" data-variant-id="{{product.variants[0].id}}" data-product-url="{{ shop.url }}{{ product.url }}"></button>
       </div><!-- lovelist-wrapper-->
       {% endif %} 
+      {% endcomment %}
 </div>

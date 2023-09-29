@@ -1,0 +1,622 @@
+@font-face {
+  font-family: "Dala Floda Roman";
+  src: url("//cdn.shopify.com/s/files/1/1312/6537/t/70/assets/dala_floda_roman.eot?14056?#iefix");
+  src: url("//cdn.shopify.com/s/files/1/1312/6537/t/70/assets/dala_floda_roman.eot?14056#iefix") format("eot"), url("//cdn.shopify.com/s/files/1/1312/6537/t/70/assets/dala_floda_roman.woff?v=5451897315218989604") format("woff"), url("//cdn.shopify.com/s/files/1/1312/6537/t/70/assets/dala_floda_roman.ttf?14056") format("truetype"), url("//cdn.shopify.com/s/files/1/1312/6537/t/70/assets/dala_floda_roman.svg?14056") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Dala Floda Italic";
+  src: url("//cdn.shopify.com/s/files/1/1312/6537/t/70/assets/dala_floda_italic.eot?14056?#iefix");
+  src: url("//cdn.shopify.com/s/files/1/1312/6537/t/70/assets/dala_floda_italic.eot?14056#iefix") format("eot"), url("//cdn.shopify.com/s/files/1/1312/6537/t/70/assets/dala_floda_italic.woff?v=11788448587200048985") format("woff"), url("//cdn.shopify.com/s/files/1/1312/6537/t/70/assets/dala_floda_italic.ttf?14056") format("truetype"), url("//cdn.shopify.com/s/files/1/1312/6537/t/70/assets/dala_floda_italic.svg?14056") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Dala Floda Bold";
+  src: url("//cdn.shopify.com/s/files/1/1312/6537/t/70/assets/dala_floda_bold.otf?v=3555768452698664920?#iefix");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Neuzeit S LT W01 Book";
+  src: url("//cdn.shopify.com/s/files/1/1312/6537/t/70/assets/neuzeit_s_book.eot?14056?#iefix");
+  src: url("//cdn.shopify.com/s/files/1/1312/6537/t/70/assets/neuzeit_s_book.eot?14056#iefix") format("eot"), url("//cdn.shopify.com/s/files/1/1312/6537/t/70/assets/neuzeit_s_book.woff2?14056") format("woff2"), url("//cdn.shopify.com/s/files/1/1312/6537/t/70/assets/neuzeit_s_book.woff?v=6111009125306708000") format("woff"), url("//cdn.shopify.com/s/files/1/1312/6537/t/70/assets/neuzeit_s_book.ttf?14056") format("truetype"), url("//cdn.shopify.com/s/files/1/1312/6537/t/70/assets/neuzeit_s_book.svg?14056") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Neuzeit S LT W01 Book Heavy";
+  src: url("//cdn.shopify.com/s/files/1/1312/6537/t/70/assets/neuzeit_s_book_heavy.eot?14056?#iefix");
+  src: url("//cdn.shopify.com/s/files/1/1312/6537/t/70/assets/neuzeit_s_book_heavy.eot?14056#iefix") format("eot"), url("//cdn.shopify.com/s/files/1/1312/6537/t/70/assets/neuzeit_s_book_heavy.woff2?14056") format("woff2"), url("//cdn.shopify.com/s/files/1/1312/6537/t/70/assets/neuzeit_s_book_heavy.woff?v=3218762463347434779") format("woff"), url("//cdn.shopify.com/s/files/1/1312/6537/t/70/assets/neuzeit_s_book_heavy.ttf?14056") format("truetype"), url("//cdn.shopify.com/s/files/1/1312/6537/t/70/assets/neuzeit_s_book_heavy.svg?14056") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+.breadcrumb__item.breadcrumb__item {
+  color: #A9A9A9;
+}
+
+.breadcrumb__item.breadcrumb__item.breadcrumb__item--completed a {
+  color: #000000;
+}
+
+.livechat_button {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  cursor: pointer;
+  display: block;
+  opacity: 1;
+  z-index: 9999;
+}
+
+.livechat_button img {
+  width: 90px;
+}
+
+h1 {
+  font-family: "Dala Floda Roman", "Times New Roman", Times, serif;
+  letter-spacing: 0.15rem;
+  font-size: 1.4rem;
+  color: #000000;
+  text-transform: lowercase;
+  margin-top: 0px;
+  margin-bottom: 15px;
+  font-variant-ligatures: none;
+}
+
+.main__header {
+  padding-bottom: 40px;
+}
+
+.order-summary__emphasis {
+  color: #000000;
+}
+
+.modal__content p {
+  font-size: 0.7rem;
+}
+
+.breadcrumb__item {
+  font-size: 0.7rem;
+}
+
+table {
+  font-size: 0.75rem;
+}
+
+.sidebar {
+  color: #000000;
+}
+
+.floating-labels .field--show-floating-label .field__input {
+  padding-top: 1.6rem;
+}
+
+.main__footer {
+  margin-top: 60px;
+  border-top: 1px solid #f3f3f3;
+}
+
+.product__description__name {
+  font-size: 0.7rem;
+  font-family: "Neuzeit S LT W01 Book Heavy", Arial, Helvetica, sans-serif;
+}
+
+.order-summary__small-text {
+  font-size: 0.7rem;
+  color: #000000;
+}
+
+.modal {
+  color: #000000;
+}
+
+.review-block__label {
+  flex: 0 6em;
+  font-size: 10px;
+}
+
+.review-block__content {
+  padding-right: 1.14286em;
+  font-size: 12px;
+}
+
+h2 {
+  font-family: "Dala Floda Roman", "Times New Roman", Times, serif;
+  letter-spacing: 0.15rem;
+  font-size: 1.4rem;
+  color: #000000;
+  text-transform: lowercase;
+  margin-top: 0px;
+  margin-bottom: 15px;
+  font-variant-ligatures: none;
+}
+
+.section__title {
+  text-align: center;
+}
+
+body {
+  background: #ffffff;
+  color: #000000;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 0.85rem;
+  font-family: "Neuzeit S LT W01 Book", Arial, Helvetica, sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  text-transform: uppercase;
+}
+
+.previous-link__icon {
+  fill: #d4857b;
+  display: none;
+}
+
+.edit-link--small {
+  font-size: 0.7rem;
+}
+
+.display-table .radio__label, .display-table .checkbox__label {
+  font-size: 0.7rem;
+}
+
+.copyright-text {
+  font-size: 0.7rem;
+  text-transform: capitalize;
+  color: #b7b7b7;
+}
+
+.payment-due__price {
+  color: #000000;
+}
+
+.payment-due-label__total {
+  color: #000000;
+}
+
+.previous-link__icon:hover, .previous-link__icon:focus {
+  fill: #A9A9A9;
+}
+
+.step__footer__previous-link, .step__footer__info {
+  font-size: 0.7rem;
+}
+
+a {
+  color: #d4857b;
+  outline: none;
+}
+
+a:hover, a:focus {
+  color: #A9A9A9;
+}
+
+a.current {
+  color: #000000;
+}
+
+a img {
+  outline: none;
+}
+
+p {
+  margin: 0;
+  line-height: 2;
+  font-size: 0.7rem;
+}
+
+b, strong {
+  font-weight: 600;
+}
+
+.shipping-note {
+  text-transform: lowercase;
+  margin-top: 10px;
+  color: #545454;
+  font-size: 0.7rem;
+}
+
+.shop__logo {
+  max-width: 450px;
+}
+
+.logo__image {
+  margin-bottom: 30px;
+  max-height: inherit !important;
+}
+
+.logo__image--large {
+  max-height: inherit !important;
+}
+
+::selection {
+  background: initial;
+  color: initial;
+}
+
+.btn {
+  font-family: "Neuzeit S LT W01 Book", Arial, Helvetica, sans-serif;
+  background: #000000;
+  color: #ffffff;
+  border: 1px solid #000000;
+  text-align: center;
+  font-weight: normal;
+  font-size: 0.7rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+  border-radius: 0px;
+  text-transform: uppercase;
+  letter-spacing: 0.025rem;
+  height: 2rem;
+  margin-top: 0px;
+  margin-bottom: 15px;
+}
+
+.btn:hover {
+  background: #000000;
+  color: #ffffff;
+}
+
+.field__input {
+  border-radius: 0px;
+  font-size: 0.7rem;
+}
+
+.display-table .radio__label, .display-table .checkbox__label {
+  font-size: 0.7rem;
+}
+
+.js .sidebar .btn--disabled {
+  cursor: default;
+  background-color: #f3f3f3;
+  color: #929292;
+  border: 1px solid #f3f3f3;
+  box-shadow: none;
+}
+
+.breadcrumb__item:after {
+  margin: 0px 0.7em;
+  margin-bottom: 3px;
+}
+
+select {
+  text-transform: uppercase;
+}
+
+field__input, .no-boxshadow .main .field__input {
+  border: 1px solid #d9d9d9;
+}
+
+.boxshadow .main .field__input {
+  box-shadow: 0 0 0 1px #d9d9d9;
+}
+
+.main .field__input::-webkit-input-placeholder {
+  color: #000000;
+  text-transform: uppercase;
+}
+
+.main .field__input:-moz-placeholder {
+  color: #000000;
+  text-transform: uppercase;
+}
+
+.main .field__input::-moz-placeholder {
+  color: #000000;
+  text-transform: uppercase;
+}
+
+.main .field__input:-ms-input-placeholder {
+  color: #000000;
+  text-transform: uppercase;
+}
+
+.sidebar .field__input {
+  background-color: white;
+  color: #000000;
+}
+
+.sidebar .field__input::-webkit-input-placeholder {
+  color: #000000;
+  text-transform: uppercase;
+}
+
+.sidebar .field__input:-moz-placeholder {
+  color: #000000;
+  text-transform: uppercase;
+}
+
+.sidebar .field__input::-moz-placeholder {
+  color: #000000;
+  text-transform: uppercase;
+}
+
+.sidebar .field__input:-ms-input-placeholder {
+  color: #000000;
+  text-transform: uppercase;
+}
+
+.alternative-payment-separator::after, .alternative-payment-separator::before {
+  background: #f3f3f3;
+}
+
+.boxshadow .main .field__input {
+  box-shadow: 0 0 0 1px #e6e6e6;
+}
+
+.sidebar:after {
+  background: #fbfbfb;
+  box-shadow: 0 -1px 0 #f3f3f3 inset;
+}
+
+.sidebar:after {
+  box-shadow: 1px 0 0 #f3f3f3 inset;
+}
+
+/* MEDIUM SCREENS min-width 641px and max-width 1024px, use when QAing tablet-only issues */
+/* IPHONE GENERAL */
+@media only screen and (max-width: 40em) {
+  .policy-list__item {
+    float: none;
+    text-align: center;
+  }
+
+  .livechat_button img {
+    width: 70px;
+  }
+}
+
+/*========== Progress bar ============*/
+/* progress bar */
+
+.progress-steps-wrapper {
+    background: #000000;
+}
+div#newcheckout .wrap {
+    display: block;
+    margin: 0 auto;
+    zoom: 1;
+}
+@media (min-width: 1000px){
+div#newcheckout .wrap {
+    padding: 0 5%;
+    width: 90%;
+    max-width: 78.5714285714em;
+}}
+
+div#newcheckout .progress-steps {
+    max-width: 840px;
+    margin: 32px auto 24px;
+    position: relative;
+    padding: 40px 0;
+    text-align: center;
+}
+div#newcheckout .progress-steps .progress {
+    background-color: #565656;
+    height: 4px;
+    margin: 0;
+}
+div#newcheckout .progress-steps .progress .progress-bar {
+    background-color: #fff;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    height: 4px;
+    max-width: 100%;
+}
+.progress-steps .progress .progress-bar span {
+    display: none;
+}
+.steps .step.active {
+    color: #fff;
+}
+.steps .step-1 {
+    left: -16.665%;
+}
+.steps .step .icon-top {
+    height: 32%;
+    margin-bottom: 11px;
+}
+.steps .step span {
+    display: block;
+}
+.steps .step {
+    position: absolute;
+    top: 0;
+    display: inline-block;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.14;
+    text-align: center;
+    margin: 0;
+    width: 33.33%;
+    height: 100%;
+}
+.steps .step.active .icon {
+    background: #FFFFFF;
+}
+.steps .step .icon {
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #565656;
+    margin: auto;
+}
+.steps .step.active .title {
+    color: #fff;
+}
+.steps .step .title {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    font-family: Montserrat,sans-serif;
+    color: #565656;
+    margin-top: 11px;
+}
+.steps .step-2 {
+    left: 16.665%;
+}
+.steps .step-3 {
+    left: 49.995%;
+}
+.steps .step-4 {
+    left: calc(100% - (33.33% / 2));
+}
+/* progress bar end  */
+/* main content */
+
+@media (min-width: 1000px){
+.payment_infos_icons-wrapper, .sidebar__content-title {
+    margin-right: -10.33%;
+    margin-left: 0;
+}}
+
+.sidebar__content-title {
+    padding: 18px 8px;
+    background: #F2F2F2;
+    text-align: center;
+    font-family: Dala Floda Roman,Times New Roman,Times,serif;
+    font-weight: 400;
+    font-size: clamp(16px,1vw,20px);
+    line-height: .8;
+    letter-spacing: .3px;
+    color: #000;
+    margin-bottom: 8px;
+    margin-right: -2em;
+    margin-left: 0rem;
+}
+aside.sidebar {
+    padding-top: 0px !important;
+}
+@media (min-width: 1000px){
+.logo__image--large {
+    max-height: inherit !important;
+}}
+@media (min-width: 750px){
+.floating-labels .field--third {
+    width: 33.3333333333%;
+    margin: 0px !important;
+}}
+@media (min-width: 1000px){
+.sidebar {
+    width: 38%;
+    padding-left: 0px;
+    background-position: left top;
+    float: right;
+}}
+@media (min-width: 1000px){
+.sidebar .order-summary__sections, .payment_infos_icons__content {
+    padding-left: 8%;
+}}
+/* main content end  */
+.product__description__name {
+    font-size: .7rem;
+    font-family: Neuzeit S LT W01 Book Heavy,Arial,Helvetica,sans-serif;
+    font-weight: 700 !important;
+}
+.order-summary__emphasis {
+    font-weight: 500;
+}
+.field__input {
+    border: 1px transparent solid;
+    background-clip: padding-box;
+    border-radius: 5px;
+    display: block;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0.9285714286em 0.7857142857em;
+    word-break: normal;
+    line-height: inherit;
+}
+.payment_infos_icons-wrapper p.al-text {
+    text-transform: lowercase;
+}
+.payment_info_credibility {
+    padding: 14px 24px;
+    background: #f2f2f2;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    font-family: Montserrat,sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 1.17;
+    letter-spacing: .3px;
+    text-transform: capitalize;
+    color: #000;
+    margin-top: 30px;
+}
+.payment_infos_icons .payment_infos_icons__content .payment_infos {
+    display: flex;
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 4px;
+}
+.payment_infos_icons .payment_infos_icons__content .payment_infos svg {
+    width: 14px;
+    margin-right: 8px;
+}
+.breadcrumb__item.breadcrumb__item {
+    color: #a9a9a9 !important;
+}
+a.breadcrumb__link {
+    color: #a9a9a9;
+}
+@media (min-width: 1000px){
+.order-summary__sections {
+    height: 50%;
+    width: 100%;
+}}
+@media (max-width: 999px){
+div#newcheckout .wrap {
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0 2em !important;
+}
+
+
+.sidebar__content-title {
+    margin-right: -1em;
+    margin-left: -1rem;
+    padding: 18px 5px;
+}
+.logo__image--large {
+    max-height: inherit;
+}
+}
+.section__title {
+    text-align: center;
+}
+.payment_infos_icons .payment_infos_icons__content .payment_infos .al-text--info {
+    font-family: Montserrat,sans-serif;
+    margin-top: 0;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 1;
+    letter-spacing: .3px;
+    margin-bottom: 2px;
+}
+.payment_infos_icons .payment_infos_icons__content .al-text {
+    font-family: Montserrat,sans-serif;
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 1.33;
+    letter-spacing: .3px;
+    color: #000;
+    text-transform: none;
+}

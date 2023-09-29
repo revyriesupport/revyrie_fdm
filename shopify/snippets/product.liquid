@@ -1,0 +1,236 @@
+{{ 'snippet-endrock-quickshop.css' | asset_url | stylesheet_tag }}
+{%- liquid
+	unless template_name
+		assign template_name = template.name
+	endunless
+-%}
+
+{% unless product.tags contains 'BuyXGetY' %}
+  <div class="product-image-wrapper">
+    {% if product.tags contains 'marilyncollection' %}
+<span class="badge-corner">Fleur x Marilyn</span>
+{%- assign badgeIs = 'FLEUR x MARILYN' -%}
+{% elsif product.tags contains 'sustainable' %}
+ <span class="badge-corner invert">Sustainable</span>
+ {% elsif product.tags contains 'swim' %}
+ <span class="badge-corner invert">Swim</span>
+ {% elsif product.tags contains 'badge:preorder' %}
+  <span class="badge-corner">Preorder</span>
+  {%- assign badgeIs = 'badge:preorder' -%}
+{% elsif product.tags contains 'badge:best seller' and collection.handle !='best-sellers' %}
+  <span class="badge-corner">Best Seller</span>
+  {%- assign badgeIs = 'badge:best seller' -%}
+{% elsif product.tags contains 'badge:back in stock' %}
+  <span class="badge-corner">Back In Stock</span>
+  {%- assign badgeIs = 'badge:back in stock' -%}
+{% elsif product.tags contains 'badge:new arrival' %}
+  <span class="badge-corner">New Arrival</span>
+  {%- assign badgeIs = 'badge:new arrival' -%}
+          {% elsif product.tags contains 'Final Sale' %}
+  <span class="badge-corner">Final Sale</span>
+  {%- assign badgeIs = 'Final Sale' -%}
+{% endif %}
+
+{% if template contains 'col-2' %}
+{% assign image_resolution = '557x850' %}
+{% elsif template contains 'col-3' %}
+{% assign image_resolution = '380x580' %}
+{% elsif template contains 'col-4' %}
+{% assign image_resolution = '320x540' %}
+{% else %}
+{% assign image_resolution = '557x850' %}
+{% endif %}
+
+{% if product.tags contains 'Promotion' %}
+  {% if product.description contains "<!-- link -->" %}
+    <a href="{{ product.description | split: '<!-- link -->' | last | split: '<!-- end link -->' | first }}">
+  {% elsif product.description contains "<!-- modal -->" %}
+    <a href="#" data-open="{{ product.description | split: '<!-- modal -->' | last | split: '<!-- end modal -->' | first }}">
+  {% endif %}
+
+  {% if product.description contains "<!-- collection-video -->" %}
+    <div class="video">
+      <div class="video-player">
+        <video
+          preload="none" controlsList="nodownload" autoplay muted loop playsinline webkit-playsinline>
+          <source
+            src="{{ product.description | split: '<!-- collection-video -->' | last | split: '<!-- end collection-video -->' | first }}" type="video/mp4">
+          Your browser does not support HTML5 video.
+        </video>
+      </div>
+      <!--video-player-->
+    </div>
+    <!--video-->
+		<img class="product-image single poster" src="{{ product.featured_image | img_url: image_resolution, crop: 'center' }}" alt="{{ product.title | escape  }}">
+		{% else %}
+    <img class="promotion" src="{{ product.featured_image | img_url: image_resolution, crop: 'center' }}" alt="{{ product.title | escape  }}">
+  {% endif %}
+
+  {% if product.description contains "<!-- link -->" or product.description contains "<!-- modal -->" %}
+    </a>
+  {% endif %}
+{% else %}
+  <a href="{{ product.url | within: collection }}">
+    {% if template contains 'youtube' %}
+      {% for image in product.images %}
+        {% if image.alt contains 'flat' %}
+          <img class="product-image single" src="{{ image | img_url: image_resolution, crop: 'center' }}" alt="{{ product.title | escape  }}">
+        {% endif %}
+      {% endfor %}
+    {% else %}
+      {% if product.description contains "<!-- collection-video -->" %}
+        <div class="video">
+          <div class="video-player">
+            <video
+              preload="none" controlsList="nodownload" autoplay muted loop playsinline webkit-playsinline>
+              <source src="{{ product.description | split: '<!-- collection-video -->' | last | split: '<!-- end collection-video -->' | first }}" type="video/mp4">
+              Your browser does not support HTML5 video.
+            </video>
+          </div>
+          <!--video-player-->
+        </div>
+        <!--video-->
+				<img class="product-image single poster" src="{{ product.featured_image | img_url: image_resolution, crop: 'center' }}" alt="{{ product.title | escape  }}">
+  			{% else %}
+        {% if product.images.size == 0 %}
+          {% assign single_image = true %}
+          <img class="product-image single" src="{{ 'no_product_image.jpg' | asset_url }}" alt="{{ product.title | escape }}">
+        {% else %}
+          {% if product.images.size == 1 %}
+            {% assign single_image = true %}
+          {% else %}
+            {% assign single_image = false %}
+          {% endif %}
+
+          {% if product.tags contains 'Editorial' %}
+            {% for image in product.images %}
+              {% if image.alt contains 'editorial' %}
+                <img class="product-image{% if single_image %} single{% endif %}" src="{{ image | img_url: image_resolution, crop: 'center' }}" alt="{{ product.title | escape  }}">
+              {% endif %}
+            {% endfor %}
+          {% elsif product.tags contains 'Body'%}
+            {% for image in product.images %}
+              {% if image.alt contains 'body' %}
+                <img class="product-image{% if single_image %} single{% endif %}" src="{{ image | img_url: image_resolution, crop: 'center' }}" alt="{{ product.title | escape  }}">
+              {% endif %}
+            {% endfor %}
+          {% else %}
+            {% for image in product.images %}
+              {% if collection.handle contains 'banana-embroidery' %}
+                {% if image.alt contains 'collectionpageonly' %}
+                  <img class="product-image{% if single_image %} single{% endif %}" src="{{ image | img_url: image_resolution, crop: 'center' }}" alt="{{ product.title | escape  }}">
+                {% endif %}
+              {% else %}
+                {% if image.alt contains 'flat' %}
+                  <img class="product-image{% if single_image %} single{% endif %}" src="{{ image | img_url: image_resolution, crop: 'center' }}" alt="{{ product.title | escape  }}">
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+
+          {% unless single_image %}
+            <img class="product-image hover" src="{{ product.images[1] | img_url: image_resolution, crop: 'center' }}"
+              alt="{{ product.title | escape  }}">
+          {% endunless %}
+        {% endif %}
+      {% endif %}
+    {% endif %}
+  </a>
+{% endif %}
+</div><!-- product-image-wrapper -->
+
+{% unless product.tags contains 'Promotion' %}
+<ul class="information">
+  <li class="title hide-for-large">
+    <a href="{{ product.url | within: collection }}">
+      {% if product.description contains "<!-- title-abbreviated -->" %}{{ product.description | split: '<!-- title-abbreviated -->' | last | split: '<!-- end title-abbreviated -->' | first }}{% else %}{{ product.title | truncate: 29 | escape }}{% endif %}
+    </a>
+  </li>
+  <li class="title show-for-large">
+    <a href="{{ product.url | within: collection }}">
+      {{ product.title | escape }}
+    </a>
+  </li>
+  {% unless template_name == 'product' %}
+    <li class="badge">
+      {% if product.tags contains 'essentials' %}
+        <a href="/collections/final-sale" {% if collection.handle contains 'essentials' %}class=" hidden"{% endif %}>essentials</a>
+      {% endif %}
+      {% if product.tags contains 'preorder' and product.tags contains 'marilyn' %}
+        <a href="{{ product.url | within: collection }}">PREORDER</a>
+      {% endif %}
+    </li>
+  {% endunless %}
+  {% if product.available %}
+    {% if product.compare_at_price > product.price %}
+      <li class="price {% if product.tags contains 'badge:essentiels' %}badge-essentiels{% endif %}">
+        <del><span class="money">{{ product.compare_at_price_max | money | remove: '.00' }}</span></del> <span class="money">{{ product.price_min | money | remove: '.00' }} </span>
+        <span class="price-discount">
+          {% if product.compare_at_price_max > product.price %}
+            {% capture discount %}
+              {{ product.compare_at_price_max | minus: product.price | times: 100 |
+              divided_by: product.compare_at_price_max |
+              replace: '22', '25' | replace: '27', '30' | replace: '28', '30' | replace: '29', '30' | replace: '31', '30' | replace: '33', '35' | replace: '38', '40' | replace: '39', '40' | replace: '48', '50' | replace: '49',
+              '50' |
+              replace: '48', '50' | replace: '49', '50' | replace: '51', '50' | replace: '68', '70' | replace: '69',
+              '70' }}%
+              OFF
+            {% endcapture %}
+            {{ discount }}
+          {% endif %}
+        </span>
+      </li>
+    {% else %}
+      <li class="price {% if product.tags contains 'badge:essentiels' %}badge-essentiels{% endif %}">
+        {% if product.type == 'Gift Cards' %}
+          <span class="money">{{ product.price_min | money }}</span> - <span class="money">{{ product.price_max | money }}</span>
+        {% else %}
+          <span class="money">{{ product.price_min | money | remove: '.00' }}</span>
+        {% endif %}
+      </li>
+    {% endif %}
+  {% else %}
+    {% if product.tags contains 'coming soon' %}
+      <li class="price">
+        {% if product.type == 'Gift Cards' %}
+          <span class="money">{{ product.price_min | money }}</span> - <span class="money">{{ product.price_max | money }}</span>
+        {% else %}
+          <span class="money">{{ product.price_min | money | remove: '.00' }}</span>
+        {% endif %}
+      </li>
+      <li class="add-to-cart">
+        <a href="#" class="BIS_trigger" data-product-data="{{ product | json | escape }}">{{ 'products.product.coming_soon' | t }}</a>
+      </li>
+    {% else %}
+      <li class="price">{{ 'products.product.sold_out' | t }}</li>
+    {% endif %}
+  {% endif %}
+
+
+
+  {% if template_name == 'collection' or template_name == 'product' or template_name == 'search' %}
+    {% unless product.available == false %}
+      <li class="add-to-cart">
+        <span class="button">Add to bag</span>
+        <div class="variants">
+          {% if product.available and product.variants.size >= 1 %}
+            {% for variant in product.variants %}
+              {% if variant.available %}
+                {%- assign option_index = 0 -%}
+                {%- for product_option in product.options_with_values -%}
+                  {% if product_option.name == "size" or product_option.name == "Size" or product_option.name == "SIZE" %}
+                    {% assign option_index = forloop.index0 %}
+                  {% endif %}
+                {%- endfor -%}
+                <span class="variant-selector" data-variant-id="{{ variant.id }}">{{ variant.options[option_index] }}</span>
+              {% endif %}
+            {% endfor %}
+          {% else %}
+          {% endif %}
+        </div>
+      </li>
+    {% endunless %}
+  {% endif %}
+</ul><!-- information -->
+{% endunless %}
+{% endunless %}

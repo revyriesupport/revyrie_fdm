@@ -39,6 +39,15 @@
           "settings": {
           }
         },
+        "11dfb6fc-649b-4479-a2e8-d6005495fc0c": {
+          "type": "inventory",
+          "disabled": true,
+          "settings": {
+            "text_style": "body",
+            "inventory_threshold": 1,
+            "show_inventory_quantity": true
+          }
+        },
         "variant_picker": {
           "type": "variant_picker",
           "settings": {
@@ -83,6 +92,7 @@
         "price",
         "fe5f75c9-eb38-4318-baee-491fff6e0ed0",
         "6493dbbb-69f4-44dd-8e41-930407c18748",
+        "11dfb6fc-649b-4479-a2e8-d6005495fc0c",
         "variant_picker",
         "quantity_selector",
         "buy_buttons",
@@ -125,10 +135,25 @@
         "padding_top": 36,
         "padding_bottom": 28
       }
+    },
+    "455a79be-9052-4b98-81f6-1dc9689ac26e": {
+      "type": "dash-hudson-carousel-product",
+      "settings": {
+        "show_content": true,
+        "heading": "Who's wearing fleur",
+        "link": ""
+      }
+    },
+    "71ce01de-28b8-48c3-afbb-0aec72ae5cbb": {
+      "type": "myntr-related-product",
+      "settings": {
+      }
     }
   },
   "order": [
     "main",
-    "related-products"
+    "related-products",
+    "455a79be-9052-4b98-81f6-1dc9689ac26e",
+    "71ce01de-28b8-48c3-afbb-0aec72ae5cbb"
   ]
 }

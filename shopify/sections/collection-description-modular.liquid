@@ -71,6 +71,9 @@
 </div>
 {% endif %}
 
+{% if section.settings.bottom_border %}
+  <hr class="content-story-border content-story-border-bottom">
+{% endif %}
 
 {% schema %}
 {
@@ -255,7 +258,12 @@
       "unit": "px",
       "label": "Content Font Size Mobile",
       "default": 18
-    }
+    },
+    {
+      "type": "checkbox",
+	  "id": "bottom_border",
+	  "label": "Enable Bottom Border"
+	}
   ],
   "presets": [
     {

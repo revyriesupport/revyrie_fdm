@@ -256,13 +256,191 @@
         <fieldset class="js product-form__input {{ option.name | downcase }}">
           {% if option.name == 'Size' or option.name == 'Amount' or option.name == 'Monogram' %}
             <div class="sizeguide_box">
-              <legend class="form__label">{{ 'products.product.select' | t }} <span class="inventory-warning"></span></legend>
+              <legend class="form__label">{{ 'products.product.select' | t }} 
+                <p
+                class="product__inventory no-js-hidden {% if product.selected_or_first_available_variant.inventory_management != 'shopify' %} visibility-hidden{% endif %}"
+                {{ block.shopify_attributes }}
+                id="Inventory-{{ section.id }}"
+                role="status"
+              >
+                {%- if product.selected_or_first_available_variant.inventory_management == 'shopify' -%}
+                  {%- if product.selected_or_first_available_variant.inventory_quantity > 0 -%}
+                    {%- if product.selected_or_first_available_variant.inventory_quantity <= 1 -%}
+                        {{- 'products.product.inventory_low_stock_show_count' | t: quantity: product.selected_or_first_available_variant.inventory_quantity -}}
+                    {%- elsif product.selected_or_first_available_variant.inventory_quantity <= 5 and product.selected_or_first_available_variant.inventory_quantity >= 2-%}
+                        only few left
+                    {%- endif -%}
+                  {%- endif -%}
+                {%- endif -%}
+              </p>
+              </legend>
               {% if has_sizing_guide %}
                 <div class="sizeguide_text">
                     <a href="javascript:;" data-open="sizing-modal">{{ 'products.product.sizing_chart' | t }}</a>{% if product.type == 'Bras' %} / {{ 'products.product.size_fit.fit_finder_link_short_html' | t }}{% endif %}
                 </div>
               {% endif %}
             </div>
+            {% if option.name == 'Monogram' and product.tags contains 'monogram' %}
+              <script>
+              // $(document).ready( function() {
+              //   $('#SingleOptionSelector-2').bind('change', function (e) {
+              //     if( $('#SingleOptionSelector-2').val() == 'none') {
+              //       $('#monogram-details').hide();
+              //     $('#monogram').val('');
+              //     $("input#monogram").attr("required", false);
+
+              //     }
+              //     else if( $('#SingleOptionSelector-2').val() == 'personalized') {
+              //     $('#monogram-details').show();
+              //     $("input#monogram").attr("required", true);
+              //     }
+              //   }).trigger('change');
+              // });
+              </script>
+              <a data-open="monogram-modal" class="learn-more hidden">Info</a>
+              <div id="monogram-details">
+              <label for="monogram" class="hidden">Monogram text</label>
+                  <input autocomplete="off" id="monogram" cols="45" rows="5" name="properties[monogram]" placeholder="Write your text here" type="text">
+                  <small><span name="countchars" id="countchars"></span> Characters left</small>
+                  <script>
+                  
+                    {% if product.tags contains 'monogram-1'%}
+                    var totalChars      = 1; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-2'%}
+                    var totalChars      = 2; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-3'%}
+                    var totalChars      = 3; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-4'%}
+                    var totalChars      = 4; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-5'%}
+                    var totalChars      = 5; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-6'%}
+                    var totalChars      = 6; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-7'%}
+                    var totalChars      = 7; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-8'%}
+                    var totalChars      = 8; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-9'%}
+                    var totalChars      = 9; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-10'%}
+                    var totalChars      = 10; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-11'%}
+                    var totalChars      = 11; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-12'%}
+                    var totalChars      = 12; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-13'%}
+                    var totalChars      = 13; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-14'%}
+                    var totalChars      = 14; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-15'%}
+                    var totalChars      = 15; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-16'%}
+                    var totalChars      = 16; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-17'%}
+                    var totalChars      = 17; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-18'%}
+                    var totalChars      = 18; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-19'%}
+                    var totalChars      = 19; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-20'%}
+                    var totalChars      = 20; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-21'%}
+                    var totalChars      = 21; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-22'%}
+                    var totalChars      = 22; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-23'%}
+                    var totalChars      = 23; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-24'%}
+                    var totalChars      = 24; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-25'%}
+                    var totalChars      = 25; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-26'%}
+                    var totalChars      = 26; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-27'%}
+                    var totalChars      = 27; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-28'%}
+                    var totalChars      = 28; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-29'%}
+                    var totalChars      = 29; //Total characters allowed in textarea
+                    {% endif %}
+
+                    {% if product.tags contains 'monogram-30'%}
+                    var totalChars      = 30; //Total characters allowed in textarea
+                    {% endif %}
+
+                    var countTextBox    = document.getElementById('#monogram'); // Textarea input box
+                    var charsCountEl    = document.getElementById('#countchars'); // Remaining chars count will be displayed here
+
+                    charsCountEl.text(totalChars); //initial value of countchars element
+                    countTextBox.keyup(function() { //user releases a key on the keyboard
+                      var thisChars = this.value.replace(/{.*}/g, '').length; //get chars count in textarea
+                      if(thisChars > totalChars) //if we have more chars than it should be
+                      {
+                        var CharsToDel = (thisChars-totalChars); // total extra chars to delete
+                        this.value = this.value.substring(0,this.value.length-CharsToDel); //remove excess chars from textarea
+                      }else{
+                        charsCountEl.text( totalChars - thisChars ); //count remaining chars
+                      }
+                    });
+                  </script>
+              </div><!-- monogram-details-->
+              {% endif %}
           {% else %}
               <legend class="form__label">{{ option.name }}</legend>  
           {% endif %}

@@ -1,4 +1,5 @@
 <script>
+  
   window.shopUrl = '{{ request.origin }}';
   window.routes = {
     cart_add_url: '{{ routes.cart_add_url }}',
@@ -29,6 +30,13 @@
     giftLoverProductVariant: `{{ all_products[settings.gift_product_select].variants | json }}`,
     giftLoverProductVariantPriceSize: '{{ all_products[settings.gift_product_select].variants[0].price | money }}',
     giftLoverProductVariantPriceSizeTwo: '{{ all_products[settings.gift_product_select].variants[1].price | money }}',
+  }
+
+  window.bundleConfig = {
+    bundle_text: `{{ settings.bundle_text | json }}`,
+	bundle_image_3: `{{ settings.bundle_image_3 | img_url: 'medium' | url_decode }}`,
+	bundle_image_4: `{{ settings.bundle_image_4 | img_url: 'medium' | url_decode }}`,
+	bundle_image_5: `{{ settings.bundle_image_5 | img_url: 'medium' | url_decode }}`,
   }
   
   window.variantStrings = {
@@ -70,4 +78,5 @@
     shopHandle: "{{ shop.permanent_domain | replace: '.myshopify.com', '' }}",
     storefrontToken: "{{ settings.storefront_token }}"
   }
+
 </script>

@@ -113,6 +113,7 @@
 #AjaxinatePagination {
   width: max-content;
   margin: auto;
+  margin-bottom: 10px;
 }
 #AjaxinatePagination #load-more-btn {
   text-transform: uppercase;

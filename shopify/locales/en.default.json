@@ -117,20 +117,20 @@
   },
   "products": {
     "product": {
-      "add_to_cart": "Add to cart",
+      "add_to_cart": "Add to bag",
       "choose_options": "Choose options",
       "choose_product_options": "Choose options for {{ product_name }}",
       "description": "Description",
       "inventory_in_stock": "In stock",
       "inventory_in_stock_show_count": "{{ quantity }} in stock",
       "inventory_low_stock": "Low stock",
-      "inventory_low_stock_show_count": "Low stock: {{ quantity }} left",
+      "inventory_low_stock_show_count": "only {{ quantity }} left",
       "inventory_out_of_stock": "Out of stock",
       "inventory_out_of_stock_continue_selling": "In stock",
       "sku": "SKU",
       "on_sale": "Sale",
       "product_variants": "Product variants",
-      "coming_soon": "Coming Soon",
+      "coming_soon": "Join Waitlist",
       "media": {
         "gallery_viewer": "Gallery Viewer",
         "load_image": "Load image {{ index }} in gallery view",
@@ -206,7 +206,10 @@
       "specs": "Specifications",
       "shipping_returns": "Shipping & Returns",
       "select": "Select Size",
-      "sizing_chart": "Size Guide"
+      "sizing_chart": "Size Guide",
+      "coming_soon_message": "The selected style is coming soon. Fill out the form below to be notified when it becomes available.",
+      "sold_out_message": "The selected style is sold out online. Fill out the form below to be notified when it becomes available again.",
+      "sold_out_message_action": "Join waitlist"
     },
     "help": {
       "title": "Need help?",

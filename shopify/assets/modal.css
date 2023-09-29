@@ -1,0 +1,131 @@
+/*================ Modal Form Responses ================*/
+ #bridal-form-success, #private-shopping-form-success, #after-hours-form-success {
+	 display: none;
+}
+ .reveal {
+	 z-index: 2147483646;
+}
+ .reveal form label {
+	 margin-top: 30px;
+}
+ .reveal form .btn {
+	 margin-top: 30px;
+}
+ .reveal form select {
+	 margin-top: 5px;
+}
+ .reveal form small {
+	 margin-top: 15px;
+	 display: block;
+	 color: #979797;
+}
+/*================ Modal ================*/
+ .reveal {
+	 border-radius: 0px;
+	 border: none;
+	 padding: 40px;
+}
+ @media screen and (max-width: 639px) {
+	 .reveal {
+		 padding: 30px 15px 15px 15px;
+		 height: inherit;
+		 min-height: initial;
+	}
+}
+ @media screen and (min-width: 640px) and (max-width: 1023px) {
+	 .reveal {
+		 padding: 30px;
+	}
+}
+ @media screen and (min-width: 640px) {
+	 .reveal {
+		 width: 650px;
+	}
+}
+ @media screen and (min-width: 1400px) {
+	 .reveal {
+		 width: 700px;
+	}
+}
+ @media screen and (min-width: 1024px) {
+	 .reveal.full .close-button {
+		 font-size: 4rem;
+		 top: 16px;
+		 right: 30px;
+	}
+}
+ .reveal.large {
+	 max-width: 62rem;
+}
+ .reveal input[type=text], .reveal input[type=email] {
+	 background-color: #fff;
+}
+ .reveal-overlay {
+	 background: rgba(0, 0, 0, 0.7);
+	 z-index: 2147483645;
+}
+/*================ Sizing Modal ================*/
+ #sizing-modal table {
+	 display: block;
+	 overflow-x: scroll;
+}
+ #sizing-modal table thead tr th, #sizing-modal table thead tr td, #sizing-modal table tbody tr th, #sizing-modal table tfoot tr th, #sizing-modal table tfoot tr td, #sizing-modal table tbody tr td, #sizing-modal table tr td {
+	 line-height: 1.4;
+	 font-size: 0.7rem;
+	 padding: 10px;
+	 text-transform: uppercase;
+	 width: 15%;
+	 min-width: 120px;
+}
+ @media screen and (min-width: 1024px) {
+	 #sizing-modal table thead tr th, #sizing-modal table thead tr td, #sizing-modal table tbody tr th, #sizing-modal table tfoot tr th, #sizing-modal table tfoot tr td, #sizing-modal table tbody tr td, #sizing-modal table tr td {
+		 width: 10%;
+	}
+}
+ #sizing-modal table tr:nth-of-type(even) {
+	 background: #f4f4f4;
+}
+ #sizing-modal #tab-conversionchart table td:first-child, #sizing-modal #tab-conversionchart table th:first-child {
+	 position: -webkit-sticky;
+	 position: sticky;
+	 left: 0;
+	 background: #fff;
+}
+/*================ Search Modal ================*/
+ #search-modal {
+	 background: none;
+}
+ #search-modal form {
+	 padding: 15px;
+	 border: none;
+	 text-align: center;
+}
+ #search-modal form .row {
+	 background: #fff;
+}
+ #search-modal form .row .small-2 {
+	 text-align: center;
+}
+ #search-modal form input {
+	 border: none;
+	 height: 70px;
+	 font-family: "Dala Floda Roman", "Times New Roman", Times, serif;
+	 padding: 1rem;
+	 font-size: 1.1rem;
+	 text-transform: lowercase;
+}
+ @media screen and (min-width: 640px) {
+	 #search-modal form input {
+		 font-size: 1.2rem;
+		 letter-spacing: 0.25rem;
+	}
+}
+ #search-modal form button {
+	 width: 50px;
+	 height: 70px;
+}
+ #search-modal .close-button {
+	 top: 0px;
+	 color: #fff-text-invert;
+}
+ 

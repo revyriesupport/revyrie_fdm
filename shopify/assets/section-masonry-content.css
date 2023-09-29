@@ -1,0 +1,48 @@
+/*================ Masonry Content ================*/
+ .masonry-content {
+   margin-top: 20px;
+}
+ @media screen and (max-width: 1023px) {
+   .masonry-content {
+     margin-top: 15px;
+  }
+}
+ .masonry-content ul.masonry-grid {
+   margin: 0 auto;
+}
+ .masonry-content ul.masonry-grid:after {
+   content: '';
+   display: block;
+   clear: both;
+}
+ .masonry-content ul.masonry-grid li.masonry-sizer {
+   width: 32%;
+}
+ @media screen and (max-width: 1023px) {
+   .masonry-content ul.masonry-grid li.masonry-sizer {
+     width: 49%;
+  }
+}
+ .masonry-content ul.masonry-grid li.masonry-gutter-sizer {
+   width: 2%;
+}
+ .masonry-content ul.masonry-grid li.masonry-item {
+   float: left;
+   width: 32%;
+   margin-bottom: 20px;
+}
+ @media screen and (max-width: 1023px) {
+   .masonry-content ul.masonry-grid li.masonry-item {
+     margin-bottom: 10px;
+     width: 49%;
+  }
+}
+ .masonry-content ul.masonry-grid li.masonry-item:hover img.has-hover {
+   display: none;
+}
+ .masonry-content ul.masonry-grid li.masonry-item:hover img.hover {
+   display: block;
+}
+ .masonry-content ul.masonry-grid li.masonry-item img.hover {
+   display: none;
+}

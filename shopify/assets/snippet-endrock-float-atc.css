@@ -1,0 +1,58 @@
+/*================ Endrock-float-ATC ================*/
+
+.template-product .container-atc{
+    display: flex;
+    align-items: center;
+    position: fixed;
+    bottom: 10px;
+    width: 100%;
+    background-color: white;
+    max-width: 95%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 1px solid #F2F2F2;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.04);
+    z-index: 2147483644;
+}
+
+@media (min-width: 768px){
+    .template-product .container-atc{
+        display: none !important;
+    }
+}
+
+.template-product .container-atc .column{
+    width: 33.3%;
+}
+
+.template-product .container-atc .column .product-title{
+    font-size: 12px;
+    line-height: 12px;
+    font-weight: 600;
+    text-transform: initial;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.template-product .container-atc .column .color,
+.template-product .container-atc .column .size{
+    font-size: 10px;
+    color: #585858;
+    text-transform: capitalize;
+    display: block;
+    font-weight: 600;
+    line-height: 12px;
+}
+
+.template-product .container-atc #add-to-cart{
+    background-color: #000;
+    text-align: center;
+    color: #fff;
+    display: block;
+    text-transform: uppercase;
+    padding: 13px 0;
+    font-size: 12px;
+    line-height: 12px;
+    font-weight: 600;
+}

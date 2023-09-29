@@ -1,0 +1,84 @@
+body.template-search .accordion {
+	 border-top: 1px solid #000;
+	 padding-top: 15px;
+	 margin-bottom: 60px;
+}
+ body.template-search .accordion .accordion-content.category {
+	 margin-top: 0px;
+	 padding-left: 15px;
+	 padding-right: 40px;
+}
+ @media screen and (max-width: 639px) {
+	 body.template-search .accordion .accordion-content.category {
+		 margin-left: 10px;
+	}
+}
+ body.template-search .accordion .accordion-content.category img {
+	 width: 100%;
+	 margin-bottom: 30px;
+}
+ body.template-search .accordion .accordion-content.category h6 {
+	 margin-top: 20px;
+}
+ body.template-search .accordion .accordion-content.category p, body.template-search .accordion .accordion-content.category ol li, body.template-search .accordion .accordion-content.category ul li {
+	 text-transform: initial;
+	 font-size: 0.8rem;
+}
+ #faq .accordion .accordion-item .accordion-title {
+	 padding: 1rem 40px 0.5rem 0px;
+}
+ #faq .accordion .accordion-item .accordion-title.category {
+	 padding: 1rem 40px 1rem 0px;
+	 font-family: "Dala Floda Roman", "Times New Roman", Times, serif;
+	 font-size: 1.2rem;
+	 border-bottom: 1px solid #000;
+	 text-transform: lowercase;
+	 border-radius: 0px;
+}
+ @media screen and (max-width: 639px) {
+	 #faq .accordion .accordion-item .accordion-title.category {
+		 font-size: 1.1rem;
+	}
+}
+ #faq .accordion .accordion-item .accordion-title.category::before {
+	 position: absolute;
+	 top: 40%;
+	 right: 0rem;
+	 margin-top: 0;
+}
+ #faq .accordion .accordion-item .accordion-title::before {
+	 position: absolute;
+	 top: 50%;
+	 right: 1rem;
+	 margin-top: -0.9rem;
+}
+ #faq .accordion .accordion-item .accordion-content.category {
+	 margin-left: 15px;
+}
+ @media screen and (max-width: 639px) {
+	 #faq .accordion .accordion-item .accordion-content.category {
+		 margin-left: 0px;
+	}
+}
+ #faq .accordion .accordion-item .accordion-content.category .accordion-content {
+	 margin-top: 0px;
+	 padding-left: 15px;
+	 padding-right: 40px;
+}
+ @media screen and (max-width: 639px) {
+	 #faq .accordion .accordion-item .accordion-content.category .accordion-content {
+		 margin-left: 10px;
+	}
+}
+ #faq .accordion .accordion-item .accordion-content.category .accordion-content img {
+	 width: 100%;
+	 margin-bottom: 30px;
+}
+ #faq .accordion .accordion-item .accordion-content.category .accordion-content h6 {
+	 margin-top: 20px;
+}
+ #faq .accordion .accordion-item .accordion-content.category .accordion-content p, #faq .accordion .accordion-item .accordion-content.category .accordion-content ol li, #faq .accordion .accordion-item .accordion-content.category .accordion-content ul li {
+	 text-transform: initial;
+	 font-size: 0.8rem;
+}
+ 

@@ -1,0 +1,49 @@
+/*================ Rich Text Editor ================*/
+ .rte img {
+	 height: auto;
+}
+ .rte table {
+	 table-layout: fixed;
+}
+ .rte ul, .rte ol {
+	 margin: 0 0 0.46875rem 0.9375rem;
+}
+ .rte ul {
+	 list-style: disc outside;
+}
+ .rte ul ul {
+	 list-style: circle outside;
+}
+ .rte ul ul ul {
+	 list-style: square outside;
+}
+ .text-center.rte ul, .text-center .rte ul, .text-center.rte ol, .text-center .rte ol {
+	 margin-left: 0;
+	 list-style-position: inside;
+}
+ .rte-table {
+	 max-width: 100%;
+	 overflow: auto;
+	 -webkit-overflow-scrolling: touch;
+}
+ .rte__video-wrapper {
+	 position: relative;
+	 overflow: hidden;
+	 max-width: 100%;
+	 padding-bottom: 56.25%;
+	 height: 0;
+	 height: auto;
+}
+ .rte__video-wrapper iframe {
+	 position: absolute;
+	 top: 0;
+	 left: 0;
+	 width: 100%;
+	 height: 100%;
+}
+ .rte__table-wrapper {
+	 max-width: 100%;
+	 overflow: auto;
+	 -webkit-overflow-scrolling: touch;
+}
+ 

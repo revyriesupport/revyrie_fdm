@@ -1,0 +1,201 @@
+<style>
+/*================ Related Products ================*/
+ .related-products .product .product-image-wrapper .badge-corner {
+	 font-size: 10px;
+}
+ .featured-collection {
+	 margin-top: 60px;
+}
+ @media screen and (max-width: 639px) {
+	 .featured-collection {
+		 margin-top: 30px;
+	}
+}
+ .featured-collection h2.has-h3 {
+	 margin-bottom: 0px;
+}
+ .featured-collection h2.h3 {
+	 margin-bottom: 30px;
+}
+ .featured-collection.related h2.h5, .featured-collection.suggested h2.h5, .featured-collection.recent h2.h5 {
+	 margin-bottom: 20px;
+}
+ @media screen and (max-width: 639px) {
+	 .featured-collection.related h2.h5, .featured-collection.suggested h2.h5, .featured-collection.recent h2.h5 {
+		 text-align: center;
+	}
+}
+ .featured-collection.related .main-carousel, .featured-collection.suggested .main-carousel, .featured-collection.recent .main-carousel {
+	 overflow: visible;
+}
+ .featured-collection.related .main-carousel .flickity-prev-next-button, .featured-collection.suggested .main-carousel .flickity-prev-next-button, .featured-collection.recent .main-carousel .flickity-prev-next-button {
+	 top: 40%;
+}
+ @media screen and (min-width: 1024px) {
+	 .featured-collection.related .main-carousel .flickity-prev-next-button, .featured-collection.suggested .main-carousel .flickity-prev-next-button, .featured-collection.recent .main-carousel .flickity-prev-next-button {
+		 background: none;
+	}
+	 .featured-collection.related .main-carousel .flickity-prev-next-button .flickity-button-icon, .featured-collection.suggested .main-carousel .flickity-prev-next-button .flickity-button-icon, .featured-collection.recent .main-carousel .flickity-prev-next-button .flickity-button-icon {
+		 fill: #000;
+	}
+}
+ .featured-collection.related .main-carousel .flickity-prev-next-button.previous, .featured-collection.suggested .main-carousel .flickity-prev-next-button.previous, .featured-collection.recent .main-carousel .flickity-prev-next-button.previous {
+	 left: 15px;
+}
+ @media screen and (min-width: 1024px) {
+	 .featured-collection.related .main-carousel .flickity-prev-next-button.previous, .featured-collection.suggested .main-carousel .flickity-prev-next-button.previous, .featured-collection.recent .main-carousel .flickity-prev-next-button.previous {
+		 left: -25px;
+	}
+}
+ .featured-collection.related .main-carousel .flickity-prev-next-button.next, .featured-collection.suggested .main-carousel .flickity-prev-next-button.next, .featured-collection.recent .main-carousel .flickity-prev-next-button.next {
+	 right: 15px;
+}
+ @media screen and (min-width: 1024px) {
+	 .featured-collection.related .main-carousel .flickity-prev-next-button.next, .featured-collection.suggested .main-carousel .flickity-prev-next-button.next, .featured-collection.recent .main-carousel .flickity-prev-next-button.next {
+		 right: -25px;
+	}
+}
+ .featured-collection.related .main-carousel .carousel-cell, .featured-collection.suggested .main-carousel .carousel-cell, .featured-collection.recent .main-carousel .carousel-cell {
+	 width: 33.333333%;
+	 padding-right: 0.5375rem;
+	 padding-left: 0.5375rem;
+	 min-width: 0;
+}
+ @media screen and (min-width: 1024px) {
+	 .featured-collection.related .main-carousel .carousel-cell, .featured-collection.suggested .main-carousel .carousel-cell, .featured-collection.recent .main-carousel .carousel-cell {
+		 width: 20%;
+	}
+}
+ @media screen and (max-width: 639px) {
+	 .featured-collection.related .main-carousel .carousel-cell, .featured-collection.suggested .main-carousel .carousel-cell, .featured-collection.recent .main-carousel .carousel-cell {
+		 width: 50%;
+		 padding-right: 0.26875rem;
+		 padding-left: 0.26875rem;
+	}
+}
+ @media screen and (min-width: 1024px) {
+	 .featured-collection.related.suggested .flickity-prev-next-button, .featured-collection.suggested.suggested .flickity-prev-next-button, .featured-collection.recent.suggested .flickity-prev-next-button {
+		 display: none;
+	}
+}
+</style>
+
+
+{% unless product.type == 'Gift Cards' %}
+{% assign related_collection = '' %}
+ {% if collection == null or collection.handle == 'all' or collection.handle contains 'batch' or collection.handle contains 'sale' or collection.handle contains 'new-arrivals' or collection.handle contains 'fall' or collection.handle contains 'spring' or collection.handle contains 'tiered-sale' or collection.handle contains 'weekend-lover'  %}
+	 {% assign found_a_collection = false %}
+	 {% for c in product.collections %}
+		 {% if found_a_collection == false and c.all_products_count > 1 %}
+			 {% assign found_a_collection = true %}
+			 {% assign related_collection = c.handle %}
+		 {% endif %}
+	 {% endfor %}
+ {% else %}
+		 {% assign related_collection = collection.handle %}
+ {% endif %}
+
+{% if related_collection != '' and collections[related_collection].products_count > 4 %}
+ {% assign number_of_related_products_to_show = 12 %}
+
+	<script>
+var related_gallery = document.querySelector('.related .main-carousel');
+    var flkty = new Flickity( related_gallery, {
+      // options
+        wrapAround: true,
+        percentPosition: false,
+        pageDots: false,
+        cellAlign: "left",
+        imagesLoaded: true,
+        freeScroll: true,
+        contain: true
+    });
+
+      
+		//$(document).ready(function(){
+
+			// var $gallery = $('.related .main-carousel').flickity({
+			// 	 // options
+			// 	wrapAround: true,
+			// 	percentPosition: false,
+			// 	pageDots: false,
+			// 	cellAlign: "left",
+			// 	imagesLoaded: true,
+			// 	freeScroll: true,
+			// 	contain: true
+			// })
+
+
+			// Custom previous button
+	// 		$('.button--previous').on( 'click', function() {
+	// 		  $gallery.flickity('previous');
+	// 		});
+
+			// Custom next button
+// 			$('.button--next').on( 'click', function() {
+// 			  $gallery.flickity('next');
+// 			});
+
+
+			// Flickity fix window height on load
+		//$(window).on( 'load', function() {
+			//$gallery.flickity('resize');
+		//});
+
+			// show gallery after Flickity enabled
+			//$gallery.css({ opacity: 1 });
+
+		//});
+		</script>
+
+
+		<div class="row align-center quick-add-hidden">
+			<div class="large-11 small-12 columns">
+				<div class="featured-collection related">
+			<h2 class="h5">{{ 'products.related_products.title_html' | t }}</h2>
+			<div class="main-carousel related-products">
+			{% assign current_product = product %}
+			{% assign loop_index = 0 %}
+			{% for product in collections[related_collection].products %}
+			{% if product.available %}
+
+			{% unless product.tags contains 'Promotion'%}
+			{% unless product.tags contains 'low_stock' %}
+			{% unless product.type contains 'ss21 lb' %}
+			{% unless product.tags contains 'h20 lookbook' %}
+			{% unless product.type contains 'lookbook' %}
+			{% unless product.tags contains 'ONSALE' %}
+			{% unless product.handle == current_product.handle %}
+	<div class="carousel-cell product product-{{ product.id }}">
+	   {% include 'card-product', card_product: product %}
+
+	</div><!-- carousel-cell -->
+
+
+
+
+	{% assign loop_index = loop_index | plus: 1 %}
+	{% endunless %}
+	{% endunless %}
+	{% endunless %}
+	{% endunless %}
+	{% endunless %}
+	{% endunless %}
+	{% endunless %}
+{% if loop_index == number_of_related_products_to_show  %}
+		{% break %}
+	{% endif %}
+
+	{% endif %}
+
+
+
+{% endfor %}
+
+</div><!-- main-carousel -->
+
+</div><!-- featured-collection related -->
+</div><!-- large-11 small-12 columns -->
+</div><!-- row align-center -->
+{% endif %}
+{% endunless %}

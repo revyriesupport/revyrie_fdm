@@ -23,7 +23,7 @@ html.no-js .no-js-facets {
   display: grid;
   grid-template-columns: repeat(2, auto);
   grid-template-rows: repeat(2, auto);
-  padding: 0 0 1em;
+  /* padding: 0 0 1em; */
   font-family: "proxima-nova", sans-serif;
   font-weight: 400;
   font-style: normal;
@@ -70,7 +70,7 @@ html.no-js .no-js-facets {
 
 @media screen and (min-width: 750px) {
   .facets-container {
-    padding: 1em 0 0;
+    padding: 1em 0;
   }
   .facets-container > * + * {
     margin-top: 0;
@@ -1490,7 +1490,7 @@ input.mobile-facets__checkbox {
 .mobile-facets__footer > * {
   width: 50%;
 }
-.button.button--primary {
+/* .button.button--primary {
   font-weight: 400;
   font-size: 1.4em;
   line-height: 1.15;
@@ -1500,7 +1500,7 @@ input.mobile-facets__checkbox {
   background: #000;
   padding: 8px;
   border-radius: 0;
-}
+} */
 .mobile-facets__footer noscript .button {
   width: 100%;
 }
@@ -1569,12 +1569,12 @@ input.mobile-facets__checkbox {
   display: block;
 }
 
-@media screen and (min-width: 376px) {
+/* @media screen and (min-width: 376px) {
   .mobile-facets__close {
     left: unset;
     right: 32em;
   }
-}
+} */
 @media screen and (min-width: 750px) {
   .facets-vertical {
     display: flex;
@@ -1942,4 +1942,276 @@ input.mobile-facets__checkbox {
 }
 .pt{
   padding-top: 260px;
+}
+
+/* horizontal fecets */
+
+.facets__summary {
+  margin-bottom: 0px!important;
+}
+
+.facets__horizontal {
+  position: relative;
+}
+
+.facets__horizontal .disclosure-has-popup {
+  position: unset;
+}
+
+.facets__horizontal .parent-display {
+  position: absolute;
+  top: 30px;
+  width: 100%!important;
+}
+
+.facets__horizontal .facets__form {
+  align-items: center;
+}
+
+.facets__horizontal .facets__wrapper {
+  height: 22px;
+}
+
+.facets__disclosure {
+  margin-right: 0px;
+}
+
+.facets .active-facets__button-remove {
+  margin-bottom: 0px!important;
+}
+
+.sort-parent input {
+  width: auto!important;
+  position: absolute;
+  opacity: 0;
+}
+
+.sort-parent .facet-checkbox span {
+  font-size: 13px;
+}
+
+.sort-parent .facet-checkbox {
+  padding: 8px 0px!important;
+}
+
+.sort-parent .facets__list {
+  padding: 16px!important;
+  width: 180px;
+}
+
+.sort-parent input:checked~.facet-radio svg {
+  background-color: #000;
+  color: #000;
+}
+
+.sort-parent .parent-display {
+  width: auto!important;
+}
+
+@media screen and (max-width: 750px) {
+  .sort-parent .parent-display {
+    right: 0px;
+    left: auto;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .facet-checkbox span {
+    font-size: 14px;
+  }
+}
+
+.sort-parent{
+  position: relative!important;
+}
+
+.mobile-facets__sort {
+  align-items: center;
+}
+
+.mobile-facets__container .facets-wrap-container {
+  padding-left: 0px;
+}
+
+.mobile-facets__close {
+  width: 50px;
+  height: 50px;
+}
+
+.mobile-facets__summary{
+  padding: 15px;
+}
+
+.mobile-facets__btn.underlined-link {
+  font-size: 16px!important;
+}
+
+.mobile-facets__summary svg {
+  width: 16px;
+  height: 16px;
+}
+
+.mobile-facets__summary > div > span {
+  font-size: 14px;
+}
+
+.mobile-facets__list {
+  padding-left: 15px!important;
+}
+
+.mobile-facets__clear-wrapper {
+  justify-content: center!important;
+}
+
+.mobile-facets__clear-wrapper a{
+  font-size: 14px!important;
+}
+
+/* vertical fecets */
+
+.facets-vertical-form {
+  align-items: center;
+  padding-bottom: 15px;
+}
+
+.facets-vertical-form .facet-filters__label {
+  margin-right: 15px;
+}
+
+.facets-vertical-form .facet-filters__label label {
+  margin-bottom: 0px;
+  font-size: 13px;
+  font-family: "proxima-nova", sans-serif;
+}
+
+.facets-vertical-form .product-count__text {
+  font-size: 15px;
+  font-family: "Dala Floda Web Roman Regular";
+  color: #000;
+}
+
+@media screen and (min-width: 750px) {
+  .facets__form-vertical {
+      width: 16em;
+  }
+}
+
+.facets-vertical-form select {
+  padding: 5px;
+  font-size: 13px;
+  color: #000;
+  font-family: "proxima-nova", sans-serif;
+}
+
+.facets-vertical-form .select{
+  margin-right: 15px;
+  width: 130px;
+}
+
+.facets-vertical-form .select svg{
+  width: 16px;
+  height: 16px;
+  top: 3px!important;
+}
+
+.facets__form-vertical {
+  align-items: center;
+}
+
+.facets__form-vertical .facets__details-list {
+  justify-content: start;
+}
+
+.facets__form-vertical div.caption-large {
+  padding: 0px 0px 15px 0px;
+} 
+
+.facets__form-vertical #FacetsWrapperDesktop {
+  width: 100%!important;
+  padding-left: 15px;
+}
+
+.facets__form-vertical .active-facets__button-remove span{
+  font-size: 13px!important;
+}
+
+.sort-parent .facets__display-vertical {
+  position: absolute;
+  z-index: 1;
+  padding: 15px;
+  background-color: #fff;
+  right: 0px;
+  width: 180px!important;
+  box-shadow: 0 4px 4px #00000040;
+}
+
+/* drawer facets */
+
+.facets-container-drawer .facets__form {
+  margin-bottom: 0px;
+}
+
+/* there are two close icons one for mobile menu and another one for desktop drawer */
+@media screen and (min-width: 768px) {
+  .facets-container-drawer .mobile-facets__inner{
+    width: 32%;
+    max-width: none!important;
+  }
+  .facets-container-drawer .mobile-facets__close {
+    left: 68%!important;
+  }
+  /* mobile menu close icon is hided above 768px */
+  .mobile-facets__inner .mobile-facets__close{
+    display: none!important;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .facets-container-drawer .mobile-facets__close {
+    left: 10px!important;
+  }
+}
+
+.facets-container-drawer .facet-filters__label {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.facets-container-drawer select {
+  padding: 5px;
+  font-size: 13px;
+  color: #000;
+  font-family: "proxima-nova", sans-serif;
+}
+
+.facets-container-drawer .select{
+  margin-right: 15px;
+  width: 130px;
+}
+
+.facets-container-drawer .select svg{
+  width: 16px;
+  height: 16px;
+  top: 3px!important;
+}
+
+.facets-container-drawer .facet-filters__label {
+  margin-right: 15px;
+}
+
+.facets-container-drawer .facet-filters__label label {
+  margin-bottom: 0px;
+  font-size: 13px;
+  font-family: "proxima-nova", sans-serif;
+}
+
+.facets-container-drawer .facets__display-vertical {
+  padding: 0px;
+  right: 5px;
+}
+
+@media screen and (max-width: 768px) {
+  .facets-container-drawer .grid-switcher {
+    display: none;
+  }
 }

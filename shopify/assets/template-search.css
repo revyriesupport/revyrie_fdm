@@ -1,0 +1,18 @@
+/*================ Search ================*/
+ body.template-search ul.suggestions {
+	 text-align: center;
+}
+ body.template-search ul.suggestions li a {
+	 font-family: "Dala Floda Roman", "Times New Roman", Times, serif;
+	 text-transform: lowercase;
+	 font-size: 1.1rem;
+	 color: #000;
+	 font-variant-ligatures: none;
+}
+ @media screen and (min-width: 1024px) {
+	 body.template-search ul.suggestions li a {
+		 letter-spacing: 0.05rem;
+		 font-size: 1.3rem;
+	}
+}
+ 

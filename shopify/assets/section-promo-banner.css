@@ -1,0 +1,58 @@
+.promo-banner-wrapper .promo-banner {
+	 margin-top: 30px;
+	 position: relative;
+	 overflow: hidden;
+	 text-align: center;
+}
+ .promo-banner-wrapper .promo-banner a {
+	 text-decoration: none;
+}
+ .promo-banner-wrapper .promo-banner h2, .promo-banner-wrapper .promo-banner .h2 {
+	 margin-top: 0px;
+	 margin-bottom: 5px;
+	 line-height: 1.2;
+}
+ @media screen and (max-width: 639px) {
+	 .promo-banner-wrapper .promo-banner h2 span, .promo-banner-wrapper .promo-banner .h2 span {
+		 display: none;
+	}
+}
+ .promo-banner-wrapper .promo-banner p {
+	 margin-top: 0px;
+	 margin-bottom: 0px;
+}
+ .promo-banner-wrapper .promo-banner .promo-banner-action {
+	 margin-top: 10px;
+   display: inline-block;
+}
+ .promo-banner-wrapper .promo-banner img {
+	 max-height: 150px;
+}
+ @media screen and (max-width: 1023px) {
+	 .promo-banner-wrapper .promo-banner img {
+		 max-height: 120px;
+	}
+}
+ @media screen and (max-width: 639px) {
+	 .promo-banner-wrapper .promo-banner img {
+		 margin-bottom: 15px;
+	}
+}
+ .promo-banner-wrapper .promo-banner .content_table {
+	 z-index: 1;
+	 background-position: center top;
+	 background-size: cover;
+	 /* background-color: #000; */
+	 margin-top: 0px;
+	 margin-bottom: 0px;
+	 position: relative;
+}
+ .promo-banner-wrapper .promo-banner .content_table .content_table_cell {
+	 padding-top: 10px;
+	 padding-left: 10px;
+	 padding-right: 10px;
+	 padding-bottom: 25px;
+}
+ .promo-banner-wrapper .promo-banner .content_table .content_table_cell h1 a, .promo-banner-wrapper .promo-banner .content_table .content_table_cell .h1 a {
+	 /* color: #000; */
+}

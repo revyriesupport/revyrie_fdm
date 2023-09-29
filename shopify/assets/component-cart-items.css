@@ -801,9 +801,13 @@ div#shopify-section-template--20885496267064__cart-items .title-wrapper-with-lin
 
 .cart-product-money.cart-bundle-price span.money {
     float: left;
-    width: 100%;
+    /* width: 100%; */
     margin: 0;
     font-weight: bold;
+}
+.cart-product-money.cart-bundle-price del span {
+    text-decoration: line-through;
+  padding-left: 5px;
 }
 .cart-items .cart-product-preorder, 
 .cart-items .cart-product-final-sale {

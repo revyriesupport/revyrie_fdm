@@ -1,8 +1,6 @@
 {% comment %}theme-check-disable ImgLazyLoading{% endcomment %}
 {{ 'component-collection-hero.css' | asset_url | stylesheet_tag }}
-{% comment %} component-collection-hero.css came with theme, Remove line 2 if not in use {% endcomment %}
 {{ 'component-collection-banner.css' | asset_url | stylesheet_tag }}
-{% comment %} component-collection-banner.css copied from FDM {% endcomment %}
 
 {%- style -%}
   {% comment %} this style is useful for commented HTML {% endcomment %}
@@ -71,11 +69,12 @@
   </div>
 {% endcomment %}
 {% comment %} Add schema related CSS {% endcomment %}
-{% assign collection_list = 'save-the-date,bridal-looks,bridal-rtw,bridal-lingerie-gifts,best-dressed-guest,all-bridal,bridal-lingerie-gifts,bridal-gifts-under-150,all-gifts,holiday-gifts,valentines-day-gifts,gifts-under-150,pleasure-gifts,gifts-for-him,bridal-lingerie-gifts,gift-sets' %}
-{% assign collection_list_1 = 'save-the-date,bridal-looks,bridal-rtw,bridal-lingerie-gifts,best-dressed-guest,all-bridal,bridal-lingerie-gifts,bridal-gifts-under-150' %}
+{% assign collection_list_ids = '266774052936,266577150024,83576062024,265785802824,266772807752,268142444616,268176818248,268140249160,268140707912,263823523912,266772807752,208691953736' %}
+{% assign collection_list = 'save-the-date,bridal-looks,best-dressed-guest,all-bridal,bridal-gifts-under-150,bridal-lingerie-gifts,all-gifts,holiday-gifts,valentines-day-gifts,gifts-under-150,pleasure-gifts,gifts-for-him,bridal-lingerie-gifts,gift-sets' %}
+{% assign collection_list_1 = 'save-the-date,bridal-looks,best-dressed-guest,all-bridal,bridal-gifts-under-150,bridal-lingerie-gifts' %}
 {% assign collection_list_2 = 'all-gifts,holiday-gifts,valentines-day-gifts,gifts-under-150,pleasure-gifts,gifts-for-him,bridal-lingerie-gifts,gift-sets' %}
 
-{% unless collection_list contains collection.handle %}
+{% unless collection_list_ids contains collection.id %}
   <div
     class="{% if collection.description contains '<!-- video-mp4 -->' or collection.description contains '<!-- video-ogv -->' %} hidden{% endif %}"
     data-section-id="{{ section.id }}"
@@ -83,7 +82,7 @@
     id="collection-header-section"
   >
     {% if collection.description contains '<!-- text-slide-1 -->' %}
-      <div class="row collapse top-margin">
+      <div class="row top-margin">
         <div class="medium-12 columns">
           <div
             class="text-slideshow cycle-slideshow"
@@ -165,7 +164,7 @@
         or collection.description contains '<!-- video-mp4 -->'
         or collection.description contains '<!-- video-ogv -->'
       %}
-        <div class="row{% if collection.description contains "<!-- expanded -->" %} expanded{% endif %}{% if collection.description contains "<!-- collapse -->" %} collapse{% endif %}">
+        <div class="row{% if collection.description contains "<!-- expanded -->" %} expanded{% endif %}{% if collection.description contains "<!-- collapse -->" %} collapsee{% endif %}">
           <div class="medium-12 columns">
             <div class="hero-banner-wrapper">
               <div class="hero-banner">
@@ -334,115 +333,116 @@
           <!-- medium-12 columns -->
         </div>
         <!-- row -->
-      {% elsif collection.description contains '<!-- countdown -->' %}
-        <div class="row">
-          <div class="medium-12 columns">
-            <div class="hero-banner-wrapper">
-              <div class="hero-banner">
-                <div class="content_table{% if collection.description contains '<!-- large-banner -->' %} large{% endif %}">
-                  <div class="content_table_cell{% if collection.description contains '<!-- border -->' %} border{% endif %}{% if collection.description contains '<!-- overlay -->' %} overlay{% endif %}{% if collection.description contains '<!-- invert -->' %} invert{% endif %}">
-                    <h1>
-                      <a href="{{ collection.url }}">{{ collection.title }}</a>
-                    </h1>
-                    {% if collection.description contains '<!-- description -->' %}
-                      <p
-                        {% if collection.description contains '<!-- secondary-font -->' %}
-                          class="secondary-font large"
+        {% comment %}
+          {% elsif collection.description contains '<!-- countdown -->' %}
+            <div class="row">
+              <div class="medium-12 columns">
+                <div class="hero-banner-wrapper">
+                  <div class="hero-banner">
+                    <div class="content_table{% if collection.description contains '<!-- large-banner -->' %} large{% endif %}">
+                      <div class="content_table_cell{% if collection.description contains '<!-- border -->' %} border{% endif %}{% if collection.description contains '<!-- overlay -->' %} overlay{% endif %}{% if collection.description contains '<!-- invert -->' %} invert{% endif %}">
+                        <h1>
+                          <a href="{{ collection.url }}">{{ collection.title }}</a>
+                        </h1>
+                        {% if collection.description contains '<!-- description -->' %}
+                          <p
+                            {% if collection.description contains '<!-- secondary-font -->' %}
+                              class="secondary-font large"
+                            {% endif %}
+                          >
+                            {{
+                              collection.description
+                              | split: '<!-- description -->'
+                              | last
+                              | split: '<!-- end description -->'
+                              | first
+                            }}
+                          </p>
                         {% endif %}
-                      >
-                        {{
-                          collection.description
-                          | split: '<!-- description -->'
-                          | last
-                          | split: '<!-- end description -->'
-                          | first
-                        }}
-                      </p>
-                    {% endif %}
-                    <div id="countdown" class="invert">
-                      <h6>Sale ends in</h6>
-                      <ul>
-                        <li>
-                          <div class="counter">
-                            <span class="days"></span>
-                            <div class="countdown-label">Days</div>
+                        <div id="countdown" class="invert">
+                          <h6>Sale ends in</h6>
+                          <ul>
+                            <li>
+                              <div class="counter">
+                                <span class="days"></span>
+                                <div class="countdown-label">Days</div>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="counter">
+                                <span class="hours"></span>
+                                <div class="countdown-label">Hours</div>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="counter">
+                                <span class="minutes"></span>
+                                <div class="countdown-label">Minutes</div>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="counter">
+                                <span class="seconds"></span>
+                                <div class="countdown-label">Seconds</div>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                        <!-- countdown -->
+                        {% if collection.description contains '<!-- legal-text -->' %}
+                          <div class="legal-text">
+                            {{
+                              collection.description
+                              | split: '<!-- legal-text -->'
+                              | last
+                              | split: '<!-- end legal-text -->'
+                              | first
+                            }}
                           </div>
-                        </li>
-                        <li>
-                          <div class="counter">
-                            <span class="hours"></span>
-                            <div class="countdown-label">Hours</div>
-                          </div>
-                        </li>
-                        <li>
-                          <div class="counter">
-                            <span class="minutes"></span>
-                            <div class="countdown-label">Minutes</div>
-                          </div>
-                        </li>
-                        <li>
-                          <div class="counter">
-                            <span class="seconds"></span>
-                            <div class="countdown-label">Seconds</div>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
-                    <!-- countdown -->
-                    {% if collection.description contains '<!-- legal-text -->' %}
-                      <div class="legal-text">
-                        {{
-                          collection.description
-                          | split: '<!-- legal-text -->'
-                          | last
-                          | split: '<!-- end legal-text -->'
-                          | first
-                        }}
+                        {% endif %}
                       </div>
-                    {% endif %}
+                      <!-- content_table_cell -->
+                    </div>
+                    <!-- content_table -->
                   </div>
-                  <!-- content_table_cell -->
+                  <!-- hero-banner -->
                 </div>
-                <!-- content_table -->
+                <!-- hero-banner-wrapper -->
+                {{ 'jquery.countdown.min.js' | asset_url | script_tag }}
+                {{ 'moment.js' | asset_url | script_tag }}
+                {{ 'moment-timezone.js' | asset_url | script_tag }}
+                <script type="text/javascript">
+                   var saleEnd = moment.tz("{{ collection.description | split: '<!-- countdown -->' | last | split: '<!-- end countdown -->' | first }}", "America/New_York");
+                   $('#countdown span.days').countdown(saleEnd.toDate(), function(event) {
+                    $(this).html(event.strftime('%-D'));
+                  });
+                  $('#countdown span.hours').countdown(saleEnd.toDate(), function(event) {
+                    $(this).html(event.strftime('%-H'));
+                  });
+                  $('#countdown span.minutes').countdown(saleEnd.toDate(), function(event) {
+                    $(this).html(event.strftime('%-M'));
+                  });
+                  $('#countdown span.seconds').countdown(saleEnd.toDate(), function(event) {
+                    $(this).html(event.strftime('%-S'));
+                  });
+                </script>
+                <style>
+                  .hero-banner .content_table {
+                    background-image: url('{{ collection.image.src | img_url: '1900x' }}');
+                  }
+                  {% if collection.description contains "<!-- mobile-image -->" %}
+                  @media screen and (max-width: 40em) {
+                    .hero-banner .content_table {
+                      background-image: url('{{ collection.description | split: '<!-- mobile-image -->' | last | split: '<!-- end mobile-image -->' | first }}');
+                    }
+                  }
+                  {% endif %}
+                </style>
               </div>
-              <!-- hero-banner -->
+              <!-- medium-12 columns -->
             </div>
-            <!-- hero-banner-wrapper -->
-            {{ 'jquery.countdown.min.js' | asset_url | script_tag }}
-            {{ 'moment.js' | asset_url | script_tag }}
-            {{ 'moment-timezone.js' | asset_url | script_tag }}
-            <script type="text/javascript">
-               var saleEnd = moment.tz("{{ collection.description | split: '<!-- countdown -->' | last | split: '<!-- end countdown -->' | first }}", "America/New_York");
-               $('#countdown span.days').countdown(saleEnd.toDate(), function(event) {
-                $(this).html(event.strftime('%-D'));
-              });
-              $('#countdown span.hours').countdown(saleEnd.toDate(), function(event) {
-                $(this).html(event.strftime('%-H'));
-              });
-              $('#countdown span.minutes').countdown(saleEnd.toDate(), function(event) {
-                $(this).html(event.strftime('%-M'));
-              });
-              $('#countdown span.seconds').countdown(saleEnd.toDate(), function(event) {
-                $(this).html(event.strftime('%-S'));
-              });
-            </script>
-            <style>
-              .hero-banner .content_table {
-                background-image: url('{{ collection.image.src | img_url: '1900x' }}');
-              }
-              {% if collection.description contains "<!-- mobile-image -->" %}
-              @media screen and (max-width: 40em) {
-                .hero-banner .content_table {
-                  background-image: url('{{ collection.description | split: '<!-- mobile-image -->' | last | split: '<!-- end mobile-image -->' | first }}');
-                }
-              }
-              {% endif %}
-            </style>
-          </div>
-          <!-- medium-12 columns -->
-        </div>
-        <!-- row -->
-
+            <!-- row -->
+        {% endcomment %}
       {% elsif collection.description contains '<!-- legal-text-only -->' %}
         <div class="row">
           <div class="medium-12 columns">
@@ -486,7 +486,7 @@
         </div>
         <!-- row -->
       {% else %}
-        <div class="row collapse">
+        <div class="row">
           <div class="medium-12 columns">
             {% if collection.description contains '<!-- video-mp4 -->'
               or collection.description contains '<!-- video-ogv -->'
@@ -568,61 +568,63 @@
             {% endif %}
           {% endunless %}
 
-          {% if collection.description contains '<!-- below-banner-countdown -->' %}
-            <div class="row">
-              <div class="medium-12 columns">
-                <div id="countdown">
-                  <ul>
-                    <li>
-                      <div class="counter">
-                        <span class="days"></span>
-                        <div class="countdown-label">Days</div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="counter">
-                        <span class="hours"></span>
-                        <div class="countdown-label">Hours</div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="counter">
-                        <span class="minutes"></span>
-                        <div class="countdown-label">Minutes</div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="counter">
-                        <span class="seconds"></span>
-                        <div class="countdown-label">Seconds</div>
-                      </div>
-                    </li>
-                  </ul>
+          {% comment %}
+            {% if collection.description contains '<!-- below-banner-countdown -->' %}
+              <div class="row">
+                <div class="medium-12 columns">
+                  <div id="countdown">
+                    <ul>
+                      <li>
+                        <div class="counter">
+                          <span class="days"></span>
+                          <div class="countdown-label">Days</div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="counter">
+                          <span class="hours"></span>
+                          <div class="countdown-label">Hours</div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="counter">
+                          <span class="minutes"></span>
+                          <div class="countdown-label">Minutes</div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="counter">
+                          <span class="seconds"></span>
+                          <div class="countdown-label">Seconds</div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                  <!-- countdown -->
+                  {{ 'jquery.countdown.min.js' | asset_url | script_tag }}
+                  {{ 'moment.js' | asset_url | script_tag }}
+                  {{ 'moment-timezone.js' | asset_url | script_tag }}
+                  <script type="text/javascript">
+                     var saleEnd = moment.tz("{{ collection.description | split: '<!-- below-banner-countdown -->' | last | split: '<!-- end below-banner-countdown -->' | first }}", "America/New_York");
+                     $('#countdown span.days').countdown(saleEnd.toDate(), function(event) {
+                      $(this).html(event.strftime('%-D'));
+                    });
+                    $('#countdown span.hours').countdown(saleEnd.toDate(), function(event) {
+                      $(this).html(event.strftime('%-H'));
+                    });
+                    $('#countdown span.minutes').countdown(saleEnd.toDate(), function(event) {
+                      $(this).html(event.strftime('%-M'));
+                    });
+                    $('#countdown span.seconds').countdown(saleEnd.toDate(), function(event) {
+                      $(this).html(event.strftime('%-S'));
+                    });
+                  </script>
                 </div>
-                <!-- countdown -->
-                {{ 'jquery.countdown.min.js' | asset_url | script_tag }}
-                {{ 'moment.js' | asset_url | script_tag }}
-                {{ 'moment-timezone.js' | asset_url | script_tag }}
-                <script type="text/javascript">
-                   var saleEnd = moment.tz("{{ collection.description | split: '<!-- below-banner-countdown -->' | last | split: '<!-- end below-banner-countdown -->' | first }}", "America/New_York");
-                   $('#countdown span.days').countdown(saleEnd.toDate(), function(event) {
-                    $(this).html(event.strftime('%-D'));
-                  });
-                  $('#countdown span.hours').countdown(saleEnd.toDate(), function(event) {
-                    $(this).html(event.strftime('%-H'));
-                  });
-                  $('#countdown span.minutes').countdown(saleEnd.toDate(), function(event) {
-                    $(this).html(event.strftime('%-M'));
-                  });
-                  $('#countdown span.seconds').countdown(saleEnd.toDate(), function(event) {
-                    $(this).html(event.strftime('%-S'));
-                  });
-                </script>
+                <!-- medium-12 columns -->
               </div>
-              <!-- medium-12 columns -->
-            </div>
-            <!-- row -->
-          {% endif %}
+              <!-- row -->
+            {% endif %}
+          {% endcomment %}
         </div>
         <!-- collection-details -->
       </div>
@@ -632,7 +634,7 @@
   </div>
 {% endunless %}
 
-{% if collection_list contains collection.handle %}
+{% if collection_list_ids contains collection.id %}
   {% liquid
     if collection_list_1 contains collection.handle
       assign banner_type = section.settings.collection_list_one_type
@@ -655,7 +657,7 @@
       assign caption = section.settings.collection_list_one_caption
       assign video_mp4 = section.settings.collection_list_one_video_mp4
       assign video_ogv = section.settings.collection_list_one_video_ogv
-  
+
     else
       assign banner_type = section.settings.collection_list_two_type
       assign banner_image = section.settings.collection_list_two_image
@@ -721,21 +723,18 @@
         {% endif %}
         <div class="content_table{% if banner_type == 'image' %} no-video{% endif %}">
           <div class="content_table_cell{% if invert_enable %} invert{% endif %}{% if overlay_enable %} overlay{% endif %}{% if bottom_align_enable %} bottom_align{% endif %}{% if mobile_bottom_align_enable %} mobile_bottom_align{% endif %}">
-            <div class="row collapse {{ layout_alignment }}">
+            <div class="row {{ layout_alignment }}">
               <div class="medium-12 columns">
                 <h2 class="h1{% unless mobile_enable %} hide-for-small-only{% endunless %}{% if dropshadow_desktop_enable %} dropshadow-desktop{% endif %}{% if dropshadow_mobile_enable %} dropshadow-mobile{% endif %}">
                   {% if banner_title == blank -%}
-                      {{- collection.title -}}
+                    {{- collection.title -}}
                   {%- else -%}
                     {{- banner_title -}}
                   {%- endif %}
                 </h2>
                 {% if copy != blank %}
                   <p
-                    {% if secondary_font_enable
-                      or dropshadow_desktop_enable
-                      or dropshadow_mobile_enable
-                    %}
+                    {% if secondary_font_enable or dropshadow_desktop_enable or dropshadow_mobile_enable %}
                       class="{% if secondary_font_enable %} secondary-font large{% endif %}{% if dropshadow_desktop_enable %} dropshadow-desktop{% endif %}{% if dropshadow_mobile_enable %} dropshadow-mobile{% endif %}"
                     {% endif %}
                   >
@@ -768,7 +767,7 @@
           or collection.handle == 'bridal-looks'
         %}
           <div class="button-nav">
-            <ul class="row collapse expanded large-up-5 small-up-2">
+            <ul class="row expanded large-up-5 small-up-2">
               <li class="column">
                 <a
                   href="/collections/all-bridal#collection-header-section"
@@ -819,19 +818,82 @@
           <!-- button-nav -->
         {% endif %}
 
-        {% if collection.handle == 'all-gifts' or collection.handle == 'holiday-gifts' or collection.handle == 'valentines-day-gifts' or collection.handle == 'gifts-under-150' or collection.handle == 'pleasure-gifts' or collection.handle == 'gifts-for-him' or collection.handle == 'bridal-lingerie-gifts' or collection.handle == 'gift-sets' %}
+        {% if collection.handle == 'all-gifts'
+          or collection.handle == 'holiday-gifts'
+          or collection.handle == 'valentines-day-gifts'
+          or collection.handle == 'gifts-under-150'
+          or collection.handle == 'pleasure-gifts'
+          or collection.handle == 'gifts-for-him'
+          or collection.handle == 'bridal-lingerie-gifts'
+          or collection.handle == 'gift-sets'
+        %}
           <div class="button-nav">
-			<ul class="row collapse expanded large-up-7 small-up-2">
-				<li class="column show-for-large"><a href="/pages/gifts-for-every-lover#collection-header-section"{% if page.handle == 'gifts-for-every-lover' %} class="current"{% endif %}>Le Gift Guide</a></li>
-				<li class="column"><a href="/collections/all-gifts#collection-header-section"{% if collection.handle == 'all-gifts' %} class="current"{% endif %}>All Gifts</a></li>
-				<li class="column"><a href="/collections/gifts-under-150#collection-header-section"{% if collection.handle == 'gifts-under-150' %} class="current"{% endif %}>Under $150</a></li>
-				<li class="column"><a href="/collections/pleasure-gifts#collection-header-section"{% if collection.handle == 'pleasure-gifts' %} class="current"{% endif %}>Pleasure Gifts</a></li>
-				<li class="column"><a href="/collections/gifts-for-him#collection-header-section"{% if collection.handle == 'gifts-for-him' %} class="current"{% endif %}>For Him</a></li>
-				<li class="column"><a href="/collections/bridal-lingerie-gifts#collection-header-section"{% if collection.handle == 'bridal-lingerie-gifts' %} class="current"{% endif %}>Bridal Gifts</a></li>
-				<li class="column"><a href="/collections/gift-sets#collection-header-section"{% if collection.handle == 'gift-sets' %} class="current"{% endif %}>Gift Sets</a></li>
-			</ul>
-
-		</div>
+            <ul class="row expanded large-up-7 small-up-2">
+              <li class="column show-for-large">
+                <a
+                  href="/pages/gifts-for-every-lover#collection-header-section"
+                  {% if page.handle == 'gifts-for-every-lover' %}
+                    class="current"
+                  {% endif %}
+                  >Le Gift Guide</a
+                >
+              </li>
+              <li class="column">
+                <a
+                  href="/collections/all-gifts#collection-header-section"
+                  {% if collection.handle == 'all-gifts' %}
+                    class="current"
+                  {% endif %}
+                  >All Gifts</a
+                >
+              </li>
+              <li class="column">
+                <a
+                  href="/collections/gifts-under-150#collection-header-section"
+                  {% if collection.handle == 'gifts-under-150' %}
+                    class="current"
+                  {% endif %}
+                  >Under $150</a
+                >
+              </li>
+              <li class="column">
+                <a
+                  href="/collections/pleasure-gifts#collection-header-section"
+                  {% if collection.handle == 'pleasure-gifts' %}
+                    class="current"
+                  {% endif %}
+                  >Pleasure Gifts</a
+                >
+              </li>
+              <li class="column">
+                <a
+                  href="/collections/gifts-for-him#collection-header-section"
+                  {% if collection.handle == 'gifts-for-him' %}
+                    class="current"
+                  {% endif %}
+                  >For Him</a
+                >
+              </li>
+              <li class="column">
+                <a
+                  href="/collections/bridal-lingerie-gifts#collection-header-section"
+                  {% if collection.handle == 'bridal-lingerie-gifts' %}
+                    class="current"
+                  {% endif %}
+                  >Bridal Gifts</a
+                >
+              </li>
+              <li class="column">
+                <a
+                  href="/collections/gift-sets#collection-header-section"
+                  {% if collection.handle == 'gift-sets' %}
+                    class="current"
+                  {% endif %}
+                  >Gift Sets</a
+                >
+              </li>
+            </ul>
+          </div>
         {% endif %}
 
         {% if banner_type == 'video' %}
@@ -963,7 +1025,7 @@
     },
     {
       "type": "paragraph",
-      "content": "save-the-date, bridal-looks, bridal-rtw, bridal-lingerie-gifts, best-dressed-guest, all-bridal, bridal-lingerie-gifts, bridal-gifts-under-150"
+      "content": "save-the-date, bridal-looks, best-dressed-guest, all-bridal, bridal-gifts-under-150, bridal-lingerie-gifts"
     },
     {
       "type": "select",

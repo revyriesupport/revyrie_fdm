@@ -4,21 +4,12 @@
   <h1 class="title-tab">{{ collection.title }}</h1>
   <div class="build-your-kit-row">
     {%- liquid
-<<<<<<< HEAD
-                assign itemsBYOBfound = false
-                assign itemsBYOBSize = 0
-                assign itemsBYOBPrice = 0
-                assign itemsBYOBOriginalPrice = 0
-                assign itemsBYOBDiscountsApplied = false
-                assign itemsBYOB = ''
-=======
       assign itemsBYOBfound = false
       assign itemsBYOBSize = 0
       assign itemsBYOBPrice = 0
       assign itemsBYOBOriginalPrice = 0
       assign itemsBYOBDiscountsApplied = false
       assign itemsBYOB = ''
->>>>>>> aishwarya
 
       comment
         To identify if a bundle will be edited by url with edit-bundle
@@ -106,81 +97,6 @@
                 else
                   assign itemsBYOBDiscountsApplied = true
                 endif
-<<<<<<< HEAD
-                comment
-                echo 'editBundle >> ' | append: editBundle
-                endcomment
-
-                if editBundle != false
-                    assign editBundleItems = editBundle | split: '-;-'
-                    for editBundleItem in editBundleItems
-                        assign editKey = editBundleItem | split: '-:-' | first
-                        assign editQty = editBundleItem | split: '-:-' | last
-                        for item in cart.items
-                            if item.key == editKey and item.properties['_product_from'] == 'byob'
-                                assign itemsBYOBSize = itemsBYOBSize | plus: item.quantity
-                                assign itemOriginalPrice = item.original_price | divided_by: 100
-                                assign itemsBYOBfinalSale = false
-                                if item.product.tags contains 'badge:final sale'
-                                    assign itemsBYOBfinalSale = 'products.product.final_sale' | t
-                                endif
-                                assign itemImage = item
-                                for image in item.product.images
-                                    if image.alt contains 'flat'
-                                        assign itemImage = image
-                                        break
-                                    endif
-                                endfor
-                                assign itemsSize = ""
-                                for option in item.options_with_values
-                                    if option.name == "Size" or option.name == "size"
-                                        assign itemsSize = option.value
-                                    endif
-                                endfor
-                                for x in (1..editQty)
-                                    capture itemsBYOB
-                                        echo itemsBYOB
-                                        echo '<div class="contain-item-bundle active" data-product-variant="' | append: item.variant_id | append: '" data-product="' | append: item.product_id | append: '" data-price="' | append: itemOriginalPrice | append: '" data-final-sale="' | append: itemsBYOBfinalSale | append: '" style="display: block;">'
-                                            echo '<img'
-                                                echo itemImage | img_url: 'medium' | prepend: ' src="' | append: '"'
-                                                echo ' alt="byob"'
-                                                echo itemImage | img_url: 'medium' | prepend: ' srcset="' | append: '"'
-                                                echo ' sizes="" class="" width="auto" height="auto"'
-                                            echo '>'
-                                            echo '<span class="remove">'
-                                                echo '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">'
-                                                    echo '<path d="M12.59 0L7 5.59L1.41 0L0 1.41L5.59 7L0 12.59L1.41 14L7 8.41L12.59 14L14 12.59L8.41 7L14 1.41L12.59 0Z" fill="#313131"/>'
-                                                echo '</svg>'
-                                            echo '</span>'
-                                            echo '<div class="final-sale">'
-                                                if itemsBYOBfinalSale != false
-                                                    echo itemsBYOBfinalSale
-                                                endif
-                                            echo '</div>'
-                                            echo '<div class="variant-size">Size:' | append: itemsSize | append: '</div>'
-                                        echo '</div>'
-                                    endcapture
-                                endfor
-                                assign itemsBYOBfound = true
-                                assign itemsBYOBPrice = itemsBYOBPrice | plus: item.line_price
-                                assign itemsBYOBOriginalPrice = itemsBYOBOriginalPrice | plus: item.original_line_price
-                                if itemsBYOBDiscountsApplied != true
-                                    if item.line_price == item.original_line_price
-                                        assign itemsBYOBDiscountsApplied = false
-                                    else
-                                        assign itemsBYOBDiscountsApplied = true
-                                    endif
-                                endif
-                                break
-                            endif
-                        endfor
-                    endfor
-                endif
-            -%}
-    <div class="build-your-kit-row-column column selectorMobile choose-quantity">
-
-
-=======
               endif
               break
             endif
@@ -189,19 +105,14 @@
       endif
     -%}
     <div class="build-your-kit-row-column column selectorMobile choose-quantity">
->>>>>>> aishwarya
       <span class="copy-top">
         <h6>Step 1:</h6>
         Choose bundle size
       </span>
-<<<<<<< HEAD
-      <div class="quantity-option option-3{% if itemsBYOBfound == false or itemsBYOBSize == 3 %} active{% endif %}" data-option="3">
-=======
       <div
         class="quantity-option option-3{% if itemsBYOBfound == false or itemsBYOBSize == 3 %} active{% endif %}"
         data-option="3"
       >
->>>>>>> aishwarya
         <span>3</span>
       </div>
       <div class="quantity-option option-4{% if itemsBYOBSize == 4 %} active{% endif %}" data-option="4">
@@ -210,57 +121,6 @@
       <div class="quantity-option option-5{% if itemsBYOBSize == 5 %} active{% endif %}" data-option="5">
         <span>5</span>
       </div>
-<<<<<<< HEAD
-      <span class="copy">
-        <span class="save"></span>
-      </span>
-    </div>
-    <div class="build-your-kit-row-column column top-margin-small-only selectorMobile choose-products{% if itemsBYOBSize > 0 %} active-{{ itemsBYOBSize }}{% endif %}">
-      <span class="copy-top">
-        <h6>Step 2:</h6>
-        Build your bundle
-      </span>
-
-      {%- liquid
-                    assign itemsBYOBinit = 5 | minus: itemsBYOBSize
-                    echo itemsBYOB
-                -%}
-      {% if itemsBYOBinit > 0 %}
-        {% for i in (1..itemsBYOBinit) %}
-          <div class="contain-item-bundle" data-product-variant="">
-            <img
-              src="{{ 'Panty-Flat-Back.png' | asset_img_url: '150x' }}"
-              alt="byob"
-              srcset="{{ 'Panty-Flat-Back.png' | asset_img_url: '50x' }} 50w,
-                                                    {{ 'Panty-Flat-Back.png' | asset_img_url: '80x' }} 80w,
-                                                    {{ 'Panty-Flat-Back.png' | asset_img_url: '100x' }} 100w,
-                                                    {{ 'Panty-Flat-Back.png' | asset_img_url: '150x' }} 150w,
-                                                    {{ 'Panty-Flat-Back.png' | asset_img_url: '200x' }} 200w,
-                                                    {{ 'Panty-Flat-Back.png' | asset_img_url: '250x' }} 250w,
-                                                    {{ 'Panty-Flat-Back.png' | asset_img_url: '300x' }} 300w"
-              sizes=""
-              class=""
-              width="auto"
-              height="auto">
-            <span class="remove">
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 14 14"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg">
-                <path d="M12.59 0L7 5.59L1.41 0L0 1.41L5.59 7L0 12.59L1.41 14L7 8.41L12.59 14L14 12.59L8.41 7L14 1.41L12.59 0Z" fill="#313131" />
-              </svg>
-            </span>
-            <div class="final-sale"></div>
-            <div class="variant-size"></div>
-          </div>
-        {% endfor %}
-      {% endif %}
-    </div>
-    <div class="build-your-kit-row-column column selectorMobile add-to-cart-actions">
-
-=======
       <span class="copy"><span class="save"></span></span>
     </div>
     <div class="build-your-kit-row-column column top-margin-small-only selectorMobile choose-products{% if itemsBYOBSize > 0 %} active-{{ itemsBYOBSize }}{% endif %}">
@@ -305,32 +165,11 @@
       {% endif %}
     </div>
     <div class="build-your-kit-row-column column selectorMobile add-to-cart-actions">
->>>>>>> aishwarya
       <span class="copy-top hide-for-small-only">
         <h6>Step 3:</h6>
         All set? Add to bag
       </span>
 
-<<<<<<< HEAD
-
-      <div class="price-container">
-        <del class="before">
-          {% if itemsBYOBfound == false %}$00
-          {% else %}
-            {{ itemsBYOBOriginalPrice | money }}{% endif %}
-        </del>
-        <span class="now">
-          {% if itemsBYOBfound == false %}$00
-          {% else %}
-            {{ itemsBYOBPrice | money }}{% endif %}
-        </span>
-      </div>
-      <div class="cart__checkout{% if itemsBYOBfound == false %} disable{% endif %}" data-edit-bundle="{% if itemsBYOBSize == editBundleItems.size %}{{ editBundle }}{% else %}false{% endif %}">
-        ADD TO BAG
-      </div>
-      <div class="copy-shipping"></div>
-      <div class="cart__clear-bag{% if itemsBYOBfound == false %} disable{% endif %}" style="{% if itemsBYOBfound == false %}display:none;{% endif %}">
-=======
       <div class="price-container">
         <del class="before">
           {%- if itemsBYOBfound == false %}$00{% else %}{{ itemsBYOBOriginalPrice | money }}{% endif -%}
@@ -350,19 +189,13 @@
         class="cart__clear-bag{% if itemsBYOBfound == false %} disable{% endif %}"
         style="{% if itemsBYOBfound == false %}display:none;{% endif %}"
       >
->>>>>>> aishwarya
         Clear Bag
       </div>
     </div>
   </div>
 </div>
 {% schema %}
-<<<<<<< HEAD
-  {"name": "Collection Header ByoBv"}
-{% endschema %}
-=======
 {
   "name": "Collection Header ByoBv"
 }
 {% endschema %}
->>>>>>> aishwarya

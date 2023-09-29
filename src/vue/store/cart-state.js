@@ -39,6 +39,10 @@ const {
   giftLoverProductVariant,
   giftLoverProductVariantPriceSize,
   giftLoverProductVariantPriceSizeTwo,
+  bundleText,
+  bundleImageThree,
+  bundleImageFour,
+  bundleImageFive,
 } = window.cartGiftLover
 
 const useCartStoreDefinition = defineStore({
@@ -63,7 +67,8 @@ const useCartStoreDefinition = defineStore({
     giftLoverProductSelect: giftLoverProductSelect,
     giftLoverProductVariant: giftLoverProductVariant,
     giftLoverProductVariantPriceSize: giftLoverProductVariantPriceSize,
-    giftLoverProductVariantPriceSizeTwo: giftLoverProductVariantPriceSizeTwo
+    giftLoverProductVariantPriceSizeTwo: giftLoverProductVariantPriceSizeTwo,
+    
   }),
   getters: {
     variantsProduct() {
@@ -100,6 +105,54 @@ const useCartStoreDefinition = defineStore({
     listItems() {
       return miniCartRevertedOrder ? this.items.reverse() : this.items;
     },
+    listBundleItems() {
+        var bundle_id = "";
+        var bundle_items = [];
+        var index = -1;
+        this.items.forEach((item) => {
+          if(item.properties['_product_from'] == 'byob') {
+            if(item.properties['_bundle_id'] == bundle_id) {
+                bundle_items[index].price = bundle_items[index].price + item.line_price;
+                bundle_items[index].original_line_price = bundle_items[index].original_line_price + item.original_line_price;
+                bundle_items[index].update_data = bundle_items[index].update_data.concat("-;-" + item.key + "-:-" + item.quantity);
+                bundle_items[index].remove_data = bundle_items[index].remove_data.concat("&" + item.key);
+                if(item.properties['final_sale'] == "1") {
+                  bundle_items[index].sale_count = parseInt(bundle_items[index].sale_count) + 1;
+                }
+              }else{
+                bundle_id = item.properties['_bundle_id'];
+                index++;
+                var temp_item = {
+                      bundle_size:item.properties['_byo'], 
+                      bundle_id:item.properties['_bundle_id'], 
+                      title: window.bundleConfig.bundle_text.replace('"', '').replace('\"', ''),
+                      price: item.line_price,
+                      original_line_price: item.original_line_price,
+                      update_data: item.key.concat("-:-" + item.quantity),
+                      remove_data: item.key,
+                }
+                if (item.line_price != item.original_line_price){
+                  temp_item.discounted = true;
+                }else{
+                  temp_item.discounted = false;
+                }if(item.properties['_byo'] == 3){
+                  temp_item.bundle_image = window.bundleConfig.bundle_image_3;
+                }else if(item.properties['_byo'] == 4){
+                  temp_item.bundle_image = window.bundleConfig.bundle_image_4;
+                }else if(item.properties['_byo'] == 5){
+                  temp_item.bundle_image = window.bundleConfig.bundle_image_5;
+                }if(item.properties['final_sale'] == "1"){
+                  temp_item.sale_count = 1;
+                }else{
+                  temp_item.sale_count = 0;
+                }
+                bundle_items.push(temp_item);
+              }
+          }        
+      });
+       //console.log(bundle_items);
+       return bundle_items;
+    },
     isEmpty() {
       return this.items?.length === 0;
     },
@@ -109,48 +162,45 @@ const useCartStoreDefinition = defineStore({
         : 0
     },
     totalItems() {
-      if(this.isEmpty)
-                {
-                  return 0;
-                }
-              else
-                {
-                  var cartItemSize = 0;
-                  var cartItemBYOB = false;
-                  var cartItemsBYOB = '';
-                  this.items.forEach((item) => {
-                    var productBYOB = false;
-                    if(item.properties['_product_from'] == 'byob')
-                    {
-                        productBYOB = true;
-                cartItemBYOB = true;
-                    }
+      if(this.isEmpty){
+          return 0;
+      }else{
+        var cartItemSize = 0;
+        var cartItemBYOB = false;
+        var cartItemsBYOB = '';
+        this.items.forEach((item) => {
+          var productBYOB = false;
+          if(item.properties['_product_from'] == 'byob')
+          {
+              productBYOB = true;
+              cartItemBYOB = true;
+          }
 
-                    if(item.properties['_bundle_id'] == 'byob')
-                    {
-                      if(!cartItemsBYOB.includes(item.properties['_bundle_id']))
-                      {
-                        if(cartItemsBYOB != '')
-                        {
-                          cartItemsBYOB = cartItemsBYOB.concat(",");
-                        }
-                        cartItemsBYOB = cartItemsBYOB.concat(item.properties['_bundle_id']);
-                      }                 
-                    }
+          if(item.properties['_bundle_id'] == 'byob')
+          {
+            if(!cartItemsBYOB.includes(item.properties['_bundle_id']))
+            {
+              if(cartItemsBYOB != '')
+              {
+                cartItemsBYOB = cartItemsBYOB.concat(",");
+              }
+              cartItemsBYOB = cartItemsBYOB.concat(item.properties['_bundle_id']);
+            }                 
+          }
 
-                    if(productBYOB == false)
-                    {
-                      cartItemSize = parseInt(cartItemSize) + item.quantity; 
-                    }
-                  });
+          if(productBYOB == false)
+          {
+            cartItemSize = parseInt(cartItemSize) + item.quantity; 
+          }
+        });
 
-                  if(cartItemBYOB == true)
-                  {
-                    cartItemsBYOB = cartItemsBYOB.split(",");
-                    cartItemSize = parseInt(cartItemSize) + cartItemsBYOB.length
-                  }
-                  return cartItemSize
-                }
+        if(cartItemBYOB == true)
+        {
+          cartItemsBYOB = cartItemsBYOB.split(",");
+          cartItemSize = parseInt(cartItemSize) + cartItemsBYOB.length
+        }
+        return cartItemSize
+       }
       // return !this.isEmpty
       //   ? calculateTotal(this.items, (item) => item.quantity)
       //   : 0
@@ -216,10 +266,54 @@ const useCartStoreDefinition = defineStore({
         this.isLoading = false
         this.cartRequested = true
         temporalUpdateBubbleCartCount(this.totalItems)
+        await this.getCartItemsVariantData(this.items);
+        //console.log(this.items);
       } catch (error) {
         this.isLoading = false
         return handleResponseOrError(null, error);
       }
+    },
+
+    async getCartItemsVariantData(items) { 
+              items.forEach((item) => {
+                item.variant_data = [];
+                item.dummy= "dummy1";
+                fetch('/products/' + item.handle + '.js')
+                .then(response => response.json())
+                .then(product_data =>
+                  item.variant_data = product_data.variants)
+                .catch(err => { throw err });
+                  });
+      return items;
+    },
+          
+    async getCartItemVariantData(item) { 
+                item.variant_data = [];
+                fetch('/products/' + item.handle + '.js')
+                .then(response => response.json())
+                .then(product_data =>
+                  item.variant_data = product_data.variants)
+                .catch(err => { throw err });
+      return item;
+    },
+
+    async removeBundle(requestBody){
+      console.log(requestBody);
+            const bundleItems = requestBody.split("&");            
+            const updates = {};
+            bundleItems.forEach((item, index) => {
+              updates[item] = 0;
+             });
+            const updateRequestBody = {updates};
+            try {
+              const response =
+          await Rt('/cart/update.js', 'POST', updateRequestBody, null)
+
+        this.items = response.data.items
+         temporalUpdateBubbleCartCount(this.totalItems);
+        } catch (error) {
+          return handleResponseOrError(null, error);
+        }
     },
 
     async addToCart({ id, quantity = 1, properties = {}, selling_plan = null }) {
@@ -263,11 +357,12 @@ const useCartStoreDefinition = defineStore({
       try {
         const response =
           await generateFetchRequest('/cart/add.js', 'POST', requestBody, null)
-
+          await this.getCartItemVariantData(response.data);
+          
         this.items.length === 0
           ? this.items.push(response.data)
           : this.items = [response.data].concat(this.items)
-
+        await this.getCartItemsVariantData(this.items);
         const cartTemplate = document.querySelector('body[data-template="cart"]');
         if(cartTemplate){
           
@@ -314,8 +409,10 @@ const useCartStoreDefinition = defineStore({
       try {
         const response =
           await generateFetchRequest('/cart/update.js', 'POST', updateRequestBody, null)
+          
 
         this.items = response.data.items
+        await this.getCartItemsVariantData(this.items);
         const cartTemplate = document.querySelector('body[data-template="cart"]');
         if(cartTemplate){
           
@@ -426,5 +523,9 @@ window.theme = {
   fetchCart: () =>{
     const cart = useCartStoreDefinition();
     cart.fetchCart();
+  },
+  removeBundle: (requestBody) => {
+    const cart = useCartStoreDefinition();
+    cart.removeBundle(requestBody);
   }
 }

@@ -36,6 +36,11 @@
     assign more_in_collection = true
   endif
 
+  if section.settings.collection.all_products_count > section.settings.products_to_offset
+  assign products_offset = section.settings.products_to_offset
+  assign more_in_collection = true
+  endif
+
   assign columns_mobile_int = section.settings.columns_mobile | plus: 0
   assign show_mobile_slider = false
   if section.settings.swipe_on_mobile and products_to_display > columns_mobile_int
@@ -51,10 +56,18 @@
 <div class="color-{{ section.settings.color_scheme }} isolate gradient">
   <div class="collection section-{{ section.id }}-padding{% if section.settings.full_width %} collection--full-width{% endif %}">
     <div class="collection__title title-wrapper title-wrapper--no-top-margin page-width{% if show_mobile_slider %} title-wrapper--self-padded-tablet-down{% endif %}{% if show_desktop_slider %} collection__title--desktop-slider{% endif %}">
-      {%- if section.settings.title != blank -%}
-        <h2 class="title inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+      {%- if section.settings.title != blank and section.settings.heading_link != blank -%}
+      <a href="{{section.settings.heading_link}}" target="_blank">
+        <h2
+          class="title inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
           {{ section.settings.title }}
         </h2>
+      </a>
+      {% else %}
+      <h2
+        class="title inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+        {{ section.settings.title }}
+      </h2>
       {%- endif -%}
       {%- if section.settings.description != blank
         or section.settings.show_description
@@ -77,7 +90,8 @@
         role="list"
         aria-label="{{ 'general.slider.name' | t }}"
       >
-        {%- for product in section.settings.collection.products limit: section.settings.products_to_show -%}
+        {%- for product in section.settings.collection.products limit: section.settings.products_to_show offset:
+        section.settings.products_to_offset -%}
           <li
             id="Slide-{{ section.id }}-{{ forloop.index }}"
             class="grid__item{% if show_mobile_slider or show_desktop_slider %} slider__slide{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
@@ -178,6 +192,11 @@
       "label": "t:sections.featured-collection.settings.title.label"
     },
     {
+      "type": "url",
+      "id": "heading_link",
+      "label": "t:sections.featured-collection.settings.heading_link.label"
+      },
+      {
       "type": "select",
       "id": "heading_size",
       "options": [
@@ -237,10 +256,19 @@
       "type": "range",
       "id": "products_to_show",
       "min": 2,
-      "max": 25,
+      "max": 36,
       "step": 1,
       "default": 4,
       "label": "t:sections.featured-collection.settings.products_to_show.label"
+    },
+    {
+    "type": "range",
+    "id": "products_to_offset",
+    "min": 0,
+    "max": 40,
+    "step": 1,
+    "default": 0,
+    "label": "t:sections.featured-collection.settings.products_to_offset.label"
     },
     {
       "type": "range",

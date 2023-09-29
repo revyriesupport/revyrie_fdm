@@ -1,0 +1,626 @@
+{{ 'section-featured-panels.css' | asset_url | stylesheet_tag }}
+<div data-section-id="{{ section.id }}" data-section-type="featured-panels-section" class="page-width">
+  <div class="featured-panels top-margin-small">
+    <div class="row align-center">
+      <div class="medium-12 small-12 columns featured-panels-col">
+        {% for block in section.blocks %}
+          {% if block.settings.enable %}
+            <div class="row featured_panels_wrapper">
+              <div class="{% if block.settings.panel_2_image != blank %}col-6 {% else %} col-12 {% endif %} columns">
+                {% if block.settings.panel_1_link != blank %}<a href="{{ block.settings.panel_1_link }}">{% endif %}
+                {% if section.settings.background_image_enable %}
+                  {% if block.settings.panel_1_image != blank %}
+                    <style>
+                        /* Panel 1 desktop css start */
+                      .panel_wrapper--{{ block.id }} .panel_1 .h1.panel1_grid_heading {
+                        font-size: {{ block.settings.panel1_heading_font_size }}px !important;
+                        color: {{ block.settings.panel1_text_color }} !important;
+                      }
+                      .panel_wrapper--{{ block.id }} .panel_1 .panel1_grid_content {
+                        font-size: {{ block.settings.panel1_content_font_size }}px !important;
+                        color: {{ block.settings.panel1_text_color }} !important;
+                      }
+                      /* Panel 1 desktop css end  */
+                      /* Panel 2 desktop css start */
+                      .panel_wrapper--{{ block.id }} .panel_2 .h1.panel2_grid_heading {
+                        font-size: {{ block.settings.panel2_heading_font_size }}px !important;
+                        color: {{ block.settings.panel2_text_color }} !important;
+                      }
+                      .panel_wrapper--{{ block.id }} .panel_2 .panel2_grid_content {
+                        font-size: {{ block.settings.panel2_content_font_size }}px !important;
+                        color: {{ block.settings.panel2_text_color }} !important;
+                      }
+                      /* Panel 2 desktop css End */
+                      @media screen and (max-width: 768px) {
+                        /* Panel 1 desktop css start */
+                      .panel_wrapper--{{ block.id }} .panel_1 .h1.panel1_grid_heading {
+                        font-size: {{ block.settings.panel1_heading_font_size_mobile }}px !important;
+                      }
+                      .panel_wrapper--{{ block.id }} .panel_1 .panel1_grid_content {
+                        font-size: {{ block.settings.panel1_content_font_size_mobile }}px !important;
+                      }
+                      /* Panel 1 desktop css start */
+                      /* Panel 2 desktop css start */
+                      .panel_wrapper--{{ block.id }} .panel_2 .h1.panel2_grid_heading {
+                        font-size: {{ block.settings.panel2_heading_font_size_mobile }}px !important;
+                      }
+                      .panel_wrapper--{{ block.id }} .panel_2 .panel2_grid_content {
+                        font-size: {{ block.settings.panel2_content_font_size_mobile }}px !important;
+                      }
+                      /* Panel 2 desktop css end */
+                      }
+                      .panel_wrapper--{{ block.id }} .content_table.panel_1 {
+                          background-position: {{ block.settings.panel_1_alignment }};
+                          {% unless block.settings.panel_1_video_enable %}
+                          {% if block.settings.panel_2_image != blank %}
+                          background-image: url('{{ block.settings.panel_1_image | img_url: '700x', crop: 'center' }}');
+                          {% else %}
+                          background-image: url('{{ block.settings.panel_1_image | img_url: '1400x', crop: 'center' }}');
+                          {% endif %}
+                          {% endunless %}
+                      }
+                      {% if block.settings.panel_1_image_mobile != blank %}
+                      @media screen and (max-width: 40em) {
+                          .panel_wrapper--{{ block.id }} .content_table.panel_1 {
+                              background-image: url('{{ block.settings.panel_1_image_mobile | img_url: '700x', crop: 'center' }}');
+                          }
+                      }
+                      {% endif %}
+                    </style>
+                  {% endif %}
+                  <div class="panel_wrapper panel_wrapper--{{ block.id }}">
+                    <div class="content_table panel_1">
+                      <div class="content_table_cell{% if block.settings.panel_1_overlay_enable %} overlay{% endif %}{% if block.settings.panel_1_invert_enable %} invert{% endif %}{% if block.settings.panel_1_gradient_enable %} gradient{% endif %}">
+                        {% if block.settings.panel_1_header != blank %}
+                          <h2 class="h1 panel1_grid_heading {% if block.settings.panel_1_invert_enable %} invert{% endif %}">
+                            {{ block.settings.panel_1_header }}
+                          </h2>
+                        {% endif %}
+                        {% if block.settings.panel_1_copy != blank %}
+                          <div class="copy panel1_grid_content">{{ block.settings.panel_1_copy }}</div>
+                        {% endif %}
+                        {% if block.settings.panel_1_action != blank %}
+                          <div class="action panel1_grid_content">{{ block.settings.panel_1_action | escape }}</div>
+                        {% endif %}
+                      </div>
+                      <!-- content_table_cell -->
+                    </div>
+                    <!-- content_table panel_1 -->
+                    {% if block.settings.panel_1_video_enable %}
+                      <div class="video">
+                        <div class="video-player">
+                          <video
+                            id="video-{{ block.id }}"
+                            {% if block.settings.panel_1_image != blank %}
+                              poster="{{ block.settings.panel_1_image | img_url: '500x' }}"
+                            {% endif %}
+                            preload="none"
+                            controlsList="nodownload"
+                            autoplay
+                            muted
+                            loop
+                            playsinline
+                            webkit-playsinline
+                          >
+                            {% if block.settings.panel_1_video_mp4 != blank %}
+                              <source src="{{ block.settings.panel_1_video_mp4 }}" type="video/mp4">
+                            {% endif %}
+                            {% if block.settings.panel_1_video_ogv != blank %}
+                              <source src="{{ block.settings.panel_1_video_ogv }}" type="video/ogv">
+                            {% endif %}
+                            Your browser does not support HTML5 video.
+                          </video>
+                        </div>
+                        <!-- video-player -->
+                      </div>
+                      <!-- video -->
+                    {% endif %}
+                  </div>
+                  <!-- panel_wrapper -->
+                {% else %}
+                  {% if block.settings.panel_1_video_enable %}
+                    <div class="video">
+                      <div class="video-player">
+                        <video
+                          id="video-{{ block.id }}"
+                          {% if block.settings.panel_1_image != blank %}
+                            poster="{{ block.settings.panel_1_image | img_url: '500x' }}"
+                          {% endif %}
+                          preload="none"
+                          controlsList="nodownload"
+                          autoplay
+                          muted
+                          loop
+                          playsinline
+                          webkit-playsinline
+                        >
+                          {% if block.settings.panel_1_video_mp4 != blank %}
+                            <source src="{{ block.settings.panel_1_video_mp4 }}" type="video/mp4">
+                          {% endif %}
+                          {% if block.settings.panel_1_video_ogv != blank %}
+                            <source src="{{ block.settings.panel_1_video_ogv }}" type="video/ogv">
+                          {% endif %}
+                          Your browser does not support HTML5 video.
+                        </video>
+                      </div>
+                      <!-- video-player -->
+                    </div>
+                    <!-- video -->
+                  {% else %}
+                    <img
+                      src="{{ block.settings.panel_1_image | img_url: '700x', crop: 'center' }}"
+                      {% if block.settings.panel_1_header != blank %}
+                        alt="{{ block.settings.panel_1_header }}"
+                      {% endif %}
+                    >
+                  {% endif %}
+                {% endif %}
+                {% if block.settings.panel_1_link != blank %}</a>{% endif %}
+              </div>
+              <!-- medium-6 small-12 columns -->
+              {% if block.settings.panel_2_image != blank %}
+                <div class="{% if block.settings.panel_2_image != blank %}col-6 {% else %} col-12 {% endif %} columns">
+                  {% if block.settings.panel_2_link != blank %}<a href="{{ block.settings.panel_2_link }}">{% endif %}
+                  {% if section.settings.background_image_enable %}
+                    {% if block.settings.panel_2_image != blank %}
+                      <style>
+                        .panel_wrapper--{{ block.id }} .content_table.panel_2 {
+                        	background-position: {{ block.settings.panel_2_alignment }};
+                        	{% unless block.settings.panel_2_video_enable %}
+                        	background-image: url('{{ block.settings.panel_2_image | img_url: '700x', crop: 'center' }}');
+                        	{% endunless %}
+                        }
+                        {% if block.settings.panel_2_image_mobile != blank %}
+                        @media screen and (max-width: 40em) {
+                        	.panel_wrapper--{{ block.id }} .content_table.panel_2 {
+                        		background-image: url('{{ block.settings.panel_2_image_mobile | img_url: '700x', crop: 'center' }}');
+                        	}
+                        }
+                        {% endif %}
+                      </style>
+                    {% endif %}
+                    <div class="panel_wrapper panel_wrapper--{{ block.id }}">
+                      <div class="content_table panel_2">
+                        <div class="content_table_cell{% if block.settings.panel_2_overlay_enable %} overlay{% endif %}{% if block.settings.panel_2_invert_enable %} invert{% endif %}{% if block.settings.panel_2_gradient_enable %} gradient{% endif %}">
+                          {% if block.settings.panel_2_header != blank %}
+                            <h2 class="h1 panel2_grid_heading {% if block.settings.panel_2_invert_enable %} invert{% endif %}">
+                              {{ block.settings.panel_2_header }}
+                            </h2>
+                          {% endif %}
+                          {% if block.settings.panel_2_copy != blank %}
+                            <div class="copy panel2_grid_content">{{ block.settings.panel_2_copy }}</div>
+                          {% endif %}
+                          {% if block.settings.panel_2_action != blank %}
+                            <div class="action panel2_grid_content">{{ block.settings.panel_2_action | escape }}</div>
+                          {% endif %}
+                        </div>
+                        <!-- content_table_cell -->
+                      </div>
+                      <!-- content_table panel_1 -->
+                      {% if block.settings.panel_2_video_enable %}
+                        <video
+                          id="video-{{ block.id }}"
+                          {% if block.settings.panel_2_image != blank %}
+                            poster="{{ block.settings.panel_2_image | img_url: '500x' }}"
+                          {% endif %}
+                          preload="none"
+                          controlsList="nodownload"
+                          autoplay
+                          muted
+                          loop
+                          playsinline
+                          webkit-playsinline
+                        >
+                          {% if block.settings.panel_2_video_mp4 != blank %}
+                            <source src="{{ block.settings.panel_2_video_mp4 }}" type="video/mp4">
+                          {% endif %}
+                          {% if block.settings.panel_2_video_ogv != blank %}
+                            <source src="{{ block.settings.panel_2_video_ogv }}" type="video/ogv">
+                          {% endif %}
+                          Your browser does not support HTML5 video.
+                        </video>
+                      {% endif %}
+                    </div>
+                    <!-- panel_wrapper -->
+                  {% else %}
+                    {% if block.settings.panel_2_video_enable %}
+                      <video
+                        id="video-{{ block.id }}"
+                        {% if block.settings.panel_2_image != blank %}
+                          poster="{{ block.settings.panel_2_image | img_url: '500x' }}"
+                        {% endif %}
+                        preload="none"
+                        controlsList="nodownload"
+                        autoplay
+                        muted
+                        loop
+                        playsinline
+                        webkit-playsinline
+                      >
+                        {% if block.settings.panel_2_video_mp4 != blank %}
+                          <source src="{{ block.settings.panel_2_video_mp4 }}" type="video/mp4">
+                        {% endif %}
+                        {% if block.settings.panel_2_video_ogv != blank %}
+                          <source src="{{ block.settings.panel_2_video_ogv }}" type="video/ogv">
+                        {% endif %}
+                        Your browser does not support HTML5 video.
+                      </video>
+                    {% else %}
+                      <img
+                        src="{{ block.settings.panel_2_image | img_url: '700x', crop: 'center' }}"
+                        {% if block.settings.panel_2_header != blank %}
+                          alt="{{ block.settings.panel_2_header }}"
+                        {% endif %}
+                      >
+                    {% endif %}
+                  {% endif %}
+                  {% if block.settings.panel_2_link != blank %}</a>{% endif %}
+                </div>
+                <!-- medium-6 small-12 columns -->
+              {% endif %}
+            </div>
+            <!-- row collapse -->
+          {% endif %}
+        {% endfor %}
+      </div>
+      <!-- medium-12 small-12 columns -->
+    </div>
+    <!-- row align-center -->
+  </div>
+  <!-- featured-panels top-margin-small -->
+</div>
+<!-- featured-panels-section -->
+{% schema %}
+{
+   "name":"Featured Panels",
+   "max_blocks":3,
+   "settings":[
+      {
+         "type":"checkbox",
+         "id":"background_image_enable",
+         "label":"Use background images",
+         "default":true,
+         "info":"If unchecked, embed text into image"
+      }
+   ],
+   "blocks":[
+      {
+         "type":"content",
+         "name":"Content",
+         "settings":[
+            {
+               "type":"checkbox",
+               "id":"enable",
+               "label":"Display",
+               "default":true
+            },
+            {
+               "type":"header",
+               "content":"Panel 1"
+            },
+            {
+               "type":"color",
+               "id":"panel1_text_color",
+               "default":"#FFFFFF",
+               "label":"Panel 1 Text Color"
+            },
+            {
+               "type":"range",
+               "id":"panel1_heading_font_size",
+               "min":0,
+               "max":100,
+               "step":1,
+               "unit":"px",
+               "label":"Panel 1 Heading Font Size Desktop",
+               "default":32
+            },
+            {
+               "type":"range",
+               "id":"panel1_heading_font_size_mobile",
+               "min":0,
+               "max":100,
+               "step":1,
+               "unit":"px",
+               "label":"Panel 1 Heading Font Size Mobile",
+               "default":32
+            },
+            {
+               "type":"range",
+               "id":"panel1_content_font_size",
+               "min":0,
+               "max":100,
+               "step":1,
+               "unit":"px",
+               "label":"Panel 1 Content Font Size Desktop",
+               "default":18
+            },
+            {
+               "type":"range",
+               "id":"panel1_content_font_size_mobile",
+               "min":0,
+               "max":100,
+               "step":1,
+               "unit":"px",
+               "label":"Panel 1 Content Font Size Mobile",
+               "default":18
+            },
+            {
+               "type":"url",
+               "id":"panel_1_link",
+               "label":"Link"
+            },
+            {
+               "type":"textarea",
+               "id":"panel_1_header",
+               "label":"Header",
+               "info":"Used as ALT text for non-background layout"
+            },
+            {
+               "type":"textarea",
+               "id":"panel_1_copy",
+               "label":"Copy"
+            },
+            {
+               "type":"text",
+               "id":"panel_1_action",
+               "label":"Action"
+            },
+            {
+               "type":"image_picker",
+               "id":"panel_1_image",
+               "label":"Image",
+               "info":"700px by 600px, upload as JPG."
+            },
+            {
+               "type":"image_picker",
+               "id":"panel_1_image_mobile",
+               "label":"Optional Mobile Image",
+               "info":"700px by 600px or 1400px by 600px if single image, upload as JPG."
+            },
+            {
+               "type":"checkbox",
+               "id":"panel_1_invert_enable",
+               "label":"Invert",
+               "default":false
+            },
+            {
+               "type":"checkbox",
+               "id":"panel_1_gradient_enable",
+               "label":"Display gradient effect",
+               "default":true
+            },
+            {
+               "type":"checkbox",
+               "id":"panel_1_overlay_enable",
+               "label":"Display overlay effect",
+               "default":false
+            },
+            {
+               "type":"select",
+               "id":"panel_1_alignment",
+               "label":"Image alignment",
+               "default":"center center",
+               "options":[
+                  {
+                     "value":"left top",
+                     "label":"Left Top"
+                  },
+                  {
+                     "value":"left center",
+                     "label":"Left Center"
+                  },
+                  {
+                     "value":"left bottom",
+                     "label":"Left Bottom"
+                  },
+                  {
+                     "value":"right top",
+                     "label":"Right Top"
+                  },
+                  {
+                     "value":"right center",
+                     "label":"Right Center"
+                  },
+                  {
+                     "value":"right bottom",
+                     "label":"Right Bottom"
+                  },
+                  {
+                     "value":"center top",
+                     "label":"Center Top"
+                  },
+                  {
+                     "value":"center center",
+                     "label":"Center Center"
+                  },
+                  {
+                     "value":"center bottom",
+                     "label":"Center Bottom"
+                  }
+               ]
+            },
+            {
+               "type":"checkbox",
+               "id":"panel_1_video_enable",
+               "label":"Enable Video",
+               "default":false
+            },
+            {
+               "type":"textarea",
+               "id":"panel_1_video_mp4",
+               "label":"Video MP4 File",
+               "info":"700px by 600px, upload as MP4."
+            },
+            {
+               "type":"textarea",
+               "id":"panel_1_video_ogv",
+               "label":"Video OGV File",
+               "info":"700px by 600px, upload as OGV."
+            },
+            {
+               "type":"header",
+               "content":"Panel 2"
+            },
+            {
+               "type":"color",
+               "id":"panel2_text_color",
+               "default":"#FFFFFF",
+               "label":"Panel 2 Text Color"
+            },
+            {
+               "type":"range",
+               "id":"panel2_heading_font_size",
+               "min":0,
+               "max":100,
+               "step":1,
+               "unit":"px",
+               "label":"Panel 2 Heading Font Size Desktop",
+               "default":32
+            },
+            {
+               "type":"range",
+               "id":"panel2_heading_font_size_mobile",
+               "min":0,
+               "max":100,
+               "step":1,
+               "unit":"px",
+               "label":"Panel 2 Heading Font Size Mobile",
+               "default":32
+            },
+            {
+               "type":"range",
+               "id":"panel2_content_font_size",
+               "min":0,
+               "max":100,
+               "step":1,
+               "unit":"px",
+               "label":"Panel 2 Content Font Size Desktop",
+               "default":18
+            },
+            {
+               "type":"range",
+               "id":"panel2_content_font_size_mobile",
+               "min":0,
+               "max":100,
+               "step":1,
+               "unit":"px",
+               "label":"Panel 2 Content Font Size Mobile",
+               "default":18
+            },
+            {
+               "type":"url",
+               "id":"panel_2_link",
+               "label":"Link"
+            },
+            {
+               "type":"textarea",
+               "id":"panel_2_header",
+               "label":"Header"
+            },
+            {
+               "type":"textarea",
+               "id":"panel_2_copy",
+               "label":"Copy"
+            },
+            {
+               "type":"text",
+               "id":"panel_2_action",
+               "label":"Action"
+            },
+            {
+               "type":"image_picker",
+               "id":"panel_2_image",
+               "label":"Image",
+               "info":"700px by 600px, upload as JPG."
+            },
+            {
+               "type":"image_picker",
+               "id":"panel_2_image_mobile",
+               "label":"Optional Mobile Image",
+               "info":"700px by 600px, upload as JPG."
+            },
+            {
+               "type":"checkbox",
+               "id":"panel_2_invert_enable",
+               "label":"Invert",
+               "default":false
+            },
+            {
+               "type":"checkbox",
+               "id":"panel_2_gradient_enable",
+               "label":"Display gradient effect",
+               "default":true
+            },
+            {
+               "type":"checkbox",
+               "id":"panel_2_overlay_enable",
+               "label":"Display overlay effect",
+               "default":false
+            },
+            {
+               "type":"select",
+               "id":"panel_2_alignment",
+               "label":"Image alignment",
+               "default":"center center",
+               "options":[
+                  {
+                     "value":"left top",
+                     "label":"Left Top"
+                  },
+                  {
+                     "value":"left center",
+                     "label":"Left Center"
+                  },
+                  {
+                     "value":"left bottom",
+                     "label":"Left Bottom"
+                  },
+                  {
+                     "value":"right top",
+                     "label":"Right Top"
+                  },
+                  {
+                     "value":"right center",
+                     "label":"Right Center"
+                  },
+                  {
+                     "value":"right bottom",
+                     "label":"Right Bottom"
+                  },
+                  {
+                     "value":"center top",
+                     "label":"Center Top"
+                  },
+                  {
+                     "value":"center center",
+                     "label":"Center Center"
+                  },
+                  {
+                     "value":"center bottom",
+                     "label":"Center Bottom"
+                  }
+               ]
+            },
+            {
+               "type":"checkbox",
+               "id":"panel_2_video_enable",
+               "label":"Enable Video",
+               "default":false
+            },
+            {
+               "type":"textarea",
+               "id":"panel_2_video_mp4",
+               "label":"Video MP4 File",
+               "info":"700px by 600px, upload as MP4."
+            },
+            {
+               "type":"textarea",
+               "id":"panel_2_video_ogv",
+               "label":"Video OGV File",
+               "info":"700px by 600px, upload as OGV."
+            }
+         ]
+      }
+   ]
+}
+{% endschema %}

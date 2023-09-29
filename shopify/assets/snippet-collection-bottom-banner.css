@@ -1,0 +1,35 @@
+/*================ Collection Bottom Banner ================*/
+ .collection-bottom-banner {
+	 margin-top: 50px;
+}
+ .collection-bottom-banner .content_table {
+	 background-size: cover;
+	 background-position: center center;
+	 height: 275px;
+}
+ @media screen and (max-width: 1023px) {
+	 .collection-bottom-banner .content_table {
+		 height: 200px;
+	}
+}
+ .collection-bottom-banner .content_table .content_table_cell {
+	 padding: 30px;
+	 text-align: center;
+}
+ .collection-bottom-banner .content_table .content_table_cell h4 {
+	 font-size: 3rem;
+}
+ @media screen and (max-width: 1023px) {
+	 .collection-bottom-banner .content_table .content_table_cell h4 {
+		 font-size: 2.5rem;
+	}
+}
+ .collection-bottom-banner .content_table .content_table_cell.invert h4 a {
+	 color: #fff;
+}
+ .collection-bottom-banner .content_table .content_table_cell.invert.overlay {
+	 background: rgba(0, 0, 0, 0.2);
+}
+ .collection-bottom-banner .content_table .content_table_cell.overlay {
+	 background: rgba(255, 255, 255, 0.2);
+}

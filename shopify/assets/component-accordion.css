@@ -1,62 +1,52 @@
-.accordion summary {
-  display: flex;
-  position: relative;
-  line-height: 1;
-  padding: 1.5rem 0;
-}
 
-.accordion .summary__title {
-  display: flex;
-  flex: 1;
-}
 
-.accordion .summary__title + .icon-caret {
-  height: calc(var(--font-heading-scale) * 0.6rem);
+/* Accordion */
+ .rte ul.accordion {
+	 list-style: none;
+	 margin: 0;
 }
-
-.accordion + .accordion {
-  margin-top: 0;
-  border-top: none;
+ .accordion {
+	 background: #fff;
+	 text-align: left;
 }
-
-.accordion {
-  margin-top: 2.5rem;
-  margin-bottom: 0;
-  border-top: 0.1rem solid rgba(var(--color-foreground), 0.08);
-  border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.08);
+ .accordion .accordion-title {
+	 padding: 1rem 0;
+	 border-bottom: none;
+	 border-top: none;
+	 border-left: none;
+	 border-right: none;
+	 font-size: 0.85rem;
+	 letter-spacing: 0.025rem;
+	 color: #000;
+	 background: #fff;
+	 margin-left: 0px;
+	 line-height: 1.6;
 }
-
-.accordion__title {
-  display: inline-block;
-  max-width: calc(100% - 6rem);
-  min-height: 1.6rem;
-  margin: 0;
-  word-break: break-word;
+ .accordion .accordion-title:focus, .accordion .accordion-title:hover {
+	 background-color: #fff;
 }
-
-.accordion .icon-accordion {
-  align-self: center;
-  fill: rgb(var(--color-foreground));
-  height: calc(var(--font-heading-scale) * 2rem);
-  margin-right: calc(var(--font-heading-scale) * 1rem);
-  width: calc(var(--font-heading-scale) * 2rem);
+ .accordion .accordion-title::before {
+	 margin-top: -0.9rem;
+	 font-size: 1.1rem;
 }
-
-.accordion details[open] > summary .icon-caret {
-  transform: rotate(180deg);
+ .accordion .accordion-content {
+	 margin-top: 15px;
+	 padding: 0 0 15px;
+	 border: none;
+	 background-color: #fff;
+	 color: #000;
 }
-
-.accordion__content {
-  margin-bottom: 1.5rem;
-  word-break: break-word;
-  overflow-x: auto;
-  padding: 0 0.6rem;
+ :last-child > .accordion-content:last-child {
+	 border-bottom: none;
 }
-
-.accordion__content img {
-  max-width: 100%;
+ :last-child:not(.is-active) > .accordion-title {
+	 border-bottom: none;
 }
 /*===== Custom css ====*/
+.accordion {
+    margin-bottom: 0;
+    border-bottom: 0.1rem solid rgba(var(--color-foreground),.08);
+}
 .accordion summary:before {
     position: absolute;
     top: 50%;

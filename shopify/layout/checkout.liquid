@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="{{ locale }}" dir="{{ direction }}" class="{{ checkout_html_classes }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height, minimum-scale=1.0, user-scalable=0">
+    <meta name="referrer" content="origin">
+
+    <title>{{ page_title }}</title>
+
+    {{ content_for_header }}
+
+    {{ checkout_stylesheets }}
+    {{'checkout.css' | asset_url | stylesheet_tag }}
+    {{'checkout-optimization.css' | asset_url | stylesheet_tag }}
+    {{ checkout_scripts }}
+
+    {{'checkout.js' | asset_url | script_tag }}
+    <script>
+      
+        if(typeof Checkout === 'object'){
+          if(typeof Checkout.$ === 'function'){
+            Checkout.$('button.order-summary-toggle.order-summary-toggle--show').click();
+          }
+        }
+     
+    </script>
+    <!-- Google Tag Manager --> <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= 'https://ss.fleurdumal.com/hcinngos.js?id='+i+dl;f.parentNode.insertBefore(j,f); })(window,document,'script','dataLayer','GTM-NSQTQ4B');</script> <!-- End Google Tag Manager -->
+  <script>
+
+    (function($) {
+
+    window.PhoneNumberInputFormatter=function(){return false;};
+
+    $(document).on('page:load page:change', function() {
+
+    if (Shopify.Checkout.step === 'contact_information') {
+
+    var $phoneField = document.querySelector('[name="checkout[shipping_address][phone]"]:not([tabindex="-1"])'),
+
+    phoneFormatValidated = false;
+
+    // Remove automatic formatting triggers
+
+    $phoneField.removeAttribute('data-phone-formatter data-phone-formatter-country-select');
+
+    // Set maxium size
+
+    $phoneField.setAttribute('minlength', 20);
+    $phoneField.setAttribute('maxlength', 20);
+
+    function phoneNumberValidation() {
+
+    phoneFormatValidated = false;
+
+
+
+    var phoneFieldVal = $phoneField.val();
+
+
+
+    // Strip out any non-numeric characters
+
+    var formattedPhoneValue = phoneFieldVal.replace(/[^0-9]/g, '');
+
+    $phoneField.value(formattedPhoneValue);
+
+    phoneFormatValidated = true;
+
+    }
+
+    // Run validator if there is a previously cached phone number
+
+    if ($phoneField.value != "") { phoneNumberValidation() };
+
+    // Run validator when the user has switched focus from the phone field
+
+    $phoneField.addEventListener('blur', phoneNumberValidation);
+
+    // Run the function when the continue button is clicked or the enter key is pressed
+var dataStepForm_submit = document.querySelector('[data-step] form [type="submit"]');
+     var dataStepForm_one = document.querySelector("[data-step] form");
+      
+    dataStepForm_submit.addEventListener('click', function(e) {
+
+    e.preventDefault();
+
+    phoneNumberValidation();
+
+    if (phoneFormatValidated) {
+
+    dataStepForm_one.click('submit');
+
+    }
+
+    });
+
+
+    var dataStepForm = document.querySelector("[data-step] form");
+     var dataStepFormSubmit = document.querySelector("[data-step] form");
+   dataStepForm.addEventListener('keypress', function(e) {
+
+    if (e.keyCode === 13) {
+    dataStepFormSubmit.click();
+
+    }
+
+    });
+
+    }
+
+    });
+
+    })(Checkout.$);
+
+    </script>
+  {% include "globale-checkout-css" %}
+  <script>
+                window.lsData = {};
+                window.lsData.customer = {% if customer %}{first_name: "{{ customer.first_name }}",last_name: "{{ customer.last_name }}",email: "{{ customer.email }}",customer_id: "{{ customer.id }}",id: "{{ customer.id }}",phone: "{{ customer.phone }}"};{% else %}null;{% endif %}
+                window.lsData.currency = '{{ cart.currency.iso_code }}';
+                window.lsData.collection_title = '{{ collection.title }}';
+                window.lsData.collection = {% if collection %}{{ collection.products | json }}{% else %}null{% endif %};
+                window.lsData.product = {% if product %}{{ product | json }}{% else %}null{% endif %};
+                window.lsData.cart = {% if cart %}{{ cart | json }}{% else %}null{% endif %};
+                window.lsData.checkout = {% if checkout %}
+                  {
+                    currency: "{{ checkout.currency }}",
+                    email: "{{checkout.email}}",
+                    item_count: {{checkout.item_count}},
+                    shipping_address: {{checkout.shipping_address | json}},
+                    total_price: {{checkout.total_price}},
+                    line_items: [
+                      {% for line_item in checkout.line_items %}
+                        {
+                          item_id: "{{ line_item.product_id | json }}",
+                          item_sku: {{ line_item.sku | json }},
+                          item_name: {{ line_item.product.title | json }},
+                          item_brand: {{ line_item.vendor | json }},
+                          item_category: {{ line_item.product.type | json }},
+                          item_variant: {{ line_item.variant.title | json }},
+                          price: "{{ line_item.final_price | times: 0.01 | json }}",
+                          quantity: "{{ line_item.quantity | json }}"
+                        },
+                      {% endfor %}
+                    ],
+                  }
+                {% else %}null{% endif %};
+                window.lsData.order = {% if order %}{{ order | json }}{% else %}null{% endif %};
+              </script>
+              <script async src='https://sp.stape.io/widget/script?shop={{shop.domain}}&shop_id={{shop.id}}'></script>
+  </head>
+  <body>
+    {{ skip_to_content_link }}
+
+    <header class="banner" data-header role="banner">
+      <div class="wrap">
+        {{ content_for_logo }}
+      </div>
+    </header>
+<!-- top progress bar -->
+
+ <div id="newcheckout" class="progress-steps-wrapper">
+      <div class="wrap">
+        <div class="progress-steps">
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"
+              style="width: 0%;">
+              <span class="u-hiddenVisually sr-only">% Complete</span>
+            </div>
+          </div>
+          <div class="steps">
+            <div class="step step-1">
+              <span class="icon-top">
+                <svg width="20" height="24" viewBox="0 0 20 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g clip-path="url(#clip0_600_128)">
+                    <path
+                      d="M1.883 23.9997C1.58884 23.8808 1.27577 23.7938 1.00114 23.6361C0.208091 23.1773 -0.10749 22.4368 0.0279389 21.5342C0.263522 19.9694 0.479576 18.4045 0.706971 16.8397C0.919247 15.3826 1.13719 13.926 1.34947 12.4689C1.56175 11.0117 1.7671 9.55328 1.97937 8.09612C2.09905 7.27928 2.18661 6.45431 2.36424 5.64936C2.57967 4.66853 3.16548 3.98752 4.20545 3.78347C4.34528 3.76245 4.48676 3.75428 4.62811 3.75906C5.03502 3.75593 5.44194 3.75906 5.86272 3.75906C5.99625 2.54162 6.53419 1.56079 7.50487 0.832836C8.24752 0.275759 9.09222 0.024135 10.0245 0.00410527C11.6062 -0.0309468 13.8562 1.16458 14.1598 3.75968H15.2394C16.4929 3.75968 17.3603 4.42692 17.6223 5.65249C17.7729 6.35979 17.8523 7.08274 17.9575 7.79943C18.141 9.04002 18.3217 10.2812 18.4998 11.5231C18.6812 12.7724 18.8626 14.0218 19.044 15.2711C19.2242 16.5126 19.405 17.7538 19.5864 18.9948C19.718 19.8968 19.8667 20.7969 19.9788 21.7013C20.1111 22.7698 19.3672 23.708 18.227 23.9547C18.1839 23.9676 18.1418 23.9837 18.1011 24.0029L1.883 23.9997ZM10.0031 23.2486C12.534 23.2486 15.0649 23.2486 17.5959 23.2486C18.0519 23.2486 18.467 23.1341 18.8135 22.8311C19.1284 22.5563 19.2897 22.2146 19.2286 21.7908C19.1593 21.3126 19.0825 20.8357 19.0125 20.3581C18.6825 18.0914 18.3528 15.8247 18.0236 13.558C17.6582 11.0359 17.2935 8.51424 16.9295 5.993C16.7896 5.02719 16.1805 4.50266 15.201 4.50266H4.77865C3.85963 4.50266 3.27886 4.92954 3.11068 5.82525C2.92171 6.85115 2.7888 7.89081 2.63762 8.92109C2.44046 10.27 2.25023 11.6201 2.0537 12.9696C1.84163 14.4268 1.62768 15.8837 1.41183 17.3405C1.21026 18.7206 1.02003 20.1021 0.807127 21.4804C0.670438 22.3667 1.00302 22.9513 1.82946 23.1741C2.02708 23.2237 2.23036 23.2475 2.43416 23.2449C4.95755 23.2507 7.48051 23.252 10.0031 23.2486ZM6.65387 3.74215H13.3554C13.2855 2.12162 11.7063 0.725176 9.96967 0.759602C7.96848 0.799036 6.74143 2.36448 6.65387 3.74215Z"
+                      fill="white" />
+                    <path
+                      d="M10.0035 11.611C9.02362 11.6034 8.0774 11.2549 7.32937 10.6259C6.58133 9.99694 6.07879 9.12735 5.90912 8.16835C5.87721 7.98382 5.8591 7.7972 5.85495 7.61002C5.84361 7.30456 5.97022 7.14433 6.21336 7.13306C6.47099 7.12054 6.585 7.25512 6.62973 7.5612C6.6839 7.92862 6.71665 8.30918 6.84074 8.65532C7.08756 9.33262 7.55058 9.91108 8.15916 10.3025C8.76774 10.6938 9.48845 10.8766 10.2113 10.8229C11.81 10.7121 13.0692 9.60047 13.3375 8.11264C13.3675 7.92805 13.3858 7.74179 13.3923 7.55494C13.4062 7.27515 13.5366 7.12868 13.7835 7.13306C14.0304 7.13744 14.1495 7.28391 14.1489 7.57121C14.1489 9.41332 12.7681 11.0952 10.9364 11.482C10.6271 11.544 10.3134 11.569 10.0035 11.611Z"
+                      fill="white" />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_600_128">
+                      <rect width="20" height="24" fill="white" />
+                    </clipPath>
+                  </defs>
+                </svg>
+
+              </span>
+              <span class="icon"></span>
+              <span class="title">
+                Cart
+              </span>
+            </div>
+            <div class="step step-2">
+              <span class="icon-top">
+                <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g clip-path="url(#clip0_600_135)">
+                    <path
+                      d="M10.7364 0.00115967H12.2647C12.5379 0.0343135 12.812 0.0631049 13.0843 0.103238C15.3057 0.429541 17.3062 1.27671 18.9768 2.7791C22.4402 5.89294 23.6901 9.7632 22.6427 14.3C22.0029 17.0736 20.4239 19.2783 18.0909 20.9072C15.3781 22.8014 12.3686 23.4008 9.13386 22.7455C6.71786 22.2552 4.67543 21.0608 3.01181 19.2417C1.53389 17.6479 0.5511 15.6592 0.18296 13.5174C0.109642 13.1004 0.0616414 12.679 0.00228882 12.2593V10.7325C0.0162541 10.6688 0.0354547 10.6043 0.0441831 10.5397C0.0956801 10.148 0.121866 9.75448 0.197802 9.36449C0.762234 6.51442 2.18786 4.19395 4.47468 2.40306C5.93514 1.24979 7.66319 0.483661 9.49871 0.175653C9.90806 0.108473 10.3244 0.0587426 10.7364 0.00115967ZM11.4888 0.611887C5.47669 0.624102 0.594068 5.51865 0.612398 11.5177C0.620016 14.4 1.77 17.1619 3.8105 19.1984C5.851 21.2349 8.61572 22.3802 11.4992 22.3835C17.5043 22.3835 22.3939 17.4976 22.3887 11.4942C22.3834 5.49073 17.4895 0.599673 11.4888 0.611887Z"
+                      fill="white" />
+                    <path d="M11.5004 9.74896V17.1318" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+                    <path
+                      d="M11.4943 7.56603C11.7503 7.56603 11.9578 7.35861 11.9578 7.10275C11.9578 6.84688 11.7503 6.63947 11.4943 6.63947C11.2384 6.63947 11.0309 6.84688 11.0309 7.10275C11.0309 7.35861 11.2384 7.56603 11.4943 7.56603Z"
+                      fill="white" />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_600_135">
+                      <rect width="23" height="23" fill="white" />
+                    </clipPath>
+                  </defs>
+                </svg>
+
+              </span>
+              <span class="icon"></span>
+              <span class="title">
+                Information
+              </span>
+            </div>
+            <div class="step step-3">
+              <span class="icon-top">
+                <svg width="36" height="21" viewBox="0 0 36 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g clip-path="url(#clip0_600_139)">
+                    <path
+                      d="M-7.62939e-06 12.4979C0.228441 12.1225 0.549018 11.9949 0.994635 11.9968C3.87986 12.0146 6.7651 12.0062 9.65032 12.0062C10.1082 12.0062 10.3949 12.1939 10.4823 12.5533C10.5129 12.6572 10.52 12.7667 10.5033 12.8737C10.4865 12.9808 10.4462 13.0828 10.3853 13.1725C10.3243 13.2622 10.2443 13.3373 10.1509 13.3925C10.0575 13.4477 9.953 13.4815 9.84492 13.4917C9.72866 13.5067 9.61147 13.5133 9.49426 13.5114C6.66732 13.5114 3.84133 13.5114 1.01533 13.517C0.566889 13.517 0.210579 13.4082 -7.62939e-06 12.9859V12.4979Z"
+                      fill="#565656" />
+                    <path
+                      d="M32.9737 18.0092C32.5582 19.4844 31.6952 20.4679 30.2418 20.8667C29.3049 21.1235 28.3046 21.0043 27.4546 20.5345C26.6047 20.0647 25.9726 19.2816 25.6935 18.3527C25.6079 18.0712 25.4876 18.0036 25.2121 18.0046C22.4099 18.0139 19.6074 18.0139 16.8046 18.0046C16.5405 18.0046 16.4286 18.0712 16.3477 18.3414C15.8495 19.9856 14.3913 21.015 12.6352 20.9953C11.0643 20.9784 9.6052 19.8589 9.15676 18.3039C9.08813 18.0618 8.98096 17.9999 8.74499 18.0055C8.0869 18.0196 7.42882 18.0261 6.77073 18.0055C6.16248 17.9811 5.81557 17.434 6.06753 16.9301C6.12903 16.7958 6.22988 16.6833 6.35677 16.6074C6.48366 16.5315 6.63061 16.4958 6.77825 16.505C7.53035 16.5106 8.28244 16.505 8.97343 16.505C9.22538 16.0048 9.40213 15.499 9.70484 15.0851C10.6309 13.8201 11.9122 13.2843 13.455 13.5752C14.9385 13.8567 15.8993 14.7867 16.3769 16.2131C16.4154 16.3267 16.5442 16.4946 16.6335 16.4946C17.8754 16.5134 19.1173 16.5068 20.3884 16.5068L23.8066 1.53713H7.04055C6.36648 1.53713 5.99043 1.26124 5.99231 0.769505C5.99419 0.277772 6.36837 0.00750732 7.04525 0.00750732H24.4619C24.5559 0.00750732 24.6499 0.00750732 24.7439 0.00750732C25.2958 0.0403521 25.6145 0.45138 25.496 0.989096C25.2384 2.14992 24.9743 3.30887 24.7063 4.50067C25.3287 4.50067 25.9285 4.49504 26.5217 4.50067C27.694 4.51568 28.872 4.47252 30.0359 4.57011C32.8694 4.80753 35.3005 7.06068 35.9003 9.83747C36.126 10.8857 35.9333 11.8785 35.7424 12.8873C35.466 14.356 35.1924 15.8246 34.9113 17.2923C34.8173 17.7972 34.5832 17.9933 34.0718 18.0092C33.708 18.0186 33.3451 18.0092 32.9737 18.0092ZM32.9737 16.4824C33.5106 16.5237 33.5181 16.5247 33.6083 16.0526C33.8365 14.864 34.0602 13.6719 34.2796 12.4763C34.3736 11.9611 34.5475 11.4375 34.5203 10.927C34.4178 9.07548 33.5077 7.68286 31.9199 6.73411C31.1442 6.26722 30.2545 6.02302 29.3487 6.02842H24.366C23.5679 9.5231 22.7763 12.9953 21.9819 16.4862H25.5731C26.1654 14.279 27.915 13.4776 29.3054 13.4945C30.85 13.5123 32.451 14.4676 32.9691 16.4824H32.9737ZM29.2734 15.0194C28.6806 15.0184 28.1114 15.2513 27.6898 15.6674C27.2683 16.0834 27.0285 16.6489 27.0228 17.2407C27.0257 17.8322 27.2617 18.3988 27.6796 18.8181C28.0976 19.2374 28.664 19.4757 29.2565 19.4816C29.5533 19.4839 29.8476 19.4276 30.1226 19.3161C30.3975 19.2047 30.6478 19.0401 30.8589 18.8319C31.0701 18.6238 31.238 18.3761 31.3531 18.103C31.4682 17.83 31.5282 17.5369 31.5297 17.2407C31.524 16.648 31.2835 16.0816 30.8607 15.6654C30.4379 15.2492 29.8672 15.0169 29.2734 15.0194ZM14.9911 17.2576C14.9951 16.9651 14.9409 16.6747 14.8315 16.4033C14.7221 16.132 14.5598 15.885 14.354 15.6768C14.1482 15.4685 13.9029 15.3032 13.6326 15.1903C13.3622 15.0775 13.0721 15.0194 12.779 15.0194C11.5221 15.0194 10.582 15.9823 10.5284 17.2238C10.4851 18.211 11.3087 19.4826 12.7612 19.4835C13.0545 19.4851 13.3452 19.4287 13.6165 19.3174C13.8877 19.2061 14.1342 19.0422 14.3416 18.8352C14.549 18.6281 14.7132 18.3821 14.8247 18.1113C14.9362 17.8405 14.9928 17.5503 14.9911 17.2576Z"
+                      fill="#565656" />
+                    <path
+                      d="M6.01863 7.51021C7.22575 7.51021 8.43286 7.51021 9.63998 7.51021C10.1805 7.51021 10.5077 7.79173 10.5096 8.25438C10.5096 8.70013 10.1975 9.01168 9.68228 9.01356C7.23233 9.02169 4.78268 9.02169 2.33336 9.01356C1.83228 9.01356 1.48725 8.68511 1.48725 8.26282C1.48725 7.81895 1.83886 7.51209 2.36063 7.51209C3.57965 7.50958 4.79899 7.50896 6.01863 7.51021Z"
+                      fill="#565656" />
+                    <path
+                      d="M6.75758 3.01518C7.72966 3.01518 8.70081 3.01518 9.67195 3.01518C10.174 3.01518 10.4823 3.28169 10.5049 3.72087C10.5275 4.16005 10.2229 4.5129 9.72084 4.51571C7.74157 4.52885 5.76293 4.52885 3.78492 4.51571C3.28384 4.51571 2.97923 4.16944 3.00462 3.71806C3.02812 3.2845 3.344 3.01705 3.84132 3.01518C4.81435 3.0133 5.78549 3.01518 6.75758 3.01518Z"
+                      fill="#565656" />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_600_139">
+                      <rect width="36" height="21" fill="white" />
+                    </clipPath>
+                  </defs>
+                </svg>
+
+              </span>
+              <span class="icon"></span>
+              <span class="title">
+                Shipping
+              </span>
+            </div>
+            <div class="step step-4">
+              <span class="icon-top">
+                <svg width="25" height="20" viewBox="0 0 25 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g clip-path="url(#clip0_600_144)">
+                    <path
+                      d="M0.00323486 6.65089C0.0578905 6.48106 0.121666 6.31436 0.194272 6.15153C0.543088 5.46072 1.11553 5.11005 1.8751 5.08242C2.33737 5.06531 2.80028 5.08242 3.28602 5.08242C3.33296 4.65148 3.37729 4.23765 3.42228 3.82382C3.50443 3.0659 3.56703 2.30535 3.67265 1.55138C3.81218 0.557926 4.78103 -0.0934113 5.86138 0.0151449C7.17971 0.146728 8.50065 0.240152 9.82028 0.352656C11.0832 0.460554 12.3455 0.571742 13.6084 0.681614C14.6516 0.770433 15.6947 0.855304 16.7425 0.944781C17.8352 1.03689 18.9282 1.13009 20.0214 1.2244C21.0411 1.31124 22.0601 1.43888 23.0857 1.47243C24.0976 1.50533 25.1512 2.30009 24.9908 3.78764C24.8474 5.11597 24.764 6.45088 24.6518 7.78251C24.5442 9.06544 24.4327 10.3484 24.3258 11.6307C24.2404 12.6439 24.1589 13.6577 24.0722 14.6709C23.9926 15.6032 23.1835 16.3591 22.2583 16.3611C21.9923 16.3611 21.7263 16.3374 21.4329 16.3236C21.4329 16.9197 21.4407 17.5078 21.4329 18.1C21.4212 18.7467 21.161 19.2743 20.6381 19.6572C20.3285 19.8881 19.9532 20.0118 19.5682 20.0099C13.6707 20.0099 7.77346 20.0099 1.87641 20.0099C1.46236 20.0084 1.06037 19.8691 0.732779 19.6136C0.405184 19.3581 0.170288 19.0006 0.0645183 18.5967C0.0495225 18.5421 0.028009 18.4894 0.0097532 18.4361L0.00323486 6.65089ZM0.981223 12.0274V17.9282C0.981223 18.6605 1.33004 19.0105 2.05962 19.0105H19.3563C20.1048 19.0105 20.4399 18.6723 20.4399 17.9124C20.4399 16.0413 20.4399 14.17 20.4399 12.2984V12.0274H0.981223ZM4.29008 5.07847H4.6239C9.54471 5.07847 14.4655 5.07847 19.3863 5.07847C20.6368 5.07847 21.4297 5.87784 21.4303 7.13578C21.4303 9.76218 21.4303 12.389 21.4303 15.0163V15.3038C21.7022 15.3295 21.9356 15.363 22.1703 15.3696C22.3965 15.3777 22.6173 15.2991 22.7884 15.1496C22.9594 15.0001 23.068 14.7907 23.0922 14.5637C23.1796 13.6005 23.2585 12.636 23.3367 11.6688C23.4417 10.3859 23.5402 9.10295 23.6464 7.81935C23.7527 6.53576 23.8636 5.26992 23.9724 3.99554C23.9822 3.88106 23.9796 3.76527 23.9933 3.65211C24.0833 2.91458 23.7325 2.51128 22.9931 2.45799C21.9232 2.38167 20.8546 2.28693 19.786 2.19482C18.7174 2.10271 17.6494 2.00863 16.5808 1.9185C15.5122 1.82836 14.4292 1.74481 13.3495 1.65533C12.0866 1.54875 10.8237 1.43559 9.56079 1.32637C8.2568 1.21518 6.95282 1.11189 5.64883 0.997414C5.12724 0.95136 4.69563 1.28098 4.6363 1.80007C4.55502 2.50887 4.47633 3.21744 4.40027 3.9258C4.35724 4.30147 4.32464 4.67517 4.28552 5.07847H4.29008ZM20.4256 9.01018H0.996871V11.0083H20.421L20.4256 9.01018ZM20.4119 7.97593C20.4119 7.56408 20.4373 7.16999 20.4047 6.78116C20.3767 6.4522 20.0683 6.16864 19.7436 6.10811C19.6315 6.08751 19.5178 6.07738 19.4039 6.07784C13.6051 6.07784 7.80628 6.07784 2.00746 6.07784C1.9263 6.07873 1.84529 6.08488 1.76492 6.09627C1.38285 6.1489 1.07707 6.38707 1.02882 6.77326C0.98057 7.15946 1.01838 7.56803 1.01838 7.97659L20.4119 7.97593Z"
+                      fill="#565656" />
+                    <path
+                      d="M16.0325 17.5618C15.3088 17.5618 14.5851 17.5618 13.8614 17.5618C13.3685 17.5618 13.2022 17.392 13.2009 16.896C13.2009 15.9683 13.2009 15.0409 13.2009 14.1136C13.2009 13.6412 13.3815 13.4636 13.8529 13.463C15.3173 13.463 16.7812 13.463 18.2447 13.463C18.7161 13.463 18.8869 13.6406 18.8876 14.1209C18.8876 15.0652 18.8876 16.0093 18.8876 16.9532C18.8876 17.3736 18.7168 17.5578 18.3008 17.5611C17.5458 17.5664 16.7895 17.5618 16.0325 17.5618ZM17.892 16.5532V14.4867H14.216V16.5532H17.892Z"
+                      fill="#565656" />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_600_144">
+                      <rect width="25" height="20" fill="white" />
+                    </clipPath>
+                  </defs>
+                </svg>
+
+              </span>
+              <span class="icon"></span>
+              <span class="title">
+                Payment
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+<!-- progress bar end  -->
+    {{ order_summary_toggle }}
+    <div class="content" data-content>
+      <div class="wrap">
+        <div class="main">
+          <header class="main__header" role="banner">
+            {{ content_for_logo }}
+            {{ breadcrumb }}
+            {{ alternative_payment_methods }}
+          </header>
+          <main class="main__content" role="main">
+            {{ content_for_layout }}
+          </main>
+          <footer class="main__footer" role="contentinfo">
+            {{ content_for_footer }}
+          </footer>
+        </div>
+        <aside class="sidebar" role="complementary">
+          <div class="sidebar__header">
+            {{ content_for_logo }}
+          </div>
+          <div class="sidebar__content">
+            <div class="sidebar__content-title">
+              Perfect fit. Free returns within 30 days.
+            </div>
+            {{ content_for_order_summary }}
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    {{ tracking_code }}
+  
+  {% include "globale-checkout-js" %}
+</body>
+</html>

@@ -23,6 +23,9 @@
 {% assign scheme1 = settings.color_schemes | first %}
 
 <div class="color-{{ section.settings.color_scheme }} image-with-text-modular--{{ section.settings.image_layout }} image-with-text image-with-text-modular image-with-text--{{ section.settings.content_layout }} page-width isolate{% if settings.text_boxes_border_thickness > 0 and settings.text_boxes_border_opacity > 0 and settings.media_border_thickness > 0 and settings.media_border_opacity > 0 %} collapse-borders{% endif %}{% unless section.settings.color_scheme == scheme1 and settings.media_border_thickness > 0 and settings.text_boxes_shadow_opacity == 0 and settings.text_boxes_border_thickness == 0 or settings.text_boxes_border_opacity == 0 %} collapse-corners{% endunless %} section-{{ section.id }}-padding{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+{% if section.settings.modular_section_link != blank %}
+<a href="{{ section.settings.modular_section_link }}" target="_blank">
+  {% endif %}
   <div class="image-with-text__grid grid grid--gapless grid--1-col grid--{% if section.settings.desktop_image_width == 'medium' %}2-col-tablet{% else %}3-col-tablet{% endif %}{% if section.settings.layout == 'text_first' %} image-with-text__grid--reverse{% endif %}">
     <div class="image-with-text__media-item image-with-text__media-item--{{ section.settings.desktop_image_width }} image-with-text__media-item--{{ section.settings.desktop_content_position }} grid__item">
       <div
@@ -44,17 +47,21 @@
               (min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: 2 }}px,
               (min-width: 750px) calc((100vw - 130px) / 2), calc((100vw - 50px) / 2)
             {%- endcapture -%}
+            {%- capture sizes -%}
+            {%- assign alt_text = '198, 432, 642, 900, 1284, 1800' -%}
+            {%- endcapture -%}
           {%- endif -%}
           {{
             section.settings.image
             | image_url: width: 1500
-            | image_tag: loading: 'lazy', sizes: sizes, widths: widths
+            | image_tag: loading: 'lazy', sizes: sizes, widths: widths, alt: section.settings.modular_image_alt_text | escape
           }}
         {%- else -%}
           {{ 'detailed-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
         {%- endif -%}
       </div>
     </div>
+  
     <div class="image-with-text__text-item grid__item">
       <div
         id="ImageWithText--{{ section.id }}"
@@ -143,6 +150,9 @@
       </div>
     </div>
   </div>
+{% if section.settings.modular_section_link != blank %}
+</a>
+{% endif %}
 </div>
 
 {% schema %}
@@ -159,6 +169,16 @@
       "label": "t:sections.image-with-text.settings.image.label"
     },
     {
+      "type": "url",
+      "id": "modular_section_link",
+      "label": "t:sections.image-with-text.settings.modular_section_link.label"
+      },
+      {
+      "type": "text",
+      "id": "modular_image_alt_text",
+      "label": "t:sections.image-with-text.settings.modular_image_alt_text.label"
+      },
+      {
       "type": "select",
       "id": "height",
       "options": [

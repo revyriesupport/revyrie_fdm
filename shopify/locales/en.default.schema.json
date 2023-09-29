@@ -945,6 +945,9 @@
         "title": {
           "label": "Heading"
         },
+        "heading_link": {
+          "label": "Heading Link"
+        },
         "description": {
           "label": "Description"
         },
@@ -968,6 +971,9 @@
         },
         "products_to_show": {
           "label": "Maximum products to show"
+        },
+        "products_to_offset": {
+          "label": "Maximum products to offset"
         },
         "columns_desktop": {
           "label": "Number of columns on desktop"
@@ -1016,7 +1022,7 @@
         },
         "show_rating": {
           "label": "Show product rating",
-          "info": "To display a rating, add a product rating app. (This field in not in use) [Learn more](https:\/\/help.shopify.com\/manual\/online-store\/themes\/theme-structure\/theme-features#featured-collection-show-product-rating)"
+          "info": "To display a rating, add a product rating app. (This field is not in use) [Learn more](https:\/\/help.shopify.com\/manual\/online-store\/themes\/theme-structure\/theme-features#featured-collection-show-product-rating)"
         },
         "enable_quick_buy": {
           "label": "Enable quick add button",
@@ -1095,7 +1101,7 @@
         },
         "show_rating": {
           "label": "Show product rating",
-          "info": "To display a rating, add a product rating app. [Learn more](https:\/\/help.shopify.com\/manual\/online-store\/themes\/theme-structure\/theme-features#featured-collection-show-product-rating)"
+          "info": "To display a rating, add a product rating app.(This field is not in use) [Learn more](https:\/\/help.shopify.com\/manual\/online-store\/themes\/theme-structure\/theme-features#featured-collection-show-product-rating)"
         },
         "enable_quick_buy": {
           "label": "Enable quick add button",
@@ -1868,6 +1874,114 @@
             },
             "block_link_4": {
               "label": "URL"
+            },
+            "fifth_image_block": {
+              "content": "Fifth Image Block"
+            },
+            "hide_desktop_5": {
+              "label": "Hide on desktop"
+            },
+            "hide_mobile_5": {
+              "label": "Hide on mobile"
+            },
+            "marge_five": {
+              "label": "Marge 2 column"
+            },
+            "image_5": {
+              "label": "Image 5"
+            },
+            "image_5_mobile": {
+              "label": "Image 5 mobile"
+            },
+            "text_position_five": {
+              "label": "Select text position",
+              "options__1": {
+                "label": "Left"
+              },
+              "options__2": {
+                "label": "Center"
+              },
+              "options__3": {
+                "label": "Right"
+              }
+            },
+            "heading_5": {
+              "label": "Heading"
+            },
+            "heading_5_font_size": {
+              "label": "Heading font size for desktop"
+            },
+            "heading_5_font_size_mobile": {
+              "label": "Heading font size for mobile"
+            },
+            "heading_5_color": {
+              "label": "Heading Color"
+            },
+            "content_5": {
+              "label": "Content"
+            },
+            "content_5_font_size": {
+              "label": "Content Font Size"
+            },
+            "content_5_color": {
+              "label": "Content Color"
+            },
+            "block_link_5": {
+              "label": "URL"
+            },
+            "sixth_image_block": {
+              "content": "Sixth Image Block"
+            },
+            "hide_desktop_6": {
+              "label": "Hide on desktop"
+            },
+            "hide_mobile_6": {
+              "label": "Hide on mobile"
+            },
+            "marge_six": {
+              "label": "Marge 2 column"
+            },
+            "image_6": {
+              "label": "Image 6"
+            },
+            "image_6_mobile": {
+              "label": "Image 6 mobile"
+            },
+            "text_position_six": {
+              "label": "Select text position",
+              "options__1": {
+                "label": "Left"
+              },
+              "options__2": {
+                "label": "Center"
+              },
+              "options__3": {
+                "label": "Right"
+              }
+            },
+            "heading_6": {
+              "label": "Heading"
+            },
+            "heading_6_font_size": {
+              "label": "Heading font size for desktop"
+            },
+            "heading_6_font_size_mobile": {
+              "label": "Heading font size for mobile"
+            },
+            "heading_6_color": {
+              "label": "Heading Color"
+            },
+            "content_6": {
+              "label": "Content"
+            },
+            "content_6_font_size": {
+              "label": "Content Font Size"
+            },
+            "content_6_color": {
+              "label": "Content Color"
+            },
+            "block_link_6": {
+              "label": "URL"
             }
           }
         }
@@ -2236,6 +2350,12 @@
       "settings": {
         "image": {
           "label": "Image"
+        },
+        "modular_section_link": {
+          "label": "Link"
+        },
+        "modular_image_alt_text": {
+          "label": "Alt Text"
         },
         "mobile_image": {
           "label": "Mobile image"
@@ -2815,7 +2935,7 @@
         },
         "show_rating": {
           "label": "Show product rating",
-          "info": "To display a rating, add a product rating app. [Learn more](https:\/\/help.shopify.com\/manual\/online-store\/themes\/theme-structure\/page-types#product-grid-section-settings)"
+          "info": "To display a rating, add a product rating app.  (This field is not in use) [Learn more](https:\/\/help.shopify.com\/manual\/online-store\/themes\/theme-structure\/page-types#product-grid-section-settings)"
         },
         "header__1": {
           "content": "Filtering and sorting"
@@ -3458,7 +3578,7 @@
         },
         "show_rating": {
           "label": "Show product rating",
-          "info": "To display a rating, add a product rating app. [Learn more](https:\/\/help.shopify.com\/manual\/online-store\/themes\/theme-structure\/page-types#search-results-section-settings)"
+          "info": "To display a rating, add a product rating app.  (This field is not in use) [Learn more](https:\/\/help.shopify.com\/manual\/online-store\/themes\/theme-structure\/page-types#search-results-section-settings)"
         },
         "header__1": {
           "content": "Product card"

@@ -8,11 +8,13 @@
     <link rel="canonical" href="{{ canonical_url }}">
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
 
-<!-- TriplePixel : start
+    <!--
+      TriplePixel : start
 
-window.TriplePixelData={TripleName:"fleurdumal.myshopify.com",ver:"1.9"},function(W,H,A,L,E,_,B,N){function O(U,T,P,H,R){void 0===R&&(R=!1),H=new XMLHttpRequest,P?(H.open("POST",U,!0),H.setRequestHeader("Content-Type","application/json")):H.open("GET",U,!0),H.send(JSON.stringify(P||{})),H.onreadystatechange=function(){4===H.readyState&&200===H.status?(R=H.responseText,U.includes(".txt")?eval(R):P||(N[B]=R)):(299<H.status||H.status<200)&&T&&!R&&(R=!0,O(U,T-1))}}if(N=window,!N[H+"sn"]){N[H+"sn"]=1;try{A.setItem(H,1+(0|A.getItem(H)||0)),(E=JSON.parse(A.getItem(H+"U")||"[]")).push(location.href),A.setItem(H+"U",JSON.stringify(E))}catch(e){}var i,m,p;A.getItem('"!nC`')||(_=A,A=N,A[H]||(L=function(){return Date.now().toString(36)+"_"+Math.random().toString(36)},E=A[H]=function(t,e){return"State"==t?E.s:(W=L(),(E._q=E._q||[]).push([W,t,e]),W)},E.s="Installed",E._q=[],E.ch=W,B="configSecurityConfModel",N[B]=1,O("https://conf.config-security.com/model",5),i=L(),m=A[atob("c2NyZWVu")],_.setItem("di_pmt_wt",i),p={id:i,action:"profile",avatar:_.getItem("auth-security_rand_salt_"),time:m[atob("d2lkdGg=")]+":"+m[atob("aGVpZ2h0")],host:A.TriplePixelData.TripleName,url:window.location.href,ref:document.referrer,ver:window.TriplePixelData.ver},O("https://api.config-security.com/",5,p),O("https://triplewhale-pixel.web.app/dot1.9.txt",5)))}}("","TriplePixel",localStorage);
+      window.TriplePixelData={TripleName:"fleurdumal.myshopify.com",ver:"1.9"},function(W,H,A,L,E,_,B,N){function O(U,T,P,H,R){void 0===R&&(R=!1),H=new XMLHttpRequest,P?(H.open("POST",U,!0),H.setRequestHeader("Content-Type","application/json")):H.open("GET",U,!0),H.send(JSON.stringify(P||{})),H.onreadystatechange=function(){4===H.readyState&&200===H.status?(R=H.responseText,U.includes(".txt")?eval(R):P||(N[B]=R)):(299<H.status||H.status<200)&&T&&!R&&(R=!0,O(U,T-1))}}if(N=window,!N[H+"sn"]){N[H+"sn"]=1;try{A.setItem(H,1+(0|A.getItem(H)||0)),(E=JSON.parse(A.getItem(H+"U")||"[]")).push(location.href),A.setItem(H+"U",JSON.stringify(E))}catch(e){}var i,m,p;A.getItem('"!nC`')||(_=A,A=N,A[H]||(L=function(){return Date.now().toString(36)+"_"+Math.random().toString(36)},E=A[H]=function(t,e){return"State"==t?E.s:(W=L(),(E._q=E._q||[]).push([W,t,e]),W)},E.s="Installed",E._q=[],E.ch=W,B="configSecurityConfModel",N[B]=1,O("https://conf.config-security.com/model",5),i=L(),m=A[atob("c2NyZWVu")],_.setItem("di_pmt_wt",i),p={id:i,action:"profile",avatar:_.getItem("auth-security_rand_salt_"),time:m[atob("d2lkdGg=")]+":"+m[atob("aGVpZ2h0")],host:A.TriplePixelData.TripleName,url:window.location.href,ref:document.referrer,ver:window.TriplePixelData.ver},O("https://api.config-security.com/",5,p),O("https://triplewhale-pixel.web.app/dot1.9.txt",5)))}}("","TriplePixel",localStorage);
 
- TriplePixel : end -->
+       TriplePixel : end
+    -->
 
     {%- if settings.favicon != blank -%}
       <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
@@ -61,7 +63,12 @@ window.TriplePixelData={TripleName:"fleurdumal.myshopify.com",ver:"1.9"},functio
     {%- endif -%}
 
     {%- if settings.predictive_search_enabled -%}
-      <link rel="stylesheet" href="{{ 'component-predictive-search.css' | asset_url }}" media="print" onload="this.media='all'">
+      <link
+        rel="stylesheet"
+        href="{{ 'component-predictive-search.css' | asset_url }}"
+        media="print"
+        onload="this.media='all'"
+      >
     {%- endif -%}
 
     <script>
@@ -75,6 +82,8 @@ window.TriplePixelData={TripleName:"fleurdumal.myshopify.com",ver:"1.9"},functio
     {%- render 'header-delay' -%}
     <script src="https://cdn-widgetsrepository.yotpo.com/v1/loader/ddNMZttCqpWM3TpAK4Iccw" async></script>
 
+    {% include 'globale-js.liquid' %}
+  
   {% include "globale-js.liquid" %}
 </head>
 
@@ -82,7 +91,6 @@ window.TriplePixelData={TripleName:"fleurdumal.myshopify.com",ver:"1.9"},functio
     class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}"
     data-template="{{ request.page_type }}"
   >
-
     <a class="skip-to-content-link button visually-hidden" href="#MainContent">
       {{ 'accessibility.skip_to_text' | t }}
     </a>
@@ -104,13 +112,13 @@ window.TriplePixelData={TripleName:"fleurdumal.myshopify.com",ver:"1.9"},functio
       <li id="a11y-new-window-message">{{ 'accessibility.link_messages.new_window' | t }}</li>
     </ul>
 
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="facebook-domain-verification" content="7esflwwa103ie2gx77gph1zvqxu0gd" />
-<meta name="google-site-verification" content="DKMtefJXc2kGooeL28yN7hgtwE-1iRy12kfpIbNpBjM" />
-<meta name="google-site-verification" content="85vkoraFDmHfSRNlwbw6kSV50cwn5B6P21OmajHJAug" />
-<meta name="google-site-verification" content="jSOt_1mcLTc7R_BwnBKFxMB7YT3xwJ2GTkXTjevs09M" />
-<meta name="p:domain_verify" content="662888d6498bc5919b3763a0eb52e7ef"/>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="facebook-domain-verification" content="7esflwwa103ie2gx77gph1zvqxu0gd">
+    <meta name="google-site-verification" content="DKMtefJXc2kGooeL28yN7hgtwE-1iRy12kfpIbNpBjM">
+    <meta name="google-site-verification" content="85vkoraFDmHfSRNlwbw6kSV50cwn5B6P21OmajHJAug">
+    <meta name="google-site-verification" content="jSOt_1mcLTc7R_BwnBKFxMB7YT3xwJ2GTkXTjevs09M">
+    <meta name="p:domain_verify" content="662888d6498bc5919b3763a0eb52e7ef">
 
     {%- render 'javascript-globals' -%}
 
@@ -118,270 +126,482 @@ window.TriplePixelData={TripleName:"fleurdumal.myshopify.com",ver:"1.9"},functio
       <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
 
-{% if settings.lovelist_enable %}
-{% render 'swymSnippet' %}
-{% render 'swym-custom' %}
-{% endif %}
+    {% if template contains 'product' %}
+      <!-- Back in Stock helper snippet -->
+      {% render 'back-in-stock-helper' %}
+      <!-- End Back in Stock helper snippet -->
+    {% endif %}
 
-{% if template contains 'product' %}
-<!-- Back in Stock helper snippet -->
-{% render 'back-in-stock-helper' %}
-<!-- End Back in Stock helper snippet -->
-{% endif %}
-
-<!-- Stape Server GTM -->
-<script>window.lsData = {}; window.lsData.customer = {% if customer %}{first_name: "{{ customer.first_name }}",last_name: "{{ customer.last_name }}",email: "{{ customer.email }}",customer_id: "{{ customer.id }}",id: "{{ customer.id }}",phone: "{{ customer.phone }}"};{% else %}null;{% endif %} window.lsData.currency = '{{ cart.currency.iso_code }}';window.lsData.collection_title = '{{ collection.title }}';window.lsData.collection = {% if collection %}{{ collection.products | json }}{% else %}null{% endif %};window.lsData.product = {% if product %}{{ product | json }}{% else %}null{% endif %};window.lsData.cart = {% if cart %}{{ cart | json }}{% else %}null{% endif %};window.lsData.checkout = {% if checkout %}{currency: "{{ checkout.currency }}",email: "{{checkout.email}}",item_count: {{checkout.item_count}},shipping_address: {{checkout.shipping_address | json}},total_price: {{checkout.total_price}},line_items: [{% for line_item in checkout.line_items %}{item_id: "{{ line_item.product_id | json }}",item_sku: {{ line_item.sku | json }},item_name: {{ line_item.product.title | json }},item_brand: {{ line_item.vendor | json }},item_category: {{ line_item.product.type | json }},item_variant: {{ line_item.variant.title | json }},price: "{{ line_item.final_price | times: 0.01 | json }}",quantity: "{{ line_item.quantity | json }}"},{% endfor %}],}{% else %}null{% endif %}; window.lsData.order = {% if order %}{{ order | json }}{% else %}null{% endif %};</script><script async src='https://sp.stape.io/widget/script?shop={{shop.domain}}&shop_id={{shop.id}}'></script>
-<!-- End Stape Server GTM -->
-
-
-{% if settings.livechat_enable %}
-{% render 'gladly_chat_window' %}
-{% endif %}
-<!-- was to be added in landing page  -->
-  <!-- Livechat -->
-  <script>
-  window.__lc = window.__lc || {};
-  window.__lc.license = 8012411;
-  (function() {
-  var lc = document.createElement('script'); lc.type = 'text/javascript'; lc.async = true;
-  lc.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'cdn.livechatinc.com/tracking.js';
-  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(lc, s);
-  })();
-    var LC_API = LC_API || {};
-  var livechat_chat_started = false;
-
-  LC_API.on_before_load = function()
-  {
-  	// don't hide the chat window only if visitor
-  	// is currently chatting with an agent
-  	if (LC_API.visitor_engaged() === false && livechat_chat_started === false)
-  	{
-  		LC_API.hide_chat_window();
-  	}
-  };
-
-  LC_API.on_chat_started = function()
-  {
-  	livechat_chat_started = true;
-  };
-  </script>
-
-  <script type="text/javascript">
-    var __lc = {};
-    __lc.license = 8012411;
-    __lc.skill = 0;
-    __lc.params = [
-      { name: 'Cart', value: '{{ cart.item_count }} items, {{ cart.total_price | money }} total' }
-    ];
-
-    (function() {
+    <!-- was to be added in landing page -->
+    <!-- Livechat -->
+    <script>
+      window.__lc = window.__lc || {};
+      window.__lc.license = 8012411;
+      (function() {
       var lc = document.createElement('script'); lc.type = 'text/javascript'; lc.async = true;
       lc.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'cdn.livechatinc.com/tracking.js';
       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(lc, s);
-    })();
-  </script>
-  <!-- End Livechat -->
+      })();
+        var LC_API = LC_API || {};
+      var livechat_chat_started = false;
 
-  {% include 'xgen-script' %}
+      LC_API.on_before_load = function()
+      {
+      	// don't hide the chat window only if visitor
+      	// is currently chatting with an agent
+      	if (LC_API.visitor_engaged() === false && livechat_chat_started === false)
+      	{
+      		LC_API.hide_chat_window();
+      	}
+      };
 
-<!-- START Rakuten Advertising Global-e Conversion Tag -->
-	<!-- <script type="text/javascript">
-	// Instructions:
-	// Add this code to your Shopify theme.liquid file
-	//
-	// This code uses array functions which only work in Internet Explorer 9 and higher
-	//
-	// !!! IMPORTANT !!!
-	//
-	// Set the below dbgmode variable to false after testing. Otherwise the tag will generate transaction debug output in the console.
-	// This is helpful during testing, but should be set to false when used in production.
-	var dbgmode = false;
-	// !!! IMPORTANT !!!
+      LC_API.on_chat_started = function()
+      {
+      	livechat_chat_started = true;
+      };
+    </script>
 
-	var debugOut = function (out) {
-	    if (dbgmode) {
-	        console.log(out);
-	    }
-	};
+    <script type="text/javascript">
+      var __lc = {};
+      __lc.license = 8012411;
+      __lc.skill = 0;
+      __lc.params = [
+        { name: 'Cart', value: '{{ cart.item_count }} items, {{ cart.total_price | money }} total' }
+      ];
 
-	var glegem = window["glegem"] || function () {
-	    (window["glegem"].q = window["glegem"].q || []).push(arguments)
-	};
-	glegem("OnCheckoutStepLoaded", function (data) {
-	    switch (data.StepId) {
-	    case data.Steps.LOADED:
-	        break;
-	    case data.Steps.CONFIRMATION:
-	        if (data.IsSuccess) {
+      (function() {
+        var lc = document.createElement('script'); lc.type = 'text/javascript'; lc.async = true;
+        lc.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'cdn.livechatinc.com/tracking.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(lc, s);
+      })();
+    </script>
+    <!-- End Livechat -->
 
-	            //Debug transaction information
-	            var rakutenDataCheck = data.details || '';
-	            debugOut('RAd trans debug:');
-	            debugOut(rakutenDataCheck);
+    {% render 'footer-scripts' %}
 
-	            //Get tax rate applied to the order for the customer for discount amount deduction
-	            var taxRate = data.details.OrderPrices.CustomerTransaction.CustomerTotalVAT || 0;
+    {% if settings.afterpay_enable %}
+      <!-- Begin Shopify-Afterpay JavaScript Snippet (v1.0.3) -->
+      <script type="text/javascript">
+        // Editable fields:
+        var afterpay_min = 0.04;            // As per your Afterpay contract.
+        var afterpay_max = 1000.00;         // As per your Afterpay contract.
+        var afterpay_logo_theme = 'black'; // Can be 'colour', 'black' or 'white'.
+        var afterpay_msg_size = 'sm';
+        // Overrides:
+        var afterpay_product_selector = 'div.title-wrapper';
+        // var afterpay_cart_integration_enabled = true;
+        var afterpay_cart_static_selector = '.cart-summary';
+        // var afterpay_cart_static_selector = '#MainContent > div > div > div > div > form > div > div > div';
+        var afterpay_show_currency_code = false;
 
-	            var rm_trans = {
-	                affiliateConfig: {ranMID: "50739", discountType: "item", includeStatus: "false"},
+        // var afterpay_variable_price_fallback_selector = '#ProductPrice';
+        // var afterpay_variable_price_fallback = true; // Requires afterpay_product_selector
+
+        // Non-editable fields:
+        var afterpay_shop_currency = {{ shop.currency | json }};
+        var afterpay_shop_money_format = {{ shop.money_format | json }};
+        var afterpay_shop_permanent_domain = {{ shop.permanent_domain | json }};
+        var afterpay_theme_name = {{ theme.name | json }};
+        var afterpay_product = {{ product | json }};
+        var afterpay_current_variant = {{ product.selected_or_first_available_variant | json }};
+        var afterpay_cart_total_price = {{ cart.total_price | json }};
+        var afterpay_js_snippet_version = '1.0.3';
+      </script>
+      <script type="text/javascript" src="https://static.afterpay.com/shopify-afterpay-javascript.js"></script>
+      <!-- End Shopify-Afterpay JavaScript Snippet (v1.0.3) -->
+
+      <style>
+        @media screen and (max-width:770px){
+        	 afterpay-placement {
+        	 }
+        }
+        @media screen and (min-width:771px){
+        	 afterpay-placement {}
+        }
+        afterpay-placement {
+        	--logo-badge-width: 85px;
+        }
+      </style>
+
+      {% if template == 'product' %}
+        <script type="text/javascript">
+          var product = {{ product | json }};
+          window.onload = () => {
+          	if (product.price >= 100000 || product.type == "Gift Cards") {
+          		document.querySelector('p.afterpay-paragraph').remove();
+          	}
+          }
+        </script>
+      {% endif %}
+    {% endif %}
+
+    {% unless settings.staging_site_enable %}
+      <script type="text/javascript">
+        window._monsido = window._monsido || {
+            token: "YR-b7i1SHkwDAPRgj9RAVA",
+            statistics: {
+                enabled: true,
+                cookieLessTracking: true,
+                documentTracking: {
+                    enabled: false,
+                    documentCls: "monsido_download",
+                    documentIgnoreCls: "monsido_ignore_download",
+                    documentExt: [],
+                },
+            },
+        };
+      </script>
+      <script type="text/javascript" async src="https://app-script.monsido.com/v2/monsido-script.js"></script>
+
+      {% include 'xgen-script' %}
+      {% render 'datalayer' %}
+      <script src="https://www.googleoptimize.com/optimize.js?id=OPT-TTFQVL8"></script>
+    {% endunless %}
+
+    {% if settings.staging_site_enable %}
+      <meta name="robots" content="noindex,nofollow">
+    {% endif %}
+
+    {% unless settings.staging_site_enable %}
+      {% if settings.hotjar_enable %}
+        <!-- Hotjar Tracking Code for https://www.fleurdumal.com/ -->
+        <script>
+          (function(h,o,t,j,a,r){
+              h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+              h._hjSettings={hjid:1381907,hjsv:6};
+              a=o.getElementsByTagName('head')[0];
+              r=o.createElement('script');r.async=1;
+              r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+              a.appendChild(r);
+          })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+        </script>
+        <!-- End Hotjar -->
+      {% endif %}
+
+      <script src="https://cdn-widgetsrepository.yotpo.com/v1/loader/ddNMZttCqpWM3TpAK4Iccw" async></script>
+
+      {% include 'globale-js.liquid' %}
+
+      {% comment %}
+        <!-- START Rakuten Advertising Global-e Conversion Tag -->
+        <script type="text/javascript">
+        // Instructions:
+        // Add this code to your Shopify theme.liquid file
+        //
+        // This code uses array functions which only work in Internet Explorer 9 and higher
+        //
+        // !!! IMPORTANT !!!
+        //
+        // Set the below dbgmode variable to false after testing. Otherwise the tag will generate transaction debug output in the console.
+        // This is helpful during testing, but should be set to false when used in production.
+        var dbgmode = false;
+        // !!! IMPORTANT !!!
+
+        var debugOut = function (out) {
+            if (dbgmode) {
+                console.log(out);
+            }
+        };
+
+        var glegem = window["glegem"] || function () {
+            (window["glegem"].q = window["glegem"].q || []).push(arguments)
+        };
+        glegem("OnCheckoutStepLoaded", function (data) {
+            switch (data.StepId) {
+            case data.Steps.LOADED:
+                break;
+            case data.Steps.CONFIRMATION:
+                if (data.IsSuccess) {
+
+                    //Debug transaction information
+                    var rakutenDataCheck = data.details || '';
+                    debugOut('RAd trans debug:');
+                    debugOut(rakutenDataCheck);
+
+                    //Get tax rate applied to the order for the customer for discount amount deduction
+                    var taxRate = data.details.OrderPrices.CustomerTransaction.CustomerTotalVAT || 0;
+
+                    var rm_trans = {
+                        affiliateConfig: {ranMID: "50739", discountType: "item", includeStatus: "false"},
 
 
-	                orderid: data.details.OrderID,
-	                currency: data.details.CustomerCurrencyCode,
-	                customerStatus: "",
-	                conversionType: "Sale",
-	                customerID: (data.details.CustomerDetails.MerchantUserId !== null ? data.details.CustomerDetails.MerchantUserId : ""),
-	                discountCode: (data.details.Discounts === undefined) ? "" : (data.details.Discounts.filter(discount => discount.DiscountTypeId == 1)).length != 0 ? (data.details.Discounts.filter(discount => discount.DiscountTypeId == 1)[0].CouponCode) : "",
-	                discountAmount: (data.details.Discounts === undefined) ? "" : data.details.Discounts.filter(discount => discount.DiscountTypeId == 1).reduce((sum, discount) => sum + discount.DiscountPrices.CustomerTransaction.CustomerPrice, 0),
-	                taxAmount: 0,
-	                optionalData: {}, /*THIS IS OPTIONAL*/
-	                lineitems: [],
-	            }
-	            var rakProducts = data.details.ProductInformation;
-	            for (var i = 0; i < rakProducts.length; i++) {
-	                rm_trans.lineitems.push({
-	                    quantity: rakProducts[i].Quantity,
-	                    unitPrice: rakProducts[i].ProductPrices.CustomerTransaction.CustomerSalePrice,
-	                    unitPriceLessTax: rakProducts[i].ProductPrices.CustomerTransaction.CustomerSalePrice / (1 + (rakProducts[i].ProductPrices.CustomerTransaction.CustomerVATRate) / 100),
-	                    SKU: rakProducts[i].SKU,
-	                    productName: rakProducts[i].ProductName
-	                });
-	            };
+                        orderid: data.details.OrderID,
+                        currency: data.details.CustomerCurrencyCode,
+                        customerStatus: "",
+                        conversionType: "Sale",
+                        customerID: (data.details.CustomerDetails.MerchantUserId !== null ? data.details.CustomerDetails.MerchantUserId : ""),
+                        discountCode: (data.details.Discounts === undefined) ? "" : (data.details.Discounts.filter(discount => discount.DiscountTypeId == 1)).length != 0 ? (data.details.Discounts.filter(discount => discount.DiscountTypeId == 1)[0].CouponCode) : "",
+                        discountAmount: (data.details.Discounts === undefined) ? "" : data.details.Discounts.filter(discount => discount.DiscountTypeId == 1).reduce((sum, discount) => sum + discount.DiscountPrices.CustomerTransaction.CustomerPrice, 0),
+                        taxAmount: 0,
+                        optionalData: {}, /*THIS IS OPTIONAL*/
+                        lineitems: [],
+                    }
+                    var rakProducts = data.details.ProductInformation;
+                    for (var i = 0; i < rakProducts.length; i++) {
+                        rm_trans.lineitems.push({
+                            quantity: rakProducts[i].Quantity,
+                            unitPrice: rakProducts[i].ProductPrices.CustomerTransaction.CustomerSalePrice,
+                            unitPriceLessTax: rakProducts[i].ProductPrices.CustomerTransaction.CustomerSalePrice / (1 + (rakProducts[i].ProductPrices.CustomerTransaction.CustomerVATRate) / 100),
+                            SKU: rakProducts[i].SKU,
+                            productName: rakProducts[i].ProductName
+                        });
+                    };
 
-				//Debug rm_trans datalayer
-	            debugOut('RAd DataLayer debug:');
-	            debugOut(rm_trans);
+        			//Debug rm_trans datalayer
+                    debugOut('RAd DataLayer debug:');
+                    debugOut(rm_trans);
 
-	            /*Do not edit any information beneath this line*/
-			    !function(a,b,c){
-	    var d=a.rakutenDataLayerName||"DataLayer";a[d]=a[d]||{},a[d].events=a[d].events||{},a[d].events.SPIVersion="3.4.1",a[d].Sale=a[d].Sale||{},a[d].Sale.Basket=a[d].Sale.Basket||{},c.Ready=a[d].Sale.Basket.Ready&&a[d].Sale.Basket.Ready+1||1,a[d].Sale.Basket=c;
-	    var e=function(a){for(var c,d=a+"=",e=b.cookie.split(";"),f=0;f<e.length;f++){for(c=e[f];" "==c.charAt(0);)c=c.substring(1,c.length);if(0==c.indexOf(d))return c.substring(d.length,c.length)}return""},f=function(a){var b=a||"",c={};if(a||(b=e("rmStore")),b){for(;b!==decodeURIComponent(b);)b=decodeURIComponent(b);for(var d=b.split("|"),f=0;f<d.length;f++)c[d[f].split(":")[0]]=d[f].split(":")[1]}return c},g={};g=f();var h=function(a,b,c,d){c=c||"",d=d||{};var e=g[a||""],f=d[b||""],h=d.ignoreCookie||!1;e=h?0:e;var i=e||f||c;return i=("string"!=typeof i||"false"!==i.toLowerCase())&&i,i},k=function(a,c,d,e,f){var g=b.createElement(a),h=-1<b.location.protocol.indexOf("s")?"https:":"http:";for(var i in c=c.replace("https:",h),g.src=c,e=e||{},"script"==a?e.type=e.type||"text/javascript":(e.style="display:none;","img"==a&&(e.alt="",e.height="1",e.width="1")),e)e.hasOwnProperty(i)&&g.setAttribute(i,e[i]);var j=b.getElementsByTagName(d);j=j.length?j[0]:b.getElementsByTagName("script")[0].parentElement,f&&(g.onload=f,g.onreadystatechange=function(){("complete"==this.readyState||"loaded"==this.readyState)&&f()}),j.appendChild(g)},l=function(a){var b=new Date,c=b.getUTCFullYear()+("0"+(b.getUTCMonth()+1)).slice(-2)+("0"+b.getUTCDate()).slice(-2)+("0"+b.getUTCHours()).slice(-2)+("0"+b.getUTCMinutes()).slice(-2);return"NoOID_"+(a?a+"_":"")+Math.round(1e5*Math.random())+"_"+c},m=function(){var b=a[d]&&a[d].Sale&&a[d].Sale.Basket?a[d].Sale.Basket:{},c=c||b.affiliateConfig||{},f=h("amid","ranMID","",c)||b.ranMID;if(!f)return!1;var g="undefined"==typeof c.allowCommission||"false"!==c.allowCommission;if(!g)return!1;if(!b.orderid&&!(b.lineitems&&b.lineitems.length))return!1;var m=h("adn","domain","track.linksynergy.com",c),o=h("atm","tagType","pixel",c),p=h("adr","discountType","order",c),q=h("acs","includeStatus","false",c),r=h("arto","removeOrderTax","false",c),s=h("artp","removeTaxFromProducts","false",c),t=h("artd","removeTaxFromDiscount","false",c),u=h("atr","taxRate",b.taxRate||0,c),v=h("ald","land",!1,{})||(c.land&&!0===c.land?e("ranLandDateTime"):c.land)||!1,w=h("atrv","tr",!1,{})||(c.tr&&!0===c.tr?e("ranSiteID"):c.tr)||!1,x=h("acv","centValues","true",c),y=h("ancc","nonCentCurrencies","JPY",c);u=Math.abs(+u);var z=(100+u)/100,A=b.orderid||l(f);A=encodeURIComponent(A);var B=b.currency||"";B=encodeURIComponent(B.toUpperCase());var C=!1;if(B&&y){y=(y+"").split(",");for(var D=0;D<y.length;D++)y[D]==B&&(C=!0)}var F=function(a){return C&&(a=Math.round(a)),x&&"false"!==x?(a*=100,a=Math.round(a)):a=Math.round(100*a)/100,a+""},G=b.taxAmount?Math.abs(+b.taxAmount):0,H=b.discountAmount?Math.abs(+b.discountAmount):0,I=b.discountAmountLessTax?Math.abs(+b.discountAmountLessTax):0;!I&&H&&t&&u&&(I=H/z),I=I||H;var J="ep";"mop"===o&&(J="eventnvppixel");var K=(b.customerStatus||"")+"",L="";K&&(q&&"EXISTING"==K.toUpperCase()||q&&"RETURNING"==K.toUpperCase())&&(L="R_");for(var M=[],N=0,O=0;O<(b.lineitems?b.lineitems.length:0);O++)if(b.lineitems[O]){var P=!1,Q=a.JSON?JSON.parse(JSON.stringify(b.lineitems[O])):b.lineitems[O],R=+Q.quantity||0,S=+Q.unitPrice||0,T=+Q.unitPriceLessTax,U=T||S||0;s&&u&&!T&&(U/=z);for(var V,W=R*U,X=0;X<M.length;X++)V=M[X],V.SKU===Q.SKU&&(P=!0,V.quantity+=R,V.totalValue+=W);P||(Q.quantity=R,Q.totalValue=W,M.push(Q)),N+=W}for(var Y="",Z="",$="",_="",aa={},O=0;O<M.length;O++){var Q=M[O],ba=encodeURIComponent(Q.SKU),ca=Q.totalValue,R=Q.quantity,da=encodeURIComponent(Q.productName)||"";"item"===p.toLowerCase()&&I&&(ca-=I*ca/N);var ea=Q.optionalData;for(var fa in ea)ea.hasOwnProperty(fa)&&(aa[fa]=aa[fa]||"",aa[fa]+=encodeURIComponent(ea[fa])+"|");Y+=L+ba+"|",Z+=R+"|",$+=F(ca)+"|",_+=L+da+"|"}Y=Y.slice(0,-1),Z=Z.slice(0,-1),$=$.slice(0,-1),_=_.slice(0,-1),I&&(I=F(I)),G&&(G=F(G)),I&&"order"===p.toLowerCase()&&(Y+="|"+L+"DISCOUNT",_+="|"+L+"DISCOUNT",Z+="|0",$+="|-"+I),r&&G&&(Y+="|"+L+"ORDERTAX",Z+="|0",$+="|-"+G,_+="|"+L+"ORDERTAX");var ga="https://"+m+"/"+J+"?mid="+f;ga+="&ord="+A,ga+=v?"&land="+v:"",ga+=w?"&tr="+w:"",ga+="&cur="+B,ga+="&skulist="+Y,ga+="&qlist="+Z,ga+="&amtlist="+$,ga+="&img=1",ga+="&spi="+a[d].events.SPIVersion,I&&"item"===p.toLowerCase()&&(ga+="&discount="+I);var ea=b.optionalData||{};for(var fa in b.discountCode&&(ea.coupon=b.discountCode),b.customerStatus&&(ea.custstatus=b.customerStatus),b.customerID&&(ea.custid=b.customerID),I&&(ea.disamt=I),ea)ea.hasOwnProperty(fa)&&(ga+="&"+encodeURIComponent(fa)+"="+encodeURIComponent(ea[fa]));for(var fa in aa)aa.hasOwnProperty(fa)&&(ga+="&"+encodeURIComponent(fa)+"list="+aa[fa].slice(0,-1),I&&"order"===p.toLowerCase()&&(ga+="|"),G&&r&&(ga+="|"));ga+="&namelist="+_;if(8000<ga.length){for(var ha=8000;0<ha;)if("&"==ga.charAt(ha)){ga=ga.slice(0,ha);break}else ha--;ga+="&trunc=true"}k("img",ga,"body")},n=function(){var b=a[d]&&a[d].Sale&&a[d].Sale.Basket?a[d].Sale.Basket:{},c=c||b.displayConfig||{},e=h("dmid","rdMID","",c);if(!e)return!1;if(!b.orderid&&!b.conversionType)return!1;var f=h("dtm","tagType","js",c),g=h("ddn","domain","tags.rd.linksynergy.com",c),j=h("dis","includeStatus","false",c),m=h("dcomm","allowCommission","notset",c),n=h("duup","useUnitPrice","false",c),o=h("drtp","removeTaxFromProducts","false",c),p=h("drtd","removeTaxFromDiscount","false",c),q=h("dtr","taxRate",b.taxRate||0,c),r="";"true"===m||!0===m||"1"===m||1===m?r="1":("false"===m||!1===m||"0"===m||0===m)&&(r="0"),f="js"===f||"if"===f||"img"===f?f:"js";var s="script";"if"===f?s="iframe":"img"===f&&(s="img"),("true"===n||!0===n||"1"===n||1===n)&&(n=!0);var t=(b.customerStatus||"")+"",u="";t&&j&&("EXISTING"==t.toUpperCase()||"RETURNING"==t.toUpperCase())&&(u="R_");var v=b.orderid;v||(v=l((b.conversionType+"").toLowerCase()+"_"+e)),v=encodeURIComponent(u+v);var w=encodeURIComponent(b.currency||""),x=0,y="";q=Math.abs(+q);var z=(100+q)/100,A=b.discountAmount?Math.abs(+b.discountAmount):0,B=b.discountAmountLessTax?Math.abs(+b.discountAmountLessTax):0;!B&&A&&p&&q&&(B=A/z),B=B||A,B=isNaN(B)?0:B;for(var C=0;C<(b.lineitems?b.lineitems.length:0);C++)if(b.lineitems[C]){var D=+b.lineitems[C].quantity,E=+b.lineitems[C].unitPriceLessTax*D;(!E||n)&&(o&&q?E=+b.lineitems[C].unitPrice/z*D:E=+b.lineitems[C].unitPrice*D),E=isNaN(E)?0:E,x+=E,y+=encodeURIComponent(b.lineitems[C].SKU)+","}x=Math.round(100*(x-B))/100,y=y.slice(0,-1);var F="https://"+g+"/"+f+"/"+e;F+="/?pt="+"conv",F+="&orderNumber="+v,F+="&spi="+a[d].events.SPIVersion,x&&(F+="&price="+x),w&&(F+="&cur="+w),r&&(F+="&tvalid="+r),y&&(F+="&prodID="+y),k(s,F,"body")},o=function(){var b=a[d]&&a[d].Sale&&a[d].Sale.Basket?a[d].Sale.Basket:{},c=b.searchConfig||{},e=1024,f=encodeURIComponent("...TRUNCATED"),g=h("smid","rsMID","",c);if(!g)return!1;var j=h("said","accountID","113",c),m=h("sclid","clickID","",c),n=encodeURIComponent(h("sct","conversionType",b.conversionType&&"sale"!==(b.conversionType+"").toLowerCase()?b.conversionType:"conv",c));k("script","https://services.xg4ken.com/js/kenshoo.js?cid="+g,"body",null,function(){var a={};if(a.conversionType=n,a.revenue=0,a.currency=encodeURIComponent(b.currency||"USD"),a.orderId=encodeURIComponent(b.orderid||l(n)),a.promoCode=encodeURIComponent(b.discountCode||""),m&&(a.ken_gclid=encodeURIComponent(m)),a.discountAmount=+(b.discountAmount||0),a.discountAmount=isNaN(a.discountAmount)?0:Math.abs(a.discountAmount),a.customerStatus=encodeURIComponent(b.customerStatus||""),a.productIDList="",a.productNameList="",b.lineitems&&b.lineitems.length){for(var c=0;c<b.lineitems.length;c++)b.lineitems[c]&&(a.revenue+=+(b.lineitems[c].unitPrice||0)*+b.lineitems[c].quantity,a.productIDList+=(b.lineitems[c].SKU||"NA")+",",a.productNameList+=(b.lineitems[c].productName||"NA")+",");a.revenue=Math.round(100*(a.revenue-a.discountAmount))/100,a.productIDList=encodeURIComponent(a.productIDList.slice(0,-1)),a.productNameList=encodeURIComponent(a.productNameList.slice(0,-1)),a.productIDList.length>e&&(a.productIDList=a.productIDList.substring(0,e-f.length)+f),a.productNameList.length>e&&(a.productNameList=a.productNameList.substring(0,e-f.length)+f)}kenshoo.trackConversion(j,g,a)})};a[d].SPI={readRMCookie:e,processRMStoreCookie:f,readRMStoreValue:h,sRAN:m,sDisplay:n,sSearch:o,addElement:k,rmStore:g},m(),n(),o()
-	}(window,document,rm_trans);
-			}
-			break;
-		}
-	});
-	</script> -->
-	<!-- END Rakuten Advertising Global-e Conversion Tag -->
-	
-{% render 'footer-scripts' %}
+                    /*Do not edit any information beneath this line*/
+        		    !function(a,b,c){
+            var d=a.rakutenDataLayerName||"DataLayer";a[d]=a[d]||{},a[d].events=a[d].events||{},a[d].events.SPIVersion="3.4.1",a[d].Sale=a[d].Sale||{},a[d].Sale.Basket=a[d].Sale.Basket||{},c.Ready=a[d].Sale.Basket.Ready&&a[d].Sale.Basket.Ready+1||1,a[d].Sale.Basket=c;
+            var e=function(a){for(var c,d=a+"=",e=b.cookie.split(";"),f=0;f<e.length;f++){for(c=e[f];" "==c.charAt(0);)c=c.substring(1,c.length);if(0==c.indexOf(d))return c.substring(d.length,c.length)}return""},f=function(a){var b=a||"",c={};if(a||(b=e("rmStore")),b){for(;b!==decodeURIComponent(b);)b=decodeURIComponent(b);for(var d=b.split("|"),f=0;f<d.length;f++)c[d[f].split(":")[0]]=d[f].split(":")[1]}return c},g={};g=f();var h=function(a,b,c,d){c=c||"",d=d||{};var e=g[a||""],f=d[b||""],h=d.ignoreCookie||!1;e=h?0:e;var i=e||f||c;return i=("string"!=typeof i||"false"!==i.toLowerCase())&&i,i},k=function(a,c,d,e,f){var g=b.createElement(a),h=-1<b.location.protocol.indexOf("s")?"https:":"http:";for(var i in c=c.replace("https:",h),g.src=c,e=e||{},"script"==a?e.type=e.type||"text/javascript":(e.style="display:none;","img"==a&&(e.alt="",e.height="1",e.width="1")),e)e.hasOwnProperty(i)&&g.setAttribute(i,e[i]);var j=b.getElementsByTagName(d);j=j.length?j[0]:b.getElementsByTagName("script")[0].parentElement,f&&(g.onload=f,g.onreadystatechange=function(){("complete"==this.readyState||"loaded"==this.readyState)&&f()}),j.appendChild(g)},l=function(a){var b=new Date,c=b.getUTCFullYear()+("0"+(b.getUTCMonth()+1)).slice(-2)+("0"+b.getUTCDate()).slice(-2)+("0"+b.getUTCHours()).slice(-2)+("0"+b.getUTCMinutes()).slice(-2);return"NoOID_"+(a?a+"_":"")+Math.round(1e5*Math.random())+"_"+c},m=function(){var b=a[d]&&a[d].Sale&&a[d].Sale.Basket?a[d].Sale.Basket:{},c=c||b.affiliateConfig||{},f=h("amid","ranMID","",c)||b.ranMID;if(!f)return!1;var g="undefined"==typeof c.allowCommission||"false"!==c.allowCommission;if(!g)return!1;if(!b.orderid&&!(b.lineitems&&b.lineitems.length))return!1;var m=h("adn","domain","track.linksynergy.com",c),o=h("atm","tagType","pixel",c),p=h("adr","discountType","order",c),q=h("acs","includeStatus","false",c),r=h("arto","removeOrderTax","false",c),s=h("artp","removeTaxFromProducts","false",c),t=h("artd","removeTaxFromDiscount","false",c),u=h("atr","taxRate",b.taxRate||0,c),v=h("ald","land",!1,{})||(c.land&&!0===c.land?e("ranLandDateTime"):c.land)||!1,w=h("atrv","tr",!1,{})||(c.tr&&!0===c.tr?e("ranSiteID"):c.tr)||!1,x=h("acv","centValues","true",c),y=h("ancc","nonCentCurrencies","JPY",c);u=Math.abs(+u);var z=(100+u)/100,A=b.orderid||l(f);A=encodeURIComponent(A);var B=b.currency||"";B=encodeURIComponent(B.toUpperCase());var C=!1;if(B&&y){y=(y+"").split(",");for(var D=0;D<y.length;D++)y[D]==B&&(C=!0)}var F=function(a){return C&&(a=Math.round(a)),x&&"false"!==x?(a*=100,a=Math.round(a)):a=Math.round(100*a)/100,a+""},G=b.taxAmount?Math.abs(+b.taxAmount):0,H=b.discountAmount?Math.abs(+b.discountAmount):0,I=b.discountAmountLessTax?Math.abs(+b.discountAmountLessTax):0;!I&&H&&t&&u&&(I=H/z),I=I||H;var J="ep";"mop"===o&&(J="eventnvppixel");var K=(b.customerStatus||"")+"",L="";K&&(q&&"EXISTING"==K.toUpperCase()||q&&"RETURNING"==K.toUpperCase())&&(L="R_");for(var M=[],N=0,O=0;O<(b.lineitems?b.lineitems.length:0);O++)if(b.lineitems[O]){var P=!1,Q=a.JSON?JSON.parse(JSON.stringify(b.lineitems[O])):b.lineitems[O],R=+Q.quantity||0,S=+Q.unitPrice||0,T=+Q.unitPriceLessTax,U=T||S||0;s&&u&&!T&&(U/=z);for(var V,W=R*U,X=0;X<M.length;X++)V=M[X],V.SKU===Q.SKU&&(P=!0,V.quantity+=R,V.totalValue+=W);P||(Q.quantity=R,Q.totalValue=W,M.push(Q)),N+=W}for(var Y="",Z="",$="",_="",aa={},O=0;O<M.length;O++){var Q=M[O],ba=encodeURIComponent(Q.SKU),ca=Q.totalValue,R=Q.quantity,da=encodeURIComponent(Q.productName)||"";"item"===p.toLowerCase()&&I&&(ca-=I*ca/N);var ea=Q.optionalData;for(var fa in ea)ea.hasOwnProperty(fa)&&(aa[fa]=aa[fa]||"",aa[fa]+=encodeURIComponent(ea[fa])+"|");Y+=L+ba+"|",Z+=R+"|",$+=F(ca)+"|",_+=L+da+"|"}Y=Y.slice(0,-1),Z=Z.slice(0,-1),$=$.slice(0,-1),_=_.slice(0,-1),I&&(I=F(I)),G&&(G=F(G)),I&&"order"===p.toLowerCase()&&(Y+="|"+L+"DISCOUNT",_+="|"+L+"DISCOUNT",Z+="|0",$+="|-"+I),r&&G&&(Y+="|"+L+"ORDERTAX",Z+="|0",$+="|-"+G,_+="|"+L+"ORDERTAX");var ga="https://"+m+"/"+J+"?mid="+f;ga+="&ord="+A,ga+=v?"&land="+v:"",ga+=w?"&tr="+w:"",ga+="&cur="+B,ga+="&skulist="+Y,ga+="&qlist="+Z,ga+="&amtlist="+$,ga+="&img=1",ga+="&spi="+a[d].events.SPIVersion,I&&"item"===p.toLowerCase()&&(ga+="&discount="+I);var ea=b.optionalData||{};for(var fa in b.discountCode&&(ea.coupon=b.discountCode),b.customerStatus&&(ea.custstatus=b.customerStatus),b.customerID&&(ea.custid=b.customerID),I&&(ea.disamt=I),ea)ea.hasOwnProperty(fa)&&(ga+="&"+encodeURIComponent(fa)+"="+encodeURIComponent(ea[fa]));for(var fa in aa)aa.hasOwnProperty(fa)&&(ga+="&"+encodeURIComponent(fa)+"list="+aa[fa].slice(0,-1),I&&"order"===p.toLowerCase()&&(ga+="|"),G&&r&&(ga+="|"));ga+="&namelist="+_;if(8000<ga.length){for(var ha=8000;0<ha;)if("&"==ga.charAt(ha)){ga=ga.slice(0,ha);break}else ha--;ga+="&trunc=true"}k("img",ga,"body")},n=function(){var b=a[d]&&a[d].Sale&&a[d].Sale.Basket?a[d].Sale.Basket:{},c=c||b.displayConfig||{},e=h("dmid","rdMID","",c);if(!e)return!1;if(!b.orderid&&!b.conversionType)return!1;var f=h("dtm","tagType","js",c),g=h("ddn","domain","tags.rd.linksynergy.com",c),j=h("dis","includeStatus","false",c),m=h("dcomm","allowCommission","notset",c),n=h("duup","useUnitPrice","false",c),o=h("drtp","removeTaxFromProducts","false",c),p=h("drtd","removeTaxFromDiscount","false",c),q=h("dtr","taxRate",b.taxRate||0,c),r="";"true"===m||!0===m||"1"===m||1===m?r="1":("false"===m||!1===m||"0"===m||0===m)&&(r="0"),f="js"===f||"if"===f||"img"===f?f:"js";var s="script";"if"===f?s="iframe":"img"===f&&(s="img"),("true"===n||!0===n||"1"===n||1===n)&&(n=!0);var t=(b.customerStatus||"")+"",u="";t&&j&&("EXISTING"==t.toUpperCase()||"RETURNING"==t.toUpperCase())&&(u="R_");var v=b.orderid;v||(v=l((b.conversionType+"").toLowerCase()+"_"+e)),v=encodeURIComponent(u+v);var w=encodeURIComponent(b.currency||""),x=0,y="";q=Math.abs(+q);var z=(100+q)/100,A=b.discountAmount?Math.abs(+b.discountAmount):0,B=b.discountAmountLessTax?Math.abs(+b.discountAmountLessTax):0;!B&&A&&p&&q&&(B=A/z),B=B||A,B=isNaN(B)?0:B;for(var C=0;C<(b.lineitems?b.lineitems.length:0);C++)if(b.lineitems[C]){var D=+b.lineitems[C].quantity,E=+b.lineitems[C].unitPriceLessTax*D;(!E||n)&&(o&&q?E=+b.lineitems[C].unitPrice/z*D:E=+b.lineitems[C].unitPrice*D),E=isNaN(E)?0:E,x+=E,y+=encodeURIComponent(b.lineitems[C].SKU)+","}x=Math.round(100*(x-B))/100,y=y.slice(0,-1);var F="https://"+g+"/"+f+"/"+e;F+="/?pt="+"conv",F+="&orderNumber="+v,F+="&spi="+a[d].events.SPIVersion,x&&(F+="&price="+x),w&&(F+="&cur="+w),r&&(F+="&tvalid="+r),y&&(F+="&prodID="+y),k(s,F,"body")},o=function(){var b=a[d]&&a[d].Sale&&a[d].Sale.Basket?a[d].Sale.Basket:{},c=b.searchConfig||{},e=1024,f=encodeURIComponent("...TRUNCATED"),g=h("smid","rsMID","",c);if(!g)return!1;var j=h("said","accountID","113",c),m=h("sclid","clickID","",c),n=encodeURIComponent(h("sct","conversionType",b.conversionType&&"sale"!==(b.conversionType+"").toLowerCase()?b.conversionType:"conv",c));k("script","https://services.xg4ken.com/js/kenshoo.js?cid="+g,"body",null,function(){var a={};if(a.conversionType=n,a.revenue=0,a.currency=encodeURIComponent(b.currency||"USD"),a.orderId=encodeURIComponent(b.orderid||l(n)),a.promoCode=encodeURIComponent(b.discountCode||""),m&&(a.ken_gclid=encodeURIComponent(m)),a.discountAmount=+(b.discountAmount||0),a.discountAmount=isNaN(a.discountAmount)?0:Math.abs(a.discountAmount),a.customerStatus=encodeURIComponent(b.customerStatus||""),a.productIDList="",a.productNameList="",b.lineitems&&b.lineitems.length){for(var c=0;c<b.lineitems.length;c++)b.lineitems[c]&&(a.revenue+=+(b.lineitems[c].unitPrice||0)*+b.lineitems[c].quantity,a.productIDList+=(b.lineitems[c].SKU||"NA")+",",a.productNameList+=(b.lineitems[c].productName||"NA")+",");a.revenue=Math.round(100*(a.revenue-a.discountAmount))/100,a.productIDList=encodeURIComponent(a.productIDList.slice(0,-1)),a.productNameList=encodeURIComponent(a.productNameList.slice(0,-1)),a.productIDList.length>e&&(a.productIDList=a.productIDList.substring(0,e-f.length)+f),a.productNameList.length>e&&(a.productNameList=a.productNameList.substring(0,e-f.length)+f)}kenshoo.trackConversion(j,g,a)})};a[d].SPI={readRMCookie:e,processRMStoreCookie:f,readRMStoreValue:h,sRAN:m,sDisplay:n,sSearch:o,addElement:k,rmStore:g},m(),n(),o()
+        }(window,document,rm_trans);
+        		}
+        		break;
+        	}
+        });
+        </script>
+        <!-- END Rakuten Advertising Global-e Conversion Tag -->
+      {% endcomment %}
 
-	<!--MNTN Tracking Pixel-->
-<script type="text/javascript">
-	(function(){"use strict";var e=null,b="4.0.0",
-	n="32285",
-	additional="term=value",
-	t,r,i;try{t=top.document.referer!==""?encodeURIComponent(top.document.referrer.substring(0,2048)):""}catch(o){t=document.referrer!==null?document.referrer.toString().substring(0,2048):""}try{r=window&&window.top&&document.location&&window.top.location===document.location?document.location:window&&window.top&&window.top.location&&""!==window.top.location?window.top.location:document.location}catch(u){r=document.location}try{i=parent.location.href!==""?encodeURIComponent(parent.location.href.toString().substring(0,2048)):""}catch(a){try{i=r!==null?encodeURIComponent(r.toString().substring(0,2048)):""}catch(f){i=""}}var l,c=document.createElement("script"),h=null,p=document.getElementsByTagName("script"),d=Number(p.length)-1,v=document.getElementsByTagName("script")[d];if(typeof l==="undefined"){l=Math.floor(Math.random()*1e17)}h="dx.mountain.com/spx?"+"dxver="+b+"&shaid="+n+"&tdr="+t+"&plh="+i+"&cb="+l+additional;c.type="text/javascript";c.src=("https:"===document.location.protocol?"https://":"http://")+h;v.parentNode.insertBefore(c,v)})()
-</script>
+      <!-- Heap -->
+      <script type="text/javascript">
+        window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var r=document.createElement("script");r.type="text/javascript",r.async=!0,r.src="https://cdn.heapanalytics.com/js/heap-"+e+".js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(r,a);for(var n=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["addEventProperties","addUserProperties","clearEventProperties","identify","resetIdentity","removeEventProperty","setEventProperties","track","unsetEventProperty"],o=0;o<p.length;o++)heap[p[o]]=n(p[o])};
+        heap.load("3256458086");
+      </script>
+      <!-- End Heap -->
 
+      <!-- Start VWO Async SmartCode -->
+      <link rel="preconnect" href="https://dev.visualwebsiteoptimizer.com">
+      <script type="text/javascript" id="vwoCode">
+        window._vwo_code || (function() {
+        var account_id=741455,
+        version=2.0,
+        settings_tolerance=5000,
+        hide_element='body',
+        hide_element_style = 'opacity:0 !important;filter:alpha(opacity=0) !important;background:none !important',
+        /* DO NOT EDIT BELOW THIS LINE */
+        f=false,w=window,d=document,v=d.querySelector('#vwoCode'),cK='_vwo_'+account_id+'_settings',cc={};try{var c=JSON.parse(localStorage.getItem('_vwo_'+account_id+'_config'));cc=c&&typeof c==='object'?c:{}}catch(e){}var stT=cc.stT==='session'?w.sessionStorage:w.localStorage;code={use_existing_jquery:function(){return typeof use_existing_jquery!=='undefined'?use_existing_jquery:undefined},library_tolerance:function(){return typeof library_tolerance!=='undefined'?library_tolerance:undefined},settings_tolerance:function(){return cc.sT||settings_tolerance},hide_element_style:function(){return'{'+(cc.hES||hide_element_style)+'}'},hide_element:function(){return typeof cc.hE==='string'?cc.hE:hide_element},getVersion:function(){return version},finish:function(){if(!f){f=true;var e=d.getElementById('_vis_opt_path_hides');if(e)e.parentNode.removeChild(e)}},finished:function(){return f},load:function(e){var t=this.getSettings(),n=d.createElement('script'),i=this;if(t){n.textContent=t;d.getElementsByTagName('head')[0].appendChild(n);if(!w.VWO||VWO.caE){stT.removeItem(cK);i.load(e)}}else{n.fetchPriority='high';n.src=e;n.type='text/javascript';n.onerror=function(){_vwo_code.finish()};d.getElementsByTagName('head')[0].appendChild(n)}},getSettings:function(){try{var e=stT.getItem(cK);if(!e){return}e=JSON.parse(e);if(Date.now()>e.e){stT.removeItem(cK);return}return e.s}catch(e){return}},init:function(){if(d.URL.indexOf('__vwo_disable__')>-1)return;var e=this.settings_tolerance();w._vwo_settings_timer=setTimeout(function(){_vwo_code.finish();stT.removeItem(cK)},e);var t=d.currentScript,n=d.createElement('style'),i=this.hide_element(),r=t&&!t.async&&i?i+this.hide_element_style():'',c=d.getElementsByTagName('head')[0];n.setAttribute('id','_vis_opt_path_hides');v&&n.setAttribute('nonce',v.nonce);n.setAttribute('type','text/css');if(n.styleSheet)n.styleSheet.cssText=r;else n.appendChild(d.createTextNode(r));c.appendChild(n);this.load('https://dev.visualwebsiteoptimizer.com/j.php?a='+account_id+'&u='+encodeURIComponent(d.URL)+'&vn='+version)}};w._vwo_code=code;code.init();})();
+      </script>
+      <!-- End VWO Async SmartCode -->
+    {% endunless %}
 
-<!-- tracking scripts from landing -->
+    {% unless settings.staging_site_enable %}
+      {% render 'back-in-stock-helper' %}
+      {% render 'footer-scripts' %}
 
-<!-- Facebook Pixel Code -->
-<!-- <script>
-!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-document,'script','//connect.facebook.net/en_US/fbevents.js');
+      <script>
+        // jQuery('a[href^="http"]').not('a[href^="{{ shop.url }}"]').attr('target', '_blank');
+      </script>
 
-fbq('init', '915568828513254');
-fbq('track', "PageView");
-{% if template contains "cart" %}
-fbq('track', 'AddToCart');
-{% endif %}
-{% if template contains "search" %}
-fbq('track', 'Search');
-{% endif %}
-{% if page.url contains "newsletter-thank-you" %}
-fbq('track', 'Lead');
-{% endif %}
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="//www.facebook.com/tr?id=915568828513254&ev=PageView&noscript=1"
-/></noscript> -->
-<!-- End Facebook Pixel Code -->
+      <!-- MNTN Tracking Pixel -->
+      <script type="text/javascript">
+        (function(){"use strict";var e=null,b="4.0.0",
+        n="32285",
+        additional="term=value",
+        t,r,i;try{t=top.document.referer!==""?encodeURIComponent(top.document.referrer.substring(0,2048)):""}catch(o){t=document.referrer!==null?document.referrer.toString().substring(0,2048):""}try{r=window&&window.top&&document.location&&window.top.location===document.location?document.location:window&&window.top&&window.top.location&&""!==window.top.location?window.top.location:document.location}catch(u){r=document.location}try{i=parent.location.href!==""?encodeURIComponent(parent.location.href.toString().substring(0,2048)):""}catch(a){try{i=r!==null?encodeURIComponent(r.toString().substring(0,2048)):""}catch(f){i=""}}var l,c=document.createElement("script"),h=null,p=document.getElementsByTagName("script"),d=Number(p.length)-1,v=document.getElementsByTagName("script")[d];if(typeof l==="undefined"){l=Math.floor(Math.random()*1e17)}h="dx.mountain.com/spx?"+"dxver="+b+"&shaid="+n+"&tdr="+t+"&plh="+i+"&cb="+l+additional;c.type="text/javascript";c.src=("https:"===document.location.protocol?"https://":"http://")+h;v.parentNode.insertBefore(c,v)})()
+      </script>
 
-  <!-- Google Dynamic Remarketing Tag -->
-{% if template contains 'product' %}
-<script type="text/javascript">
-var json_product = {{ product | json }};
-</script>
-<script>
-var ecomm_prodid=[];
-for(var i=0;i<json_product.variants.length;i++)
-	ecomm_prodid.push(json_product.variants[i].id);
-</script>
-<script type="text/javascript">
-var google_tag_params = {
-	ecomm_prodid: ecomm_prodid,
-	ecomm_pagetype: 'product',
-	ecomm_totalvalue: parseFloat('{{ product.price | money_without_currency | remove: ","}}')
-};
-</script>
-{% elsif template contains 'collection' %}
-<script type="text/javascript">
-var google_tag_params = {
-	ecomm_prodid: '',
-	ecomm_pagetype: 'category',
-	ecomm_totalvalue: 0
-};
-</script>
-{% elsif template contains 'cart' %}
-<script type="text/javascript">
-var id = new Array();
-{% for item in cart.items %}
-id.push('{{item.variant.id}}');
-{% endfor %}
+      {% if settings.afterpay_enable %}
+        <!-- Begin Shopify-Afterpay JavaScript Snippet (v1.0.3) -->
+        <script type="text/javascript">
+          // Editable fields:
+          var afterpay_min = 0.04;            // As per your Afterpay contract.
+          var afterpay_max = 1000.00;         // As per your Afterpay contract.
+          var afterpay_logo_theme = 'black'; // Can be 'colour', 'black' or 'white'.
+          var afterpay_msg_size = 'sm';
+          // Overrides:
+          var afterpay_product_selector = 'div.title-wrapper';
+          // var afterpay_cart_integration_enabled = true;
+          var afterpay_cart_static_selector = '.cart-summary';
+          // var afterpay_cart_static_selector = '#MainContent > div > div > div > div > form > div > div > div';
+          var afterpay_show_currency_code = false;
 
-var google_tag_params = {
-	ecomm_prodid: id,
-	ecomm_pagetype: 'cart',
-	ecomm_totalvalue: parseFloat('{{ cart.total_price | money_without_currency | remove: ","}}')
-};
-</script>
-{% elsif template contains 'search' %}
-<script type="text/javascript">
-var google_tag_params = {
-	ecomm_prodid: '',
-	ecomm_pagetype: 'searchresults',
-	ecomm_totalvalue: 0
-};
-</script>
-{% elsif template contains 'index' %}
-<script type="text/javascript">
-var google_tag_params = {
-	ecomm_prodid: '',
-	ecomm_pagetype: 'home',
-	ecomm_totalvalue: 0
-};
-</script>
-{% else %}
-<script type="text/javascript">
-var google_tag_params = {
-	ecomm_prodid: '',
-	ecomm_pagetype: 'other',
-	ecomm_totalvalue: 0
-};
-</script>
-{% endif %}
+          // var afterpay_variable_price_fallback_selector = '#ProductPrice';
+          // var afterpay_variable_price_fallback = true; // Requires afterpay_product_selector
 
-<script type="text/javascript">
-/* <![CDATA[ */
-var google_conversion_id = 976761610;
-var google_custom_params = window.google_tag_params;
-var google_remarketing_only = true;
-/* ]]> */
-</script>
-<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
-</script>
-<noscript>
-	<div class="display:inline;">
-		<img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/976761610/?value=0&amp;guid=ON&amp;script=0"/>
-	</div>
-</noscript>
+          // Non-editable fields:
+          var afterpay_shop_currency = {{ shop.currency | json }};
+          var afterpay_shop_money_format = {{ shop.money_format | json }};
+          var afterpay_shop_permanent_domain = {{ shop.permanent_domain | json }};
+          var afterpay_theme_name = {{ theme.name | json }};
+          var afterpay_product = {{ product | json }};
+          var afterpay_current_variant = {{ product.selected_or_first_available_variant | json }};
+          var afterpay_cart_total_price = {{ cart.total_price | json }};
+          var afterpay_js_snippet_version = '1.0.3';
+        </script>
+        <script type="text/javascript" src="https://static.afterpay.com/shopify-afterpay-javascript.js"></script>
+        <!-- End Shopify-Afterpay JavaScript Snippet (v1.0.3) -->
 
-  <script async="" type="text/javascript" src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=MCYMmp"></script>
+        <style>
+          @media screen and (max-width:770px){
+          	 afterpay-placement {
+          	 }
+          }
+          @media screen and (min-width:771px){
+          	 afterpay-placement {}
+          }
+          afterpay-placement {
+          	--logo-badge-width: 85px;
+          }
+        </style>
 
+        {% if template == 'product' %}
+          <script type="text/javascript">
+            var product = {{ product | json }};
+            window.onload = () => {
+            	if (product.price >= 100000 || product.type == "Gift Cards") {
+            		document.querySelector('p.afterpay-paragraph').remove();
+            	}
+            }
+          </script>
+        {% endif %}
+      {% endif %}
+
+      {% if settings.livechat_enable %}
+        {% render 'gladly_chat_window' %}
+      {% endif %}
+
+      {% if settings.lovelist_enable %}
+        {% render 'swymSnippet' %}
+        {% render 'swym-custom' %}
+      {% endif %}
+
+      <!-- Attentive Tag -->
+      <script src="https://cdn.attn.tv/fleurdumal/dtag.js"></script>
+      <!-- End Attentive Tag -->
+
+      {% if template contains 'product' %}
+        <!-- Back in Stock helper snippet -->
+        {% render 'back-in-stock-helper' %}
+        <!-- End Back in Stock helper snippet -->
+      {% endif %}
+
+      <!-- Stape Server GTM -->
+      <script>
+        window.lsData = {}; window.lsData.customer = {% if customer %}{first_name: "{{ customer.first_name }}",last_name: "{{ customer.last_name }}",email: "{{ customer.email }}",customer_id: "{{ customer.id }}",id: "{{ customer.id }}",phone: "{{ customer.phone }}"};{% else %}null;{% endif %} window.lsData.currency = '{{ cart.currency.iso_code }}';window.lsData.collection_title = '{{ collection.title }}';window.lsData.collection = {% if collection %}{{ collection.products | json }}{% else %}null{% endif %};window.lsData.product = {% if product %}{{ product | json }}{% else %}null{% endif %};window.lsData.cart = {% if cart %}{{ cart | json }}{% else %}null{% endif %};window.lsData.checkout = {% if checkout %}{currency: "{{ checkout.currency }}",email: "{{checkout.email}}",item_count: {{checkout.item_count}},shipping_address: {{checkout.shipping_address | json}},total_price: {{checkout.total_price}},line_items: [{% for line_item in checkout.line_items %}{item_id: "{{ line_item.product_id | json }}",item_sku: {{ line_item.sku | json }},item_name: {{ line_item.product.title | json }},item_brand: {{ line_item.vendor | json }},item_category: {{ line_item.product.type | json }},item_variant: {{ line_item.variant.title | json }},price: "{{ line_item.final_price | times: 0.01 | json }}",quantity: "{{ line_item.quantity | json }}"},{% endfor %}],}{% else %}null{% endif %}; window.lsData.order = {% if order %}{{ order | json }}{% else %}null{% endif %};
+      </script>
+      <script async src="https://sp.stape.io/widget/script?shop={{shop.domain}}&shop_id={{shop.id}}"></script>
+      <!-- End Stape Server GTM -->
+    {% endunless %}
+
+    <!-- tracking scripts from landing -->
+
+    <!-- Facebook Pixel Code -->
+    <!--
+      <script>
+      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+      n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+      document,'script','//connect.facebook.net/en_US/fbevents.js');
+
+      fbq('init', '915568828513254');
+      fbq('track', "PageView");
+      {% if template contains "cart" %}
+      fbq('track', 'AddToCart');
+      {% endif %}
+      {% if template contains "search" %}
+      fbq('track', 'Search');
+      {% endif %}
+      {% if page.url contains "newsletter-thank-you" %}
+      fbq('track', 'Lead');
+      {% endif %}
+      </script>
+      <noscript><img height="1" width="1" style="display:none"
+      src="//www.facebook.com/tr?id=915568828513254&ev=PageView&noscript=1"
+      /></noscript>
+    -->
+    <!-- End Facebook Pixel Code -->
+
+    <!-- Google Dynamic Remarketing Tag -->
+    {% if template contains 'product' %}
+      <script type="text/javascript">
+        var json_product = {{ product | json }};
+      </script>
+      <script>
+        var ecomm_prodid=[];
+        for(var i=0;i<json_product.variants.length;i++)
+        	ecomm_prodid.push(json_product.variants[i].id);
+      </script>
+      <script type="text/javascript">
+        var google_tag_params = {
+        	ecomm_prodid: ecomm_prodid,
+        	ecomm_pagetype: 'product',
+        	ecomm_totalvalue: parseFloat('{{ product.price | money_without_currency | remove: ","}}')
+        };
+      </script>
+    {% elsif template contains 'collection' %}
+      <script type="text/javascript">
+        var google_tag_params = {
+        	ecomm_prodid: '',
+        	ecomm_pagetype: 'category',
+        	ecomm_totalvalue: 0
+        };
+      </script>
+    {% elsif template contains 'cart' %}
+      <script type="text/javascript">
+        var id = new Array();
+        {% for item in cart.items %}
+        id.push('{{item.variant.id}}');
+        {% endfor %}
+
+        var google_tag_params = {
+        	ecomm_prodid: id,
+        	ecomm_pagetype: 'cart',
+        	ecomm_totalvalue: parseFloat('{{ cart.total_price | money_without_currency | remove: ","}}')
+        };
+      </script>
+    {% elsif template contains 'search' %}
+      <script type="text/javascript">
+        var google_tag_params = {
+        	ecomm_prodid: '',
+        	ecomm_pagetype: 'searchresults',
+        	ecomm_totalvalue: 0
+        };
+      </script>
+    {% elsif template contains 'index' %}
+      <script type="text/javascript">
+        var google_tag_params = {
+        	ecomm_prodid: '',
+        	ecomm_pagetype: 'home',
+        	ecomm_totalvalue: 0
+        };
+      </script>
+    {% else %}
+      <script type="text/javascript">
+        var google_tag_params = {
+        	ecomm_prodid: '',
+        	ecomm_pagetype: 'other',
+        	ecomm_totalvalue: 0
+        };
+      </script>
+    {% endif %}
+
+    <script type="text/javascript">
+      /* <![CDATA[ */
+      var google_conversion_id = 976761610;
+      var google_custom_params = window.google_tag_params;
+      var google_remarketing_only = true;
+      /* ]]> */
+    </script>
+    <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js"></script>
+    <noscript>
+      <div class="display:inline;">
+        <img
+          height="1"
+          width="1"
+          style="border-style:none;"
+          alt=""
+          src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/976761610/?value=0&amp;guid=ON&amp;script=0"
+        >
+      </div>
+    </noscript>
+
+    <script
+      async=""
+      type="text/javascript"
+      src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=MCYMmp"
+    ></script>
   </body>
 </html>

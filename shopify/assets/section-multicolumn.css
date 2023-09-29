@@ -256,3 +256,98 @@
     position: absolute;
     top: 50%;
 }
+
+/ multi column UI correction css /
+
+.multicolumn #multicolumn_list_item_1 .multicolumn_grid_heading {
+  letter-spacing: 0.8px;
+  font-size: 13px!important;
+  font-weight: 600;
+}
+
+@media screen and (max-width: 769px) {
+  .multicolumn #multicolumn_list_item_1{
+    padding: 10px 0px;
+  }
+  .multicolumn #multicolumn_list_item_1 .multicolumn-newsletter-wrapper p {
+    letter-spacing: 0px!important;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .multicolumn-list {
+    padding: 0px 8px!important;
+  }
+  .multicolumn-list__item {
+    padding-bottom: 0px!important;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .mobile_hide {
+    display: block!important;
+  }
+  .multicolumn-newsletter-grid .newsletter .multicolumn-newsletter-wrapper h5 {
+    text-align: var(--text-allign-left-override) !important;
+  }
+  .multicolumn-newsletter-grid .newsletter .multicolumn-newsletter-wrapper .list-social {
+    display: none!important;
+  }
+}
+
+.multicolumn .multicolumn_grid_content p {
+  font-size: 13.6px!important;
+}
+
+.multicolumn .multicolumn-card {
+  padding: 0px!important;
+}
+
+.multicolumn .multicolumn-card__info {
+  padding: 0px!important;
+}
+
+.multicolumn .multicolumn-list {
+  align-items: center;
+}
+
+.multicolumn .mobile-footer-social-icons {
+  margin-top: 4px!important;
+}
+
+.multicolumn .multicolumn_grid_heading {
+  font-size: 16px!important;
+  line-height: 1;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.multicolumn .newsletter__wrapper >  +  {
+  margin-top: 15px!important;
+}
+
+.multicolumn .newsletter-form__field-wrapper {
+  max-width: none!important;
+}
+
+.multicolumn .newsletter-form__field-wrapper input {
+  font-size: 14.4px;
+  padding: 10px!important
+}
+
+.multicolumn .newsletter-form__field-wrapper input::placeholder {
+  color: #767676!important; / Replace #FF0000 with your desired color code /
+}
+
+.multicolumn .newsletter-form__field-wrapper small {
+  font-size: 11px!important;
+  letter-spacing: 0px;
+}
+
+.multicolumn .newsletter-form__button {
+  justify-content: end;
+}
+
+.multicolumn .icon-facebook {
+  fill: #fff;
+}

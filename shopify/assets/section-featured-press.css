@@ -1,0 +1,121 @@
+/*================ Featured Press ================*/
+
+.featured-press {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+@media screen and (max-width: 639px) {
+  .featured-press h2.h5 {
+    text-align: center;
+  }
+}
+
+.featured-press .carousel {
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.featured-press .carousel .carousel-cell {
+  width: 33.33333%;
+  padding-right: .9375rem;
+  padding-left: .9375rem;
+  min-width: 0;
+}
+
+@media screen and (min-width: 640px) and (max-width: 1023px) {
+  .featured-press .carousel .carousel-cell {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 639px) {
+  .featured-press .carousel .carousel-cell {
+    width: 100%;
+  }
+}
+
+.featured-press-quotes {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.featured-press-quotes .row .column img.logo {
+  width: 100%;
+  max-width: 200px;
+}
+
+@media screen and (max-width: 639px) {
+  .featured-press-quotes .row .column:nth-child(1),
+  .featured-press-quotes .row .column:nth-child(2) {
+    margin-bottom: 30px;
+  }
+}
+
+@media screen and (min-width: 640px) and (max-width: 1023px) {
+  .featured-press-quotes .row .column:nth-child(4) {
+    display: none;
+  }
+}
+
+.featured-press-quotes .row .column .featured-press-quote {
+  font-size: 1rem;
+  margin-top: 15px;
+  max-width: 270px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  line-height: 1.5;
+}
+
+@media screen and (max-width: 639px) {
+  .featured-press-quotes .row .column .featured-press-quote {
+    font-size: 0.9rem;
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  .featured-press-quotes .row .column .featured-press-quote {
+    font-size: 1.1rem;
+  }
+}
+
+.featured-press .main-carousel .carousel-cell {
+  width: 100%;
+}
+
+.featured-press .main-carousel .carousel-cell img.logo {
+  width: 100%;
+  max-width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.featured-press .main-carousel .carousel-cell .featured-press-quote {
+  font-size: 1rem;
+  margin-top: 15px;
+  max-width: 280px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.featured-press .main-carousel .flickity-page-dots {
+  position: initial;
+  margin-top: 30px;
+  bottom: 0px;
+}
+
+.featured-press .main-carousel .flickity-prev-next-button {
+  display: none;
+}
+
+.dh-widget-container .slick-track {
+    margin-left: inherit!important;
+}
+
+.dh-widget-container .slick-initialized .slick-slide {
+    margin: 9px!important;
+}

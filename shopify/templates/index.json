@@ -9,10 +9,9 @@
             "image": "shopify:\/\/shop_images\/08.29_HP_MAIN_HERO_BANNER_-_new_arrivals.jpg",
             "mobile_image": "shopify:\/\/shop_images\/08.29-HP-MAIN-HERO-BANNER-MOBILE---new-arrivals.jpg",
             "heading": "new arrivals",
-            "heading_size": "h1",
             "heading_color": "#ffffff",
             "heading_font_size_desktop": 80,
-            "heading_font_size_mobile": 20,
+            "heading_font_size_mobile": 40,
             "subheading": "",
             "subheading_color": "#ffffff",
             "subheading_font_size_desktop": 22,
@@ -24,10 +23,8 @@
             "button_style_secondary": false,
             "box_align": "middle-center",
             "show_text_box": false,
-            "text_alignment": "center",
             "image_overlay_opacity": 0,
-            "color_scheme": "",
-            "text_alignment_mobile": "center"
+            "color_scheme": ""
           }
         }
       },
@@ -64,22 +61,23 @@
         "template--21003507761464__6bd03fdb-5b66-40de-90ea-0d91b3b5e4e7-featured_collection-2": {
           "type": "featured_collection",
           "settings": {
-            "collection": "dress",
-            "show_collection_image": false,
+            "collection": "dresses",
+            "show_collection_image": true,
             "show_overlay": true,
+            "collection_image": "shopify:\/\/shop_images\/09.17_HP_BOX_2_DRESSES.jpg",
             "image_position": "center top",
-            "show_collection_video": true,
-            "collection_video": "https:\/\/cdn.shopify.com\/videos\/c\/o\/v\/bdb63b6d3af743c59a219e82f2222286.mp4",
+            "show_collection_video": false,
+            "collection_video": "",
             "button_text": "SHOP NOW"
           }
         },
         "template--21003507761464__6bd03fdb-5b66-40de-90ea-0d91b3b5e4e7-featured_collection-3": {
           "type": "featured_collection",
           "settings": {
-            "collection": "best-seller",
+            "collection": "bras",
             "show_collection_image": true,
             "show_overlay": true,
-            "collection_image": "shopify:\/\/shop_images\/08.29-HP-BOX-3---BEST-SELLERS_700x_crop_center_babbf497-08ef-4bc7-8ee7-c7d03a25e4af.jpg",
+            "collection_image": "shopify:\/\/shop_images\/Frame_4_-_Bras_1_672x_crop_center_1.jpg",
             "image_position": "center center",
             "show_collection_video": false,
             "collection_video": "",
@@ -89,10 +87,10 @@
         "120fd3ad-30ca-4861-a7cf-7f5e3fb1c4bc": {
           "type": "featured_collection",
           "settings": {
-            "collection": "bras",
+            "collection": "bodysuits",
             "show_collection_image": true,
             "show_overlay": true,
-            "collection_image": "shopify:\/\/shop_images\/Frame_4_-_Bras_1_672x_crop_center_5d147148-d873-4242-80bb-00f9fa7a187a.jpg",
+            "collection_image": "shopify:\/\/shop_images\/09.17_HP_BOX_4_-_bodysuits.jpg",
             "image_position": "center top",
             "show_collection_video": false,
             "collection_video": "",
@@ -110,7 +108,7 @@
         "title": "",
         "heading_size": "h1",
         "image_ratio": "square",
-        "columns_desktop": 4,
+        "columns_desktop": 2,
         "color_scheme": "",
         "show_view_all": false,
         "columns_mobile": "1",
@@ -165,7 +163,6 @@
       "settings": {
         "show_video": true,
         "video_url": "https:\/\/cdn.shopify.com\/videos\/c\/o\/v\/c28832f8a51f41ad9f6379a795a7b0a9.mp4",
-        "image": "shopify:\/\/shop_images\/HP-2---BOX-HERO-1-LEFT-TEXT---pleasure_1800x_ed12157e-44c4-426e-989c-9b000dfd6ea3.jpg",
         "image_overlay_opacity": 0,
         "image_height": "medium",
         "desktop_content_position": "middle-left",
@@ -176,22 +173,20 @@
         "color_scheme": "inverse",
         "image_behavior": "none",
         "mobile_content_alignment": "center",
-        "stack_images_on_mobile": false,
-        "show_text_below": false
+        "stack_images_on_mobile": false
       }
     },
     "f70e5b7b-48f4-49a2-9581-110da11054e1": {
       "type": "collection-product-slider",
       "settings": {
         "title": "new arrivals",
-        "heading_size": "h1",
         "heading_font_size": 32,
         "heading_font_mobile_size": 24,
         "subtitle": "",
         "subtitle_font_size": 19,
         "subtitle_mobile_font_size": 19,
         "text_position": "center",
-        "collection": "all",
+        "collection": "new-arrivals",
         "products_to_show": 10,
         "columns_desktop": 3,
         "image_ratio": "adapt",
@@ -243,7 +238,7 @@
         "template--21003507761464__44961b9c-e8b4-4ae8-a775-ac7e3883b9e4-heading-1": {
           "type": "heading",
           "settings": {
-            "heading": "le panty bar",
+            "heading": "panty bar",
             "heading_size": "h1",
             "heading_font_size": 64,
             "heading_font_mobile_size": 40,
@@ -253,7 +248,7 @@
         "template--21003507761464__44961b9c-e8b4-4ae8-a775-ac7e3883b9e4-text-1": {
           "type": "text",
           "settings": {
-            "text": "Fill your top drawer with Fleur’s best-selling & most essential silhouettes. Build le perfect panty bundle.",
+            "text": "Build the perfect bundle from Fleur's best-selling silhouettes.",
             "text_style": "heading_font",
             "content_font_size": 22,
             "content_font_mobile_size": 17
@@ -279,34 +274,32 @@
       "settings": {
         "show_video": false,
         "video_url": "",
-        "image": "shopify:\/\/shop_images\/HP-2---BOX-HERO-2-RIGHT-TEXT---le-panty-bar.jpg",
-        "image_mobile": "shopify:\/\/shop_images\/HP-2---BOX-HERO-2-RIGHT-TEXT---le-panty-bar.jpg",
+        "image": "shopify:\/\/shop_images\/HP_2_-_BOX_HERO_2_RIGHT_TEXT_-_panty_bar_new.jpg",
+        "image_mobile": "shopify:\/\/shop_images\/HP_2_-_BOX_HERO_2_RIGHT_TEXT_-_panty_bar_new.jpg",
         "image_overlay_opacity": 20,
-        "image_height": "large",
-        "desktop_content_position": "middle-right",
+        "image_height": "medium",
+        "desktop_content_position": "middle-left",
         "show_text_box": false,
         "desktop_content_alignment": "center",
-        "banner_color": "#000000",
+        "banner_color": "#ffffff",
         "banner_color_mobile": "#ffffff",
         "color_scheme": "",
         "image_behavior": "none",
         "mobile_content_alignment": "center",
-        "stack_images_on_mobile": false,
-        "show_text_below": false
+        "stack_images_on_mobile": false
       }
     },
     "14a8825c-15d6-4aee-8055-d8775ec40022": {
       "type": "collection-product-slider",
       "settings": {
         "title": "best sellers",
-        "heading_size": "h1",
         "heading_font_size": 32,
         "heading_font_mobile_size": 24,
         "subtitle": "luxury lingerie & clothing",
         "subtitle_font_size": 22,
         "subtitle_mobile_font_size": 22,
         "text_position": "center",
-        "collection": "pleasure",
+        "collection": "backend-best-sellers",
         "products_to_show": 10,
         "columns_desktop": 3,
         "image_ratio": "adapt",
@@ -325,12 +318,14 @@
       "disabled": true,
       "settings": {
         "title": "Featured products",
+        "heading_link": "",
         "heading_size": "h2",
         "description": "",
         "show_description": false,
         "description_style": "body",
         "collection": "all",
         "products_to_show": 8,
+        "products_to_offset": 0,
         "columns_desktop": 4,
         "full_width": false,
         "show_view_all": false,
@@ -430,8 +425,7 @@
         "template--21003507761464__d4acb95f-4ce8-4a20-bce6-88b9fcc4302f-heading-1": {
           "type": "heading",
           "settings": {
-            "heading": "our boutiques",
-            "heading_size": "h1"
+            "heading": "our boutiques"
           }
         },
         "template--21003507761464__d4acb95f-4ce8-4a20-bce6-88b9fcc4302f-text-1": {
@@ -443,8 +437,7 @@
         "b6201743-0056-4d3b-a9ae-36d02a06a7a2": {
           "type": "heading",
           "settings": {
-            "heading": "New York City",
-            "heading_size": "h1"
+            "heading": "new york city"
           }
         },
         "1acfc471-dda3-45df-8785-aefed0748ad6": {
@@ -456,8 +449,7 @@
         "784c9aa5-a76d-4df2-ba8e-a20df8b1c16f": {
           "type": "heading",
           "settings": {
-            "heading": "west hollywood",
-            "heading_size": "h1"
+            "heading": "west hollywood"
           }
         },
         "6fc7bfb9-739d-4241-9d3d-803c1cd8f641": {
@@ -486,7 +478,7 @@
         "banner_color": "#ffffff",
         "banner_color_mobile": "#ffffff",
         "heading_font_size": 32,
-        "heading_font_mobile_size": 22,
+        "heading_font_mobile_size": 24,
         "heading_font_style": "regular",
         "text_style": "heading_font",
         "content_font_size": 13,
@@ -509,6 +501,7 @@
       "block_order": [
         "template--21003507761464__53afda23-9639-4e1a-9244-14c7dbc246d0-text-1"
       ],
+      "disabled": true,
       "custom_css": [
         ".rich-text__text {font-size: 65%;}"
       ],
