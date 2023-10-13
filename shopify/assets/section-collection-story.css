@@ -1,0 +1,187 @@
+/*================ Collection Story ================*/
+ .collection-story .content_table.image {
+	 background-size: cover;
+	 background-position: center center;
+	 height: 100%;
+}
+ @media screen and (min-width: 640px) {
+	 .collection-story .content_table.image {
+		 min-height: 700px;
+	}
+}
+ @media screen and (max-width: 639px) {
+	 .collection-story .content_table.image {
+		 height: 255px;
+		 margin-top: 40px;
+	}
+}
+ .collection-story .panel_wrapper {
+	 position: relative;
+	 overflow: hidden;
+	 height: 100%;
+}
+ .collection-story video {
+	 width: 110%;
+	 min-width: 100%;
+	 min-height: 100%;
+	 position: absolute;
+	 top: 50%;
+	 left: 50%;
+	 z-index: 0;
+	 -webkit-background-size: cover;
+	 -moz-background-size: cover;
+	 -o-background-size: cover;
+	 background-size: cover;
+	 transform: translateX(-50%) translateY(-50%);
+}
+ @media screen and (max-width: 1399px) {
+	 .collection-story video {
+		 width: 142%;
+	}
+}
+ .collection-story hr.top-border {
+	 margin-top: 0px;
+	 margin-bottom: 40px;
+}
+ .collection-story hr.bottom-border {
+	 margin-bottom: 0px;
+	 margin-top: 40px;
+}
+ .collection-story .header {
+	 text-align: center;
+	 margin-bottom: 40px;
+}
+ @media screen and (min-width: 1024px) {
+	 .collection-story .header {
+		 text-align: left;
+	}
+}
+ .collection-story .header .large-12 img, .collection-story .header .large-12 h2.h1 {
+	 margin-bottom: 15px;
+}
+ .collection-story .header img {
+	 width: 100%;
+	 max-width: 280px;
+}
+ @media screen and (min-width: 1400px) {
+	 .collection-story .header img {
+		 max-width: 320px;
+	}
+}
+ @media screen and (max-width: 1023px) {
+	 .collection-story .header img {
+		 margin-bottom: 15px;
+	}
+}
+ .collection-story .header img.large {
+	 max-width: 400px;
+}
+ @media screen and (min-width: 1400px) {
+	 .collection-story .header img.large {
+		 max-width: 500px;
+	}
+}
+ @media screen and (max-width: 639px) {
+	 .collection-story .header img.large {
+		 max-width: 280px;
+	}
+}
+ @media screen and (max-width: 639px) {
+	 .collection-story .header img {
+		 max-width: 160px;
+	}
+}
+ .collection-story .header h2.h1 {
+	 font-size: 3.5rem;
+}
+ @media screen and (max-width: 639px) {
+	 .collection-story .header h2.h1 {
+		 font-size: 2.5rem;
+	}
+}
+ @media screen and (min-width: 1024px) {
+	 .collection-story .header h2.h1 {
+		 font-size: 4.5rem;
+	}
+}
+ .collection-story .header .btn.outline {
+	 margin-top: 15px;
+	 display: inline-block;
+}
+ .collection-story .header .action {
+	 font-size: 0.8rem;
+	 text-transform: uppercase;
+	 color: #000;
+	 margin-top: 10px;
+	 display: inline-block;
+}
+ @media screen and (min-width: 1400px) {
+	 .collection-story .header .action {
+		 font-size: 0.9rem;
+	}
+}
+ .collection-story .product-collection-story {
+	 margin-bottom: 40px;
+}
+ @media screen and (max-width: 1023px) {
+	 .collection-story .product-collection-story:nth-child(3n), .collection-story .product-collection-story:nth-child(4n) {
+		 margin-bottom: 0px;
+	}
+	 .collection-story .product-collection-story:nth-child(5n), .collection-story .product-collection-story:nth-child(6n) {
+		 display: none;
+	}
+}
+ @media screen and (min-width: 1024px) {
+	 .collection-story .product-collection-story:nth-child(4n), .collection-story .product-collection-story:nth-child(5n), .collection-story .product-collection-story:nth-child(6n) {
+		 margin-bottom: 0px;
+	}
+}
+ .collection-story .product-collection-story .product-image-wrapper .badge {
+	 position: absolute;
+	 top: 10px;
+	 right: 10px;
+	 text-transform: initial;
+	 background: #fff;
+	 padding: 1px 5px 1px 4px;
+	 font-weight: 600;
+	 font-size: 0.75rem;
+	 color: #000;
+}
+ .collection-story .product-collection-story ul.information {
+	 text-align: left;
+}
+ .collection-story .product-collection-story ul.information li.title {
+	 text-transform: initial;
+	 font-weight: 600;
+	 font-size: 0.75rem;
+}
+ @media screen and (max-width: 639px) {
+	 .collection-story .product-collection-story ul.information li.title {
+		 font-size: 0.85rem;
+	}
+}
+ @media screen and (min-width: 1024px) and (max-width: 1399px) {
+	 .collection-story .product-collection-story ul.information li.title {
+		 font-size: 0.8rem;
+	}
+}
+ @media screen and (min-width: 1400px) {
+	 .collection-story .product-collection-story ul.information li.title {
+		 font-size: 0.9rem;
+	}
+}
+ .collection-story .product-collection-story ul.information li.title span.price {
+	 float: right;
+}
+ @media screen and (max-width: 1023px) {
+	 .collection-story .product-collection-story ul.information li.title span.price {
+		 display: block;
+		 float: none;
+	}
+}
+ .collection-story .product-collection-story ul.information li.description {
+	 text-transform: initial;
+}
+ .collection-story .product-collection-story ul.information li.btn {
+	 margin-top: 15px;
+}

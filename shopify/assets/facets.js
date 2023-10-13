@@ -478,7 +478,6 @@ class FacetFiltersForm extends HTMLElement {
                 ".choose-quantity .quantity-option.active span"
               ).textContent
             );
-            $(document).foundation();
             eventPopup();
           }
 
@@ -505,7 +504,6 @@ class FacetFiltersForm extends HTMLElement {
         document.querySelector(".choose-quantity .quantity-option.active span")
           .textContent
       );
-      $(document).foundation();
       eventPopup();
     }
   }

@@ -1,0 +1,183 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "92ea6ce3-3e03-4eea-aff2-e5fe112f0943": {
+      "type": "loyalty_image_banner",
+      "blocks": {
+        "template--14647015505992__92ea6ce3-3e03-4eea-aff2-e5fe112f0943-heading-1": {
+          "type": "heading",
+          "settings": {
+            "heading": "fleur with benefits",
+            "heading_font_size": 80,
+            "heading_font_mobile_size": 40,
+            "heading_font_style": "italic"
+          }
+        },
+        "template--14647015505992__92ea6ce3-3e03-4eea-aff2-e5fe112f0943-text-1": {
+          "type": "text",
+          "settings": {
+            "text": "Now you can shop to earn fleurcoins & exclusive rewards every time. Create an account to start earning rewards.",
+            "text_style": "heading_font",
+            "content_font_size": 22,
+            "content_font_mobile_size": 17
+          }
+        },
+        "template--14647015505992__92ea6ce3-3e03-4eea-aff2-e5fe112f0943-buttons-1": {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "SIGN UP",
+            "button_label_1_popup": false,
+            "button_link_1": "\/account\/register",
+            "button_style_secondary_1": true,
+            "button_label_2": "LOG IN",
+            "button_label_2_popup": true,
+            "button_link_2": "#",
+            "button_style_secondary_2": true
+          }
+        }
+      },
+      "block_order": [
+        "template--14647015505992__92ea6ce3-3e03-4eea-aff2-e5fe112f0943-heading-1",
+        "template--14647015505992__92ea6ce3-3e03-4eea-aff2-e5fe112f0943-text-1",
+        "template--14647015505992__92ea6ce3-3e03-4eea-aff2-e5fe112f0943-buttons-1"
+      ],
+      "settings": {
+        "image": "shopify:\/\/shop_images\/banner_fleur_rewards.jpg",
+        "expanded_layout_enable": false,
+        "image_overlay_opacity": 30,
+        "desktop_content_position": "middle-center",
+        "show_text_box": false,
+        "desktop_content_alignment": "center",
+        "banner_color": "#ffffff",
+        "banner_color_mobile": "#ffffff",
+        "mobile_content_alignment": "center"
+      }
+    },
+    "d1395c00-985a-45d9-a077-62ec24269b28": {
+      "type": "loyalty_text_content",
+      "blocks": {
+        "template--14647015505992__d1395c00-985a-45d9-a077-62ec24269b28-heading-1": {
+          "type": "heading",
+          "settings": {
+            "heading": "our tiers",
+            "heading_font_size": 64,
+            "heading_font_mobile_size": 40,
+            "heading_font_style": "italic"
+          }
+        },
+        "template--14647015505992__d1395c00-985a-45d9-a077-62ec24269b28-text-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>The more you spend the higher your tier with more benefits. You get one fleurcoin for every dollar spent.<\/p>",
+            "text_style": "heading_font",
+            "content_font_size": 19,
+            "content_font_mobile_size": 19
+          }
+        }
+      },
+      "block_order": [
+        "template--14647015505992__d1395c00-985a-45d9-a077-62ec24269b28-heading-1",
+        "template--14647015505992__d1395c00-985a-45d9-a077-62ec24269b28-text-1"
+      ],
+      "settings": {
+        "background_color": "#fcefef",
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "text_color": "#000000",
+        "full_width": true,
+        "padding_top": 30,
+        "padding_bottom": 30,
+        "margin_bottom": 80
+      }
+    },
+    "66850adb-2520-4968-bbb5-99bc348b07b4": {
+      "type": "loyalty-tire",
+      "settings": {
+        "padding_top": 80,
+        "padding_bottom": 0
+      }
+    },
+    "3e86c0b6-427f-4139-a96a-f06fa08dfa46": {
+      "type": "loyalty_image_banner",
+      "blocks": {
+        "582cf0f4-8006-40a2-a690-20ed1e600a13": {
+          "type": "heading",
+          "settings": {
+            "heading": "fleurcoins",
+            "heading_font_size": 80,
+            "heading_font_mobile_size": 40,
+            "heading_font_style": "italic"
+          }
+        },
+        "a9398da1-9604-4cdb-ba13-7a688477d94a": {
+          "type": "text",
+          "settings": {
+            "text": "For every dollar you spend, you get one fleurcoin.",
+            "text_style": "heading_font",
+            "content_font_size": 22,
+            "content_font_mobile_size": 17
+          }
+        },
+        "e36719ef-65d6-4ac8-b491-c0411fdcfbed": {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "SIGN UP",
+            "button_label_1_popup": false,
+            "button_link_1": "\/account\/register",
+            "button_style_secondary_1": true,
+            "button_label_2": "LOG IN",
+            "button_label_2_popup": true,
+            "button_link_2": "\/account\/login",
+            "button_style_secondary_2": true
+          }
+        }
+      },
+      "block_order": [
+        "582cf0f4-8006-40a2-a690-20ed1e600a13",
+        "a9398da1-9604-4cdb-ba13-7a688477d94a",
+        "e36719ef-65d6-4ac8-b491-c0411fdcfbed"
+      ],
+      "settings": {
+        "image": "shopify:\/\/shop_images\/banner_fleur_coins.jpg",
+        "expanded_layout_enable": false,
+        "image_overlay_opacity": 30,
+        "desktop_content_position": "middle-center",
+        "show_text_box": false,
+        "desktop_content_alignment": "center",
+        "banner_color": "#ffffff",
+        "banner_color_mobile": "#ffffff",
+        "mobile_content_alignment": "center"
+      }
+    },
+    "9762d965-6ddf-4f49-b9b6-f6019387cf8c": {
+      "type": "loyalty_accordian_section",
+      "settings": {
+        "heading": "got questions?",
+        "heading_font_size": 64,
+        "heading_font_mobile_size": 40,
+        "heading_font_style": "italic",
+        "heading_alignment": "center",
+        "accordian_color": "#000000",
+        "accordion_font_size": 19,
+        "accordion_font_size_mobile": 17,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    }
+  },
+  "order": [
+    "main",
+    "92ea6ce3-3e03-4eea-aff2-e5fe112f0943",
+    "d1395c00-985a-45d9-a077-62ec24269b28",
+    "66850adb-2520-4968-bbb5-99bc348b07b4",
+    "3e86c0b6-427f-4139-a96a-f06fa08dfa46",
+    "9762d965-6ddf-4f49-b9b6-f6019387cf8c"
+  ]
+}

@@ -3,66 +3,78 @@
 <noscript>{{ 'section-rich-text.css' | asset_url | stylesheet_tag }}</noscript>
 
 {%- style -%}
-  .section-{{ section.id }}-padding {
-    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
-  }
+   .section-{{ section.id }}-padding {
+     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+   }
 
-  @media screen and (min-width: 750px) {
-    .section-{{ section.id }}-padding {
-      padding-top: {{ section.settings.padding_top }}px;
-      padding-bottom: {{ section.settings.padding_bottom }}px;
-    }
+   @media screen and (min-width: 750px) {
+     .section-{{ section.id }}-padding {
+       padding-top: {{ section.settings.padding_top }}px;
+       padding-bottom: {{ section.settings.padding_bottom }}px;
+     }
+   }
+   .collection-rich-text__block a {
+     color: #DD1D1D !important;
+     font-weight: 500;
+     text-decoration: none;
+     outline: none;
+   }
+
+   #collection_title {
+     font-size: {{ section.settings.heading_font_size }}px;
+     color: {{ section.settings.desktop_text_color }};
+     display:none;
+   }
+  #collection_title.rich-text__heading__visible{
+    display:block;
   }
-  .collection-rich-text__block a {
-    color: #DD1D1D !important;
-    font-weight: 500;
-    text-decoration: none;
-    outline: none;
-  }
-  
-  #collection_title {
-    font-size: {{ section.settings.heading_font_size }}px;
-    color: {{ section.settings.desktop_text_color }};
-    display:none;
-  }
- #collection_title.rich-text__heading__visible{
-   display:block;
- }
-  .collection-description {
-    font-size: {{ section.settings.content_font_size }}px;
-    color: {{ section.settings.desktop_text_color }};
-  }
-  .collection-rich-text__block {
-    text-align:  {{ section.settings.desktop_content_alignment }};
-    max-width: 90rem !important;
-  }
-  @media screen and (max-width: 768px) {
-    #collection_title {
-        font-size: {{ section.settings.heading_font_size_mobile }}px;
-        color: {{ section.settings.mobile_text_color }};
-    }
    .collection-description {
-        font-size: {{ section.settings.content_font_size_mobile }}px;
-        color: {{ section.settings.mobile_text_color }};
-    }
-    .collection-rich-text__block {
-      text-align: {{ section.settings.mobile_content_alignment }};
-    }
-  }
+     font-size: {{ section.settings.content_font_size }}px;
+     color: {{ section.settings.desktop_text_color }};
+   }
+   .collection-rich-text__block {
+     text-align:  {{ section.settings.desktop_content_alignment }};
+     max-width: 90rem !important;
+   }
+   @media screen and (max-width: 768px) {
+     #collection_title {
+         font-size: {{ section.settings.heading_font_size_mobile }}px;
+         color: {{ section.settings.mobile_text_color }};
+     }
+    .collection-description {
+         font-size: {{ section.settings.content_font_size_mobile }}px;
+         color: {{ section.settings.mobile_text_color }};
+     }
+     .collection-rich-text__block {
+       text-align: {{ section.settings.mobile_content_alignment }};
+     }
+   }
 {%- endstyle -%}
 
 {% if collection.description contains '<!-- seo -->' %}
-<div class="isolate{% unless section.settings.full_width %} page-width{% endunless %}">
-  <div class="rich-text content-container color-{{ section.settings.color_scheme }} gradient{% if section.settings.full_width %} rich-text--full-width content-container--full-width{% endif %} section-{{ section.id }}-padding">
-    <div class="rich-text__wrapper {% if section.settings.full_width %} page-width{% endif %}">
-      <div class="rich-text__blocks collection-rich-text__block">
-        <h2 id="collection_title" class="{% if section.settings.collection_seo_title %} rich-text__heading__visible {% endif %} rich-text__heading rte {{ block.settings.heading_size }}" {{ block.shopify_attributes }}>
-          {{ collection.title }}
-        </h2>
-        {% if collection.description.size > 700 %}
+  <div class="isolate{% unless section.settings.full_width %} page-width{% endunless %}">
+    <div class="rich-text content-container color-{{ section.settings.color_scheme }} gradient{% if section.settings.full_width %} rich-text--full-width content-container--full-width{% endif %} section-{{ section.id }}-padding">
+      <div class="rich-text__wrapper {% if section.settings.full_width %} page-width{% endif %}">
+        <div class="rich-text__blocks collection-rich-text__block">
+          <h2
+            id="collection_title"
+            class="{% if section.settings.collection_seo_title %} rich-text__heading__visible {% endif %} rich-text__heading rte {{ block.settings.heading_size }}"
+            {{ block.shopify_attributes }}
+          >
+            {{ collection.title }}
+          </h2>
+          {% if collection.description.size > 700 %}
             <div class="collection-description collection-description-short">
-              {{ collection.description | split: '<!-- seo -->' | last | split: '<!-- end seo -->' | first | strip_html | truncate: 350, "...  " }}
+              {{
+                collection.description
+                | split: '<!-- seo -->'
+                | last
+                | split: '<!-- end seo -->'
+                | first
+                | strip_html
+                | truncate: 350, '...  '
+              }}
               <a id="readmore" href="javascript:void(0);">Show More ></a>
             </div>
             <div class="collection-description collection-description-full" style="display:none;">
@@ -70,30 +82,33 @@
               <a id="readless" href="javascript:void(0);">Show Less</a>
             </div>
           {% else %}
-              <div class="collection-description">
-                {{ collection.description | split: '<!-- seo -->' | last | split: '<!-- end seo -->' | first }}
-              </div>
-        {% endif %}
+            <div class="collection-description">
+              {{ collection.description | split: '<!-- seo -->' | last | split: '<!-- end seo -->' | first }}
+            </div>
+          {% endif %}
+        </div>
       </div>
     </div>
   </div>
-</div>
 {% endif %}
 
 <script>
-  document.getElementById("readmore").addEventListener("click", ()=>{
-    var descriptionFull = document.querySelector('.collection-description-full');
-    descriptionFull.style.display = 'block';
-    var descriptionShort = document.querySelector('.collection-description-short');
-    descriptionShort.style.display = 'none';
-  });
+  var element = document.getElementById("readmore");
+  if (element != null) {
+    document.getElementById("readmore").addEventListener("click", ()=>{
+      var descriptionFull = document.querySelector('.collection-description-full');
+      descriptionFull.style.display = 'block';
+      var descriptionShort = document.querySelector('.collection-description-short');
+      descriptionShort.style.display = 'none';
+    });
 
-  document.getElementById("readless").addEventListener("click", ()=>{
-    var descriptionFull = document.querySelector('.collection-description-full');
-    descriptionFull.style.display = 'none';
-    var descriptionShort = document.querySelector('.collection-description-short');
-    descriptionShort.style.display = 'block';window.scrollTo({top: 110, behavior: 'smooth'});
-  });
+    document.getElementById("readless").addEventListener("click", ()=>{
+      var descriptionFull = document.querySelector('.collection-description-full');
+      descriptionFull.style.display = 'none';
+      var descriptionShort = document.querySelector('.collection-description-short');
+      descriptionShort.style.display = 'block';window.scrollTo({top: 110, behavior: 'smooth'});
+    });
+  }
 </script>
 {% schema %}
 {
@@ -206,7 +221,7 @@
       "unit": "px",
       "label": "t:sections.all.padding.padding_bottom",
       "default": 36
-    }, 
+    },
     {
       "type": "color",
       "id": "desktop_text_color",

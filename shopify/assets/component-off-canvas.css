@@ -1,0 +1,310 @@
+/*================ Off Canvas ================*/
+ .off-canvas {
+	 background: #fff;
+}
+ .off-canvas.is-transition-overlap {
+	 z-index: 2147483646;
+}
+ .off-canvas .ajaxifyCart--qty {
+	 margin-top: 15px;
+}
+ .off-canvas .cart-contents {
+	 margin-top: 20px;
+	 margin-bottom: 15px;
+}
+ .off-canvas .cart-contents form {
+	 padding: 0 30px;
+}
+ @media screen and (max-width: 639px) {
+	 .off-canvas .cart-contents form {
+		 padding: 0 15px;
+	}
+}
+ .off-canvas .cart-product-preorder {
+	 color: #ff4136;
+	 font-size: 0.725rem;
+}
+ .off-canvas .ajaxifyCart--authority {
+	 font-family: "Dala Floda Roman", "Times New Roman", Times, serif;
+	 background: #f4f4f4;
+	 padding: 10px;
+	 text-align: center;
+	 font-size: 1.1rem;
+	 line-height: 1;
+	 text-align: center;
+	 letter-spacing: 0.3px;
+	 color: #313131;
+	 margin-bottom: 16px;
+	 padding-left: 30px;
+	 padding-right: 30px;
+}
+ .off-canvas input.ajaxifyCart--num {
+	 display: inline-block;
+	 width: 30px;
+	 text-align: center;
+	 margin-bottom: 0px;
+	 padding-left: 0.1rem;
+	 padding-right: 0.1rem;
+}
+ .off-canvas .ajaxifyCart--product {
+	 border-bottom: 1px solid #ececec;
+	 padding-bottom: 20px;
+	 margin-bottom: 20px;
+}
+ .off-canvas .btn.small {
+	 min-width: inherit;
+	 height: 28px;
+	 display: inline-block;
+	 font-family: "proxima-nova", Helvetica, Roboto, Arial, sans-serif;
+	 color: #000;
+	 background: none;
+	 border: none;
+	 font-size: 1.1rem;
+	 line-height: 28px;
+	 margin-bottom: 0px;
+	 width: inherit;
+}
+ .off-canvas .cart-product-remove {
+	 margin-top: 5px;
+}
+ @media screen and (max-width: 639px) {
+	 .off-canvas .cart-product-remove {
+		 margin-bottom: 10px;
+	}
+}
+ .off-canvas .cart-product-remove a.ajaxifyCart--remove {
+	 text-transform: lowercase;
+	 color: #979797;
+}
+ .off-canvas .cart-product-name {
+	 font-size: 0.85rem;
+	 line-height: 1.4;
+}
+ .off-canvas .cart-product-name a {
+	 color: #000;
+	 font-weight: 600;
+}
+ .off-canvas .cart-price {
+	 font-size: 0.9rem;
+	 font-weight: 600;
+}
+ .off-canvas .cart-price span.money {
+	 font-size: 0.9rem;
+}
+ .off-canvas .cart-subtotal {
+	 font-size: 0.9rem;
+}
+ .off-canvas .cart-product-variant {
+	 font-size: 0.85rem;
+}
+ .off-canvas .btn {
+	 margin-bottom: 15px;
+}
+ .off-canvas .cart-subtotal-wrapper {
+	 margin-top: 15px;
+	 margin-bottom: 15px;
+}
+ .off-canvas img.cart-product-image {
+	 border: 1px solid #ececec;
+	 width: 100%;
+}
+ .off-canvas.is-transition-overlap.is-open {
+	 box-shadow: 0 0 5px rgba(50, 50, 50, 0.15);
+}
+ .position-left {
+	 width: 350px;
+	 -ms-transform: translateX(-350px);
+	 transform: translateX(-350px);
+}
+ @media screen and (max-width: 639px) {
+	 .position-left {
+		 width: 280px;
+		 -ms-transform: translateX(-280px);
+		 transform: translateX(-280px);
+	}
+}
+ @media screen and (min-width: 640px) {
+	 .position-left {
+		 padding-right: 30px;
+		 padding-left: 30px;
+	}
+}
+ .position-right {
+	 width: 500px;
+	 -ms-transform: translateX(500px);
+	 transform: translateX(500px);
+}
+ .position-right .close-button {
+	 font-size: 2.2rem;
+}
+ @media screen and (max-width: 639px) {
+	 .position-right {
+		 width: 280px;
+		 -ms-transform: translateX(300px);
+		 transform: translateX(300px);
+	}
+}
+ .position-right .additional-checkout-button {
+	 padding: 0 10px !important;
+	 line-height: 34px !important;
+	 width: 100%;
+	 border-radius: 0px !important;
+}
+ .position-right .additional-checkout-button + .additional-checkout-button, .position-right .additional-checkout-button--apple-pay {
+	 margin-left: 0px;
+	 width: 100%;
+}
+ .js-off-canvas-overlay {
+	 background: none;
+}
+ .js-off-canvas-overlay.offCanvasLeft.is-overlay-fixed, .js-off-canvas-overlay.offCanvasRight.is-overlay-fixed {
+	 background: rgba(0, 0, 0, 0.7);
+}
+
+
+
+
+/*================ Sidebar ================*/
+#sidebar {
+ z-index: 10;
+ background: #fff;
+}
+#sidebar, .off-canvas.position-left {
+ padding-left: 0px;
+ padding-right: 0px;
+ background: #f4f4f4;
+}
+#sidebar .back-menu, .off-canvas.position-left .back-menu {
+ font-size: 0.9rem;
+ background: #f4f4f4;
+ text-align: left;
+ padding: 15px;
+}
+#sidebar .back-menu a, .off-canvas.position-left .back-menu a {
+ color: #000;
+ text-decoration: underline;
+}
+#sidebar .back-menu, .off-canvas.position-left .back-menu {
+ font-size: 0.9rem;
+ text-align: left;
+ padding: 15px;
+}
+#sidebar .back-menu a, .off-canvas.position-left .back-menu a {
+ color: #000;
+ text-decoration: none;
+}
+#sidebar .back-menu a svg, .off-canvas.position-left .back-menu a svg {
+ width: 13px;
+ height: 13px;
+}
+#sidebar .account-menu, .off-canvas.position-left .account-menu {
+ text-align: center;
+ padding: 15px;
+}
+#sidebar .account-menu a, .off-canvas.position-left .account-menu a {
+ color: #000;
+ text-decoration: underline;
+}
+#sidebar .panel, .off-canvas.position-left .panel {
+ background: #fff;
+ padding-left: 20px;
+ padding-top: 20px;
+ padding-bottom: 20px;
+ padding-right: 20px;
+}
+#sidebar .panel a, .off-canvas.position-left .panel a {
+ color: #000;
+}
+#sidebar .panel h2.h5, .off-canvas.position-left .panel h2.h5 {
+ font-family: "Dala Floda Roman", "Times New Roman", Times, serif;
+ font-size: 1.2rem;
+ font-weight: normal;
+ text-transform: initial;
+ margin-bottom: 0px;
+}
+#sidebar .panel img, .off-canvas.position-left .panel img {
+ margin-bottom: 15px;
+}
+#sidebar ul.nav.subcategory, .off-canvas.position-left ul.nav.subcategory {
+ background: #fff;
+}
+#sidebar ul.nav li, .off-canvas.position-left ul.nav li {
+ font-size: 0.9rem;
+ letter-spacing: 0.025rem;
+ border-bottom: 1px solid #f1f1f1;
+}
+#sidebar ul.nav li img, .off-canvas.position-left ul.nav li img {
+ height: 20px;
+}
+#sidebar ul.nav li.category, .off-canvas.position-left ul.nav li.category {
+ color: #000;
+ text-transform: uppercase;
+ font-weight: 600;
+}
+#sidebar ul.nav li.category a, .off-canvas.position-left ul.nav li.category a {
+ font-weight: 600;
+}
+#sidebar ul.nav li a, .off-canvas.position-left ul.nav li a {
+ color: #000;
+ background: #fff;
+ padding: 17px 15px 17px 20px;
+ width: 100%;
+ display: block;
+}
+#sidebar ul.nav li a.saleDISABLED, .off-canvas.position-left ul.nav li a.saleDISABLED {
+ color: #a51661;
+}
+#sidebar ul.nav li a.find-my-bra-size, .off-canvas.position-left ul.nav li a.find-my-bra-size {
+ font-style: italic;
+}
+#sidebar ul.nav li a:hover, .off-canvas.position-left ul.nav li a:hover, #sidebar ul.nav li a:focus, .off-canvas.position-left ul.nav li a:focus {
+ text-decoration: none;
+}
+#sidebar ul.nav li a svg, .off-canvas.position-left ul.nav li a svg {
+ position: relative;
+ height: 13px;
+ float: right;
+ top: 3px;
+}
+#sidebar ul.nav li a svg.icon-measuring-tape, .off-canvas.position-left ul.nav li a svg.icon-measuring-tape {
+ width: 23px;
+}
+#sidebar .accordion, .off-canvas.position-left .accordion {
+ background: #f4f4f4;
+}
+#sidebar .accordion .fleur-files a, .off-canvas.position-left .accordion .fleur-files a {
+ padding: 12px 15px 0px 20px;
+ display: block;
+}
+#sidebar .accordion .fleur-files a img, .off-canvas.position-left .accordion .fleur-files a img {
+ width: 130px;
+}
+#sidebar .accordion .accordion-item.is-active .accordion-title, .off-canvas.position-left .accordion .accordion-item.is-active .accordion-title {
+ border-bottom: none;
+}
+#sidebar .accordion .accordion-item .accordion-title, .off-canvas.position-left .accordion .accordion-item .accordion-title {
+ border-bottom: 1px solid #ececec;
+ font-weight: 600;
+ padding-left: 20px;
+ padding-bottom: 15px;
+ background: #f4f4f4;
+}
+#sidebar .accordion .accordion-item .accordion-content, .off-canvas.position-left .accordion .accordion-item .accordion-content {
+ border-bottom: 1px solid #ececec;
+ background: #f4f4f4;
+ margin-top: 0px;
+}
+#sidebar .accordion .accordion-item .accordion-content a, .off-canvas.position-left .accordion .accordion-item .accordion-content a {
+ padding: 10px 10px 10px 40px;
+ display: block;
+ color: #000;
+}
+#sidebar .accordion .accordion-item .accordion-content a:hover, .off-canvas.position-left .accordion .accordion-item .accordion-content a:hover, #sidebar .accordion .accordion-item .accordion-content a:focus, .off-canvas.position-left .accordion .accordion-item .accordion-content a:focus {
+ text-decoration: none;
+}
+#sidebar .free-shipping, .off-canvas.position-left .free-shipping {
+ padding: 15px 15px 15px 20px;
+ text-align: left;
+ font-family: "Dala Floda Italic", "Times New Roman", Times, serif;
+ font-size: 0.95rem;
+}

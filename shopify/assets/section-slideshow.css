@@ -1,0 +1,394 @@
+.slideshow {
+	 text-align: center;
+}
+ .slideshow .cycle-prev, .slideshow .cycle-next {
+	 opacity: 0;
+}
+ .slideshow .cycle-prev:hover, .slideshow .cycle-next:hover {
+	 opacity: 1;
+}
+ @media screen and (max-width: 639px) {
+	 .slideshow .cycle-prev:hover, .slideshow .cycle-next:hover {
+		 opacity: 0;
+	}
+}
+ .slideshow .cycle-slide {
+	 width: 100%;
+	 background-color: #fff;
+	 display: none;
+}
+ .slideshow .cycle-slide .cycle-slideshow {
+	 width: 100%;
+	 overflow: hidden;
+	 padding: 0;
+	 margin: 0;
+	 position: relative;
+}
+ .slideshow .cycle-slide a {
+	 color: #000;
+}
+ .slideshow .cycle-slide a:hover, .slideshow .cycle-slide a:focus {
+	 color: #000;
+}
+ .slideshow .cycle-slide .content_table {
+	 height: 600px;
+	 background-size: cover;
+	 background-repeat: no-repeat;
+}
+ @media screen and (max-width: 639px) {
+	 .slideshow .cycle-slide .content_table {
+		 height: 400px;
+	}
+}
+ @media screen and (min-width: 1024px) and (max-width: 1399px) {
+	 .slideshow .cycle-slide .content_table {
+		 height: 700px;
+	}
+}
+ @media screen and (min-width: 1400px) {
+	 .slideshow .cycle-slide .content_table {
+		 height: 800px;
+	}
+}
+ .slideshow .cycle-slide .content_table.image_2 .content.pos-left {
+	 right: 30px;
+	 left: 30px;
+}
+ .slideshow .cycle-slide .content_table.image_2 .content.pos-right {
+	 right: 30px;
+	 left: 30px;
+}
+ .slideshow .cycle-slide .content_table .content_table_cell {
+	 vertical-align: middle;
+}
+ @media screen and (max-width: 639px) {
+	 .slideshow .cycle-slide .content_table .content_table_cell.mobile_overlay {
+		 background: rgba(0, 0, 0, 0.25);
+	}
+}
+ .slideshow .cycle-slide .content_table .content_table_cell .content {
+	 margin: 0 auto;
+}
+ .slideshow .cycle-slide .content_table .content_table_cell .content b {
+	 font-family: "Dala Floda Bold", "Times New Roman", Times, serif;
+	 font-weight: normal;
+}
+ .slideshow .cycle-slide .content_table .content_table_cell .content i {
+	 font-family: "Dala Floda Italic", "Times New Roman", Times, serif;
+	 font-style: normal;
+}
+ .slideshow .cycle-slide .content_table .content_table_cell .content.graphic {
+	 padding: 20px;
+}
+ .slideshow .cycle-slide .content_table .content_table_cell .content.graphic img {
+	 width: 100%;
+	 max-width: 300px;
+}
+ @media screen and (max-width: 639px) {
+	 .slideshow .cycle-slide .content_table .content_table_cell .content.graphic img {
+		 max-width: 150px;
+	}
+}
+ @media screen and (min-width: 1024px) {
+	 .slideshow .cycle-slide .content_table .content_table_cell .content.graphic {
+		 padding: 40px;
+	}
+}
+ .slideshow .cycle-slide .content_table .content_table_cell .content.text {
+	 width: 100%;
+	 padding-right: 40px;
+	 padding-left: 40px;
+}
+ @media screen and (max-width: 639px) {
+	 .slideshow .cycle-slide .content_table .content_table_cell .content.text {
+		 padding-right: 20px;
+		 padding-left: 20px;
+	}
+}
+ .slideshow .cycle-slide .content_table .content_table_cell .content.text h2, .slideshow .cycle-slide .content_table .content_table_cell .content.text .h2 {
+	 text-transform: inherit;
+	 text-shadow: black 3px 6px 8px;
+	 line-height: 1.2;
+	 margin: 0;
+	 letter-spacing: 0.25rem;
+	 font-size: 3rem;
+}
+ @media screen and (max-width: 639px) {
+	 .slideshow .cycle-slide .content_table .content_table_cell .content.text h2, .slideshow .cycle-slide .content_table .content_table_cell .content.text .h2 {
+		 font-size: 1.8rem;
+	}
+}
+ @media screen and (min-width: 640px) and (max-width: 1023px) {
+	 .slideshow .cycle-slide .content_table .content_table_cell .content.text h2, .slideshow .cycle-slide .content_table .content_table_cell .content.text .h2 {
+		 font-size: 2rem;
+	}
+}
+ @media screen and (min-width: 1400px) {
+	 .slideshow .cycle-slide .content_table .content_table_cell .content.text h2, .slideshow .cycle-slide .content_table .content_table_cell .content.text .h2 {
+		 line-height: 1;
+		 font-size: 3rem;
+	}
+}
+ .slideshow .cycle-slide .content_table .content_table_cell .content.text h2 big, .slideshow .cycle-slide .content_table .content_table_cell .content.text .h2 big {
+	 letter-spacing: 0.5rem;
+	 font-size: 4.5rem;
+}
+ @media screen and (max-width: 639px) {
+	 .slideshow .cycle-slide .content_table .content_table_cell .content.text h2 big, .slideshow .cycle-slide .content_table .content_table_cell .content.text .h2 big {
+		 font-size: 3rem;
+	}
+}
+ @media screen and (min-width: 640px) and (max-width: 1023px) {
+	 .slideshow .cycle-slide .content_table .content_table_cell .content.text h2 big, .slideshow .cycle-slide .content_table .content_table_cell .content.text .h2 big {
+		 font-size: 4rem;
+	}
+}
+ @media screen and (min-width: 1400px) {
+	 .slideshow .cycle-slide .content_table .content_table_cell .content.text h2 big, .slideshow .cycle-slide .content_table .content_table_cell .content.text .h2 big {
+		 font-size: 5rem;
+	}
+}
+ .slideshow .cycle-slide .content_table .content_table_cell .content.text .btn.large {
+	 height: 58px;
+	 line-height: 58px;
+	 min-width: 200px;
+	 font-size: 2rem;
+	 padding-top: 0px;
+	 padding-bottom: 0px;
+	 padding-left: 30px;
+	 padding-right: 30px;
+	 margin-bottom: 15px;
+	 text-transform: lowercase;
+	 margin-top: 30px;
+	 font-family: "Dala Floda Roman", "Times New Roman", Times, serif;
+}
+ @media screen and (max-width: 639px) {
+	 .slideshow .cycle-slide .content_table .content_table_cell .content.text .btn.large {
+		 font-size: 1.5rem;
+		 line-height: 38px;
+		 height: 38px;
+		 padding-left: 15px;
+		 padding-right: 15px;
+		 display: none;
+	}
+}
+ .slideshow .cycle-slide .content_table .content_table_cell .content.text .btn.large b {
+	 font-family: "Dala Floda Bold", "Times New Roman", Times, serif;
+}
+ .slideshow .cycle-slide .content_table .content_table_cell .content.text .small-copy {
+	 font-size: 1.2rem;
+	 font-family: "Dala Floda Roman", "Times New Roman", Times, serif;
+}
+ @media screen and (max-width: 639px) {
+	 .slideshow .cycle-slide .content_table .content_table_cell .content.text .small-copy {
+		 font-size: 1.1rem;
+	}
+}
+ @media screen and (min-width: 1024px) {
+	 .slideshow .cycle-slide .content_table .content_table_cell .content.text .small-copy {
+		 font-size: 1.3rem;
+	}
+}
+ .slideshow .cycle-slide .content_table .content_table_cell .content.text.pos-bottom {
+	 bottom: 60px;
+}
+ .slideshow .cycle-slide .content_table .content_table_cell .content.lines h2 {
+	 padding-left: 12px;
+	 margin-top: 0px;
+	 margin-bottom: 15px;
+	 text-transform: inherit;
+	 line-height: 1;
+	 letter-spacing: 0.25rem;
+	 font-size: 3rem;
+}
+ @media screen and (max-width: 639px) {
+	 .slideshow .cycle-slide .content_table .content_table_cell .content.lines h2 {
+		 line-height: 1.2;
+		 font-size: 1.8rem;
+	}
+}
+ @media screen and (min-width: 640px) and (max-width: 1023px) {
+	 .slideshow .cycle-slide .content_table .content_table_cell .content.lines h2 {
+		 font-size: 2rem;
+	}
+}
+ @media screen and (min-width: 1400px) {
+	 .slideshow .cycle-slide .content_table .content_table_cell .content.lines h2 {
+		 margin-bottom: 30px;
+		 font-size: 3rem;
+	}
+}
+ .slideshow .cycle-slide .content_table .content_table_cell .content.lines h2 big {
+	 letter-spacing: 0.5rem;
+	 font-size: 4.5rem;
+}
+ @media screen and (max-width: 639px) {
+	 .slideshow .cycle-slide .content_table .content_table_cell .content.lines h2 big {
+		 font-size: 3rem;
+	}
+}
+ @media screen and (min-width: 640px) and (max-width: 1023px) {
+	 .slideshow .cycle-slide .content_table .content_table_cell .content.lines h2 big {
+		 font-size: 4rem;
+	}
+}
+ @media screen and (min-width: 1400px) {
+	 .slideshow .cycle-slide .content_table .content_table_cell .content.lines h2 big {
+		 font-size: 5rem;
+	}
+}
+ .slideshow .cycle-slide .content_table .content_table_cell .content.lines h2 small {
+	 font-size: 60%;
+}
+ .slideshow .cycle-slide .content_table .content_table_cell .content.lines .small-copy {
+	 text-transform: uppercase;
+	 margin-top: 5px;
+	 margin-left: 12px;
+	 font-size: 0.6rem;
+}
+ @media screen and (min-width: 1400px) {
+	 .slideshow .cycle-slide .content_table .content_table_cell .content.lines .small-copy {
+		 letter-spacing: 0.05rem;
+		 font-size: 0.75rem;
+	}
+}
+ .slideshow .cycle-slide .content_table .content_table_cell .content.lines .line-wrapper {
+	 display: block;
+}
+ .slideshow .cycle-slide .content_table .content_table_cell .content.lines .line-wrapper .h2 {
+	 display: block;
+	 margin-bottom: 5px;
+	 padding-top: 5px;
+	 padding-top: 5px;
+	 padding-left: 10px;
+	 padding-right: 10px;
+	 line-height: 1;
+	 background: #fff;
+	 font-size: 2rem;
+	 text-transform: inherit;
+	 display: inline-block;
+}
+ @media screen and (max-width: 639px) {
+	 .slideshow .cycle-slide .content_table .content_table_cell .content.lines .line-wrapper .h2 {
+		 letter-spacing: inherit;
+		 font-size: 1.5rem;
+	}
+}
+ @media screen and (min-width: 640px) and (max-width: 1023px) {
+	 .slideshow .cycle-slide .content_table .content_table_cell .content.lines .line-wrapper .h2 {
+		 letter-spacing: inherit;
+	}
+}
+ @media screen and (min-width: 1024px) and (max-width: 1399px) {
+	 .slideshow .cycle-slide .content_table .content_table_cell .content.lines .line-wrapper .h2 {
+		 font-size: 2.5rem;
+	}
+}
+ @media screen and (min-width: 1400px) {
+	 .slideshow .cycle-slide .content_table .content_table_cell .content.lines .line-wrapper .h2 {
+		 font-size: 3rem;
+	}
+}
+ .slideshow .cycle-slide .content_table .content_table_cell .content.lines.pos-left {
+	 position: relative;
+	 left: 0;
+}
+ .slideshow .cycle-slide .content_table .content_table_cell .content.lines.pos-left.center {
+	 text-align: center;
+	 margin-left: 30px;
+}
+ @media screen and (min-width: 1024px) {
+	 .slideshow .cycle-slide .content_table .content_table_cell .content.lines.pos-left.center {
+		 margin-left: 50px;
+	}
+}
+ @media screen and (max-width: 639px) {
+	 .slideshow .cycle-slide .content_table .content_table_cell .content.lines.pos-left.center {
+		 margin-left: 0px;
+		 text-align: left;
+	}
+}
+ .slideshow .cycle-slide .content_table .content_table_cell .content.lines.pos-right {
+	 position: relative;
+	 right: 0;
+}
+ .slideshow .cycle-slide .content_table .content_table_cell .content.lines.pos-right.center {
+	 text-align: center;
+	 margin-right: 30px;
+}
+ @media screen and (min-width: 1024px) {
+	 .slideshow .cycle-slide .content_table .content_table_cell .content.lines.pos-right.center {
+		 margin-right: 50px;
+	}
+}
+ @media screen and (max-width: 639px) {
+	 .slideshow .cycle-slide .content_table .content_table_cell .content.lines.pos-right.center {
+		 margin-right: 0px;
+		 text-align: right;
+	}
+}
+ .slideshow .cycle-slide .content_table .content_table_cell .content.lines.pos-top {
+	 position: absolute;
+	 width: 100%;
+	 top: 30px;
+}
+ @media screen and (min-width: 1024px) {
+	 .slideshow .cycle-slide .content_table .content_table_cell .content.lines.pos-top {
+		 top: 50px;
+	}
+}
+ .slideshow .cycle-slide .content_table .content_table_cell .content.lines.pos-bottom {
+	 position: absolute;
+	 width: 100%;
+	 bottom: 30px;
+}
+ @media screen and (min-width: 1024px) {
+	 .slideshow .cycle-slide .content_table .content_table_cell .content.lines.pos-bottom {
+		 bottom: 50px;
+	}
+}
+ .slideshow .cycle-slide .content_table .content_table_cell .content p {
+	 margin-bottom: 0px;
+}
+ .slideshow .cycle-slide .content_table .content_table_cell .content.pos-left {
+	 position: absolute;
+	 left: 15px;
+	 text-align: left;
+}
+ @media screen and (min-width: 1024px) {
+	 .slideshow .cycle-slide .content_table .content_table_cell .content.pos-left {
+		 left: 30px;
+	}
+}
+ .slideshow .cycle-slide .content_table .content_table_cell .content.pos-right {
+	 position: absolute;
+	 right: 15px;
+	 text-align: right;
+}
+ @media screen and (min-width: 1024px) {
+	 .slideshow .cycle-slide .content_table .content_table_cell .content.pos-right {
+		 right: 30px;
+	}
+}
+ .slideshow .cycle-slide .content_table .content_table_cell .content.pos-top {
+	 top: 20px;
+	 position: absolute;
+}
+ @media screen and (min-width: 1024px) {
+	 .slideshow .cycle-slide .content_table .content_table_cell .content.pos-top {
+		 top: 20px;
+	}
+}
+ .slideshow .cycle-slide .content_table .content_table_cell .content.pos-bottom {
+	 bottom: 20px;
+	 position: absolute;
+}
+ @media screen and (min-width: 1024px) {
+	 .slideshow .cycle-slide .content_table .content_table_cell .content.pos-bottom {
+		 bottom: 20px;
+	}
+}
+ .slideshow .cycle-slide .content_table .content_table_cell .content.invert-lines.lines .h2 {
+	 background: #000000;
+	 color: #ffffff;
+}

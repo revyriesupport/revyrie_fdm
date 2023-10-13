@@ -1,0 +1,82 @@
+
+
+{% unless settings.staging_site_enable %}
+{% if section.settings.show_content %}
+
+{{ 'section-featured-press.css' | asset_url | stylesheet_tag }}
+<style>
+  .featured-press.page-width{
+    max-width: 1162px;
+  }
+</style>
+<div id="dashhudson-widget" class="dh-widget">
+	<div class="featured-press page-width">
+		<div class="row align-center">
+			<div class="large-11 small-12 columns">
+				{% if section.settings.heading != '' %}
+				<h2 class="h5">{% if section.settings.link != blank %}<a href="{{ section.settings.link }}">{% endif %}{{ section.settings.heading | escape }}{% if section.settings.link != blank %}</a>{% endif %}</h2>
+				{% endif %}
+				{% if collection %}
+				<script src="https://cdn.dashhudson.com/web/js/board-carousel-embed.js" type="text/javascript" data-name="dhboard-carousel" data-gallery-id="87517" data-row-size="4" data-gap-size="4" data-mobile-row-size="2"  data-autoplay="true" data-mobile-gap-size="2"  ></script>
+				{% elsif product.tags contains 'dash_hudson' %}
+				<script src="https://cdn.dashhudson.com/web/js/product-carousel-embed.js" type="text/javascript" data-name="dhproduct-carousel" data-id="3889" data-id-type="brand_id" data-row-size="4" data-gap-size="4" data-mobile-row-size="2" data-mobile-gap-size="2" data-autoplay="true"></script>
+				{% else %}
+				<script src="https://cdn.dashhudson.com/web/js/board-carousel-embed.js" type="text/javascript" data-name="dhboard-carousel" data-gallery-id="87517" data-row-size="4" data-gap-size="4" data-mobile-row-size="2"  data-autoplay="true" data-mobile-gap-size="2"  ></script>
+				{% endif %}
+			</div><!-- large-11 small-12 columns-->
+		</div><!-- row align-center-->
+	</div><!-- featured-press-->
+</div><!-- dashhudson-widget-->
+
+<script>
+	// The value inside the parenthesis must match the ID of the element you want to hide/show in the UI
+	const widgetElement = document.getElementById('dashhudson-widget');
+
+	// Whatever is put inside the callback will be called whenever there is a mutation on the "widgetElement"
+	const observer = new MutationObserver((_mutationList, _observer) => {
+		// When no images are returned, there is an element with the class ".empty"
+		const emptyWrapper = widgetElement.getElementsByClassName('empty');
+		if (emptyWrapper.length > 0) {
+			widgetElement.style.visibility = 'hidden';
+		}
+		else {
+			widgetElement.style.visibility = 'visible';
+		}
+	});
+
+	const config = { attributes: false, characterData: false, childList: true, subtree: true, attributeOldValue: false, characterDataOldValue: false };
+	observer.observe(widgetElement, config);
+</script>
+
+
+{% endif %}
+{% endunless %}
+
+	{% schema %}
+	{
+		"name": "Dash Hudson carousel 2",
+		"settings": [
+		{
+			"type": "checkbox",
+			"id": "show_content",
+			"label": "Enable"
+		},
+		{
+			"type": "textarea",
+			"id": "heading",
+			"label": "Heading",
+			"default": "Who's wearing fleur"
+		},
+		{
+			"type": "url",
+			"id": "link",
+			"label": "Link"
+		}
+		],
+  "presets": [
+    {
+      "name": "Dash Hudson carousel main"
+    }
+  ]
+	}
+	{% endschema %}

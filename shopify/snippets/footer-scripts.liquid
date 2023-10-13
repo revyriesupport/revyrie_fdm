@@ -1,3 +1,113 @@
+
+<!-- Adroll Tracking -->
+<script type="text/javascript">
+    adroll_adv_id = "7W7NI5WURRE7ZG6SC7R4AE";
+    adroll_pix_id = "ZVSDR5GTGVBPJPKNRYHBQN";
+    /* OPTIONAL: provide email to improve user identification */
+    /* adroll_email = "username@example.com"; */
+    (function () {
+        var _onload = function(){
+            if (document.readyState && !/loaded|complete/.test(document.readyState)){setTimeout(_onload, 10);return}
+            if (!window.__adroll_loaded){__adroll_loaded=true;setTimeout(_onload, 50);return}
+            var scr = document.createElement("script");
+            var host = (("https:" == document.location.protocol) ? "https://s.adroll.com" : "http://a.adroll.com");
+            scr.setAttribute('async', 'true');
+            scr.type = "text/javascript";
+            scr.src = host + "/j/roundtrip.js";
+            ((document.getElementsByTagName('head') || [null])[0] ||
+                document.getElementsByTagName('script')[0].parentNode).appendChild(scr);
+        };
+        if (window.addEventListener) {window.addEventListener('load', _onload, false);}
+        else {window.attachEvent('onload', _onload)}
+    }());
+</script>
+<!-- End Adroll Tracking -->
+
+<!-- Criteo Tracking -->
+    <script type="text/javascript" src="//static.criteo.net/js/ld/ld.js" async="true"></script>
+    <script type="text/javascript">
+      var site_type = /iPad/.test(navigator.userAgent) ? "t" : /Mobile|iP(hone|od)|Android|BlackBerry|IEMobile|Silk/.test(navigator.userAgent) ? "m" : "d";
+      window.criteo_q = window.criteo_q || [];
+      window.criteo_q.push(
+        { event: "setAccount", account: 33298 },
+        { event: "setSiteType", type: site_type});
+    </script>
+        {% if template contains 'index' %}
+        <script type="text/javascript">
+          window.criteo_q.push(
+            { event: "viewHome"}
+          );
+        </script>
+        {% endif %}
+
+
+        {% if template contains 'collection' %}
+        <script>
+          var criteo_items = [];
+          {% for item in collection.products limit:3 %}
+            criteo_items.push("{{item.id}}");
+          {% endfor %}
+            window.criteo_q.push(
+              { event: "viewList", product: criteo_items}
+            );
+        </script>
+        {% endif %}
+
+        {% if template contains 'product' %}
+        <script type="text/javascript">
+          window.criteo_q.push(
+            { event: "viewItem", product: "{{ product.id }}" }
+          );
+        </script>
+        {% endif %}
+
+
+        {% if template contains 'cart' %}
+        <script>
+          var criteo_items = [];
+          {% for item in cart.items %}
+            criteo_items.push({
+              id : "{{item.product.id}}",
+              price : {{item.price | money_without_currency | remove: ","}},
+              quantity : {{item.quantity}}
+            });
+          {% endfor %}
+          window.criteo_q.push(
+            { event: "viewBasket", product: criteo_items}
+          );
+        </script>
+        {% endif %}
+
+        <script>
+            $(document).ajaxSuccess(function(event, xhr, settings) {
+                var basketdata = [];
+                console.log(settings.url);
+
+                if (settings.url == "/cart/add.js" || settings.url == "/cart/update.js") {
+                    $.getJSON('/cart.js', function(data) {
+                        basketdata = data.items.map(function(item) {
+                            return {
+                                id: item.product_id,
+                                price: item.price / 100,
+                                quantity: item.quantity
+                            }
+                        });
+                        window.criteo_q.push({
+                            event: "viewBasket",
+                            product: basketdata
+                        });
+                    });
+                }
+            });
+        </script>
+
+<!-- End Criteo Tracking -->
+
+<!-- ShareASale Tracking -->
+<script>var shareasaleShopifySSCID=shareasaleShopifyGetParameterByName("sscid");function shareasaleShopifySetCookie(e,a,o,i,r){if(e&&a){var s,S=i?"; path="+i:"",h=r?"; domain="+r:"",t="";o&&((s=new Date).setTime(s.getTime()+o),t="; expires="+s.toUTCString()),document.cookie=e+"="+a+t+S+h}}function shareasaleShopifyGetParameterByName(e,a){a||(a=window.location.href),e=e.replace(/[\[\]]/g,"\\$&");var o=new RegExp("[?&]"+e+"(=([^&#]*)|&|#|$)").exec(a);return o?o[2]?decodeURIComponent(o[2].replace(/\+/g," ")):"":null}shareasaleShopifySSCID&&shareasaleShopifySetCookie("shareasaleShopifySSCID",shareasaleShopifySSCID,94670778e4,"/");</script>
+<!-- End ShareASale Tracking -->
+
+
 {% if template == 'product' %}
 
 <!-- Klaviyo -->

@@ -1,0 +1,1091 @@
+{{ 'section-image-banner.css' | asset_url | stylesheet_tag }}
+
+{%- if section.settings.image_height == 'adapt' and section.settings.image != blank -%}
+  {%- style -%}
+    @media screen and (max-width: 749px) {
+      #Banner-{{ section.id }}::before,
+      #Banner-{{ section.id }} .banner__media::before,
+      #Banner-{{ section.id }}:not(.banner--mobile-bottom) .banner__content::before {
+        padding-bottom: {{ 1 | divided_by: section.settings.image.aspect_ratio | times: 100 }}%;
+        content: '';
+        display: block;
+      }
+    }
+
+    @media screen and (min-width: 750px) {
+      #Banner-{{ section.id }}::before,
+      #Banner-{{ section.id }} .banner__media::before {
+        padding-bottom: {{ 1 | divided_by: section.settings.image.aspect_ratio | times: 100 }}%;
+        content: '';
+        display: block;
+      }
+    }
+  {%- endstyle -%}
+{%- endif -%}
+
+{%- style -%}
+  .loyalty_banner_section.banner {
+      min-height: 400px;
+      max-width: 100% !important;
+  }
+  @media screen and (min-width: 1400px) {
+    .loyalty_banner_section.banner {
+        height: 500px;
+    }
+  }
+  
+  .loyalty_banner_section .banner__content .banner__text {
+      margin: 0 auto;
+  }
+  .loyalty_banner_section .banner__content .banner__text {
+      max-width: 603px;
+  }
+  .banner--stacked:not(.banner--mobile-bottom):not(.banner--adapt) .banner__content {
+      position: relative;
+  }
+  .loyalty_banner_section .banner__buttons--multiple>* {
+      min-width: 200px;
+      min-height: 45px;
+  }
+  .loyalty_banner_section .button--secondary, .loyalty_banner_section .button--secondary {
+      border: 1px solid;
+  }
+  .loyalty_banner_section .button--secondary:after, .loyalty_banner_section .button--secondary:before {
+      box-shadow: none;
+  }
+  .loyalty_banner_section .banner__buttons {
+      margin-top: 50px;
+  }
+  @media screen and (min-width: 768px) {
+    .loyalty_banner_section .banner__buttons.banner__buttons--multiple a:last-child {
+      margin-left: 30px;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .loyalty_banner_section .banner__buttons {
+      max-width: 20rem;
+      gap: 15px;
+    }
+  }
+  
+  #Banner-{{ section.id }}::after {
+    left: 0;
+  }
+  
+  #Banner-{{ section.id }} .color_content .banner__heading,
+  #Banner-{{ section.id }} .color_content .button--primary,
+  #Banner-{{ section.id }} .color_content .button--secondary,
+  #Banner-{{ section.id }} .color_content {
+    color: {{ section.settings.banner_color }};
+  } 
+   #Banner-{{ section.id }} .color_content .button--secondary{
+     border-color: {{ section.settings.banner_color }};
+   }
+  #Banner-{{ section.id }} .color_content .button--primary{
+    border-bottom-color: {{ section.settings.banner_color }};
+  } 
+  #Banner-{{ section.id }}.banner-section-row-collapse{
+    max-width: var(--page-width);
+    padding: 0;
+    margin: 0 auto;
+  }
+  #Banner-{{ section.id }}.banner-section-row-expanded{
+    max-width: 100%;
+    margin: 0 8px;
+  }
+
+  
+  #Banner-{{ section.id }}::after {
+      opacity: {{ section.settings.image_overlay_opacity | divided_by: 100.0 }};
+    }
+  @media screen and (max-width: 749px) {
+    #Banner-{{ section.id }}::after {
+      opacity: {{ section.settings.image_overlay_opacity | divided_by: 100.0 }};
+    }
+    #Banner-{{ section.id }} .color_content .banner__heading {
+      letter-spacing: 0;
+    }
+    
+    #Banner-{{ section.id }} .color_content .banner__heading,
+    #Banner-{{ section.id }} .color_content .button--primary,
+    #Banner-{{ section.id }} .color_content .button--secondary,
+    #Banner-{{ section.id }} .color_content {
+      color: {{ section.settings.banner_color_mobile }};
+    }
+    #Banner-{{ section.id }} .color_content .button--secondary {
+      border-color: {{ section.settings.banner_color_mobile }};
+    }
+    #Banner-{{ section.id }} .color_content .button--primary{
+      border-bottom-color: {{ section.settings.banner_color_mobile }};
+    } 
+  }
+/*====== Login css =====*/
+.loyalty_login_box {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1005;
+    background-color: #0a0a0a73;
+    overflow-y: scroll;
+    background: rgba(0,0,0,.7);
+    display:none;
+}
+.loyalty_login_box .loyalty_login {
+    background: #fff;
+    padding: 40px !important;
+    max-width: 650px !important;
+    margin: 0 auto;
+    height: 460px;
+    margin-top: 40px;
+    position: relative;
+}
+.loyalty_login_box .customer .field label {
+    position: relative;
+    top: 0;
+    text-align: left;
+    left: 0;
+}
+.loyalty_login_box  .customer .field {
+    display: inherit;
+}
+.loyalty_login_box  .customer .field:before, 
+.loyalty_login_box .customer select:before{
+    display: none;
+}
+.loyalty_login_box .customer .field:after, 
+.loyalty_login_box .customer select:after {
+    display: none;
+}
+.loyalty_login_box  .customer .field input {
+    border: 1px solid #000;
+    height: 28px;
+    padding: 9.6px;
+    font-size: 14.4px;
+}
+.loyalty_login_box .customer .field input:focus {
+    box-shadow: none;
+}
+.loyalty_login_box .customer .field label,
+.loyalty_login_box .customer .field input:focus~label {
+    font-size: 12.8px;
+    top: 0;
+    left: 0;
+    letter-spacing: 0;
+}
+.loyalty_login_box .customer button:hover {
+    color: #d4857b;
+}
+.login .loyalty_login_button  a {
+    margin: 0;
+    text-decoration: none;
+    color: #d4857b;
+    letter-spacing: 0;
+    font-size: 13.6px;
+}
+.loyalty_login_box .customer button {
+    margin-top: 30px;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+    font-size: 12.8px;
+    min-width: 87px;
+    min-height: 45px;
+    display: list-item;
+}
+.loyalty_login_box  .login a[href="#recover"] {
+    margin-left: 0;
+    margin-right: 0;
+    display: block;
+    float: left;
+    width: 100%;
+    text-align: left;
+}
+.loyalty_login_box .login {
+    padding-top:0 !important;
+    min-height: auto;
+}
+@media screen and (min-width: 750px) {
+    .loyalty_login_box .customer:not(.account):not(.order) {
+        max-width: 32.8rem !important;
+        padding-top:0;
+    }
+    .loyalty_banner_section .banner__content {
+      padding: 3rem 5rem;
+    }
+} 
+div#recover_box #recover, div#recover_box #recover+div {
+    display: block;
+}
+div#recover_box {
+    display: none;
+}
+div#recover_box.active_recoverblock {
+   display: block;
+}
+.login_box.hide_loginbox, 
+.login_box.hide_loginbox #login, 
+.login_box.hide_loginbox #login+div {
+    display: none;
+}
+.loyalty_login_box .login_cancle a {
+    width: 100%;
+    margin: 0;
+    text-align: left;
+    text-decoration: none;
+    letter-spacing: 0;
+}
+.passwordsubmit,
+.login_cancle {
+    width: 100%;
+    float: left;
+}
+.loyalty_login_box .customer .field input::placeholder {
+    opacity: 1;
+}
+.loyalty_login_box .customer .field {
+    margin: 30px 0 0;
+}
+.loyalty_login_box .customer button:hover:before, .loyalty_login_box .customer button:hover:after {
+    box-shadow: none;
+}
+.loyalty_register_close,
+.loyalty_login_close {
+    position: absolute;
+    right: 23px;
+    font-size: 28.8px;
+    top: 20px;
+    top: 4px;
+    right: 10px;
+    cursor: pointer;
+}
+ .loyalty_register_block {
+    background: #fff;
+    padding: 40px !important;
+    max-width: 650px !important;
+    margin: 0 auto;
+    margin-top: 30px;
+    position:relative;
+}
+body.overflow_hidden{
+    overflow: hidden;
+}
+.loyalty_login_box h1#recover,
+.loyalty_login_box .customer>h1, 
+.loyalty_login_box .customer__title {
+    margin-top: 0;
+    font-size: 38.4px;
+    letter-spacing: .32px;
+    text-transform: lowercase;
+}
+@media screen and (min-width: 640px) and (max-width: 1023px) {
+    .loyalty_login_box h1#recover, .loyalty_login_box .customer>h1, .loyalty_login_box .customer__title {
+      font-size: 35.2px;
+    }
+}
+@media screen and (max-width: 639px) {
+    .loyalty_login_box h1#recover, .loyalty_login_box .customer>h1, .loyalty_login_box .customer__title {
+      font-size: 32px;
+    }
+}
+  
+{%- endstyle -%}
+{{ 'customer.css' | asset_url | stylesheet_tag }}
+{% assign buttonPopup = false %}
+{% for block in section.blocks %}
+  {%- case block.type -%}
+    {%- when 'buttons' -%}
+        {% if block.settings.button_label_1_popup == true or block.settings.button_label_2_popup == true %}
+          {% assign buttonPopup = true %}
+        {% endif %}
+  {% endcase %}
+{% endfor %}
+{% if buttonPopup == true %}
+<div class="loyalty_login_box loyalty_register_box loyalty_register_box_{{ section.id }}">
+  <div class="loyalty_register_block">
+    <div class="loyalty_register_close" onclick="registerClose();">×</div>
+      <div class="customer register section-{{ section.id }}-padding">
+        <svg style="display: none">
+          <symbol id="icon-error" viewBox="0 0 13 13">
+            <circle cx="6.5" cy="6.50049" r="5.5" stroke="white" stroke-width="2"/>
+            <circle cx="6.5" cy="6.5" r="5.5" fill="#EB001B" stroke="#EB001B" stroke-width="0.7"/>
+            <path d="M5.87413 3.52832L5.97439 7.57216H7.02713L7.12739 3.52832H5.87413ZM6.50076 9.66091C6.88091 9.66091 7.18169 9.37267 7.18169 9.00504C7.18169 8.63742 6.88091 8.34917 6.50076 8.34917C6.12061 8.34917 5.81982 8.63742 5.81982 9.00504C5.81982 9.37267 6.12061 9.66091 6.50076 9.66091Z" fill="white"/>
+            <path d="M5.87413 3.17832H5.51535L5.52424 3.537L5.6245 7.58083L5.63296 7.92216H5.97439H7.02713H7.36856L7.37702 7.58083L7.47728 3.537L7.48617 3.17832H7.12739H5.87413ZM6.50076 10.0109C7.06121 10.0109 7.5317 9.57872 7.5317 9.00504C7.5317 8.43137 7.06121 7.99918 6.50076 7.99918C5.94031 7.99918 5.46982 8.43137 5.46982 9.00504C5.46982 9.57872 5.94031 10.0109 6.50076 10.0109Z" fill="white" stroke="#EB001B" stroke-width="0.7">
+          </symbol>
+        </svg>
+        <h1>
+          {{ 'customer.register.title' | t }}
+        </h1>
+        {%- form 'create_customer', novalidate: 'novalidate' -%}
+          {%- if form.errors -%}
+            <h2 class="form__message" tabindex="-1" autofocus>
+              <svg aria-hidden="true" focusable="false">
+                <use href="#icon-error" />
+              </svg>
+              {{ 'templates.contact.form.error_heading' | t }}
+            </h2>
+            <ul>
+              {%- for field in form.errors -%}
+                <li>
+                  {%- if field == 'form' -%}
+                    {{ form.errors.messages[field] }}
+                  {%- else -%}
+                    <a href="#RegisterForm-{{ field }}">
+                      {{ form.errors.translated_fields[field] | capitalize }}
+                      {{ form.errors.messages[field] }}
+                    </a>
+                  {%- endif -%}
+                </li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+          <div class="field">
+            <label for="RegisterForm-FirstName">
+              {{ 'customer.register.first_name' | t }}
+            </label>
+            <input
+              type="text"
+              name="customer[first_name]"
+              id="RegisterForm-FirstName"
+              {% if form.first_name %}
+                value="{{ form.first_name }}"
+              {% endif %}
+              autocomplete="given-name"
+              placeholder="{{ 'customer.register.first_name' | t }}"
+            >
+          </div>
+          <div class="field">
+            <label for="RegisterForm-LastName">
+              {{ 'customer.register.last_name' | t }}
+            </label>
+            <input
+              type="text"
+              name="customer[last_name]"
+              id="RegisterForm-LastName"
+              {% if form.last_name %}
+                value="{{ form.last_name }}"
+              {% endif %}
+              autocomplete="family-name"
+              placeholder="{{ 'customer.register.last_name' | t }}"
+            >
+          </div>
+          <div class="field">
+            <label for="RegisterForm-email">
+              {{ 'customer.register.email' | t }}
+            </label>
+            <input
+              type="email"
+              name="customer[email]"
+              id="RegisterForm-email"
+              {% if form.email %}
+                value="{{ form.email }}"
+              {% endif %}
+              spellcheck="false"
+              autocapitalize="off"
+              autocomplete="email"
+              aria-required="true"
+              {% if form.errors contains 'email' %}
+                aria-invalid="true"
+                aria-describedby="RegisterForm-email-error"
+              {% endif %}
+              placeholder="{{ 'customer.register.email' | t }}"
+            >
+            
+          </div>
+          {%- if form.errors contains 'email' -%}
+            <span id="RegisterForm-email-error" class="form__message">
+              <svg aria-hidden="true" focusable="false">
+                <use href="#icon-error" />
+              </svg>
+              {{ form.errors.translated_fields.email | capitalize }}
+              {{ form.errors.messages.email }}.
+            </span>
+          {%- endif -%}
+          <div class="field">
+            <label for="RegisterForm-password">
+              {{ 'customer.register.password' | t }}
+            </label>
+            <input
+              type="password"
+              name="customer[password]"
+              id="RegisterForm-password"
+              aria-required="true"
+              {% if form.errors contains 'password' %}
+                aria-invalid="true"
+                aria-describedby="RegisterForm-password-error"
+              {% endif %}
+              placeholder="{{ 'customer.register.password' | t }}"
+            >
+          </div>
+          {%- if form.errors contains 'password' -%}
+            <span id="RegisterForm-password-error" class="form__message">
+              <svg aria-hidden="true" focusable="false">
+                <use href="#icon-error" />
+              </svg>
+              {{ form.errors.translated_fields.password | capitalize }}
+              {{ form.errors.messages.password }}.
+            </span>
+          {%- endif -%}
+          <div class="field">
+            <label for="Birthday" class="top-margin-small">
+              Birthday <i style="color: #a1a1a1;">optional</i>
+            </label>
+            <input type="date" value="" name="customer[note][birthday]" id="birthday" class="text" size="30" />
+          </div>
+                  <input type="hidden" name="return_to" value="/pages/rewards">
+          <button>
+            {{ 'customer.register.submit' | t }}
+          </button>
+        {%- endform -%}
+    </div>
+  </div>
+</div>
+<div class="loyalty_login_box loyalty_login_box_{{ section.id }}">
+  <div class="loyalty_login">
+    <div class="loyalty_login_close" onclick="loginClose();">×</div>
+      <div class="customer login">
+        <div id="recover_box" class="recoverblock-{{ section.id }}">
+            <h1 id="recover" tabindex="-1">
+              {{ 'customer.recover_password.title' | t }}
+            </h1>
+            <div>
+              <p>
+                {{ 'customer.recover_password.subtext' | t }}
+              </p>
+          
+              {%- form 'recover_customer_password' -%}
+                {% assign recover_success = form.posted_successfully? %}
+                <div class="field">
+                  <label for="RecoverEmail">
+                    {{ 'customer.login_page.email' | t }}
+                  </label>
+                  <input
+                    type="email"
+                    value=""
+                    name="email"
+                    id="RecoverEmail"
+                    autocorrect="off"
+                    autocapitalize="off"
+                    autocomplete="email"
+                    {% if form.errors %}
+                      aria-invalid="true"
+                      aria-describedby="RecoverEmail-email-error"
+                      autofocus
+                    {% endif %}
+                    placeholder="{{ 'customer.login_page.email' | t }}"
+                  >
+                  
+                </div>
+                {%- if form.errors -%}
+                  <small id="RecoverEmail-email-error" class="form__message">
+                    <svg aria-hidden="true" focusable="false" viewBox="0 0 13 13">
+                      <circle cx="6.5" cy="6.50049" r="5.5" stroke="white" stroke-width="2"/>
+                      <circle cx="6.5" cy="6.5" r="5.5" fill="#EB001B" stroke="#EB001B" stroke-width="0.7"/>
+                      <path d="M5.87413 3.52832L5.97439 7.57216H7.02713L7.12739 3.52832H5.87413ZM6.50076 9.66091C6.88091 9.66091 7.18169 9.37267 7.18169 9.00504C7.18169 8.63742 6.88091 8.34917 6.50076 8.34917C6.12061 8.34917 5.81982 8.63742 5.81982 9.00504C5.81982 9.37267 6.12061 9.66091 6.50076 9.66091Z" fill="white"/>
+                      <path d="M5.87413 3.17832H5.51535L5.52424 3.537L5.6245 7.58083L5.63296 7.92216H5.97439H7.02713H7.36856L7.37702 7.58083L7.47728 3.537L7.48617 3.17832H7.12739H5.87413ZM6.50076 10.0109C7.06121 10.0109 7.5317 9.57872 7.5317 9.00504C7.5317 8.43137 7.06121 7.99918 6.50076 7.99918C5.94031 7.99918 5.46982 8.43137 5.46982 9.00504C5.46982 9.57872 5.94031 10.0109 6.50076 10.0109Z" fill="white" stroke="#EB001B" stroke-width="0.7">
+                    </svg>
+                    {{ form.errors.messages.form }}
+                  </small>
+                {%- endif -%}
+                <div class="passwordsubmit">
+                  <button>
+                    {{ 'customer.login_page.submit' | t }}
+                  </button>
+                </div>
+                <div class="login_cancle">
+                    <a href="#login" onclick="cancleForgetPassword()">
+                      {{ 'customer.login_page.cancel' | t }}
+                    </a>
+                </div>
+              {%- endform -%}
+            </div>
+        </div>
+        <div class="login_box loginblock-{{ section.id }}">
+          <h1 id="login" tabindex="-1">
+            {{ 'customer.login_page.title' | t }}
+          </h1>
+          <div>
+            {%- if recover_success == true -%}
+              <h3 class="form__message" tabindex="-1" autofocus>
+                <svg aria-hidden="true" focusable="false" viewBox="0 0 13 13">
+                  <path d="M6.5 12.35C9.73087 12.35 12.35 9.73086 12.35 6.5C12.35 3.26913 9.73087 0.65 6.5 0.65C3.26913 0.65 0.65 3.26913 0.65 6.5C0.65 9.73086 3.26913 12.35 6.5 12.35Z" fill="#428445" stroke="white" stroke-width="0.7"/>
+                  <path d="M5.53271 8.66357L9.25213 4.68197" stroke="white"/>
+                  <path d="M4.10645 6.7688L6.13766 8.62553" stroke="white">
+                </svg>
+                {{ 'customer.recover_password.success' | t }}
+              </h3>
+            {%- endif -%}
+            {%- form 'customer_login', novalidate: 'novalidate' -%}
+              {%- if form.errors -%}
+                <h2 class="form__message" tabindex="-1" autofocus>
+                  <span class="visually-hidden">{{ 'accessibility.error' | t }} </span>
+                  <svg aria-hidden="true" focusable="false" viewBox="0 0 13 13">
+                    <circle cx="6.5" cy="6.50049" r="5.5" stroke="white" stroke-width="2"/>
+                    <circle cx="6.5" cy="6.5" r="5.5" fill="#EB001B" stroke="#EB001B" stroke-width="0.7"/>
+                    <path d="M5.87413 3.52832L5.97439 7.57216H7.02713L7.12739 3.52832H5.87413ZM6.50076 9.66091C6.88091 9.66091 7.18169 9.37267 7.18169 9.00504C7.18169 8.63742 6.88091 8.34917 6.50076 8.34917C6.12061 8.34917 5.81982 8.63742 5.81982 9.00504C5.81982 9.37267 6.12061 9.66091 6.50076 9.66091Z" fill="white"/>
+                    <path d="M5.87413 3.17832H5.51535L5.52424 3.537L5.6245 7.58083L5.63296 7.92216H5.97439H7.02713H7.36856L7.37702 7.58083L7.47728 3.537L7.48617 3.17832H7.12739H5.87413ZM6.50076 10.0109C7.06121 10.0109 7.5317 9.57872 7.5317 9.00504C7.5317 8.43137 7.06121 7.99918 6.50076 7.99918C5.94031 7.99918 5.46982 8.43137 5.46982 9.00504C5.46982 9.57872 5.94031 10.0109 6.50076 10.0109Z" fill="white" stroke="#EB001B" stroke-width="0.7">
+                  </svg>
+                  {{ 'templates.contact.form.error_heading' | t }}
+                </h2>
+                {{ form.errors | default_errors }}
+              {%- endif -%}
+        
+              <div class="field">
+                <label for="CustomerEmail">
+                  {{ 'customer.login_page.email' | t }}
+                </label>
+                <input
+                  type="email"
+                  name="customer[email]"
+                  id="CustomerEmail"
+                  autocomplete="email"
+                  autocorrect="off"
+                  autocapitalize="off"
+                  {% if form.errors contains 'form' %}
+                    aria-invalid="true"
+                  {% endif %}
+                  placeholder="{{ 'customer.login_page.email' | t }}"
+                >
+                
+              </div>
+        
+              {%- if form.password_needed -%}
+                <div class="field">
+                  <label for="CustomerPassword">
+                    {{ 'customer.login_page.password' | t }}
+                  </label>
+                  <input
+                    type="password"
+                    value=""
+                    name="customer[password]"
+                    id="CustomerPassword"
+                    autocomplete="current-password"
+                    {% if form.errors contains 'form' %}
+                      aria-invalid="true"
+                    {% endif %}
+                    placeholder="{{ 'customer.login_page.password' | t }}"
+                  >
+                </div>
+              {%- endif -%}
+        
+              <button>
+                {{ 'customer.login_page.sign_in' | t }}
+              </button>
+              <div class="loyalty_login_button">
+                <a href="#" onclick="createAccount()">
+                  {{ 'customer.login_page.create_account' | t }}
+                </a>
+                {%- if form.password_needed -%}
+                <a href="#recover" onclick="forgetPasswordButton()">
+                  {{ 'customer.login_page.forgot_password' | t }}
+                </a>
+              {%- endif -%}
+              </div>
+            {%- endform -%}
+          </div>
+            {%- if shop.checkout.guest_login -%}
+              <div>
+                <hr>
+                <h2>{{ 'customer.login_page.guest_title' | t }}</h2>
+          
+                {%- form 'guest_login' -%}
+                  <button>
+                    {{ 'customer.login_page.guest_continue' | t }}
+                  </button>
+                {%- endform -%}
+              </div>
+            {%- endif -%}
+      </div>
+    </div> 
+  </div>
+</div>
+<script>
+function forgetPasswordButton(){
+  document.querySelector('.recoverblock-{{ section.id }}').classList.add('active_recoverblock');
+  document.querySelector('.loginblock-{{ section.id }}').classList.add('hide_loginbox');
+}
+function cancleForgetPassword(){
+  document.querySelector('.recoverblock-{{ section.id }}').classList.remove('active_recoverblock');
+  document.querySelector('.loginblock-{{ section.id }}').classList.remove('hide_loginbox');
+}
+function loginClose(){
+  document.querySelector('body').classList.remove('overflow_hidden');
+  document.querySelector('.loyalty_login_box_{{ section.id }}').style.display = 'none';
+}
+function openLoginModal(){
+  document.querySelector('body').classList.add('overflow_hidden');
+  document.querySelector('.loyalty_login_box_{{ section.id }}').style.display = 'block';
+}
+function createAccount(){
+ document.querySelector('.loyalty_login_box_{{ section.id }}').style.display = 'none';
+ document.querySelector('.loyalty_register_box_{{ section.id }}').style.display = 'block';
+}
+function registerClose(){
+  document.querySelector('.loyalty_register_box_{{ section.id }}').style.display = 'none';
+  document.querySelector('.loyalty_login_box_{{ section.id }}').style.display = 'none';
+}
+</script>
+{% endif %}
+{%- liquid
+  assign full_width = '100vw'
+  assign widths = '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840'
+
+  if section.settings.image_behavior == 'ambient'
+    assign half_width = '60vw'
+    assign full_width = '120vw'
+    assign stacked_sizes = '(min-width: 750px) 60vw, 120vw'
+    assign widths = '450, 660, 900, 1320, 1800, 2136, 2400, 3600, 7680'
+  elsif section.settings.image_behavior == 'fixed' or section.settings.image_behavior == 'zoom-in'
+    assign half_width = '100vw'
+    assign stacked_sizes = '100vw'
+  else
+    assign half_width = '50vw'
+    assign stacked_sizes = '(min-width: 750px) 50vw, 100vw'
+  endif
+-%}
+
+<div
+  id="Banner-{{ section.id }}"
+  class="loyalty_banner_section {% if section.settings.expanded_layout_enable %}banner-section-row-expanded {% else %}banner-section-row-collapse{% endif %} banner banner--content-align-{{ section.settings.desktop_content_alignment }} banner--content-align-mobile-{{ section.settings.mobile_content_alignment }} banner--{{ section.settings.image_height }}{% if section.settings.stack_images_on_mobile and section.settings.image != blank and section.settings.image_2 != blank %} banner--stacked{% endif %}{% if section.settings.image_height == 'adapt' and section.settings.image != blank %} banner--adapt{% endif %}{% if section.settings.show_text_below %} banner--mobile-bottom{%- endif -%}{% if section.settings.show_text_box == false %} banner--desktop-transparent{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}  {% if section.settings.show_video == true %} video_banner_section {% endif %}"
+>
+ 
+  {%- if section.settings.image != blank -%}
+    <div class="banner__media media">
+      {%- liquid
+        assign image_height = section.settings.image.width | divided_by: section.settings.image.aspect_ratio
+        assign image_class = 'mobile_hide'
+        assign sizes = full_width
+      -%}
+      {{
+        section.settings.image
+        | image_url: width: 3840
+        | image_tag:
+          loading: 'lazy',
+          width: section.settings.image.width,
+          height: image_height,
+          class: image_class,
+          sizes: sizes,
+          widths: widths
+      }}
+      {%- liquid
+        assign image_height_mobile = section.settings.image_mobile.width | divided_by: section.settings.image_mobile.aspect_ratio
+        assign image_class_mobile = 'desktop_hide'
+         assign sizes = full_width
+      -%}
+      {% if section.settings.image_mobile != blank %}
+      {{
+        section.settings.image_mobile
+        | image_url: width: 3840
+        | image_tag:
+          loading: 'lazy',
+          width: section.settings.image_mobile.width,
+          height: image_height_mobile,
+          class: image_class_mobile,
+          sizes: sizes,
+          widths: widths
+      }}
+        {% else %}
+      {{
+        section.settings.image
+        | image_url: width: 3840
+        | image_tag:
+          loading: 'lazy',
+          width: section.settings.image.width,
+          height: image_height,
+          class: image_class_mobile,
+          sizes: sizes,
+          widths: widths
+      }}
+        {% endif %}
+    </div>
+  {%- else  -%}
+    <div class="banner__media media">
+      {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+    </div>
+  {%- endif -%}
+  <div class="banner__content banner__content--{{ section.settings.desktop_content_position }} page-width{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+    <div class="banner__box content-container content-container--full-width-mobile color_content gradient">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'heading' -%}
+            <h2
+              class="banner__heading inline-richtext {{ block.settings.heading_size }} {{ block.settings.heading_font_style }}"
+              {{ block.shopify_attributes }}
+            >
+              {{ block.settings.heading }}
+            </h2>
+            <style>
+              #Banner-{{ section.id }} .color_content .banner__heading {
+                font-size: {{ block.settings.heading_font_size }}px;
+              }
+              @media screen and (max-width: 768px) {
+                #Banner-{{ section.id }} .color_content .banner__heading {
+                  font-size: {{block.settings.heading_font_mobile_size }}px;
+                }
+              }
+            </style>
+          {%- when 'text' -%}
+            <div class="banner__text rte {{ block.settings.text_style }}" {{ block.shopify_attributes }}>
+              <p>{{ block.settings.text }}</p>
+            </div>
+            <style>
+              #Banner-{{ section.id }} .banner__text p{
+                font-size : {{ block.settings.content_font_size }}px;
+              }
+              @media screen and (max-width: 768px) {
+                  #Banner-{{ section.id }} .banner__text p{
+                    font-size: {{block.settings.content_font_mobile_size }}px;
+                  }
+              }
+              </style>
+          {%- when 'buttons' -%}
+            <div
+              class="banner__buttons{% if block.settings.button_label_1 != blank and block.settings.button_label_2 != blank %} banner__buttons--multiple{% endif %}"
+              {{ block.shopify_attributes }}
+            >
+              {%- if block.settings.button_label_1 != blank -%}
+                <a
+                  {% if block.settings.button_link_1 == blank %}
+                    role="link" aria-disabled="true"
+                  {% elsif  block.settings.button_label_1_popup == true and block.settings.button_link_1 == "#" %}
+                   data-popup="login-modal" href="{{ block.settings.button_link_1 }}"
+                  {% else %}
+                    href="{{ block.settings.button_link_1 }}"
+                  {% endif %}
+                  class="button{% if block.settings.button_style_secondary_1 %} button--secondary{% else %} button--primary{% endif %}"
+                >
+                  {{- block.settings.button_label_1 | escape -}}
+                </a>
+              {%- endif -%}
+              {%- if block.settings.button_label_2 != blank -%}
+                <a
+                  {% if block.settings.button_link_2 == blank %}
+                    role="link" aria-disabled="true"
+                  {% elsif  block.settings.button_label_2_popup == true and block.settings.button_link_2 == "#" %}
+                   data-popup="login-modal" href="{{ block.settings.button_link_2 }}" onclick="openLoginModal()"
+                  {% else %}
+                    href="{{ block.settings.button_link_2 }}"
+                  {% endif %}
+                  class="button{% if block.settings.button_style_secondary_2 %} button--secondary{% else %} button--primary{% endif %}"
+                >
+                  {{- block.settings.button_label_2 | escape -}}
+                </a>
+              {%- endif -%}
+            </div>
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+              
+{% schema %}
+{
+  "name": "Loyalty Image Banner",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "t:sections.image-banner.settings.image.label"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "t:sections.image-banner.settings.image_mobile.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "expanded_layout_enable",
+      "label": "t:sections.image-banner.settings.expanded_layout_enable.label",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "image_overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "%",
+      "label": "t:sections.image-banner.settings.image_overlay_opacity.label",
+      "default": 0
+    },
+    {
+      "type": "select",
+      "id": "desktop_content_position",
+      "options": [
+        {
+          "value": "top-left",
+          "label": "t:sections.image-banner.settings.desktop_content_position.options__1.label"
+        },
+        {
+          "value": "top-center",
+          "label": "t:sections.image-banner.settings.desktop_content_position.options__2.label"
+        },
+        {
+          "value": "top-right",
+          "label": "t:sections.image-banner.settings.desktop_content_position.options__3.label"
+        },
+        {
+          "value": "middle-left",
+          "label": "t:sections.image-banner.settings.desktop_content_position.options__4.label"
+        },
+        {
+          "value": "middle-center",
+          "label": "t:sections.image-banner.settings.desktop_content_position.options__5.label"
+        },
+        {
+          "value": "middle-right",
+          "label": "t:sections.image-banner.settings.desktop_content_position.options__6.label"
+        },
+        {
+          "value": "bottom-left",
+          "label": "t:sections.image-banner.settings.desktop_content_position.options__7.label"
+        },
+        {
+          "value": "bottom-center",
+          "label": "t:sections.image-banner.settings.desktop_content_position.options__8.label"
+        },
+        {
+          "value": "bottom-right",
+          "label": "t:sections.image-banner.settings.desktop_content_position.options__9.label"
+        }
+      ],
+      "default": "middle-center",
+      "label": "t:sections.image-banner.settings.desktop_content_position.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_text_box",
+      "default": true,
+      "label": "t:sections.image-banner.settings.show_text_box.label"
+    },
+    {
+      "type": "select",
+      "id": "desktop_content_alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.image-banner.settings.desktop_content_alignment.options__1.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.image-banner.settings.desktop_content_alignment.options__2.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.image-banner.settings.desktop_content_alignment.options__3.label"
+        }
+      ],
+      "default": "center",
+      "label": "t:sections.image-banner.settings.desktop_content_alignment.label"
+    },
+    {
+        "type": "color",
+        "id": "banner_color",
+        "default": "#FFFFFF",
+        "label": "t:sections.image-banner.settings.banner_color.label"
+    },
+    {
+        "type": "color",
+        "id": "banner_color_mobile",
+        "default": "#FFFFFF",
+        "label": "t:sections.image-banner.settings.banner_color_mobile.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.image-banner.settings.mobile.content"
+    },
+    {
+      "type": "select",
+      "id": "mobile_content_alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.image-banner.settings.mobile_content_alignment.options__1.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.image-banner.settings.mobile_content_alignment.options__2.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.image-banner.settings.mobile_content_alignment.options__3.label"
+        }
+      ],
+      "default": "center",
+      "label": "t:sections.image-banner.settings.mobile_content_alignment.label"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "name": "t:sections.image-banner.blocks.heading.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "default": "Image banner",
+          "label": "t:sections.image-banner.blocks.heading.settings.heading.label"
+        },
+        {
+          "type": "range",
+          "id": "heading_font_size",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "label": "t:sections.image-banner.blocks.heading.settings.heading_font_size.label",
+          "default": 80
+        },
+        {
+          "type": "range",
+          "id": "heading_font_mobile_size",
+          "min": 0,
+          "max": 40,
+          "step": 1,
+          "label": "t:sections.image-banner.blocks.heading.settings.heading_font_mobile_size.label",
+          "default": 40
+        },
+        {
+          "type": "select",
+          "id": "heading_font_style",
+          "options": [
+            {
+              "value": "regular",
+              "label": "t:sections.image-banner.blocks.heading.settings.heading_font_style.options__1.label"
+            },
+            {
+              "value": "italic",
+              "label": "t:sections.image-banner.blocks.heading.settings.heading_font_style.options__2.label"
+            }
+          ],
+          "default": "regular",
+          "label": "t:sections.image-banner.blocks.heading.settings.heading_font_style.label"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "t:sections.image-banner.blocks.text.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "text",
+          "default": "Give customers details about the banner image(s) or content on the template.",
+          "label": "t:sections.image-banner.blocks.text.settings.text.label"
+        },
+        {
+          "type": "select",
+          "id": "text_style",
+          "options": [
+            {
+              "value": "body",
+              "label": "t:sections.image-banner.blocks.text.settings.text_style.options__1.label"
+            },
+            {
+              "value": "heading_font",
+              "label": "t:sections.image-banner.blocks.text.settings.text_style.options__2.label"
+            }
+          ],
+          "default": "body",
+          "label": "t:sections.image-banner.blocks.text.settings.text_style.label"
+        },
+        {
+          "type": "range",
+          "id": "content_font_size",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "label": "t:sections.image-banner.blocks.text.settings.content_font_size.label",
+          "default": 22
+        },
+        {
+          "type": "range",
+          "id": "content_font_mobile_size",
+          "min": 0,
+          "max": 40,
+          "step": 1,
+          "label": "t:sections.image-banner.blocks.text.settings.content_font_mobile_size.label",
+          "default": 17
+        }
+      ]
+    },
+    {
+      "type": "buttons",
+      "name": "t:sections.image-banner.blocks.buttons.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_label_1",
+          "default": "Button label",
+          "label": "t:sections.image-banner.blocks.buttons.settings.button_label_1.label",
+          "info": "t:sections.image-banner.blocks.buttons.settings.button_label_1.info"
+        },
+        {
+          "type": "checkbox",
+          "id": "button_label_1_popup",
+          "label": "Show Login Popup",
+          "default": false
+        },
+        {
+          "type": "url",
+          "id": "button_link_1",
+          "label": "t:sections.image-banner.blocks.buttons.settings.button_link_1.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "button_style_secondary_1",
+          "default": false,
+          "label": "t:sections.image-banner.blocks.buttons.settings.button_style_secondary_1.label"
+        },
+        {
+          "type": "text",
+          "id": "button_label_2",
+          "default": "Button label",
+          "label": "t:sections.image-banner.blocks.buttons.settings.button_label_2.label",
+          "info": "t:sections.image-banner.blocks.buttons.settings.button_label_2.info"
+        },
+        {
+          "type": "checkbox",
+          "id": "button_label_2_popup",
+          "label": "Show Login Popup",
+          "default": false
+        },
+        {
+          "type": "url",
+          "id": "button_link_2",
+          "label": "t:sections.image-banner.blocks.buttons.settings.button_link_2.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "button_style_secondary_2",
+          "default": false,
+          "label": "t:sections.image-banner.blocks.buttons.settings.button_style_secondary_2.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Loyalty Image Banner",
+      "blocks": [
+        {
+          "type": "heading"
+        },
+        {
+          "type": "text"
+        },
+        {
+          "type": "buttons"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

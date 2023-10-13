@@ -1,0 +1,134 @@
+{{ 'template-page.css' | asset_url | stylesheet_tag }}
+{{ 'section-multicolumn.css' | asset_url | stylesheet_tag }}
+{{ 'component-newsletter.css' | asset_url | stylesheet_tag }}
+{{ 'newsletter-section.css' | asset_url | stylesheet_tag }}
+
+  <style>
+input#k_id_email {
+    border: none;
+}
+#k_id_email:focus-visible {
+    outline: none !important;
+}
+.input-group-btn {
+    display: table-cell;
+    margin: 0;
+    vertical-align: middle;
+    text-align: right;
+    width: 60px;
+}
+.input-group.minimal {
+background-color: #fff;
+    position: relative;
+    display: table;
+    width: 100%;
+    border-collapse: separate;
+    border-bottom: 1px solid #000;
+}
+
+.top-margin {
+    margin-top: 60px;
+}
+
+.page-height {
+    min-height: 600px;
+    max-width: 88rem;
+}
+@media print, screen and (min-width: 64em){
+.large-7 {
+    -ms-flex: 0 0 58.33333%;
+    flex: 0 0 58.33333%;
+    max-width: 58.33333%;
+}
+}
+.page-height small {
+    font-size: 70%;
+    font-family: proxima-nova,Helvetica,Roboto,Arial,sans-serif;
+}
+h1.center.top-margin {
+    text-transform: lowercase;
+}
+.align-center {
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+.row.align-center {
+    display: flex;
+}
+input#k_id_email {
+    width: 100%;
+    background-color: transparent;
+    border-color: transparent;
+    display: table-cell;
+    height: 40px;
+    margin: 0;
+    vertical-align: top;
+    padding-left: 0px;
+    line-height: 1;
+    box-shadow: none;
+    transition: none;
+    color: #000;
+}
+.news-letter .newsletter-message {
+    text-align: center;
+    font-family: Dala Floda Roman,Times New Roman,Times,serif;
+    text-transform: lowercase;
+    line-height: 1;
+    font-size: 1.8rem;
+    color: black !important;
+    text-align: center;
+    border: none;
+    margin-top: 15px;
+    margin-bottom: 0;
+    padding: 0;
+    font-variant-ligatures: none;
+}
+  </style>
+<div class="row align-center page-width page-width--narrow page-height news-letter">
+      <div class="large-8 medium-10 small-12 columns">
+            <h1 class="center top-margin">{{ page.title }}</h1>
+
+          <div class="row align-center">
+              <div class="large-7 medium-9 columns">
+                {{ page.content }}
+
+                <div class="newsletter top-margin bottom-margin">
+
+
+                  <form id="email_signup_newsletter" class="newsletter klaviyo_gdpr_embed_NcntnE" action="//manage.kmail-lists.com/subscriptions/subscribe" data-ajax-submit="//manage.kmail-lists.com/ajax/subscriptions/subscribe" method="GET" target="_blank" novalidate="novalidate">
+                    <input type="hidden" name="g" value="NcntnE">
+                    <div class="input-group minimal">
+                      <input class="" type="email" value="" name="email" id="k_id_email" placeholder="Subscribe for 10% off" />
+                      <div class="input-group-btn">
+                      <button type="submit"><img src="{{ 'form_submit.svg' | asset_url }}"></button>
+                    </div><!-- input-group-btn -->
+                  </div><!-- input-group minimal -->
+                  <div class="success_message newsletter-message" style="display:none;"></div>
+                  <div class="error_message newsletter-message" style="display:none;"></div>
+
+                  </form>
+
+                  <small><br>By entering your email, you are subscribing to Fleur du Mal newsletters to receive exclusive sales, insider access and event invitations. Unsubscribe at any time.</small>
+
+                  <script type="text/javascript" src="//www.klaviyo.com/media/js/public/klaviyo_subscribe.js"></script>
+                  <script type="text/javascript">
+                    KlaviyoSubscribe.attachToForms('#email_signup_newsletter', {
+                      hide_form_on_success: false,
+                      success_message: "{{ 'newsletter.success' | t }}",
+                    //  success_url: '/success_url',
+                      extra_properties: {
+                        $source: '$embed',
+                        $method_type: "Klaviyo Form",
+                        $method_id: 'embed',
+                      }
+                    });
+                  </script>
+
+
+
+                </div><!-- newsletter top-margin bottom-margin-->
+              </div><!-- large-7 medium-9 columns -->
+            </div><!-- row align-center -->
+
+</div><!-- large-8 medium-10 small-12 columns -->
+</div><!-- row align-center -->

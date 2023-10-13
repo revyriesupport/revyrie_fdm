@@ -1,0 +1,163 @@
+{
+  "sections": {
+    "main-contact-us": {
+      "type": "main-contact-us",
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "client-services": {
+      "type": "rich-text",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "client services",
+            "heading_size": "h1"
+          }
+        },
+        "text1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Fleur du Mal's Client Services team would be happy to assist you with your online order. Contact us for fit and style advice, delivery inquiries and returns or exchanges. We'll even help you pick out that perfect gift.<\/p>"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Fleur du Mal Client Services representatives are available Monday through Friday, 10AM-6PM EST.<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "text1",
+        "text"
+      ],
+      "disabled": true,
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "background-1",
+        "text_color": "#000000",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "rich_text": {
+      "type": "rich-text",
+      "blocks": {
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p><strong>Chat:<\/strong>&nbsp;See Chat Icon in lower right hand corner<\/p><p><strong>Email:<\/strong>&nbsp;<a href='mailto:fleur@fleurdumal.com'>fleur@fleurdumal.com<\/a><\/p><p><strong>Call or Text:<\/strong>&nbsp;<a href='tel:6467913656'>+1 (646) 791-3656<\/a><\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "text"
+      ],
+      "disabled": true,
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "background-1",
+        "text_color": "#000000",
+        "full_width": true,
+        "padding_top": 0,
+        "padding_bottom": 40
+      }
+    },
+    "multicolumn": {
+      "type": "multicolumn",
+      "blocks": {
+        "column1": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/contact_nyc.jpg",
+            "title": "",
+            "text": "<ul><li><strong>Fleur du Mal New York Boutique<\/strong><\/li><li>175 Mott Street<\/li><li>New York, NY 10013<\/li><li>Phone: +1 (917) 237-0008<\/li><li><a href='mailto:boutique@fleurdumal.com'>boutique@fleurdumal.com<\/a><\/li><\/ul>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column2": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/contact_la.jpg",
+            "title": "",
+            "text": "<ul><li><strong>Fleur du Mal LA Boutique<\/strong><\/li><li>519 North Almont Drive<\/li><li>West Hollywood, CA 90069<\/li><li>Phone: +1 (424) 303-7075<\/li><li><a href='mailto:fleurla@fleurdumal.com'>fleurla@fleurdumal.com<\/a><\/li><\/ul>",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "column1",
+        "column2"
+      ],
+      "disabled": true,
+      "settings": {
+        "title": "our stores",
+        "heading_size": "h1",
+        "image_width": "half",
+        "image_ratio": "adapt",
+        "columns_desktop": 2,
+        "column_alignment": "center",
+        "background_style": "none",
+        "button_label": "",
+        "button_link": "",
+        "color_scheme": "background-1",
+        "text_color": "#000000",
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "padding_top": 36,
+        "padding_bottom": 52,
+        "content_alignment": "center",
+        "content_font_size": 16,
+        "content_font_size_mobile": 10
+      }
+    },
+    "other-inquiries": {
+      "type": "rich-text",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "other inquiries",
+            "heading_size": "h1"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Share what you love. Love what you share:&nbsp;<a href='https:\/\/www.instagram.com\/fleurdumalnyc\/' target='_blank'>@fleurdumalnyc<\/a><\/p><p>General inquiries:&nbsp;<a href='mailto:fleur@fleurdumal.com'>fleur@fleurdumal.com<\/a><\/p><p>Press inquiries:&nbsp;<a href='mailto:press@fleurdumal.com'>press@fleurdumal.com<\/a><\/p><p>Wholesale inquiries:&nbsp;<a href='mailto:min@fleurdumal.com'>min@fleurdumal.com<\/a><\/p><p>Marketing, Partnerships and Affiliate inquiries:&nbsp;<a href='mailto:press@fleurdumal.com'>press@fleurdumal.com<\/a><\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "text"
+      ],
+      "disabled": true,
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "background-1",
+        "text_color": "#000000",
+        "full_width": true,
+        "padding_top": 0,
+        "padding_bottom": 40
+      }
+    }
+  },
+  "order": [
+    "main-contact-us",
+    "client-services",
+    "rich_text",
+    "multicolumn",
+    "other-inquiries"
+  ]
+}

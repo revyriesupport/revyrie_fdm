@@ -3,12 +3,85 @@
     "main": {
       "type": "main-page",
       "settings": {
-        "padding_top": 28,
-        "padding_bottom": 28
+        "padding_top": 30,
+        "padding_bottom": 30
+      }
+    },
+    "c205116a-7020-4b09-be3d-8ad834964bb7": {
+      "type": "image-with-text",
+      "blocks": {
+        "template--14634550886472__c205116a-7020-4b09-be3d-8ad834964bb7-heading-1": {
+          "type": "heading",
+          "settings": {
+            "heading": "\"Inspiring dressing up & undressing\"",
+            "heading_size": "h0",
+            "heading_font_size": 19,
+            "heading_font_size_mobile": 17,
+            "heading_color": "#000",
+            "heading_color_mobile": "#000"
+          }
+        },
+        "template--14634550886472__c205116a-7020-4b09-be3d-8ad834964bb7-text-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Fleur du Mal is a luxury lingerie, ready-to-wear, and swim brand founded by Jennifer Zuccarini in 2012. Its name, derived from the title of a collection of poems by Charles Baudelaire, speaks to the unique duality of its spirit:  <br\/><br\/>Fleur du Mal takes a fashion approach to lingerie, and applies a lingerie language to fashion. Its products are delicate and sophisticated, using luxury fabrics like French Leavers lace and bespoke embroideries crafted by world-class artisans. But they’re not super serious, or over-complicated. They can be cheeky, too, featuring whimsical prints and provocative silhouettes; the true embodiment of a “naughty flower.” <br\/><br\/>Zuccarini is constantly thinking about the emotion attached to lingerie, and her goal is to create products that make women of all ages and sizes feel their best while getting dressed and undressed. She understands that if a woman feels powerful and seductive in her undergarments, it can transform the way she moves through the world, giving her more confidence from the office to a first date. Even the brand’s subtler, more accessible, affordable pieces are designed to make customers feel special, with sumptuous fabrics, trimmings, and flattering cuts that elevate the everyday. <br\/><br\/>Fleur du Mal has a boutique in the heart of Soho located at 175 Mott Street in NYC and in Los Angeles at 519 N Almont Drive in West Hollywood. <\/p>",
+            "text_style": "body",
+            "content_font_size": 19,
+            "content_font_size_mobile": 17,
+            "content_color": "#000",
+            "content_color_mobile": "#000"
+          }
+        },
+        "template--14634550886472__c205116a-7020-4b09-be3d-8ad834964bb7-button-1": {
+          "type": "button",
+          "disabled": true,
+          "settings": {
+            "button_label": "Button label",
+            "button_link": "",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "template--14634550886472__c205116a-7020-4b09-be3d-8ad834964bb7-heading-1",
+        "template--14634550886472__c205116a-7020-4b09-be3d-8ad834964bb7-text-1",
+        "template--14634550886472__c205116a-7020-4b09-be3d-8ad834964bb7-button-1"
+      ],
+      "disabled": true,
+      "settings": {
+        "height": "large",
+        "desktop_image_width": "medium",
+        "layout": "text_first",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "content_layout": "no-overlap",
+        "color_scheme": "",
+        "image_behavior": "none",
+        "mobile_content_alignment": "left",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "section_identifier": ""
+      }
+    },
+    "6e640437-cdc3-41ec-b6f1-61ce1b90ed31": {
+      "type": "instagram-slider",
+      "disabled": true,
+      "settings": {
+        "show_content": true,
+        "heading": "Who's wearing fleur",
+        "link": ""
+      }
+    },
+    "dd408467-917c-4128-a3f9-e9a6fcfde891": {
+      "type": "myntr-related-product",
+      "settings": {
       }
     }
   },
   "order": [
-    "main"
+    "main",
+    "c205116a-7020-4b09-be3d-8ad834964bb7",
+    "6e640437-cdc3-41ec-b6f1-61ce1b90ed31",
+    "dd408467-917c-4128-a3f9-e9a6fcfde891"
   ]
 }

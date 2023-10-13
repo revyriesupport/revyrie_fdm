@@ -24,6 +24,19 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+
+
+
+
+/*================
+ #sizing-modal.reveal.full {
+    max-width: 1000px;
+    margin-left: auto!important;
+    margin-right: auto!important;
+}
+================*/
+
 /*===== Custom css ======*/
 #sizing-modal {
     border: 2px solid #000;
@@ -91,6 +104,22 @@ div#sizing-modal h3 {
 div#sizing-modal {
     display: none;
 }
+div#sizing-modal a.close-button {
+    font-size: 64px;
+    color: #000;
+    font-weight: 400;
+    top: 4px;
+    right: 10px;
+    line-height: 1;
+    position: absolute;
+    z-index: 100;
+}
+div#sizing-modal .top-margin-small {
+    margin-top: 30px;
+}
+.is-sizeguide-open {
+    overflow-y: hidden;
+}
 @media screen and (min-width: 1024px){
   #sizing-modal table thead tr th, 
   #sizing-modal table thead tr td,
@@ -109,5 +138,8 @@ div#sizing-modal {
   }
   #sizing-modal {
     padding: 30px 15px 15px;
+  }
+  div#sizing-modal a.close-button {
+    font-size: 28px;
   }
 }

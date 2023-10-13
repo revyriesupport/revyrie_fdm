@@ -1,0 +1,284 @@
+{{ 'main-careers.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .career-wrapper .career_gird_heading{
+    color: {{section.settings.heading_text_color}};
+    font-size: {{ section.settings.heading_font_size }}px;
+  }
+
+  .career-wrapper .career_gird_content {
+    color: {{section.settings.content_text_color}};
+    font-size: {{ section.settings.content_font_size }}px;
+  }
+  @media screen and (max-width: 768px) {
+    .career-wrapper .career_gird_heading{
+      font-size: {{ section.settings.heading_font_size_mobile }}px;
+    }
+
+    .career-wrapper .career_gird_content {
+        font-size: {{ section.settings.content_font_size_mobile }}px;
+    }
+  }
+  .career-wrapper .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .career-wrapper .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+<div class="career-wrapper">
+<div class="row align-center">
+  <div class="large-8 medium-10 small-12 columns">
+    <h1 class="center top-margin-small bottom-margin">{{ page.title }}</h1>
+
+    {% if blogs['careers-marketing-ecommerce'].articles_count > 0 %}
+      <h6 class="career_gird_heading">{{ blogs['careers-marketing-ecommerce'].title }}</h6>
+      <ul class="row small-up-1 bottom-margin">
+        {% for article in blogs['careers-marketing-ecommerce'].articles %}
+          <li class="article article-{{ article.id }} column career_gird_content">
+            {% unless article.excerpt == blank %}
+              {{ article.excerpt }}
+            {% endunless %}
+            {% unless article.content == blank %}
+              <a href="{{ article.url }}">{{ article.title }}</a>
+            {% endunless %}
+          </li>
+          <!-- article article-{{ article.id }} column -->
+        {% endfor %}
+      </ul>
+      <!-- row small-up-1 bottom-margin -->
+    {% endif %}
+
+    {% if blogs['careers-production'].articles_count > 0 %}
+      <h6 class="career_gird_heading">{{ blogs['careers-production'].title }}</h6>
+      <ul class="row small-up-1 bottom-margin">
+        {% for article in blogs['careers-production'].articles %}
+          <li class="article article-{{ article.id }} column career_gird_content">
+            {% unless article.excerpt == blank %}
+              {{ article.excerpt }}
+            {% endunless %}
+            {% unless article.content == blank %}
+              <a href="{{ article.url }}">{{ article.title }}</a>
+            {% endunless %}
+          </li>
+          <!-- article article-{{ article.id }} column -->
+        {% endfor %}
+      </ul>
+      <!-- row small-up-1 bottom-margin -->
+    {% endif %}
+
+    {% if blogs['careers-sales'].articles_count > 0 %}
+      <h6 class="career_gird_heading">{{ blogs['careers-sales'].title }}</h6>
+      <ul class="row small-up-1 bottom-margin">
+        {% for article in blogs['careers-sales'].articles %}
+          <li class="article article-{{ article.id }} column career_gird_content">
+            {% unless article.excerpt == blank %}
+              {{ article.excerpt }}
+            {% endunless %}
+            {% unless article.content == blank %}
+              <a href="{{ article.url }}">{{ article.title }}</a>
+            {% endunless %}
+          </li>
+          <!-- article article-{{ article.id }} column -->
+        {% endfor %}
+      </ul>
+      <!-- row small-up-1 bottom-margin -->
+    {% endif %}
+
+    {% if blogs['careers-retail'].articles_count > 0 %}
+      <h6 class="career_gird_heading">{{ blogs['careers-retail'].title }}</h6>
+      <ul class="row small-up-1 bottom-margin">
+        {% for article in blogs['careers-retail'].articles %}
+          <li class="article article-{{ article.id }} column career_gird_content">
+            {% unless article.excerpt == blank %}
+              {{ article.excerpt }}
+            {% endunless %}
+            {% unless article.content == blank %}
+              <a href="{{ article.url }}">{{ article.title }}</a>
+            {% endunless %}
+          </li>
+          <!-- article article-{{ article.id }} column -->
+        {% endfor %}
+      </ul>
+      <!-- row small-up-1 bottom-margin -->
+    {% endif %}
+
+    {% if blogs['careers-design'].articles_count > 0 %}
+      <h6 class="career_gird_heading">{{ blogs['careers-design'].title }}</h6>
+      <ul class="row small-up-1 bottom-margin">
+        {% for article in blogs['careers-design'].articles %}
+          <li class="article article-{{ article.id }} column career_gird_content">
+            {% unless article.excerpt == blank %}
+              {{ article.excerpt }}
+            {% endunless %}
+            {% unless article.content == blank %}
+              <a href="{{ article.url }}">{{ article.title }}</a>
+            {% endunless %}
+          </li>
+          <!-- article article-{{ article.id }} column -->
+        {% endfor %}
+      </ul>
+      <!-- row small-up-1 bottom-margin -->
+    {% endif %}
+
+    {% if blogs['careers-creative'].articles_count > 0 %}
+      <h6 class="career_gird_heading">{{ blogs['careers-creative'].title }}</h6>
+      <ul class="row small-up-1 bottom-margin">
+        {% for article in blogs['careers-creative'].articles %}
+          <li class="article article-{{ article.id }} column career_gird_content">
+            {% unless article.excerpt == blank %}
+              {{ article.excerpt }}
+            {% endunless %}
+            {% unless article.content == blank %}
+              <a href="{{ article.url }}">{{ article.title }}</a>
+            {% endunless %}
+          </li>
+          <!-- article article-{{ article.id }} column -->
+        {% endfor %}
+      </ul>
+      <!-- row small-up-1 bottom-margin -->
+    {% endif %}
+
+    {% if blogs['careers-operations'].articles_count > 0 %}
+      <h6 class="career_gird_heading">{{ blogs['careers-operations'].title }}</h6>
+      <ul class="row small-up-1 bottom-margin">
+        {% for article in blogs['careers-operations'].articles %}
+          <li class="article article-{{ article.id }} column career_gird_content">
+            {% unless article.excerpt == blank %}
+              {{ article.excerpt }}
+            {% endunless %}
+            {% unless article.content == blank %}
+              <a href="{{ article.url }}">{{ article.title }}</a>
+            {% endunless %}
+          </li>
+          <!-- article article-{{ article.id }} column -->
+        {% endfor %}
+      </ul>
+      <!-- row small-up-1 bottom-margin -->
+    {% endif %}
+
+    {% if blogs['careers-internships'].articles_count > 0 %}
+      <h6 class="career_gird_heading">{{ blogs['careers-internships'].title }}</h6>
+      <ul class="row small-up-1 bottom-margin">
+        {% for article in blogs['careers-internships'].articles %}
+          <li class="article article-{{ article.id }} column career_gird_content">
+            {% unless article.excerpt == blank %}
+              {{ article.excerpt }}
+            {% endunless %}
+            {% unless article.content == blank %}
+              <a href="{{ article.url }}">{{ article.title }}</a>
+            {% endunless %}
+          </li>
+          <!-- article article-{{ article.id }} column -->
+        {% endfor %}
+      </ul>
+      <!-- row small-up-1 bottom-margin -->
+    {% endif %}
+
+    <p class="top-margin-small career-description">{{ section.settings.page_description }}</p>
+  </div>
+  <!-- large-8 medium-10 small-12 columns -->
+</div>
+</div>
+<!-- row align-center -->
+
+{% schema %}
+{
+  "name": "Careers Page",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "font Size and color section"
+    },
+    {
+         "type":"color",
+         "id":"heading_text_color",
+         "default":"#000000",
+         "label":"Heading Text Color"
+      },
+      {
+         "type":"range",
+         "id":"heading_font_size",
+         "min":0,
+         "max":100,
+         "step":1,
+         "unit":"px",
+         "label":"Heading Font Size Desktop",
+         "default":13
+      },
+      {
+         "type":"range",
+         "id":"heading_font_size_mobile",
+         "min":0,
+         "max":100,
+         "step":1,
+         "unit":"px",
+         "label":"Heading Font Size Mobile",
+         "default":14
+      },
+    {
+         "type":"color",
+         "id":"content_text_color",
+         "default":"#d4857b",
+         "label":"Content Text Color"
+      },
+      {
+         "type":"range",
+         "id":"content_font_size",
+         "min":0,
+         "max":100,
+         "step":1,
+         "unit":"px",
+         "label":"Content Font Size Desktop",
+         "default":14
+      },
+      {
+         "type":"range",
+         "id":"content_font_size_mobile",
+         "min":0,
+         "max":100,
+         "step":1,
+         "unit":"px",
+         "label":"Content Font Size Mobile",
+         "default":13
+      },
+    {
+      "type": "textarea",
+      "id": "page_description",
+      "label": "Page Description",
+      "default": "We're always looking for amazing, hard working, talented people to join our team. For general inquiries, please send your resume and cover letter to <a href='mailto:talent@fleurdumal.com'>talent@fleurdumal.com</a> to inquire about open positions."
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+  ]
+}
+{% endschema %}

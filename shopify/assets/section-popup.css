@@ -1,0 +1,139 @@
+/*================ Newsletter Popup ================*/
+
+{% if section.settings.image != blank %}
+	.newsletter-popup .content_table {
+		background-image: url('{{ section.settings.image | img_url: '550x300' }}');
+	}
+{% endif %}
+
+.newsletter-popup {
+ position: fixed;
+ overflow: hidden;
+ z-index: 2147483644;
+ width: 450px;
+ right: 0px;
+}
+@media screen and (min-width: 1024px) {
+ .newsletter-popup {
+	 width: 550px;
+}
+}
+@media screen and (min-width: 640px) and (max-width: 1023px) {
+ .newsletter-popup {
+	 bottom: 0px;
+}
+}
+@media screen and (max-width: 639px) {
+ .newsletter-popup {
+	 bottom: 0px;
+	 width: 100%;
+}
+}
+.newsletter-popup .close-button {
+ color: #000;
+}
+.newsletter-popup .close-button.invert {
+ color: #fff;
+}
+.newsletter-popup.invert .close-button {
+ color: #000;
+}
+.newsletter-popup.invert .close-button.invert {
+ color: #fff;
+}
+.newsletter-popup.invert .content_table {
+/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#000000+0,000000+100&0+2,0.8+64 */
+}
+.newsletter-popup.invert .content_table .content_table_cell {
+ background: -moz-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 2%, rgba(0, 0, 0, 0.8) 64%, rgba(0, 0, 0, 0.8) 100%);
+/* FF3.6-15 */
+ background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 2%, rgba(0, 0, 0, 0.8) 64%, rgba(0, 0, 0, 0.8) 100%);
+/* Chrome10-25,Safari5.1-6 */
+ background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 2%, rgba(0, 0, 0, 0.8) 64%, rgba(0, 0, 0, 0.8) 100%);
+/* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#cc000000',GradientType=0);
+/* IE6-9 */
+}
+.newsletter-popup .content_table .content_table_cell {
+ padding: 60px 20px 20px 20px;
+/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#ffffff+0,ffffff+100&0+2,0.6+59 */
+ background: -moz-linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 2%, rgba(255, 255, 255, 0.6) 59%, rgba(255, 255, 255, 0.6) 100%);
+/* FF3.6-15 */
+ background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 2%, rgba(255, 255, 255, 0.6) 59%, rgba(255, 255, 255, 0.6) 100%);
+/* Chrome10-25,Safari5.1-6 */
+ background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 2%, rgba(255, 255, 255, 0.6) 59%, rgba(255, 255, 255, 0.6) 100%);
+/* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ffffff', endColorstr='#99ffffff',GradientType=0);
+/* IE6-9 */
+}
+@media screen and (min-width: 1024px) {
+ .newsletter-popup .content_table .content_table_cell {
+	 padding: 80px 20px 20px 20px;
+}
+}
+.newsletter-popup .content_table .content_table_cell h2 {
+ line-height: 1;
+ font-size: 2.2rem;
+ margin-bottom: 0px;
+ font-family: "proxima-nova", Helvetica, Roboto, Arial, sans-serif;
+}
+@media screen and (max-width: 639px) {
+ .newsletter-popup .content_table .content_table_cell h2 {
+	 font-size: 1.8rem;
+}
+}
+@media screen and (min-width: 1024px) {
+ .newsletter-popup .content_table .content_table_cell h2 {
+	 font-size: 2.4rem;
+}
+}
+.newsletter-popup .content_table .content_table_cell p {
+ margin-top: 10px;
+ margin-bottom: 0px;
+}
+@media screen and (min-width: 640px) {
+ .newsletter-popup .content_table .content_table_cell p {
+	 font-size: 0.8rem;
+	 letter-spacing: 0.05rem;
+}
+}
+.newsletter-popup .content_table .content_table_cell .form-success {
+ margin-bottom: 10px;
+}
+.newsletter-popup .content_table .content_table_cell .input-group {
+ border: 1px solid #ececec;
+ padding-left: 10px;
+}
+.newsletter-popup .content_table .content_table_cell .input-group .input-group-btn {
+ width: 40px;
+ text-align: center;
+}
+.newsletter-popup .content_table .content_table_cell form {
+ margin-top: 20px;
+ margin-bottom: 10px;
+ margin-left: auto;
+ margin-right: auto;
+}
+.newsletter-popup .content_table .content_table_cell form svg path {
+ fill: #000 !important;
+}
+.newsletter-popup .content_table.video {
+ background: none;
+ z-index: 1;
+}
+.newsletter-popup video {
+ min-width: 100%;
+ min-height: 100%;
+ position: absolute;
+ top: 50%;
+ left: 50%;
+ z-index: 0;
+ -webkit-background-size: cover;
+ -moz-background-size: cover;
+ -o-background-size: cover;
+ background-size: cover;
+ transform: translateX(-50%) translateY(-50%);
+}
+.newsletter-popup.hidden {
+ bottom: -999px;
+}

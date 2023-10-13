@@ -1,96 +1,3888 @@
 {{ 'section-blog-post.css' | asset_url | stylesheet_tag }}
-
-<article class="article-template" itemscope itemtype="http://schema.org/BlogPosting">
-  {%- for block in section.blocks -%}
-    {%- case block.type -%}
-      {%- when '@app' -%}
-        <div class="page-width page-width--narrow">
-          {% render block %}
-        </div>
-      {%- when 'featured_image' -%}
-        {%- if article.image -%}
-          <div
-            class="article-template__hero-container{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
-            {{ block.shopify_attributes }}
-          >
-            <div
-              class="article-template__hero-{{ block.settings.image_height }} media"
-              itemprop="image"
-              {% if block.settings.image_height == 'adapt' and article.image %}
-                style="padding-bottom: {{ 1 | divided_by: article.image.aspect_ratio | times: 100 }}%;"
-              {% endif %}
-            >
-              <img
-                srcset="
-                  {% if article.image.width >= 350 %}{{ article.image | image_url: width: 350 }} 350w,{% endif %}
-                  {% if article.image.width >= 750 %}{{ article.image | image_url: width: 750 }} 750w,{% endif %}
-                  {% if article.image.width >= 1100 %}{{ article.image | image_url: width: 1100 }} 1100w,{% endif %}
-                  {% if article.image.width >= 1500 %}{{ article.image | image_url: width: 1500 }} 1500w,{% endif %}
-                  {% if article.image.width >= 2200 %}{{ article.image | image_url: width: 2200 }} 2200w,{% endif %}
-                  {% if article.image.width >= 3000 %}{{ article.image | image_url: width: 3000 }} 3000w,{% endif %}
-                  {{ article.image | image_url }} {{ article.image.width }}w
-                "
-                sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 }}px, (min-width: 750px) calc(100vw - 10rem), 100vw"
-                src="{{ article.image | image_url: width: 1100 }}"
-                loading="eager"
-                fetchpriority="high"
-                width="{{ article.image.width }}"
-                height="{{ article.image.height }}"
-                alt="{{ article.image.alt | escape }}"
-              >
-            </div>
+{% style %}
+  article .article-{{ article.id }}.article-image {
+    background-image: url('{{ article.image | img_url: '1800x', crop: 'center' }}');
+    {% if article.metafields.custom.image_alignment_desktop != blank %}
+    background-position: {{ article.metafields.custom.image_alignment_desktop | remove: '"]' | remove: '["' | escape }};
+    {% else %}
+    background-position: center center;
+    {% endif %}
+  }
+   article.main-article .article-header h1{
+font-size: {{ section.settings.heading_font_size }}px;
+     padding: 30px 30px 0 30px
+  }
+   .main-article>*,
+  article.main-article .article-body p,
+  article.main-article .article-header h1,
+  article.main-article .article-header .copy,
+  article.main-article .article-body h2,
+  .outline.btn{
+    color: {{ section.settings.text_color}};
+  }
+  
+  article.main-article .article-body a,
+  article.main-article .article-details li a{
+    color: #d4857b;
+    font-weight: 500;
+    text-decoration: none;
+    outline: none;
+  }
+  article.main-article a:hover,
+  article.main-article a:focus {
+    color: #000;
+    cursor: pointer;
+}
+  article.main-article p{
+      margin-bottom: 15px;
+  }
+  
+  .main-article .social-sharing svg{
+  fill:{{ section.settings.text_color}};
+  }
+  article.main-article .article-body h2{
+   font-size:32px;
+  margin-bottom: 10px;
+    font-weight:500;
+        text-transform: lowercase;
+  }
+  .article-body .row.bottom-margin{
+    margin-bottom: 30px;
+  }
+  .my-60{
+    margin-top:60px;
+    margin-bottom:60px;
+  }
+{% endstyle %}
+<article role="article" itemscope itemtype="http://schema.org/Article" class="main-article">
+  {% if article.image %}
+    <div class="article-{{ article.id }} main-article-img-wrap article-image"></div>
+  {% endif %}
+  <div class="article-header{% if article.image %} has-image{% endif %}">
+    <div class="row">
+      <div class="medium-12 columns">
+        {% for tag in article.tags %}
+          {% if tag contains 'category:' %}
+            <div class="article-category">{{ tag | remove: 'category:' }}</div>
+          {% endif %}
+        {% endfor %}
+        <h1>{{ article.title }}</h1>
+        {% if article.content contains '<!-- subtitle -->' %}
+          <div class="copy article-subtitle">
+            {{ article.content | split: '<!-- subtitle -->' | last | split: '<!-- end subtitle -->' | first }}
           </div>
-        {%- endif -%}
-
-      {%- when 'title' -%}
-        <header
-          class="page-width page-width--narrow{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
-          {{ block.shopify_attributes }}
-        >
-          <h1
-            class="article-template__title"
-            itemprop="headline"
-          >
-            {{ article.title | escape }}
-          </h1>
-          {%- if block.settings.blog_show_date -%}
-            <span class="circle-divider caption-with-letter-spacing" itemprop="dateCreated pubdate datePublished">
-              {{- article.published_at | time_tag: format: 'date' -}}
-            </span>
+        {% endif %}
+        <ul class="article-details">
+          <li>
+            <a href="{{ blog.url }}">{% include 'icon-arrow-left' %} Back</a>
+          </li>
+          {%- if section.settings.blog_show_date -%}
+            <li class="circle-divider">{{ article.published_at | date: '%B %d, %Y' }}</li>
           {%- endif -%}
-          {%- if block.settings.blog_show_author -%}
-            <span class="caption-with-letter-spacing" itemprop="author" itemscope itemtype="http://schema.org/Person">
-              <span itemprop="name">{{ article.author }}</span>
-            </span>
+          {%- if section.settings.blog_show_author -%}
+            <li>{{ article.author }}</li>
           {%- endif -%}
-        </header>
-
-      {%- when 'content' -%}
-        <div
-          class="article-template__content page-width page-width--narrow rte{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-          itemprop="articleBody"
-          {{ block.shopify_attributes }}
-        >
-          {{ article.content }}
-        </div>
-
-      {%- when 'share' -%}
-        <div
-          class="article-template__social-sharing page-width page-width--narrow{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-          {{ block.shopify_attributes }}
-        >
-          {% assign share_url = request.origin | append: article.url %}
-          {% render 'share-button', block: block, share_link: share_url %}
-        </div>
-    {%- endcase -%}
-  {%- endfor -%}
-
-  <div class="article-template__back element-margin-top center{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
-    <a href="{{ blog.url }}" class="article-template__link link animate-arrow">
-      <span class="icon-wrap">{% render 'icon-arrow' %}</span>
-      {{ 'blogs.article.back_to_blog' | t: title: blog.title }}
-    </a>
+        </ul>
+        <!-- article-date -->
+      </div>
+      <!-- medium-12 columns -->
+    </div>
+    <!-- row -->
   </div>
+  <!-- article-header -->
+  <div class="articleBody" itemprop="articleBody">
+    {% if article.content contains '<!-- section-1 -->' %}
+      <div class="article-body">
+        <div class="row align-center bottom-margin">
+          <div class="large-8 medium-10 small-12 columns">
+            {% if article.content contains '<!-- section-1-img-text-wrap-right -->' %}
+              <img
+                class="text-wrap-right"
+                align="right"
+                src="{{ article.content | split: '<!-- section-1-img-text-wrap-right -->' | last | split: '<!-- end section-1-img-text-wrap-right -->' | first }}"
+              >
+            {% endif %}
+            {% if article.content contains '<!-- section-1-img-text-wrap-left -->' %}
+              <img
+                class="text-wrap-left"
+                align="left"
+                src="{{ article.content | split: '<!-- section-1-img-text-wrap-left -->' | last | split: '<!-- end section-1-img-text-wrap-left -->' | first }}"
+              >
+            {% endif %}
+
+            {{ article.content | split: '<!-- section-1 -->' | last | split: '<!-- end section-1 -->' | first }}
+          </div>
+          <!-- large-8 medium-10 small-12 columns -->
+        </div>
+        <!-- row align-center bottom-margin -->
+      </div>
+      <!-- article-body -->
+    {% endif %}
+    {% if article.content contains '<!-- section-1-img-wide -->' %}
+      <div class="article-wide-image">
+        <div class="row align-center center">
+          <div class="small-12 columns">
+            <img src="{{ article.content | split: '<!-- section-1-img-wide -->' | last | split: '<!-- end section-1-img-wide -->' | first }}">
+            {% if article.content contains '<!-- section-1-img-wide-caption -->' %}
+              <div class="caption">
+                Photo:
+                <span>
+                  {{-
+                    article.content
+                    | split: '<!-- section-1-img-wide-caption -->'
+                    | last
+                    | split: '<!-- end section-1-img-wide-caption -->'
+                    | first
+                  -}}
+                </span>
+              </div>
+            {% endif %}
+          </div>
+          <!-- small-12 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-wide-image -->
+    {% endif %}
+    {% if article.content contains '<!-- section-1-img-col2-a -->'
+      and article.content contains '<!-- section-1-img-col2-b -->'
+    %}
+      <div class="article-col2-image my-60">
+        <div class="row align-center">
+          <div class="large-8 medium-10 small-12 columns">
+            <div class="row">
+              <div class="medium-6 small-6 columns">
+                <img src="{{ article.content | split: '<!-- section-1-img-col2-a -->' | last | split: '<!-- end section-1-img-col2-a -->' | first }}">
+                {% if article.content contains '<!-- section-1-img-col2-a-caption -->' %}
+                  <div class="caption">
+                    Photo:
+                    <span>
+                      {{-
+                        article.content
+                        | split: '<!-- section-1-img-col2-a-caption -->'
+                        | last
+                        | split: '<!-- end section-1-img-col2-a-caption -->'
+                        | first
+                      -}}
+                    </span>
+                  </div>
+                  <!-- caption -->
+                {% endif %}
+              </div>
+              <!-- medium-6 small-6 columns -->
+              <div class="medium-6 small-6 columns">
+                <img src="{{ article.content | split: '<!-- section-1-img-col2-b -->' | last | split: '<!-- end section-1-img-col2-b -->' | first }}">
+                {% if article.content contains '<!-- section-1-img-col2-b-caption -->' %}
+                  <div class="caption">
+                    Photo:
+                    <span>
+                      {{-
+                        article.content
+                        | split: '<!-- section-1-img-col2-b-caption -->'
+                        | last
+                        | split: '<!-- end section-1-img-col2-b-caption -->'
+                        | first
+                      -}}
+                    </span>
+                  </div>
+                  <!-- caption -->
+                {% endif %}
+              </div>
+              <!-- medium-6 small-6 columns -->
+            </div>
+            <!-- row -->
+          </div>
+          <!-- large-8 medium-10 small-12 columns -->
+        </div>
+        <!-- row align-center -->
+      </div>
+      <!-- article-col2-image -->
+    {% endif %}
+    {% if article.content contains '<!-- section-1-img-col2-c -->'
+      and article.content contains '<!-- section-1-img-col2-d -->'
+    %}
+      <div class="article-col2-image my-60">
+        <div class="row align-center">
+          <div class="large-8 medium-10 small-12 columns">
+            <div class="row">
+              <div class="medium-6 small-6 columns">
+                <img src="{{ article.content | split: '<!-- section-1-img-col2-c -->' | last | split: '<!-- end section-1-img-col2-c -->' | first }}">
+                {% if article.content contains '<!-- section-1-img-col2-c-caption -->' %}
+                  <div class="caption">
+                    Photo:
+                    <span>
+                      {{-
+                        article.content
+                        | split: '<!-- section-1-img-col2-c-caption -->'
+                        | last
+                        | split: '<!-- end section-1-img-col2-c-caption -->'
+                        | first
+                      -}}
+                    </span>
+                  </div>
+                  <!-- caption -->
+                {% endif %}
+              </div>
+              <!-- medium-6 small-6 columns -->
+              <div class="medium-6 small-6 columns">
+                <img src="{{ article.content | split: '<!-- section-1-img-col2-d -->' | last | split: '<!-- end section-1-img-col2-d -->' | first }}">
+                {% if article.content contains '<!-- section-1-img-col2-d-caption -->' %}
+                  <div class="caption">
+                    Photo:
+                    <span>
+                      {{-
+                        article.content
+                        | split: '<!-- section-1-img-col2-d-caption -->'
+                        | last
+                        | split: '<!-- end section-1-img-col2-d-caption -->'
+                        | first
+                      -}}
+                    </span>
+                  </div>
+                  <!-- caption -->
+                {% endif %}
+              </div>
+              <!-- medium-6 small-6 columns -->
+            </div>
+            <!-- row -->
+          </div>
+          <!-- large-8 medium-10 small-12 columns -->
+        </div>
+        <!-- row align-center -->
+      </div>
+      <!-- article-col2-image -->
+    {% endif %}
+    {% if article.content contains '<!-- section-1-quote-1 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-1-quote-1 -->'
+              | last
+              | split: '<!-- end section-1-quote-1 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-1-quote-2 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-1-quote-2 -->'
+              | last
+              | split: '<!-- end section-1-quote-2 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-1-quote-3 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-1-quote-3 -->'
+              | last
+              | split: '<!-- end section-1-quote-3 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-1-quote-4 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-1-quote-4 -->'
+              | last
+              | split: '<!-- end section-1-quote-4 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-1-quote-5 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-1-quote-5 -->'
+              | last
+              | split: '<!-- end section-1-quote-5 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-1-quote-6 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-1-quote-6 -->'
+              | last
+              | split: '<!-- end section-1-quote-6 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-1-quote-7 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-1-quote-7 -->'
+              | last
+              | split: '<!-- end section-1-quote-7 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-1-quote-8 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-1-quote-8 -->'
+              | last
+              | split: '<!-- end section-1-quote-8 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-1-quote-9 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-1-quote-9 -->'
+              | last
+              | split: '<!-- end section-1-quote-9 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-1-quote-10 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-1-quote-10 -->'
+              | last
+              | split: '<!-- end section-1-quote-10 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-1-quote-11 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-1-quote-11 -->'
+              | last
+              | split: '<!-- end section-1-quote-11 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-1-recipe-title -->' %}
+      <div class="article-recipe">
+        <div class="row align-center bottom-margin">
+          <div class="large-8 medium-10 small-12 columns">
+            {% if article.content contains '<!-- section-1-recipe-video -->' %}
+              <div class="article-recipe-video">
+                <div class="responsive-embed widescreen">
+                  <iframe
+                    width="420"
+                    height="315"
+                    src="{{ article.content | split: '<!-- section-1-recipe-video -->' | last | split: '<!-- end section-1-recipe-video -->' | first }}"
+                    frameborder="0"
+                    allowfullscreen
+                  ></iframe>
+                </div>
+                <!-- responsive-embed widescreen -->
+              </div>
+              <!-- article-recipe-video -->
+            {% elsif article.content contains '<!-- section-1-recipe-image -->' %}
+              <div class="article-recipe-image">
+                <img
+                  src="{{ article.content | split: '<!-- section-1-recipe-image -->' | last | split: '<!-- end section-1-recipe-image -->' | first }}"
+                  {% if article.content contains '<!-- section-1-recipe-title -->' %}
+                    alt="{{ article.content | split: '<!-- section-1-recipe-title -->' | last | split: '<!-- end section-1-recipe-title -->' | first }}"
+                  {% endif %}
+                >
+              </div>
+              <!-- article-recipe-image -->
+            {% endif %}
+            <h3>
+              {{
+                article.content
+                | split: '<!-- section-1-recipe-title -->'
+                | last
+                | split: '<!-- end section-1-recipe-title -->'
+                | first
+              }}
+            </h3>
+            <div class="row">
+              {% if article.content contains '<!-- section-1-recipe-ingredients -->' %}
+                <div class="medium-4 small-12 columns">
+                  <h6>You'll need</h6>
+                  <div class="recipe-ingredients">
+                    {{
+                      article.content
+                      | split: '<!-- section-1-recipe-ingredients -->'
+                      | last
+                      | split: '<!-- end section-1-recipe-ingredients -->'
+                      | first
+                    }}
+                  </div>
+                  <!-- recipe-ingredients -->
+                </div>
+                <!-- medium-4 small-12 columns -->
+              {% endif %}
+              {% if article.content contains '<!-- section-1-recipe-instructions -->' %}
+                <div class="medium-8 small-12 columns">
+                  {{
+                    article.content
+                    | split: '<!-- section-1-recipe-instructions -->'
+                    | last
+                    | split: '<!-- end section-1-recipe-instructions -->'
+                    | first
+                  }}
+                </div>
+                <!-- medium-8 small-12 columns -->
+              {% endif %}
+            </div>
+            <!-- row -->
+          </div>
+          <!-- large-8 medium-10 small-12 columns -->
+        </div>
+        <!-- row align-center bottom-margin -->
+      </div>
+      <!-- article-recipe -->
+    {% endif %}
+    {% for tag in article.tags %}
+      {% if tag contains 'section-1:' %}
+        {% assign has_custom_collection = true %}
+        {% assign collection_handle1 = tag | remove: 'section-1:' %}
+        {% assign custom_collections1 = collection_handle1 | append: ',' %}
+        {%- assign collection1 = collections[collection_handle1] -%}
+      {% endif %}
+    {% endfor %}
+    {{ product_setings }}
+    {% if has_custom_collection %}
+      {% if collection1.products.count > 0 %}
+      {% include 'blog-product-slider',
+            collection: collection1,
+            section_name: 'section-1',
+            product_limit: section.settings.blog_product_slider_count,
+            image_ratio: section.settings.image_ratio,
+            show_secondary_image: section.settings.show_secondary_image,
+            text_position: section.settings.text_position,
+            columns_mobile: section.settings.columns_mobile
+          %}
+        {% endif %}
+    {% endif %}
+    {% comment %}{% section 'featured-collection-article-section-1' %}{% endcomment %}
+    {% if article.content contains '<!-- section-2 -->' %}
+      <div class="article-body">
+        <div class="row align-center bottom-margin">
+          <div class="large-8 medium-10 small-12 columns">
+            {% if article.content contains '<!-- section-2-img-text-wrap-right -->' %}
+              <img
+                class="text-wrap-right"
+                align="right"
+                src="{{ article.content | split: '<!-- section-2-img-text-wrap-right -->' | last | split: '<!-- end section-2-img-text-wrap-right -->' | first }}"
+              >
+            {% endif %}
+            {% if article.content contains '<!-- section-2-img-text-wrap-left -->' %}
+              <img
+                class="text-wrap-left"
+                align="left"
+                src="{{ article.content | split: '<!-- section-2-img-text-wrap-left -->' | last | split: '<!-- end section-2-img-text-wrap-left -->' | first }}"
+              >
+            {% endif %}
+            {{ article.content | split: '<!-- section-2 -->' | last | split: '<!-- end section-2 -->' | first }}
+          </div>
+          <!-- large-8 medium-10 small-12 columns -->
+        </div>
+        <!-- row align-center bottom-margin -->
+      </div>
+      <!-- article-body -->
+    {% endif %}
+    {% if article.content contains '<!-- section-2-img-wide -->' %}
+      <div class="article-wide-image">
+        <div class="row align-center center">
+          <div class="small-12 columns">
+            <img src="{{ article.content | split: '<!-- section-2-img-wide -->' | last | split: '<!-- end section-2-img-wide -->' | first }}">
+            {% if article.content contains '<!-- section-2-img-wide-caption -->' %}
+              <div class="caption">
+                Photo:
+                <span>
+                  {{-
+                    article.content
+                    | split: '<!-- section-2-img-wide-caption -->'
+                    | last
+                    | split: '<!-- end section-2-img-wide-caption -->'
+                    | first
+                  -}}
+                </span>
+              </div>
+            {% endif %}
+          </div>
+          <!-- small-12 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-wide-image -->
+    {% endif %}
+    {% if article.content contains '<!-- section-2-img-col2-a -->'
+      and article.content contains '<!-- section-2-img-col2-b -->'
+    %}
+      <div class="article-col2-image my-60">
+        <div class="row align-center">
+          <div class="large-8 medium-10 small-12 columns">
+            <div class="row">
+              <div class="medium-6 small-6 columns">
+                <img src="{{ article.content | split: '<!-- section-2-img-col2-a -->' | last | split: '<!-- end section-2-img-col2-a -->' | first }}">
+                {% if article.content contains '<!-- section-2-img-col2-a-caption -->' %}
+                  <div class="caption">
+                    Photo:
+                    <span>
+                      {{-
+                        article.content
+                        | split: '<!-- section-2-img-col2-a-caption -->'
+                        | last
+                        | split: '<!-- end section-2-img-col2-a-caption -->'
+                        | first
+                      -}}
+                    </span>
+                  </div>
+                  <!-- caption -->
+                {% endif %}
+              </div>
+              <!-- medium-6 small-6 columns -->
+              <div class="medium-6 small-6 columns">
+                <img src="{{ article.content | split: '<!-- section-2-img-col2-b -->' | last | split: '<!-- end section-2-img-col2-b -->' | first }}">
+                {% if article.content contains '<!-- section-2-img-col2-b-caption -->' %}
+                  <div class="caption">
+                    Photo:
+                    <span>
+                      {{-
+                        article.content
+                        | split: '<!-- section-2-img-col2-b-caption -->'
+                        | last
+                        | split: '<!-- end section-2-img-col2-b-caption -->'
+                        | first
+                      -}}
+                    </span>
+                  </div>
+                  <!-- caption -->
+                {% endif %}
+              </div>
+              <!-- medium-6 small-6 columns -->
+            </div>
+            <!-- row -->
+          </div>
+          <!-- large-8 medium-10 small-12 columns -->
+        </div>
+        <!-- row align-center -->
+      </div>
+      <!-- article-col2-image -->
+    {% endif %}
+    {% if article.content contains '<!-- section-2-quote-1 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-2-quote-1 -->'
+              | last
+              | split: '<!-- end section-2-quote-1 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-2-quote-2 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-2-quote-2 -->'
+              | last
+              | split: '<!-- end section-2-quote-2 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-2-quote-3 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-2-quote-3 -->'
+              | last
+              | split: '<!-- end section-2-quote-3 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-2-quote-4 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-2-quote-4 -->'
+              | last
+              | split: '<!-- end section-2-quote-4 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-2-quote-5 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-2-quote-5 -->'
+              | last
+              | split: '<!-- end section-2-quote-5 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-2-quote-6 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-2-quote-6 -->'
+              | last
+              | split: '<!-- end section-2-quote-6 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-2-quote-7 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-2-quote-7 -->'
+              | last
+              | split: '<!-- end section-2-quote-7 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-2-quote-8 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-2-quote-8 -->'
+              | last
+              | split: '<!-- end section-2-quote-8 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-2-quote-9 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-2-quote-9 -->'
+              | last
+              | split: '<!-- end section-2-quote-9 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-2-quote-10 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-2-quote-10 -->'
+              | last
+              | split: '<!-- end section-2-quote-10 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-2-quote-11 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-2-quote-11 -->'
+              | last
+              | split: '<!-- end section-2-quote-11 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-2-recipe-title -->' %}
+      <div class="article-recipe">
+        <div class="row align-center bottom-margin">
+          <div class="large-8 medium-10 small-12 columns">
+            {% if article.content contains '<!-- section-2-recipe-video -->' %}
+              <div class="article-recipe-video">
+                <div class="responsive-embed widescreen">
+                  <iframe
+                    width="420"
+                    height="315"
+                    src="{{ article.content | split: '<!-- section-2-recipe-video -->' | last | split: '<!-- end section-2-recipe-video -->' | first }}"
+                    frameborder="0"
+                    allowfullscreen
+                  ></iframe>
+                </div>
+                <!-- responsive-embed widescreen -->
+              </div>
+              <!-- article-recipe-video -->
+            {% elsif article.content contains '<!-- section-2-recipe-image -->' %}
+              <div class="article-recipe-image">
+                <img
+                  src="{{ article.content | split: '<!-- section-2-recipe-image -->' | last | split: '<!-- end section-2-recipe-image -->' | first }}"
+                  {% if article.content contains '<!-- section-2-recipe-title -->' %}
+                    alt="{{ article.content | split: '<!-- section-2-recipe-title -->' | last | split: '<!-- end section-2-recipe-title -->' | first }}"
+                  {% endif %}
+                >
+              </div>
+              <!-- article-recipe-image -->
+            {% endif %}
+            <h3>
+              {{
+                article.content
+                | split: '<!-- section-2-recipe-title -->'
+                | last
+                | split: '<!-- end section-2-recipe-title -->'
+                | first
+              }}
+            </h3>
+            <div class="row">
+              {% if article.content contains '<!-- section-2-recipe-ingredients -->' %}
+                <div class="medium-4 small-12 columns">
+                  <h6>You'll need</h6>
+                  <div class="recipe-ingredients">
+                    {{
+                      article.content
+                      | split: '<!-- section-2-recipe-ingredients -->'
+                      | last
+                      | split: '<!-- end section-2-recipe-ingredients -->'
+                      | first
+                    }}
+                  </div>
+                  <!-- recipe-ingredients -->
+                </div>
+                <!-- medium-4 small-12 columns -->
+              {% endif %}
+              {% if article.content contains '<!-- section-2-recipe-instructions -->' %}
+                <div class="medium-8 small-12 columns">
+                  {{
+                    article.content
+                    | split: '<!-- section-2-recipe-instructions -->'
+                    | last
+                    | split: '<!-- end section-2-recipe-instructions -->'
+                    | first
+                  }}
+                </div>
+                <!-- medium-8 small-12 columns -->
+              {% endif %}
+            </div>
+            <!-- row -->
+          </div>
+          <!-- large-8 medium-10 small-12 columns -->
+        </div>
+        <!-- row align-center bottom-margin -->
+      </div>
+      <!-- article-recipe -->
+    {% endif %}
+    {% for tag in article.tags %}
+      {% if tag contains 'section-2:' %}
+        {% assign has_custom_collection = true %}
+        {% assign collection_handle2 = tag | remove: 'section-2:' %}
+        {% assign custom_collections2 = collection_handle2 | append: ',' %}
+        {%- assign collection2 = collections[collection_handle2] -%}
+      {% endif %}
+    {% endfor %}
+    {% if has_custom_collection %}
+      {% if collection2.products.count > 0 %}
+      {% include 'blog-product-slider',
+            collection: collection2,
+            section_name: 'section-2',
+            product_limit: section.settings.blog_product_slider_count,
+            image_ratio: section.settings.image_ratio,
+            show_secondary_image: section.settings.show_secondary_image,
+            text_position: section.settings.text_position,
+            columns_mobile: section.settings.columns_mobile
+          %}
+        {% endif %}
+    {% endif %}
+    {% comment %}{% section 'featured-collection-article-section-2' %}{% endcomment %}
+    {% if article.content contains '<!-- section-3 -->' %}
+      <div class="article-body">
+        <div class="row align-center bottom-margin">
+          <div class="large-8 medium-10 small-12 columns">
+            {% if article.content contains '<!-- section-3-img-text-wrap-right -->' %}
+              <img
+                class="text-wrap-right"
+                align="right"
+                src="{{ article.content | split: '<!-- section-3-img-text-wrap-right -->' | last | split: '<!-- end section-3-img-text-wrap-right -->' | first }}"
+              >
+            {% endif %}
+            {% if article.content contains '<!-- section-3-img-text-wrap-left -->' %}
+              <img
+                class="text-wrap-left"
+                align="left"
+                src="{{ article.content | split: '<!-- section-3-img-text-wrap-left -->' | last | split: '<!-- end section-3-img-text-wrap-left -->' | first }}"
+              >
+            {% endif %}
+            {{ article.content | split: '<!-- section-3 -->' | last | split: '<!-- end section-3 -->' | first }}
+          </div>
+          <!-- large-8 medium-10 small-12 columns -->
+        </div>
+        <!-- row align-center bottom-margin -->
+      </div>
+      <!-- article-body -->
+    {% endif %}
+    {% if article.content contains '<!-- section-3-img-wide -->' %}
+      <div class="article-wide-image">
+        <div class="row align-center center">
+          <div class="small-12 columns">
+            <img src="{{ article.content | split: '<!-- section-3-img-wide -->' | last | split: '<!-- end section-3-img-wide -->' | first }}">
+            {% if article.content contains '<!-- section-3-img-wide-caption -->' %}
+              <div class="caption">
+                Photo:
+                <span>
+                  {{-
+                    article.content
+                    | split: '<!-- section-3-img-wide-caption -->'
+                    | last
+                    | split: '<!-- end section-3-img-wide-caption -->'
+                    | first
+                  -}}
+                </span>
+              </div>
+            {% endif %}
+          </div>
+          <!-- small-12 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-wide-image -->
+    {% endif %}
+    {% if article.content contains '<!-- section-3-img-col2-a -->'
+      and article.content contains '<!-- section-3-img-col2-b -->'
+    %}
+      <div class="article-col2-image my-60">
+        <div class="row align-center">
+          <div class="large-8 medium-10 small-12 columns">
+            <div class="row">
+              <div class="medium-6 small-6 columns">
+                <img src="{{ article.content | split: '<!-- section-3-img-col2-a -->' | last | split: '<!-- end section-3-img-col2-a -->' | first }}">
+                {% if article.content contains '<!-- section-3-img-col2-a-caption -->' %}
+                  <div class="caption">
+                    Photo:
+                    <span>
+                      {{-
+                        article.content
+                        | split: '<!-- section-3-img-col2-a-caption -->'
+                        | last
+                        | split: '<!-- end section-3-img-col2-a-caption -->'
+                        | first
+                      -}}
+                    </span>
+                  </div>
+                  <!-- caption -->
+                {% endif %}
+              </div>
+              <!-- medium-6 small-6 columns -->
+              <div class="medium-6 small-6 columns">
+                <img src="{{ article.content | split: '<!-- section-3-img-col2-b -->' | last | split: '<!-- end section-3-img-col2-b -->' | first }}">
+                {% if article.content contains '<!-- section-3-img-col2-b-caption -->' %}
+                  <div class="caption">
+                    Photo:
+                    <span>
+                      {{-
+                        article.content
+                        | split: '<!-- section-3-img-col2-b-caption -->'
+                        | last
+                        | split: '<!-- end section-3-img-col2-b-caption -->'
+                        | first
+                      -}}
+                    </span>
+                  </div>
+                  <!-- caption -->
+                {% endif %}
+              </div>
+              <!-- medium-6 small-6 columns -->
+            </div>
+            <!-- row -->
+          </div>
+          <!-- large-8 medium-10 small-12 columns -->
+        </div>
+        <!-- row align-center -->
+      </div>
+      <!-- article-col2-image -->
+    {% endif %}
+    {% if article.content contains '<!-- section-3-quote-1 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-3-quote-1 -->'
+              | last
+              | split: '<!-- end section-3-quote-1 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-3-quote-2 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-3-quote-2 -->'
+              | last
+              | split: '<!-- end section-3-quote-2 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-3-quote-3 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-3-quote-3 -->'
+              | last
+              | split: '<!-- end section-3-quote-3 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-3-quote-4 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-3-quote-4 -->'
+              | last
+              | split: '<!-- end section-3-quote-4 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-3-quote-5 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-3-quote-5 -->'
+              | last
+              | split: '<!-- end section-3-quote-5 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-3-quote-6 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-3-quote-6 -->'
+              | last
+              | split: '<!-- end section-3-quote-6 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-3-quote-7 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-3-quote-7 -->'
+              | last
+              | split: '<!-- end section-3-quote-7 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-3-quote-8 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-3-quote-8 -->'
+              | last
+              | split: '<!-- end section-3-quote-8 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-3-quote-9 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-3-quote-9 -->'
+              | last
+              | split: '<!-- end section-3-quote-9 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-3-quote-10 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-3-quote-10 -->'
+              | last
+              | split: '<!-- end section-3-quote-10 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-3-quote-11 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-3-quote-11 -->'
+              | last
+              | split: '<!-- end section-3-quote-11 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-3-recipe-title -->' %}
+      <div class="article-recipe">
+        <div class="row align-center bottom-margin">
+          <div class="large-8 medium-10 small-12 columns">
+            {% if article.content contains '<!-- section-3-recipe-video -->' %}
+              <div class="article-recipe-video">
+                <div class="responsive-embed widescreen">
+                  <iframe
+                    width="420"
+                    height="315"
+                    src="{{ article.content | split: '<!-- section-3-recipe-video -->' | last | split: '<!-- end section-3-recipe-video -->' | first }}"
+                    frameborder="0"
+                    allowfullscreen
+                  ></iframe>
+                </div>
+                <!-- responsive-embed widescreen -->
+              </div>
+              <!-- article-recipe-video -->
+            {% elsif article.content contains '<!-- section-3-recipe-image -->' %}
+              <div class="article-recipe-image">
+                <img
+                  src="{{ article.content | split: '<!-- section-3-recipe-image -->' | last | split: '<!-- end section-3-recipe-image -->' | first }}"
+                  {% if article.content contains '<!-- section-3-recipe-title -->' %}
+                    alt="{{ article.content | split: '<!-- section-3-recipe-title -->' | last | split: '<!-- end section-3-recipe-title -->' | first }}"
+                  {% endif %}
+                >
+              </div>
+              <!-- article-recipe-image -->
+            {% endif %}
+            <h3>
+              {{
+                article.content
+                | split: '<!-- section-3-recipe-title -->'
+                | last
+                | split: '<!-- end section-3-recipe-title -->'
+                | first
+              }}
+            </h3>
+            <div class="row">
+              {% if article.content contains '<!-- section-3-recipe-ingredients -->' %}
+                <div class="medium-4 small-12 columns">
+                  <h6>You'll need</h6>
+                  <div class="recipe-ingredients">
+                    {{
+                      article.content
+                      | split: '<!-- section-3-recipe-ingredients -->'
+                      | last
+                      | split: '<!-- end section-3-recipe-ingredients -->'
+                      | first
+                    }}
+                  </div>
+                  <!-- recipe-ingredients -->
+                </div>
+                <!-- medium-4 small-12 columns -->
+              {% endif %}
+              {% if article.content contains '<!-- section-3-recipe-instructions -->' %}
+                <div class="medium-8 small-12 columns">
+                  {{
+                    article.content
+                    | split: '<!-- section-3-recipe-instructions -->'
+                    | last
+                    | split: '<!-- end section-3-recipe-instructions -->'
+                    | first
+                  }}
+                </div>
+                <!-- medium-8 small-12 columns -->
+              {% endif %}
+            </div>
+            <!-- row -->
+          </div>
+          <!-- large-8 medium-10 small-12 columns -->
+        </div>
+        <!-- row align-center bottom-margin -->
+      </div>
+      <!-- article-recipe -->
+    {% endif %}
+    {% for tag in article.tags %}
+      {% if tag contains 'section-3:' %}
+        {% assign has_custom_collection = true %}
+        {% assign collection_handle3 = tag | remove: 'section-3:' %}
+        {% assign custom_collections3 = collection_handle3 | append: ',' %}
+        {%- assign collection3 = collections[collection_handle3] -%}
+      {% endif %}
+    {% endfor %}
+    {% if has_custom_collection %}
+      {% if collection3.products.count > 0 %}
+      {% include 'blog-product-slider',
+            collection: collection3,
+            section_name: 'section-3',
+            product_limit: section.settings.blog_product_slider_count,
+            image_ratio: section.settings.image_ratio,
+            show_secondary_image: section.settings.show_secondary_image,
+            text_position: section.settings.text_position,
+            columns_mobile: section.settings.columns_mobile
+          %}
+        {% endif %}
+    {% endif %}
+    {% comment %}{% section 'featured-collection-article-section-3' %}{% endcomment %}
+    {% if article.content contains '<!-- section-4 -->' %}
+      <div class="article-body">
+        <div class="row align-center bottom-margin">
+          <div class="large-8 medium-10 small-12 columns">
+            {% if article.content contains '<!-- section-4-img-text-wrap-right -->' %}
+              <img
+                class="text-wrap-right"
+                align="right"
+                src="{{ article.content | split: '<!-- section-4-img-text-wrap-right -->' | last | split: '<!-- end section-4-img-text-wrap-right -->' | first }}"
+              >
+            {% endif %}
+            {% if article.content contains '<!-- section-4-img-text-wrap-left -->' %}
+              <img
+                class="text-wrap-left"
+                align="left"
+                src="{{ article.content | split: '<!-- section-4-img-text-wrap-left -->' | last | split: '<!-- end section-4-img-text-wrap-left -->' | first }}"
+              >
+            {% endif %}
+
+            {{ article.content | split: '<!-- section-4 -->' | last | split: '<!-- end section-4 -->' | first }}
+          </div>
+          <!-- large-8 medium-10 small-12 columns -->
+        </div>
+        <!-- row align-center bottom-margin -->
+      </div>
+      <!-- article-body -->
+    {% endif %}
+    {% if article.content contains '<!-- section-4-img-wide -->' %}
+      <div class="article-wide-image">
+        <div class="row align-center center">
+          <div class="small-12 columns">
+            <img src="{{ article.content | split: '<!-- section-4-img-wide -->' | last | split: '<!-- end section-4-img-wide -->' | first }}">
+            {% if article.content contains '<!-- section-4-img-wide-caption -->' %}
+              <div class="caption">
+                Photo:
+                <span>
+                  {{-
+                    article.content
+                    | split: '<!-- section-4-img-wide-caption -->'
+                    | last
+                    | split: '<!-- end section-4-img-wide-caption -->'
+                    | first
+                  -}}
+                </span>
+              </div>
+            {% endif %}
+          </div>
+          <!-- small-12 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-wide-image -->
+    {% endif %}
+    {% if article.content contains '<!-- section-4-img-col2-a -->'
+      and article.content contains '<!-- section-4-img-col2-b -->'
+    %}
+      <div class="article-col2-image my-60">
+        <div class="row align-center">
+          <div class="large-8 medium-10 small-12 columns">
+            <div class="row">
+              <div class="medium-6 small-6 columns">
+                <img src="{{ article.content | split: '<!-- section-4-img-col2-a -->' | last | split: '<!-- end section-4-img-col2-a -->' | first }}">
+                {% if article.content contains '<!-- section-4-img-col2-a-caption -->' %}
+                  <div class="caption">
+                    Photo:
+                    <span>
+                      {{-
+                        article.content
+                        | split: '<!-- section-4-img-col2-a-caption -->'
+                        | last
+                        | split: '<!-- end section-4-img-col2-a-caption -->'
+                        | first
+                      -}}
+                    </span>
+                  </div>
+                  <!-- caption -->
+                {% endif %}
+              </div>
+              <!-- medium-6 small-6 columns -->
+              <div class="medium-6 small-6 columns">
+                <img src="{{ article.content | split: '<!-- section-4-img-col2-b -->' | last | split: '<!-- end section-4-img-col2-b -->' | first }}">
+                {% if article.content contains '<!-- section-4-img-col2-b-caption -->' %}
+                  <div class="caption">
+                    Photo:
+                    <span>
+                      {{-
+                        article.content
+                        | split: '<!-- section-4-img-col2-b-caption -->'
+                        | last
+                        | split: '<!-- end section-4-img-col2-b-caption -->'
+                        | first
+                      -}}
+                    </span>
+                  </div>
+                  <!-- caption -->
+                {% endif %}
+              </div>
+              <!-- medium-6 small-6 columns -->
+            </div>
+            <!-- row -->
+          </div>
+          <!-- large-8 medium-10 small-12 columns -->
+        </div>
+        <!-- row align-center -->
+      </div>
+      <!-- article-col2-image -->
+    {% endif %}
+    {% if article.content contains '<!-- section-4-quote-1 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-4-quote-1 -->'
+              | last
+              | split: '<!-- end section-4-quote-1 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-4-quote-2 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-4-quote-2 -->'
+              | last
+              | split: '<!-- end section-4-quote-2 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-4-quote-3 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-4-quote-3 -->'
+              | last
+              | split: '<!-- end section-4-quote-3 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-4-quote-4 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-4-quote-4 -->'
+              | last
+              | split: '<!-- end section-4-quote-4 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-4-quote-5 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-4-quote-5 -->'
+              | last
+              | split: '<!-- end section-4-quote-5 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-4-quote-6 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-4-quote-6 -->'
+              | last
+              | split: '<!-- end section-4-quote-6 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-4-quote-7 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-4-quote-7 -->'
+              | last
+              | split: '<!-- end section-4-quote-7 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-4-quote-8 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-4-quote-8 -->'
+              | last
+              | split: '<!-- end section-4-quote-8 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-4-quote-9 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-4-quote-9 -->'
+              | last
+              | split: '<!-- end section-4-quote-9 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-4-quote-10 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-4-quote-10 -->'
+              | last
+              | split: '<!-- end section-4-quote-10 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-4-quote-11 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-4-quote-11 -->'
+              | last
+              | split: '<!-- end section-4-quote-11 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-4-recipe-title -->' %}
+      <div class="article-recipe">
+        <div class="row align-center bottom-margin">
+          <div class="large-8 medium-10 small-12 columns">
+            {% if article.content contains '<!-- section-4-recipe-video -->' %}
+              <div class="article-recipe-video">
+                <div class="responsive-embed widescreen">
+                  <iframe
+                    width="420"
+                    height="315"
+                    src="{{ article.content | split: '<!-- section-4-recipe-video -->' | last | split: '<!-- end section-4-recipe-video -->' | first }}"
+                    frameborder="0"
+                    allowfullscreen
+                  ></iframe>
+                </div>
+                <!-- responsive-embed widescreen -->
+              </div>
+              <!-- article-recipe-video -->
+            {% elsif article.content contains '<!-- section-4-recipe-image -->' %}
+              <div class="article-recipe-image">
+                <img
+                  src="{{ article.content | split: '<!-- section-4-recipe-image -->' | last | split: '<!-- end section-4-recipe-image -->' | first }}"
+                  {% if article.content contains '<!-- section-4-recipe-title -->' %}
+                    alt="{{ article.content | split: '<!-- section-4-recipe-title -->' | last | split: '<!-- end section-4-recipe-title -->' | first }}"
+                  {% endif %}
+                >
+              </div>
+              <!-- article-recipe-image -->
+            {% endif %}
+            <h3>
+              {{
+                article.content
+                | split: '<!-- section-4-recipe-title -->'
+                | last
+                | split: '<!-- end section-4-recipe-title -->'
+                | first
+              }}
+            </h3>
+            <div class="row">
+              {% if article.content contains '<!-- section-4-recipe-ingredients -->' %}
+                <div class="medium-4 small-12 columns">
+                  <h6>You'll need</h6>
+                  <div class="recipe-ingredients">
+                    {{
+                      article.content
+                      | split: '<!-- section-4-recipe-ingredients -->'
+                      | last
+                      | split: '<!-- end section-4-recipe-ingredients -->'
+                      | first
+                    }}
+                  </div>
+                  <!-- recipe-ingredients -->
+                </div>
+                <!-- medium-4 small-12 columns -->
+              {% endif %}
+              {% if article.content contains '<!-- section-4-recipe-instructions -->' %}
+                <div class="medium-8 small-12 columns">
+                  {{
+                    article.content
+                    | split: '<!-- section-4-recipe-instructions -->'
+                    | last
+                    | split: '<!-- end section-4-recipe-instructions -->'
+                    | first
+                  }}
+                </div>
+                <!-- medium-8 small-12 columns -->
+              {% endif %}
+            </div>
+            <!-- row -->
+          </div>
+          <!-- large-8 medium-10 small-12 columns -->
+        </div>
+        <!-- row align-center bottom-margin -->
+      </div>
+      <!-- article-recipe -->
+    {% endif %}
+    {% for tag in article.tags %}
+      {% if tag contains 'section-4:' %}
+        {% assign has_custom_collection = true %}
+        {% assign collection_handle4 = tag | remove: 'section-4:' %}
+        {% assign custom_collections4 = collection_handle4 | append: ',' %}
+        {%- assign collection4 = collections[collection_handle4] -%}
+      {% endif %}
+    {% endfor %}
+    {% if has_custom_collection %}
+      {% if collection4.products.count > 0 %}
+      {% include 'blog-product-slider',
+            collection: collection4,
+            section_name: 'section-4',
+            product_limit: section.settings.blog_product_slider_count,
+            image_ratio: section.settings.image_ratio,
+            show_secondary_image: section.settings.show_secondary_image,
+            text_position: section.settings.text_position,
+            columns_mobile: section.settings.columns_mobile
+          %}
+        {% endif %}
+    {% endif %}
+    {% comment %}{% section 'featured-collection-article-section-4' %}{% endcomment %}
+    {% if article.content contains '<!-- section-5 -->' %}
+      <div class="article-body">
+        <div class="row align-center bottom-margin">
+          <div class="large-8 medium-10 small-12 columns">
+            {% if article.content contains '<!-- section-5-img-text-wrap-right -->' %}
+              <img
+                class="text-wrap-right"
+                align="right"
+                src="{{ article.content | split: '<!-- section-5-img-text-wrap-right -->' | last | split: '<!-- end section-5-img-text-wrap-right -->' | first }}"
+              >
+            {% endif %}
+            {% if article.content contains '<!-- section-5-img-text-wrap-left -->' %}
+              <img
+                class="text-wrap-left"
+                align="left"
+                src="{{ article.content | split: '<!-- section-5-img-text-wrap-left -->' | last | split: '<!-- end section-5-img-text-wrap-left -->' | first }}"
+              >
+            {% endif %}
+            {{ article.content | split: '<!-- section-5 -->' | last | split: '<!-- end section-5 -->' | first }}
+          </div>
+          <!-- large-8 medium-10 small-12 columns -->
+        </div>
+        <!-- row align-center bottom-margin -->
+      </div>
+      <!-- article-body -->
+    {% endif %}
+    {% if article.content contains '<!-- section-5-img-wide -->' %}
+      <div class="article-wide-image">
+        <div class="row align-center center">
+          <div class="small-12 columns">
+            <img src="{{ article.content | split: '<!-- section-5-img-wide -->' | last | split: '<!-- end section-5-img-wide -->' | first }}">
+            {% if article.content contains '<!-- section-5-img-wide-caption -->' %}
+              <div class="caption">
+                Photo:
+                <span>
+                  {{-
+                    article.content
+                    | split: '<!-- section-5-img-wide-caption -->'
+                    | last
+                    | split: '<!-- end section-5-img-wide-caption -->'
+                    | first
+                  -}}
+                </span>
+              </div>
+            {% endif %}
+          </div>
+          <!-- small-12 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-wide-image -->
+    {% endif %}
+    {% if article.content contains '<!-- section-5-img-col2-a -->'
+      and article.content contains '<!-- section-5-img-col2-b -->'
+    %}
+      <div class="article-col2-image my-60">
+        <div class="row align-center">
+          <div class="large-8 medium-10 small-12 columns">
+            <div class="row">
+              <div class="medium-6 small-6 columns">
+                <img src="{{ article.content | split: '<!-- section-5-img-col2-a -->' | last | split: '<!-- end section-5-img-col2-a -->' | first }}">
+                {% if article.content contains '<!-- section-5-img-col2-a-caption -->' %}
+                  <div class="caption">
+                    Photo:
+                    <span>
+                      {{-
+                        article.content
+                        | split: '<!-- section-5-img-col2-a-caption -->'
+                        | last
+                        | split: '<!-- end section-5-img-col2-a-caption -->'
+                        | first
+                      -}}
+                    </span>
+                  </div>
+                  <!-- caption -->
+                {% endif %}
+              </div>
+              <!-- medium-6 small-6 columns -->
+              <div class="medium-6 small-6 columns">
+                <img src="{{ article.content | split: '<!-- section-5-img-col2-b -->' | last | split: '<!-- end section-5-img-col2-b -->' | first }}">
+                {% if article.content contains '<!-- section-5-img-col2-b-caption -->' %}
+                  <div class="caption">
+                    Photo:
+                    <span>
+                      {{-
+                        article.content
+                        | split: '<!-- section-5-img-col2-b-caption -->'
+                        | last
+                        | split: '<!-- end section-5-img-col2-b-caption -->'
+                        | first
+                      -}}
+                    </span>
+                  </div>
+                  <!-- caption -->
+                {% endif %}
+              </div>
+              <!-- medium-6 small-6 columns -->
+            </div>
+            <!-- row -->
+          </div>
+          <!-- large-8 medium-10 small-12 columns -->
+        </div>
+        <!-- row align-center -->
+      </div>
+      <!-- article-col2-image -->
+    {% endif %}
+    {% if article.content contains '<!-- section-5-quote-1 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-5-quote-1 -->'
+              | last
+              | split: '<!-- end section-5-quote-1 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-5-quote-2 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-5-quote-2 -->'
+              | last
+              | split: '<!-- end section-5-quote-2 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-5-quote-3 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-5-quote-3 -->'
+              | last
+              | split: '<!-- end section-5-quote-3 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-5-quote-4 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-5-quote-4 -->'
+              | last
+              | split: '<!-- end section-5-quote-4 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-5-quote-5 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-5-quote-5 -->'
+              | last
+              | split: '<!-- end section-5-quote-5 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-5-quote-6 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-5-quote-6 -->'
+              | last
+              | split: '<!-- end section-5-quote-6 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-5-quote-7 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-5-quote-7 -->'
+              | last
+              | split: '<!-- end section-5-quote-7 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-5-quote-8 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-5-quote-8 -->'
+              | last
+              | split: '<!-- end section-5-quote-8 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-5-quote-9 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-5-quote-9 -->'
+              | last
+              | split: '<!-- end section-5-quote-9 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-5-quote-10 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-5-quote-10 -->'
+              | last
+              | split: '<!-- end section-5-quote-10 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-5-quote-11 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-5-quote-11 -->'
+              | last
+              | split: '<!-- end section-5-quote-11 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-5-recipe-title -->' %}
+      <div class="article-recipe">
+        <div class="row align-center bottom-margin">
+          <div class="large-8 medium-10 small-12 columns">
+            {% if article.content contains '<!-- section-5-recipe-video -->' %}
+              <div class="article-recipe-video">
+                <div class="responsive-embed widescreen">
+                  <iframe
+                    width="420"
+                    height="315"
+                    src="{{ article.content | split: '<!-- section-5-recipe-video -->' | last | split: '<!-- end section-5-recipe-video -->' | first }}"
+                    frameborder="0"
+                    allowfullscreen
+                  ></iframe>
+                </div>
+                <!-- responsive-embed widescreen -->
+              </div>
+              <!-- article-recipe-video -->
+            {% elsif article.content contains '<!-- section-5-recipe-image -->' %}
+              <div class="article-recipe-image">
+                <img
+                  src="{{ article.content | split: '<!-- section-5-recipe-image -->' | last | split: '<!-- end section-5-recipe-image -->' | first }}"
+                  {% if article.content contains '<!-- section-5-recipe-title -->' %}
+                    alt="{{ article.content | split: '<!-- section-5-recipe-title -->' | last | split: '<!-- end section-5-recipe-title -->' | first }}"
+                  {% endif %}
+                >
+              </div>
+              <!-- article-recipe-image -->
+            {% endif %}
+            <h3>
+              {{
+                article.content
+                | split: '<!-- section-5-recipe-title -->'
+                | last
+                | split: '<!-- end section-5-recipe-title -->'
+                | first
+              }}
+            </h3>
+            <div class="row">
+              {% if article.content contains '<!-- section-5-recipe-ingredients -->' %}
+                <div class="medium-4 small-12 columns">
+                  <h6>You'll need</h6>
+                  <div class="recipe-ingredients">
+                    {{
+                      article.content
+                      | split: '<!-- section-5-recipe-ingredients -->'
+                      | last
+                      | split: '<!-- end section-5-recipe-ingredients -->'
+                      | first
+                    }}
+                  </div>
+                  <!-- recipe-ingredients -->
+                </div>
+                <!-- medium-4 small-12 columns -->
+              {% endif %}
+              {% if article.content contains '<!-- section-5-recipe-instructions -->' %}
+                <div class="medium-8 small-12 columns">
+                  {{
+                    article.content
+                    | split: '<!-- section-5-recipe-instructions -->'
+                    | last
+                    | split: '<!-- end section-5-recipe-instructions -->'
+                    | first
+                  }}
+                </div>
+                <!-- medium-8 small-12 columns -->
+              {% endif %}
+            </div>
+            <!-- row -->
+          </div>
+          <!-- large-8 medium-10 small-12 columns -->
+        </div>
+        <!-- row align-center bottom-margin -->
+      </div>
+      <!-- article-recipe -->
+    {% endif %}
+    {% for tag in article.tags %}
+      {% if tag contains 'section-5:' %}
+        {% assign has_custom_collection = true %}
+        {% assign collection_handle5 = tag | remove: 'section-5:' %}
+        {% assign custom_collections5 = collection_handle5 | append: ',' %}
+        {%- assign collection5 = collections[collection_handle5] -%}
+      {% endif %}
+    {% endfor %}
+    {% if has_custom_collection %}
+      {% if collection5.products.count > 0 %}
+      {% include 'blog-product-slider',
+            collection: collection5,
+            section_name: 'section-5',
+            product_limit: section.settings.blog_product_slider_count,
+            image_ratio: section.settings.image_ratio,
+            show_secondary_image: section.settings.show_secondary_image,
+            text_position: section.settings.text_position,
+            columns_mobile: section.settings.columns_mobile
+          %}
+        {% endif %}
+    {% endif %}
+    {% comment %}{% section 'featured-collection-article-section-5' %}{% endcomment %}
+    {% if article.content contains '<!-- section-6 -->' %}
+      <div class="article-body">
+        <div class="row align-center bottom-margin">
+          <div class="large-8 medium-10 small-12 columns">
+            {% if article.content contains '<!-- section-6-img-text-wrap-right -->' %}
+              <img
+                class="text-wrap-right"
+                align="right"
+                src="{{ article.content | split: '<!-- section-6-img-text-wrap-right -->' | last | split: '<!-- end section-6-img-text-wrap-right -->' | first }}"
+              >
+            {% endif %}
+            {% if article.content contains '<!-- section-6-img-text-wrap-left -->' %}
+              <img
+                class="text-wrap-left"
+                align="left"
+                src="{{ article.content | split: '<!-- section-6-img-text-wrap-left -->' | last | split: '<!-- end section-6-img-text-wrap-left -->' | first }}"
+              >
+            {% endif %}
+            {{ article.content | split: '<!-- section-6 -->' | last | split: '<!-- end section-6 -->' | first }}
+          </div>
+          <!-- large-8 medium-10 small-12 columns -->
+        </div>
+        <!-- row align-center bottom-margin -->
+      </div>
+      <!-- article-body -->
+    {% endif %}
+    {% if article.content contains '<!-- section-6-img-wide -->' %}
+      <div class="article-wide-image">
+        <div class="row align-center center">
+          <div class="small-12 columns">
+            <img src="{{ article.content | split: '<!-- section-6-img-wide -->' | last | split: '<!-- end section-6-img-wide -->' | first }}">
+            {% if article.content contains '<!-- section-6-img-wide-caption -->' %}
+              <div class="caption">
+                Photo:
+                <span>
+                  {{-
+                    article.content
+                    | split: '<!-- section-6-img-wide-caption -->'
+                    | last
+                    | split: '<!-- end section-6-img-wide-caption -->'
+                    | first
+                  -}}
+                </span>
+              </div>
+            {% endif %}
+          </div>
+          <!-- small-12 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-wide-image -->
+    {% endif %}
+    {% if article.content contains '<!-- section-6-img-col2-a -->'
+      and article.content contains '<!-- section-6-img-col2-b -->'
+    %}
+      <div class="article-col2-image my-60">
+        <div class="row align-center">
+          <div class="large-8 medium-10 small-12 columns">
+            <div class="row">
+              <div class="medium-6 small-6 columns">
+                <img src="{{ article.content | split: '<!-- section-6-img-col2-a -->' | last | split: '<!-- end section-6-img-col2-a -->' | first }}">
+                {% if article.content contains '<!-- section-6-img-col2-a-caption -->' %}
+                  <div class="caption">
+                    Photo:
+                    <span>
+                      {{-
+                        article.content
+                        | split: '<!-- section-6-img-col2-a-caption -->'
+                        | last
+                        | split: '<!-- end section-6-img-col2-a-caption -->'
+                        | first
+                      -}}
+                    </span>
+                  </div>
+                  <!-- caption -->
+                {% endif %}
+              </div>
+              <!-- medium-6 small-6 columns -->
+              <div class="medium-6 small-6 columns">
+                <img src="{{ article.content | split: '<!-- section-6-img-col2-b -->' | last | split: '<!-- end section-6-img-col2-b -->' | first }}">
+                {% if article.content contains '<!-- section-6-img-col2-b-caption -->' %}
+                  <div class="caption">
+                    Photo:
+                    <span>
+                      {{-
+                        article.content
+                        | split: '<!-- section-6-img-col2-b-caption -->'
+                        | last
+                        | split: '<!-- end section-6-img-col2-b-caption -->'
+                        | first
+                      -}}
+                    </span>
+                  </div>
+                  <!-- caption -->
+                {% endif %}
+              </div>
+              <!-- medium-6 small-6 columns -->
+            </div>
+            <!-- row -->
+          </div>
+          <!-- large-8 medium-10 small-12 columns -->
+        </div>
+        <!-- row align-center -->
+      </div>
+      <!-- article-col2-image -->
+    {% endif %}
+    {% if article.content contains '<!-- section-6-quote-1 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-6-quote-1 -->'
+              | last
+              | split: '<!-- end section-6-quote-1 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-6-quote-2 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-6-quote-2 -->'
+              | last
+              | split: '<!-- end section-6-quote-2 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-6-quote-3 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-6-quote-3 -->'
+              | last
+              | split: '<!-- end section-6-quote-3 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-6-quote-4 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-6-quote-4 -->'
+              | last
+              | split: '<!-- end section-6-quote-4 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-6-quote-5 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-6-quote-5 -->'
+              | last
+              | split: '<!-- end section-6-quote-5 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-6-quote-6 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-6-quote-6 -->'
+              | last
+              | split: '<!-- end section-6-quote-6 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-6-quote-7 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-6-quote-7 -->'
+              | last
+              | split: '<!-- end section-6-quote-7 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-6-quote-8 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-6-quote-8 -->'
+              | last
+              | split: '<!-- end section-6-quote-8 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-6-quote-9 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-6-quote-9 -->'
+              | last
+              | split: '<!-- end section-6-quote-9 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-6-quote-10 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-6-quote-10 -->'
+              | last
+              | split: '<!-- end section-6-quote-10 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-6-quote-11 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-6-quote-11 -->'
+              | last
+              | split: '<!-- end section-6-quote-11 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-6-recipe-title -->' %}
+      <div class="article-recipe">
+        <div class="row align-center bottom-margin">
+          <div class="large-8 medium-10 small-12 columns">
+            {% if article.content contains '<!-- section-6-recipe-video -->' %}
+              <div class="article-recipe-video">
+                <div class="responsive-embed widescreen">
+                  <iframe
+                    width="420"
+                    height="315"
+                    src="{{ article.content | split: '<!-- section-6-recipe-video -->' | last | split: '<!-- end section-6-recipe-video -->' | first }}"
+                    frameborder="0"
+                    allowfullscreen
+                  ></iframe>
+                </div>
+                <!-- responsive-embed widescreen -->
+              </div>
+              <!-- article-recipe-video -->
+            {% elsif article.content contains '<!-- section-6-recipe-image -->' %}
+              <div class="article-recipe-image">
+                <img
+                  src="{{ article.content | split: '<!-- section-6-recipe-image -->' | last | split: '<!-- end section-6-recipe-image -->' | first }}"
+                  {% if article.content contains '<!-- section-6-recipe-title -->' %}
+                    alt="{{ article.content | split: '<!-- section-6-recipe-title -->' | last | split: '<!-- end section-6-recipe-title -->' | first }}"
+                  {% endif %}
+                >
+              </div>
+              <!-- article-recipe-image -->
+            {% endif %}
+            <h3>
+              {{
+                article.content
+                | split: '<!-- section-6-recipe-title -->'
+                | last
+                | split: '<!-- end section-6-recipe-title -->'
+                | first
+              }}
+            </h3>
+            <div class="row">
+              {% if article.content contains '<!-- section-6-recipe-ingredients -->' %}
+                <div class="medium-4 small-12 columns">
+                  <h6>You'll need</h6>
+                  <div class="recipe-ingredients">
+                    {{
+                      article.content
+                      | split: '<!-- section-6-recipe-ingredients -->'
+                      | last
+                      | split: '<!-- end section-6-recipe-ingredients -->'
+                      | first
+                    }}
+                  </div>
+                  <!-- recipe-ingredients -->
+                </div>
+                <!-- medium-4 small-12 columns -->
+              {% endif %}
+              {% if article.content contains '<!-- section-6-recipe-instructions -->' %}
+                <div class="medium-8 small-12 columns">
+                  {{
+                    article.content
+                    | split: '<!-- section-6-recipe-instructions -->'
+                    | last
+                    | split: '<!-- end section-6-recipe-instructions -->'
+                    | first
+                  }}
+                </div>
+                <!-- medium-8 small-12 columns -->
+              {% endif %}
+            </div>
+            <!-- row -->
+          </div>
+          <!-- large-8 medium-10 small-12 columns -->
+        </div>
+        <!-- row align-center bottom-margin -->
+      </div>
+      <!-- article-recipe -->
+    {% endif %}
+    {% for tag in article.tags %}
+      {% if tag contains 'section-6:' %}
+        {% assign has_custom_collection = true %}
+        {% assign collection_handle6 = tag | remove: 'section-6:' %}
+        {% assign custom_collections6 = collection_handle6 | append: ',' %}
+        {%- assign collection6 = collections[collection_handle6] -%}
+      {% endif %}
+    {% endfor %}
+    {% if has_custom_collection %}
+      {% if collection6.products.count > 0 %}
+      {% include 'blog-product-slider',
+            collection: collection6,
+            section_name: 'section-6',
+            product_limit: section.settings.blog_product_slider_count,
+            image_ratio: section.settings.image_ratio,
+            show_secondary_image: section.settings.show_secondary_image,
+            text_position: section.settings.text_position,
+            columns_mobile: section.settings.columns_mobile
+          %}
+        {% endif %}
+    {% endif %}
+    {% comment %}{% section 'featured-collection-article-section-6' %}{% endcomment %}
+    {% if article.content contains '<!-- section-7 -->' %}
+      <div class="article-body">
+        <div class="row align-center bottom-margin">
+          <div class="large-8 medium-10 small-12 columns">
+            {% if article.content contains '<!-- section-7-img-text-wrap-right -->' %}
+              <img
+                class="text-wrap-right"
+                align="right"
+                src="{{ article.content | split: '<!-- section-7-img-text-wrap-right -->' | last | split: '<!-- end section-7-img-text-wrap-right -->' | first }}"
+              >
+            {% endif %}
+            {% if article.content contains '<!-- section-7-img-text-wrap-left -->' %}
+              <img
+                class="text-wrap-left"
+                align="left"
+                src="{{ article.content | split: '<!-- section-7-img-text-wrap-left -->' | last | split: '<!-- end section-7-img-text-wrap-left -->' | first }}"
+              >
+            {% endif %}
+            {{ article.content | split: '<!-- section-7 -->' | last | split: '<!-- end section-7 -->' | first }}
+          </div>
+          <!-- large-8 medium-10 small-12 columns -->
+        </div>
+        <!-- row align-center bottom-margin -->
+      </div>
+      <!-- article-body -->
+    {% endif %}
+    {% if article.content contains '<!-- section-7-img-wide -->' %}
+      <div class="article-wide-image">
+        <div class="row align-center center">
+          <div class="small-12 columns">
+            <img src="{{ article.content | split: '<!-- section-7-img-wide -->' | last | split: '<!-- end section-7-img-wide -->' | first }}">
+            {% if article.content contains '<!-- section-7-img-wide-caption -->' %}
+              <div class="caption">
+                Photo:
+                <span>
+                  {{-
+                    article.content
+                    | split: '<!-- section-7-img-wide-caption -->'
+                    | last
+                    | split: '<!-- end section-7-img-wide-caption -->'
+                    | first
+                  -}}
+                </span>
+              </div>
+            {% endif %}
+          </div>
+          <!-- small-12 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-wide-image -->
+    {% endif %}
+    {% if article.content contains '<!-- section-7-img-col2-a -->'
+      and article.content contains '<!-- section-7-img-col2-b -->'
+    %}
+      <div class="article-col2-image my-60">
+        <div class="row align-center">
+          <div class="large-8 medium-10 small-12 columns">
+            <div class="row">
+              <div class="medium-6 small-6 columns">
+                <img src="{{ article.content | split: '<!-- section-7-img-col2-a -->' | last | split: '<!-- end section-7-img-col2-a -->' | first }}">
+                {% if article.content contains '<!-- section-7-img-col2-a-caption -->' %}
+                  <div class="caption">
+                    Photo:
+                    <span>
+                      {{-
+                        article.content
+                        | split: '<!-- section-7-img-col2-a-caption -->'
+                        | last
+                        | split: '<!-- end section-7-img-col2-a-caption -->'
+                        | first
+                      -}}
+                    </span>
+                  </div>
+                  <!-- caption -->
+                {% endif %}
+              </div>
+              <!-- medium-6 small-6 columns -->
+              <div class="medium-6 small-6 columns">
+                <img src="{{ article.content | split: '<!-- section-7-img-col2-b -->' | last | split: '<!-- end section-7-img-col2-b -->' | first }}">
+                {% if article.content contains '<!-- section-7-img-col2-b-caption -->' %}
+                  <div class="caption">
+                    Photo:
+                    <span>
+                      {{-
+                        article.content
+                        | split: '<!-- section-7-img-col2-b-caption -->'
+                        | last
+                        | split: '<!-- end section-7-img-col2-b-caption -->'
+                        | first
+                      -}}
+                    </span>
+                  </div>
+                  <!-- caption -->
+                {% endif %}
+              </div>
+              <!-- medium-6 small-6 columns -->
+            </div>
+            <!-- row -->
+          </div>
+          <!-- large-8 medium-10 small-12 columns -->
+        </div>
+        <!-- row align-center -->
+      </div>
+      <!-- article-col2-image -->
+    {% endif %}
+    {% if article.content contains '<!-- section-7-quote-1 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-7-quote-1 -->'
+              | last
+              | split: '<!-- end section-7-quote-1 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-7-quote-2 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-7-quote-2 -->'
+              | last
+              | split: '<!-- end section-7-quote-2 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-7-quote-3 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-7-quote-3 -->'
+              | last
+              | split: '<!-- end section-7-quote-3 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-7-quote-4 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-7-quote-4 -->'
+              | last
+              | split: '<!-- end section-7-quote-4 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-7-quote-5 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-7-quote-5 -->'
+              | last
+              | split: '<!-- end section-7-quote-5 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-7-quote-6 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-7-quote-6 -->'
+              | last
+              | split: '<!-- end section-7-quote-6 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-7-quote-7 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-7-quote-7 -->'
+              | last
+              | split: '<!-- end section-7-quote-7 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-7-quote-8 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-7-quote-8 -->'
+              | last
+              | split: '<!-- end section-7-quote-8 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-7-quote-9 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-7-quote-9 -->'
+              | last
+              | split: '<!-- end section-7-quote-9 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-7-quote-10 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-7-quote-10 -->'
+              | last
+              | split: '<!-- end section-7-quote-10 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-7-quote-11 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-7-quote-11 -->'
+              | last
+              | split: '<!-- end section-7-quote-11 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-7-recipe-title -->' %}
+      <div class="article-recipe">
+        <div class="row align-center bottom-margin">
+          <div class="large-8 medium-10 small-12 columns">
+            {% if article.content contains '<!-- section-7-recipe-video -->' %}
+              <div class="article-recipe-video">
+                <div class="responsive-embed widescreen">
+                  <iframe
+                    width="420"
+                    height="315"
+                    src="{{ article.content | split: '<!-- section-7-recipe-video -->' | last | split: '<!-- end section-7-recipe-video -->' | first }}"
+                    frameborder="0"
+                    allowfullscreen
+                  ></iframe>
+                </div>
+                <!-- responsive-embed widescreen -->
+              </div>
+              <!-- article-recipe-video -->
+            {% elsif article.content contains '<!-- section-7-recipe-image -->' %}
+              <div class="article-recipe-image">
+                <img
+                  src="{{ article.content | split: '<!-- section-7-recipe-image -->' | last | split: '<!-- end section-7-recipe-image -->' | first }}"
+                  {% if article.content contains '<!-- section-7-recipe-title -->' %}
+                    alt="{{ article.content | split: '<!-- section-7-recipe-title -->' | last | split: '<!-- end section-7-recipe-title -->' | first }}"
+                  {% endif %}
+                >
+              </div>
+              <!-- article-recipe-image -->
+            {% endif %}
+            <h3>
+              {{
+                article.content
+                | split: '<!-- section-7-recipe-title -->'
+                | last
+                | split: '<!-- end section-7-recipe-title -->'
+                | first
+              }}
+            </h3>
+            <div class="row">
+              {% if article.content contains '<!-- section-7-recipe-ingredients -->' %}
+                <div class="medium-4 small-12 columns">
+                  <h6>You'll need</h6>
+                  <div class="recipe-ingredients">
+                    {{
+                      article.content
+                      | split: '<!-- section-7-recipe-ingredients -->'
+                      | last
+                      | split: '<!-- end section-7-recipe-ingredients -->'
+                      | first
+                    }}
+                  </div>
+                  <!-- recipe-ingredients -->
+                </div>
+                <!-- medium-4 small-12 columns -->
+              {% endif %}
+              {% if article.content contains '<!-- section-7-recipe-instructions -->' %}
+                <div class="medium-8 small-12 columns">
+                  {{
+                    article.content
+                    | split: '<!-- section-7-recipe-instructions -->'
+                    | last
+                    | split: '<!-- end section-7-recipe-instructions -->'
+                    | first
+                  }}
+                </div>
+                <!-- medium-8 small-12 columns -->
+              {% endif %}
+            </div>
+            <!-- row -->
+          </div>
+          <!-- large-8 medium-10 small-12 columns -->
+        </div>
+        <!-- row align-center bottom-margin -->
+      </div>
+      <!-- article-recipe -->
+    {% endif %}
+    {% for tag in article.tags %}
+      {% if tag contains 'section-7:' %}
+        {% assign has_custom_collection = true %}
+        {% assign collection_handle7 = tag | remove: 'section-7:' %}
+        {% assign custom_collections7 = collection_handle7 | append: ',' %}
+        {%- assign collection7 = collections[collection_handle7] -%}
+      {% endif %}
+    {% endfor %}
+    {% if has_custom_collection %}
+      {% if collection7.products.count > 0 %}
+      {% include 'blog-product-slider',
+            collection: collection7,
+            section_name: 'section-7',
+            product_limit: section.settings.blog_product_slider_count,
+            image_ratio: section.settings.image_ratio,
+            show_secondary_image: section.settings.show_secondary_image,
+            text_position: section.settings.text_position,
+            columns_mobile: section.settings.columns_mobile
+          %}
+        {% endif %}
+    {% endif %}
+    {% comment %}{% section 'featured-collection-article-section-7' %}{% endcomment %}
+    {% if article.content contains '<!-- section-8 -->' %}
+      <div class="article-body">
+        <div class="row align-center bottom-margin">
+          <div class="large-8 medium-10 small-12 columns">
+            {% if article.content contains '<!-- section-8-img-text-wrap-right -->' %}
+              <img
+                class="text-wrap-right"
+                align="right"
+                src="{{ article.content | split: '<!-- section-8-img-text-wrap-right -->' | last | split: '<!-- end section-8-img-text-wrap-right -->' | first }}"
+              >
+            {% endif %}
+            {% if article.content contains '<!-- section-8-img-text-wrap-left -->' %}
+              <img
+                class="text-wrap-left"
+                align="left"
+                src="{{ article.content | split: '<!-- section-8-img-text-wrap-left -->' | last | split: '<!-- end section-8-img-text-wrap-left -->' | first }}"
+              >
+            {% endif %}
+
+            {{ article.content | split: '<!-- section-8 -->' | last | split: '<!-- end section-8 -->' | first }}
+          </div>
+          <!-- large-8 medium-10 small-12 columns -->
+        </div>
+        <!-- row align-center bottom-margin -->
+      </div>
+      <!-- article-body -->
+    {% endif %}
+    {% if article.content contains '<!-- section-8-img-wide -->' %}
+      <div class="article-wide-image">
+        <div class="row align-center center">
+          <div class="small-12 columns">
+            <img src="{{ article.content | split: '<!-- section-8-img-wide -->' | last | split: '<!-- end section-8-img-wide -->' | first }}">
+            {% if article.content contains '<!-- section-8-img-wide-caption -->' %}
+              <div class="caption">
+                Photo:
+                <span>
+                  {{-
+                    article.content
+                    | split: '<!-- section-8-img-wide-caption -->'
+                    | last
+                    | split: '<!-- end section-8-img-wide-caption -->'
+                    | first
+                  -}}
+                </span>
+              </div>
+            {% endif %}
+          </div>
+          <!-- small-12 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-wide-image -->
+    {% endif %}
+    {% if article.content contains '<!-- section-8-img-col2-a -->'
+      and article.content contains '<!-- section-8-img-col2-b -->'
+    %}
+      <div class="article-col2-image my-60">
+        <div class="row align-center">
+          <div class="large-8 medium-10 small-12 columns">
+            <div class="row">
+              <div class="medium-6 small-6 columns">
+                <img src="{{ article.content | split: '<!-- section-8-img-col2-a -->' | last | split: '<!-- end section-8-img-col2-a -->' | first }}">
+                {% if article.content contains '<!-- section-8-img-col2-a-caption -->' %}
+                  <div class="caption">
+                    Photo:
+                    <span>
+                      {{-
+                        article.content
+                        | split: '<!-- section-8-img-col2-a-caption -->'
+                        | last
+                        | split: '<!-- end section-8-img-col2-a-caption -->'
+                        | first
+                      -}}
+                    </span>
+                  </div>
+                  <!-- caption -->
+                {% endif %}
+              </div>
+              <!-- medium-6 small-6 columns -->
+              <div class="medium-6 small-6 columns">
+                <img src="{{ article.content | split: '<!-- section-8-img-col2-b -->' | last | split: '<!-- end section-8-img-col2-b -->' | first }}">
+                {% if article.content contains '<!-- section-8-img-col2-b-caption -->' %}
+                  <div class="caption">
+                    Photo:
+                    <span>
+                      {{-
+                        article.content
+                        | split: '<!-- section-8-img-col2-b-caption -->'
+                        | last
+                        | split: '<!-- end section-8-img-col2-b-caption -->'
+                        | first
+                      -}}
+                    </span>
+                  </div>
+                  <!-- caption -->
+                {% endif %}
+              </div>
+              <!-- medium-6 small-6 columns -->
+            </div>
+            <!-- row -->
+          </div>
+          <!-- large-8 medium-10 small-12 columns -->
+        </div>
+        <!-- row align-center -->
+      </div>
+      <!-- article-col2-image -->
+    {% endif %}
+    {% if article.content contains '<!-- section-8-quote-1 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-8-quote-1 -->'
+              | last
+              | split: '<!-- end section-8-quote-1 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-8-quote-2 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-8-quote-2 -->'
+              | last
+              | split: '<!-- end section-8-quote-2 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-8-quote-3 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-8-quote-3 -->'
+              | last
+              | split: '<!-- end section-8-quote-3 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-8-quote-4 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-8-quote-4 -->'
+              | last
+              | split: '<!-- end section-8-quote-4 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-8-quote-5 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-8-quote-5 -->'
+              | last
+              | split: '<!-- end section-8-quote-5 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-8-quote-6 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-8-quote-6 -->'
+              | last
+              | split: '<!-- end section-8-quote-6 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-8-quote-7 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-8-quote-7 -->'
+              | last
+              | split: '<!-- end section-8-quote-7 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-8-quote-8 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-8-quote-8 -->'
+              | last
+              | split: '<!-- end section-8-quote-8 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-8-quote-9 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-8-quote-9 -->'
+              | last
+              | split: '<!-- end section-8-quote-9 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-8-quote-10 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-8-quote-10 -->'
+              | last
+              | split: '<!-- end section-8-quote-10 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-8-quote-11 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-8-quote-11 -->'
+              | last
+              | split: '<!-- end section-8-quote-11 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-8-recipe-title -->' %}
+      <div class="article-recipe">
+        <div class="row align-center bottom-margin">
+          <div class="large-8 medium-10 small-12 columns">
+            {% if article.content contains '<!-- section-8-recipe-video -->' %}
+              <div class="article-recipe-video">
+                <div class="responsive-embed widescreen">
+                  <iframe
+                    width="420"
+                    height="315"
+                    src="{{ article.content | split: '<!-- section-8-recipe-video -->' | last | split: '<!-- end section-8-recipe-video -->' | first }}"
+                    frameborder="0"
+                    allowfullscreen
+                  ></iframe>
+                </div>
+                <!-- responsive-embed widescreen -->
+              </div>
+              <!-- article-recipe-video -->
+            {% elsif article.content contains '<!-- section-8-recipe-image -->' %}
+              <div class="article-recipe-image">
+                <img
+                  src="{{ article.content | split: '<!-- section-8-recipe-image -->' | last | split: '<!-- end section-8-recipe-image -->' | first }}"
+                  {% if article.content contains '<!-- section-8-recipe-title -->' %}
+                    alt="{{ article.content | split: '<!-- section-8-recipe-title -->' | last | split: '<!-- end section-8-recipe-title -->' | first }}"
+                  {% endif %}
+                >
+              </div>
+              <!-- article-recipe-image -->
+            {% endif %}
+            <h3>
+              {{
+                article.content
+                | split: '<!-- section-8-recipe-title -->'
+                | last
+                | split: '<!-- end section-8-recipe-title -->'
+                | first
+              }}
+            </h3>
+            <div class="row">
+              {% if article.content contains '<!-- section-8-recipe-ingredients -->' %}
+                <div class="medium-4 small-12 columns">
+                  <h6>You'll need</h6>
+                  <div class="recipe-ingredients">
+                    {{
+                      article.content
+                      | split: '<!-- section-8-recipe-ingredients -->'
+                      | last
+                      | split: '<!-- end section-8-recipe-ingredients -->'
+                      | first
+                    }}
+                  </div>
+                  <!-- recipe-ingredients -->
+                </div>
+                <!-- medium-4 small-12 columns -->
+              {% endif %}
+              {% if article.content contains '<!-- section-8-recipe-instructions -->' %}
+                <div class="medium-8 small-12 columns">
+                  {{
+                    article.content
+                    | split: '<!-- section-8-recipe-instructions -->'
+                    | last
+                    | split: '<!-- end section-8-recipe-instructions -->'
+                    | first
+                  }}
+                </div>
+                <!-- medium-8 small-12 columns -->
+              {% endif %}
+            </div>
+            <!-- row -->
+          </div>
+          <!-- large-8 medium-10 small-12 columns -->
+        </div>
+        <!-- row align-center bottom-margin -->
+      </div>
+      <!-- article-recipe -->
+    {% endif %}
+    {% for tag in article.tags %}
+      {% if tag contains 'section-8:' %}
+        {% assign has_custom_collection = true %}
+        {% assign collection_handle8 = tag | remove: 'section-8:' %}
+        {% assign custom_collections8 = collection_handle8 | append: ',' %}
+        {%- assign collection8 = collections[collection_handle8] -%}
+      {% endif %}
+    {% endfor %}
+    {% if has_custom_collection %}
+      {% if collection8.products.count > 0 %}
+      {% include 'blog-product-slider',
+            collection: collection8,
+            section_name: 'section-8',
+            product_limit: section.settings.blog_product_slider_count,
+            image_ratio: section.settings.image_ratio,
+            show_secondary_image: section.settings.show_secondary_image,
+            text_position: section.settings.text_position,
+            columns_mobile: section.settings.columns_mobile
+          %}
+        {% endif %}
+    {% endif %}
+    {% comment %}{% section 'featured-collection-article-section-8' %}{% endcomment %}
+    {% if article.content contains '<!-- section-9 -->' %}
+      <div class="article-body">
+        <div class="row align-center bottom-margin">
+          <div class="large-8 medium-10 small-12 columns">
+            {% if article.content contains '<!-- section-9-img-text-wrap-right -->' %}
+              <img
+                class="text-wrap-right"
+                align="right"
+                src="{{ article.content | split: '<!-- section-9-img-text-wrap-right -->' | last | split: '<!-- end section-9-img-text-wrap-right -->' | first }}"
+              >
+            {% endif %}
+            {% if article.content contains '<!-- section-9-img-text-wrap-left -->' %}
+              <img
+                class="text-wrap-left"
+                align="left"
+                src="{{ article.content | split: '<!-- section-9-img-text-wrap-left -->' | last | split: '<!-- end section-9-img-text-wrap-left -->' | first }}"
+              >
+            {% endif %}
+            {{ article.content | split: '<!-- section-9 -->' | last | split: '<!-- end section-9 -->' | first }}
+          </div>
+          <!-- large-8 medium-10 small-12 columns -->
+        </div>
+        <!-- row align-center bottom-margin -->
+      </div>
+      <!-- article-body -->
+    {% endif %}
+    {% if article.content contains '<!-- section-9-img-wide -->' %}
+      <div class="article-wide-image">
+        <div class="row align-center center">
+          <div class="small-12 columns">
+            <img src="{{ article.content | split: '<!-- section-9-img-wide -->' | last | split: '<!-- end section-9-img-wide -->' | first }}">
+            {% if article.content contains '<!-- section-9-img-wide-caption -->' %}
+              <div class="caption">
+                Photo:
+                <span>
+                  {{-
+                    article.content
+                    | split: '<!-- section-9-img-wide-caption -->'
+                    | last
+                    | split: '<!-- end section-9-img-wide-caption -->'
+                    | first
+                  -}}
+                </span>
+              </div>
+            {% endif %}
+          </div>
+          <!-- small-12 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-wide-image -->
+    {% endif %}
+    {% if article.content contains '<!-- section-9-img-col2-a -->'
+      and article.content contains '<!-- section-9-img-col2-b -->'
+    %}
+      <div class="article-col2-image my-60">
+        <div class="row align-center">
+          <div class="large-8 medium-10 small-12 columns">
+            <div class="row">
+              <div class="medium-6 small-6 columns">
+                <img src="{{ article.content | split: '<!-- section-9-img-col2-a -->' | last | split: '<!-- end section-9-img-col2-a -->' | first }}">
+                {% if article.content contains '<!-- section-9-img-col2-a-caption -->' %}
+                  <div class="caption">
+                    Photo:
+                    <span>
+                      {{-
+                        article.content
+                        | split: '<!-- section-9-img-col2-a-caption -->'
+                        | last
+                        | split: '<!-- end section-9-img-col2-a-caption -->'
+                        | first
+                      -}}
+                    </span>
+                  </div>
+                  <!-- caption -->
+                {% endif %}
+              </div>
+              <!-- medium-6 small-6 columns -->
+              <div class="medium-6 small-6 columns">
+                <img src="{{ article.content | split: '<!-- section-9-img-col2-b -->' | last | split: '<!-- end section-9-img-col2-b -->' | first }}">
+                {% if article.content contains '<!-- section-9-img-col2-b-caption -->' %}
+                  <div class="caption">
+                    Photo:
+                    <span>
+                      {{-
+                        article.content
+                        | split: '<!-- section-9-img-col2-b-caption -->'
+                        | last
+                        | split: '<!-- end section-9-img-col2-b-caption -->'
+                        | first
+                      -}}
+                    </span>
+                  </div>
+                  <!-- caption -->
+                {% endif %}
+              </div>
+              <!-- medium-6 small-6 columns -->
+            </div>
+            <!-- row -->
+          </div>
+          <!-- large-8 medium-10 small-12 columns -->
+        </div>
+        <!-- row align-center -->
+      </div>
+      <!-- article-col2-image -->
+    {% endif %}
+    {% if article.content contains '<!-- section-9-quote-1 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-9-quote-1 -->'
+              | last
+              | split: '<!-- end section-9-quote-1 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-9-quote-2 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-9-quote-2 -->'
+              | last
+              | split: '<!-- end section-9-quote-2 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-9-quote-3 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-9-quote-3 -->'
+              | last
+              | split: '<!-- end section-9-quote-3 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-9-quote-4 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-9-quote-4 -->'
+              | last
+              | split: '<!-- end section-9-quote-4 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-9-quote-5 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-9-quote-5 -->'
+              | last
+              | split: '<!-- end section-9-quote-5 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-9-quote-6 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-9-quote-6 -->'
+              | last
+              | split: '<!-- end section-9-quote-6 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-9-quote-7 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-9-quote-7 -->'
+              | last
+              | split: '<!-- end section-9-quote-7 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-9-quote-8 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-9-quote-8 -->'
+              | last
+              | split: '<!-- end section-9-quote-8 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-9-quote-9 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-9-quote-9 -->'
+              | last
+              | split: '<!-- end section-9-quote-9 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-9-quote-10 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-9-quote-10 -->'
+              | last
+              | split: '<!-- end section-9-quote-10 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-9-quote-11 -->' %}
+      <div class="article-quote">
+        <div class="row align-center center">
+          <div class="large-5 medium-6 small-9 columns">
+            <div class="mark">“</div>
+            {{
+              article.content
+              | split: '<!-- section-9-quote-11 -->'
+              | last
+              | split: '<!-- end section-9-quote-11 -->'
+              | first
+            }}
+          </div>
+          <!-- large-5 medium-6 small-9 columns -->
+        </div>
+        <!-- row align-center center -->
+      </div>
+      <!-- article-quote -->
+    {% endif %}
+    {% if article.content contains '<!-- section-9-recipe-title -->' %}
+      <div class="article-recipe">
+        <div class="row align-center bottom-margin">
+          <div class="large-8 medium-10 small-12 columns">
+            {% if article.content contains '<!-- section-9-recipe-video -->' %}
+              <div class="article-recipe-video">
+                <div class="responsive-embed widescreen">
+                  <iframe
+                    width="420"
+                    height="315"
+                    src="{{ article.content | split: '<!-- section-9-recipe-video -->' | last | split: '<!-- end section-9-recipe-video -->' | first }}"
+                    frameborder="0"
+                    allowfullscreen
+                  ></iframe>
+                </div>
+                <!-- responsive-embed widescreen -->
+              </div>
+              <!-- article-recipe-video -->
+            {% elsif article.content contains '<!-- section-9-recipe-image -->' %}
+              <div class="article-recipe-image">
+                <img
+                  src="{{ article.content | split: '<!-- section-9-recipe-image -->' | last | split: '<!-- end section-9-recipe-image -->' | first }}"
+                  {% if article.content contains '<!-- section-9-recipe-title -->' %}
+                    alt="{{ article.content | split: '<!-- section-9-recipe-title -->' | last | split: '<!-- end section-9-recipe-title -->' | first }}"
+                  {% endif %}
+                >
+              </div>
+              <!-- article-recipe-image -->
+            {% endif %}
+            <h3>
+              {{
+                article.content
+                | split: '<!-- section-9-recipe-title -->'
+                | last
+                | split: '<!-- end section-9-recipe-title -->'
+                | first
+              }}
+            </h3>
+            <div class="row">
+              {% if article.content contains '<!-- section-9-recipe-ingredients -->' %}
+                <div class="medium-4 small-12 columns">
+                  <h6>You'll need</h6>
+                  <div class="recipe-ingredients">
+                    {{
+                      article.content
+                      | split: '<!-- section-9-recipe-ingredients -->'
+                      | last
+                      | split: '<!-- end section-9-recipe-ingredients -->'
+                      | first
+                    }}
+                  </div>
+                  <!-- recipe-ingredients -->
+                </div>
+                <!-- medium-4 small-12 columns -->
+              {% endif %}
+              {% if article.content contains '<!-- section-9-recipe-instructions -->' %}
+                <div class="medium-8 small-12 columns">
+                  {{
+                    article.content
+                    | split: '<!-- section-9-recipe-instructions -->'
+                    | last
+                    | split: '<!-- end section-9-recipe-instructions -->'
+                    | first
+                  }}
+                </div>
+                <!-- medium-8 small-12 columns -->
+              {% endif %}
+            </div>
+            <!-- row -->
+          </div>
+          <!-- large-8 medium-10 small-12 columns -->
+        </div>
+        <!-- row align-center bottom-margin -->
+      </div>
+      <!-- article-recipe -->
+    {% endif %}
+    {% for tag in article.tags %}
+      {% if tag contains 'section-9:' %}
+        {% assign has_custom_collection = true %}
+        {% assign collection_handle9 = tag | remove: 'section-9:' %}
+        {% assign custom_collections9 = collection_handle9 | append: ',' %}
+        {%- assign collection9 = collections[collection_handle9] -%}
+      {% endif %}
+    {% endfor %}
+    {% if has_custom_collection %}
+      {% if collection9.products.count > 0 %}
+      {% include 'blog-product-slider',
+            collection: collection9,
+            section_name: 'section-9',
+            product_limit: section.settings.blog_product_slider_count,
+            image_ratio: section.settings.image_ratio,
+            show_secondary_image: section.settings.show_secondary_image,
+            text_position: section.settings.text_position,
+            columns_mobile: section.settings.columns_mobile
+          %}
+        {% endif %}
+    {% endif %}
+    {% comment %}{% section 'featured-collection-article-section-9' %}{% endcomment %}
+    <div class="row align-center center top-margin-small">
+      <div class="large-9 medium-10 small-12 columns">
+        <a href="{{ blog.url }}" class="btn outline bottom-margin-small">Back to blog</a>
+        {% if section.settings.social_sharing_blog %}
+          {% include 'social-sharing',
+            share_title: article.title,
+            share_permalink: article.url,
+            share_image: article.image
+          %}
+        {% endif %}
+      </div>
+      <!-- large-9 medium-10 small-12 columns -->
+    </div>
+    <!-- row align-center center top-margin-small -->
+  </div>
+  <!-- articleBody -->
+</article>
   {%- if blog.comments_enabled? -%}
     <div class="article-template__comment-wrapper background-secondary">
       <div
@@ -275,8 +4067,26 @@
       </div>
     </div>
   {%- endif -%}
-</article>
-
+{% for tag in article.tags %}
+      {% if tag contains 'collection:' %}
+        {% assign has_custom_collection = true %}
+        {% assign collection_handle = tag | remove: 'collection:' %}
+        {%- assign collection = collections[collection_handle] -%}
+      {% endif %}
+    {% endfor %}
+    {% if has_custom_collection %}
+      {% if collection.products.count > 0 %}
+      {% include 'blog-product-slider',
+            collection: collection,
+            section_name: 'collection',
+            product_limit: section.settings.blog_product_slider_count,
+            image_ratio: section.settings.image_ratio,
+            show_secondary_image: section.settings.show_secondary_image,
+            text_position: section.settings.text_position,
+            columns_mobile: section.settings.columns_mobile
+          %}
+        {% endif %}
+    {% endif %}
 <script type="application/ld+json">
   {
     "@context": "http://schema.org",
@@ -307,54 +4117,19 @@
     }
   }
 </script>
-
 {% schema %}
 {
   "name": "t:sections.main-article.name",
   "tag": "section",
   "class": "section",
-  "blocks": [
+  "settings":[
     {
-      "type": "@app"
-    },
+          "type": "checkbox",
+          "id": "social_sharing_blog",
+          "default": true,
+          "label": "t:sections.main-article.blocks.social_sharing_blog.label"
+        },
     {
-      "type": "featured_image",
-      "name": "t:sections.main-article.blocks.featured_image.name",
-      "limit": 1,
-      "settings": [
-        {
-          "type": "select",
-          "id": "image_height",
-          "options": [
-            {
-              "value": "adapt",
-              "label": "t:sections.main-article.blocks.featured_image.settings.image_height.options__1.label"
-            },
-            {
-              "value": "small",
-              "label": "t:sections.main-article.blocks.featured_image.settings.image_height.options__2.label"
-            },
-            {
-              "value": "medium",
-              "label": "t:sections.main-article.blocks.featured_image.settings.image_height.options__3.label"
-            },
-            {
-              "value": "large",
-              "label": "t:sections.main-article.blocks.featured_image.settings.image_height.options__4.label"
-            }
-          ],
-          "default": "adapt",
-          "label": "t:sections.main-article.blocks.featured_image.settings.image_height.label",
-          "info": "t:sections.main-article.blocks.featured_image.settings.image_height.info"
-        }
-      ]
-    },
-    {
-      "type": "title",
-      "name": "t:sections.main-article.blocks.title.name",
-      "limit": 1,
-      "settings": [
-        {
           "type": "checkbox",
           "id": "blog_show_date",
           "default": true,
@@ -365,32 +4140,130 @@
           "id": "blog_show_author",
           "default": false,
           "label": "t:sections.main-article.blocks.title.settings.blog_show_author.label"
+        },
+      {
+         "type":"header",
+         "content":"t:sections.main-blog.settings.font_size_color_section.label"
+      },
+      {
+         "type":"color",
+         "id":"text_color",
+         "default":"#000000",
+         "label":"t:sections.main-blog.settings.text_color.label"
+      },
+      {
+         "type":"range",
+         "id":"heading_font_size",
+         "min":0,
+         "max":100,
+         "step":1,
+         "unit":"px",
+         "label":"t:sections.main-blog.settings.heading_font_size.label",
+         "default":32
+      },
+      {
+         "type":"range",
+         "id":"heading_font_size_mobile",
+         "min":0,
+         "max":100,
+         "step":1,
+         "unit":"px",
+         "label":"t:sections.main-blog.settings.heading_font_size_mobile.label",
+         "default":32
+      },
+      {
+         "type":"range",
+         "id":"content_font_size",
+         "min":0,
+         "max":100,
+         "step":1,
+         "unit":"px",
+         "label":"t:sections.main-blog.settings.content_font_size.label",
+         "default":18
+      },
+      {
+         "type":"range",
+         "id":"content_font_size_mobile",
+         "min":0,
+         "max":100,
+         "step":1,
+         "unit":"px",
+         "label":"t:sections.main-blog.settings.content_font_size_mobile.label",
+         "default":18
+      },
+    {
+         "type":"header",
+         "content":"t:sections.main-article.blocks.blog_product_slider.label"
+      },
+      {
+         "type":"range",
+         "id":"blog_product_slider_count",
+         "min":0,
+         "max":100,
+         "step":1,
+         "unit":"px",
+         "label":"t:sections.main-article.blocks.blog_product_slider_count.label",
+         "default":12
+      },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "options": [
+        {
+          "value": "adapt",
+          "label": "t:sections.collection-product-slider.settings.image_ratio.options__1.label"
+        },
+        {
+          "value": "portrait",
+          "label": "t:sections.collection-product-slider.settings.image_ratio.options__2.label"
+        },
+        {
+          "value": "square",
+          "label": "t:sections.collection-product-slider.settings.image_ratio.options__3.label"
         }
-      ]
+      ],
+      "default": "adapt",
+      "label": "t:sections.collection-product-slider.settings.image_ratio.label"
     },
     {
-      "type": "content",
-      "name": "t:sections.main-article.blocks.content.name",
-      "limit": 1
+      "type": "checkbox",
+      "id": "show_secondary_image",
+      "default": false,
+      "label": "t:sections.collection-product-slider.settings.show_secondary_image.label"
     },
     {
-      "type": "share",
-      "name": "t:sections.main-article.blocks.share.name",
-      "limit": 2,
-      "settings": [
+      "type": "select",
+      "id": "text_position",
+      "options": [
         {
-          "type": "text",
-          "id": "share_label",
-          "label": "t:sections.main-article.blocks.share.settings.text.label",
-          "default": "Share"
+          "value": "left",
+          "label": "left"
         },
         {
-          "type": "paragraph",
-          "content": "t:sections.main-article.blocks.share.settings.featured_image_info.content"
+          "value": "center",
+          "label": "center"
         },
         {
-          "type": "paragraph",
-          "content": "t:sections.main-article.blocks.share.settings.title_info.content"
+          "value": "right",
+          "label": "right"
+        }
+      ],
+      "default": "center",
+      "label": "Heading Alignment"
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "default": "2",
+      "label": "t:sections.collection-product-slider.settings.columns_mobile.label",
+      "options": [
+        {
+          "value": "1",
+          "label": "t:sections.collection-product-slider.settings.columns_mobile.options__1.label"
+        },
+        {
+          "value": "2",
+          "label": "t:sections.collection-product-slider.settings.columns_mobile.options__2.label"
         }
       ]
     }

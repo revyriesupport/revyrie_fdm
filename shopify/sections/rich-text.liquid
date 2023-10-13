@@ -14,10 +14,19 @@
   }
 {%- endstyle -%}
 
-<div class="isolate{% unless section.settings.full_width %} page-width{% endunless %}">
-  <div class="rich-text content-container color-{{ section.settings.color_scheme }} gradient{% if section.settings.full_width %} rich-text--full-width content-container--full-width{% endif %} section-{{ section.id }}-padding">
+<div
+  id="{{ section.settings.section_identifier }}"
+  class="isolate{% unless section.settings.full_width %} page-width{% endunless %}"
+>
+  <div
+    id="rich-text-{{ section.id }}"
+    class="rich-text content-container color-{{ section.settings.color_scheme }} gradient{% if section.settings.full_width %} rich-text--full-width content-container--full-width{% endif %} section-{{ section.id }}-padding"
+  style="background-color: {{ section.settings.background_color }};">
     <div class="rich-text__wrapper rich-text__wrapper--{{ section.settings.desktop_content_position }}{% if section.settings.full_width %} page-width{% endif %}">
-      <div class="rich-text__blocks {{ section.settings.content_alignment }}">
+      <div
+        class="rich-text__blocks {{ section.settings.content_alignment }}"
+        style="text-align:{{ section.settings.content_alignment }};"
+      >
         {%- for block in section.blocks -%}
           {%- case block.type -%}
             {%- when 'heading' -%}
@@ -31,6 +40,17 @@
               >
                 {{ block.settings.heading }}
               </h2>
+              <style>
+                #rich-text-{{ section.id }} .rich-text__heading {
+                  font-size: {{ block.settings.heading_font_size }}px;
+                  color:{{ section.settings.text_color }};
+                }
+                @media screen and (max-width: 768px) {
+                  #rich-text-{{ section.id }} .rich-text__heading {
+                    font-size: {{ block.settings.heading_font_size_mobile }}px;
+                  }
+                }
+              </style>
             {%- when 'caption' -%}
               <p
                 class="rich-text__caption {{ block.settings.text_style }} {{ block.settings.text_style }}--{{ block.settings.text_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
@@ -53,6 +73,17 @@
               >
                 {{ block.settings.text }}
               </div>
+              <style>
+                #rich-text-{{ section.id }} .rich-text__text p {
+                  font-size: {{ block.settings.content_font_size }}px !important;
+                  color:{{ section.settings.text_color }};
+                }
+                @media screen and (max-width: 768px) {
+                  #rich-text-{{ section.id }} .rich-text__text p {
+                      font-size: {{ block.settings.content_font_size_mobile }}px !important;
+                  }
+                }
+              </style>
             {%- when 'button' -%}
               <div
                 class="rich-text__buttons{% if block.settings.button_label != blank and block.settings.button_label_2 != blank %} rich-text__buttons--multiple{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
@@ -62,18 +93,30 @@
                   style="--animation-order: {{ forloop.index }};"
                 {% endif %}
               >
-                {%- if block.settings.button_label != blank -%}
+                {% if block.settings.chat_button == false %}
+                  {%- if block.settings.button_label != blank -%}
+                    <a
+                      {% if block.settings.button_link == blank %}
+                        role="link" aria-disabled="true"
+                      {% else %}
+                        href="{{ block.settings.button_link }}"
+                      {% endif %}
+                      class="button{% if block.settings.button_style_secondary %} button--secondary{% else %} button--primary{% endif %}"
+                      style="{% if block.settings.apply_button_min_width %}min-width:{{ block.settings.button_min_width }}px;{% endif %}"
+                    >
+                      {{- block.settings.button_label | escape -}}
+                    </a>
+                  {%- endif -%}
+                {% else %}
                   <a
-                    {% if block.settings.button_link == blank %}
-                      role="link" aria-disabled="true"
-                    {% else %}
-                      href="{{ block.settings.button_link }}"
-                    {% endif %}
+                    onclick="Gladly.show();"
+                    href="javascript:void(0);"
                     class="button{% if block.settings.button_style_secondary %} button--secondary{% else %} button--primary{% endif %}"
+                    style="{% if block.settings.apply_button_min_width %}min-width:{{ block.settings.button_min_width }}px;{% endif %}"
                   >
                     {{- block.settings.button_label | escape -}}
                   </a>
-                {%- endif -%}
+                {% endif %}
                 {%- if block.settings.button_label_2 != blank -%}
                   <a
                     {% if block.settings.button_link_2 == blank %}
@@ -82,11 +125,41 @@
                       href="{{ block.settings.button_link_2 }}"
                     {% endif %}
                     class="button{% if block.settings.button_style_secondary_2 %} button--secondary{% else %} button--primary{% endif %}"
+                    style="{% if block.settings.apply_button_min_width %}min-width:{{ block.settings.button_min_width }}px;{% endif %}"
                   >
                     {{- block.settings.button_label_2 | escape -}}
                   </a>
                 {%- endif -%}
               </div>
+              <style>
+                #rich-text-{{ section.id }} .button--secondary:hover {
+                    border-color: #000;
+                    color: #d4857b;
+                }
+                #rich-text-{{ section.id }} .button--secondary {
+                    -webkit-user-select: "none";
+                    user-select: "none";
+                    display: inline-block;
+                    width: auto;
+                    text-decoration: none;
+                    text-align: center;
+                    vertical-align: middle;
+                    white-space: nowrap;
+                    background: #000;
+                    color: #fff;
+                    font-size: 13px;
+                    letter-spacing: .075rem;
+                    padding: 0rem 3rem;
+                    cursor: pointer;
+                    font-family: proxima-nova,Helvetica,Roboto,Arial,sans-serif;
+                    border: 1px solid #000;
+                    text-transform: uppercase;
+                    font-weight: 600;
+                    border-radius: 0;
+                    height: 45px;
+                    line-height: 45px;
+                }
+              </style>
           {%- endcase -%}
         {%- endfor -%}
       </div>
@@ -145,10 +218,9 @@
       "label": "t:sections.rich-text.settings.content_alignment.label"
     },
     {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "t:sections.all.colors.label",
-      "default": "background-1"
+        "type": "color",
+        "id": "background_color",
+        "label": "Background Color"
     },
     {
         "type": "color",
@@ -185,6 +257,11 @@
       "unit": "px",
       "label": "t:sections.all.padding.padding_bottom",
       "default": 52
+    },
+    {
+      "type": "text",
+      "id": "section_identifier",
+      "label": "Section Identifier"
     }
   ],
   "blocks": [
@@ -222,6 +299,27 @@
           ],
           "default": "h1",
           "label": "t:sections.all.heading_size.label"
+        },
+
+        {
+          "type": "range",
+          "id": "heading_font_size",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "Heading Font Size Desktop",
+          "default": 32
+        },
+        {
+          "type": "range",
+          "id": "heading_font_size_mobile",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "Heading Font Size Mobile",
+          "default": 32
         }
       ]
     },
@@ -284,6 +382,26 @@
           "id": "text",
           "default": "<p>Share information about your brand with your customers. Describe a product, make announcements, or welcome customers to your store.</p>",
           "label": "t:sections.rich-text.blocks.text.settings.text.label"
+        },
+        {
+          "type": "range",
+          "id": "content_font_size",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "Content Font Size Desktop",
+          "default": 18
+        },
+        {
+          "type": "range",
+          "id": "content_font_size_mobile",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "Content Font Size Mobile",
+          "default": 18
         }
       ]
     },
@@ -326,6 +444,28 @@
           "id": "button_style_secondary_2",
           "default": false,
           "label": "t:sections.rich-text.blocks.buttons.settings.button_style_secondary_2.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "chat_button",
+          "default": false,
+          "label": "Link button to Chat"
+        },
+        {
+          "type": "checkbox",
+          "id": "apply_button_min_width",
+          "default": false,
+          "label": "Apply Minimum Width to Button"
+        },
+        {
+          "type": "range",
+          "id": "button_min_width",
+          "min": 0,
+          "max": 300,
+          "step": 20,
+          "unit": "px",
+          "label": "Button Minimum Width",
+          "default": 240
         }
       ]
     }

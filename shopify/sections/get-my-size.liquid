@@ -1,0 +1,523 @@
+{{ 'section-rich-text.css' | asset_url | stylesheet_tag }}
+{{ 'get-my-size.css' | asset_url | stylesheet_tag }}
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="isolate{% unless section.settings.full_width %} page-width{% endunless %} get-my-size-wrapper">
+  <div
+    id="rich-text-{{ section.id }}"
+    class="rich-text content-container color-{{ section.settings.color_scheme }} gradient{% if section.settings.full_width %} rich-text--full-width content-container--full-width{% endif %} section-{{ section.id }}-padding"
+  >
+    <div class="rich-text__wrapper rich-text__wrapper--{{ section.settings.desktop_content_position }}{% if section.settings.full_width %} page-width{% endif %}">
+      <div
+        class="rich-text__blocks {{ section.settings.content_alignment }}"
+        style="text-align:{{ section.settings.content_alignment }};"
+      >
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'heading' -%}
+              <h2
+                class="rich-text__heading rte inline-richtext {{ block.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+                {{ block.shopify_attributes }}
+                {% if settings.animations_reveal_on_scroll %}
+                  data-cascade
+                  style="--animation-order: {{ forloop.index }};color:{{ section.settings.text_color }};"
+                {% endif %}
+              >
+                {{ block.settings.heading }}
+              </h2>
+              <style>
+                #rich-text-{{ section.id }} .rich-text__heading {
+                  font-size: {{ block.settings.heading_font_size }}px;
+                  color:{{ section.settings.text_color }};
+                }
+                @media screen and (max-width: 768px) {
+                  #rich-text-{{ section.id }} .rich-text__heading {
+                    font-size: {{ block.settings.heading_font_size_mobile }}px;
+                  }
+                }
+              </style>
+            {%- when 'text' -%}
+              <div
+                class="rich-text__text rte{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+                {{ block.shopify_attributes }}
+                {% if settings.animations_reveal_on_scroll %}
+                  data-cascade
+                  style="--animation-order: {{ forloop.index }};color:{{ section.settings.text_color }};"
+                {% endif %}
+              >
+                {{ block.settings.text }}
+              </div>
+              <style>
+                #rich-text-{{ section.id }} .rich-text__text p {
+                  font-size: {{ block.settings.content_font_size }}px !important;
+                  color:{{ section.settings.text_color }};
+                }
+                @media screen and (max-width: 768px) {
+                  #rich-text-{{ section.id }} .rich-text__text p {
+                      font-size: {{ block.settings.content_font_size_mobile }}px !important;
+                  }
+                }
+              </style>
+          {%- endcase -%}
+        {%- endfor -%}
+
+        {% liquid
+          assign BAND_RANGE = '24,42' | split: ','
+        %}
+        <div class="row align-center top-margin">
+          <div class="large-12 medium-12 small-12 columns">
+            <div id="app">
+              <div class="row align-center">
+                <div class="medium-4 small-12 columns">
+                  <select :required="true" id="band_size">
+                    <option value="-1" selected>Select Band Size</option>
+                    {% for band_size in (BAND_RANGE[0]..BAND_RANGE[1]) %}
+                      <option value="{{ band_size }}">{{ band_size }}″</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <!-- medium-4 small-12 columns -->
+                <div class="medium-4 small-12 columns top-margin-small-only">
+                  <select id="bust_size" disabled :required="true" @change="bustSizeChanged">
+                    <option value="-1" selected>Select Bust Size</option>
+                  </select>
+                </div>
+                <!-- medium-4 small-12 columns top-margin-small-only -->
+                <div class="medium-4 small-12 columns top-margin-small-only">
+                  <button id="get_my_size_btn" disabled @click="computeSize()" class="btn wide" id="calculate">
+                    Get my Size
+                  </button>
+                </div>
+                <!-- medium-4 small-12 columns top-margin-small-only -->
+              </div>
+              <!-- row align-center -->
+
+              <div id="size_result" class="hidden">
+                Your size is
+                <span class="response-size"
+                  ><b><span id="bra_size"></span>.</b>
+                </span>
+                <span id="reason"></span>
+
+                <br>
+
+                <div id="fuller_result">
+                  <span class="response-fuller">Our Fuller Cup Collection is the best fit for your range.</span>
+                  <br>
+                  <a class="btn" id="fuller_link">Shop Fuller Cup</a>
+                </div>
+
+                <div id="bralette_result">
+                  <a class="btn" id="bralette_link">Shop Bralettes</a>
+                </div>
+
+                <div id="general_result">
+                  <a class="btn" id="general_link">Shop my size</a>
+                </div>
+              </div>
+
+              <small>All sizes in inches</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  const SIZE_DATA = {
+    24:{26:"30A",27:"30B",28:"30C",29:"30D",30:"30DD",31:"30F",32:"30G",33:"32G",34:"34G"},
+    25:{27:"30A",28:"30B",29:"30C",30:"30D",31:"30DD",32:"30F",33:"30G",34:"32G",35:"34G"},
+    26:{28:"30A",29:"30B",30:"32B",31:"32C",32:"32D",33:"32DD",34:"32F",35:"32G",36:"34G"},
+    27:{29:"32A",30:"32B",31:"32B",32:"32C",33:"32D",34:"32DD",35:"32F"},
+    28:{30:"Bralette - XS",31:"32B",32:"32C",33:"32D",34:"32DD",35:"32F",36:"32G"},
+    29:{31:"Bralette - XS",32:"32B",33:"34B",34:"34C",35:"34D",36:"34DD",37:"34F"},
+    30:{32:"Bralette - XS",33:"32B",34:"34B",35:"34C",36:"34D",37:"34DD",38:"34F"},
+    31:{33:"Bralette - XS",34:"32B",35:"34B",36:"34C",37:"34D",38:"34DD",39:"34F",40:"34G"},
+    32:{34:"32B",35:"34B",36:"34C",37:"34D",38:"34DD",39:"34F",40:"34G"},
+    33:{35:"32B",36:"34B",37:"34C",38:"34D",39:"34DD",40:"34F",41:"34G"},
+    34:{36:"34B",37:"36B",38:"36C",39:"36D",40:"36DD",41:"36F",42:"36G"},
+    35:{37:"Bralette - XS",38:"36B",39:"36C",40:"36D",41:"36DD",42:"36F",43:"36G"},
+    36:{38:"Bralette - XS",39:"38B",40:"38C",41:"38D",42:"38DD",43:"38F",44:"38G"},
+    37:{39:"Bralette - XS",40:"38B",41:"38C",42:"38D",43:"38DD",44:"38F",45:"38G"},
+    38:{40:"Bralette - M",41:"40B",42:"40C",43:"40D",44:"40DD",45:"40F",46:"40G"},
+    39:{41:"Bralette - M",42:"40B",43:"40C",44:"40D",45:"40DD",46:"40F",47:"40G"},
+    40:{42:"Bralette - L",43:"42B",44:"42C",45:"42D",46:"42DD",47:"42F",48:"42G"},
+    41:{43:"Bralette - L",44:"44B",45:"44C",46:"44D",47:"44DD",48:"44F",49:"44G"},
+    42:{44:"Bralette - L",45:"44B",46:"44C",47:"44D",48:"44DD",49:"44F",50:"44G"}
+  };
+
+  const FULLER_BRA_SIZE = ["38DD", "40DD", "42DD", "44DD",
+    "32F", "34F", "36F", "38F", "40F", "42F", "44F",
+    "32G", "34G", "36G", "38G", "40G", "42G", "44G"];
+
+  const MIN_BUST = 28; // Smallest valid bust size for any band size
+  const MAX_BUST = 50; // Largest valid bust size for any band size
+  const INVALID_BRA_SIZE = "invalid";
+  const BUST_NOT_FOUND = "(invalid bust size)";
+  const BAND_NOT_FOUND = "(invalid band size)"
+  const BAND_BUST_NOT_FOUND = "invalid band and bust size";
+
+  band_size_element = document.getElementById("band_size");
+  bust_size_element = document.getElementById("bust_size");
+  get_my_size_btn_element = document.getElementById("get_my_size_btn");
+  size_result_container = document.getElementById("size_result");
+  fuller_result_container = document.getElementById("fuller_result");
+  bralette_result_container = document.getElementById("bralette_result");
+  general_result_container = document.getElementById("general_result");
+
+  band_size_element.addEventListener("change", function() {
+    toggle_size_repsonse(false);
+    if(band_size_element.value == -1)
+    {
+      bust_size_element.setAttribute("disabled", "disabled");
+      get_my_size_btn_element.setAttribute("disabled", "disabled");
+    }
+    else
+    {
+      var bust_sizes = SIZE_DATA[band_size_element.value];
+
+      var bust_size_options = '<option value="-1" selected>Select Bust Size</option>';
+      for (const size of Object.keys(bust_sizes)) {
+        bust_size_options += '<option value="' + size + '">' + size + '″</option>'
+      }
+      bust_size_element.innerHTML = bust_size_options;
+      bust_size_element.removeAttribute("disabled");
+    }
+  });
+
+  bust_size_element.addEventListener("change", function() {
+    toggle_size_repsonse(false);
+    if(bust_size_element.value == -1)
+    {
+      get_my_size_btn_element.setAttribute("disabled", "disabled");
+    }
+    else
+    {
+      get_my_size_btn_element.removeAttribute("disabled");
+    }
+  });
+
+  get_my_size_btn_element.addEventListener("click", function() {
+    var band = band_size_element.value;
+    var bust = bust_size_element.value;
+    var braSize = '';
+    var invalidReason = '';
+    var showBralette = false;
+    var shopUrl = '';
+    var showFuller = false;
+    var showResp = false;
+
+    // Valid even if bust is out of data range
+    if (band == 26 && bust > 36) { bust = 36; }
+
+    // Valid even if bust is out of data range
+    if (band == 31 && bust > 40) { bust = 40; }
+
+    var res1 = SIZE_DATA[band.toString()];
+    var res2 = undefined
+
+    if (res1 != undefined) {
+      res2 = res1[bust.toString()]
+
+      if (res2 == undefined) {
+        braSize = INVALID_BRA_SIZE;
+        invalidReason = BUST_NOT_FOUND;
+      }
+      else {
+        braSize = res2;
+      }
+    }
+    else {
+      if (bust < MIN_BUST || bust > MAX_BUST) {
+        braSize = INVALID_BRA_SIZE;
+        invalidReason = BAND_BUST_NOT_FOUND;
+      }
+      else {
+        braSize = INVALID_BRA_SIZE;
+        invalidReason = BAND_NOT_FOUND;
+      }
+    }
+
+    if (braSize.includes("Bralette")) {
+      showBralette = true;
+      shopUrl = "/collections/lingerie-bras-soft-cupped/" + braSize.split(" - ")[1].toLowerCase();
+    } else{
+      showFuller = isFuller(braSize);
+      shopUrl = "/collections/bras/" + braSize;
+    }
+    showResp = true;
+
+    document.getElementById("bra_size").innerHTML = braSize;
+    document.getElementById("reason").innerHTML = invalidReason;
+    toggle_size_repsonse(showResp, showBralette, showFuller, shopUrl);
+  });
+
+  function isFuller(bra_size)
+  {
+    var is_fuller = false;
+
+    for (var i = 0; i < FULLER_BRA_SIZE.length; i++) {
+      if (bra_size == FULLER_BRA_SIZE[i]) {
+        is_fuller = true;
+        break;
+      }
+    }
+    return is_fuller;
+  }
+
+  function toggle_size_repsonse(show_size_result, show_bralette=false, show_fuller=false, link_url='')
+  {
+    if(show_size_result)
+    {
+      size_result_container.classList.remove("hidden");
+    }
+    else
+    {
+      size_result_container.classList.add("hidden");
+    }
+
+    if(show_bralette)
+    {
+      bralette_result_container.classList.remove("hidden");
+      document.getElementById("bralette_link").setAttribute("href", link_url);
+    }
+    else
+    {
+      bralette_result_container.classList.add("hidden");
+    }
+
+    if(show_fuller)
+    {
+      fuller_result_container.classList.remove("hidden");
+      document.getElementById("fuller_link").setAttribute("href", link_url);
+    }
+    else
+    {
+      fuller_result_container.classList.add("hidden");
+    }
+
+    if(show_fuller == false && show_bralette == false)
+    {
+      general_result_container.classList.remove("hidden");
+      document.getElementById("general_link").setAttribute("href", link_url);
+    }
+    else
+    {
+      general_result_container.classList.add("hidden");
+    }
+  }
+</script>
+{% schema %}
+{
+  "name": "Get My Size",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "select",
+      "id": "desktop_content_position",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.rich-text.settings.desktop_content_position.options__1.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.rich-text.settings.desktop_content_position.options__2.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.rich-text.settings.desktop_content_position.options__3.label"
+        }
+      ],
+      "default": "center",
+      "label": "t:sections.rich-text.settings.desktop_content_position.label",
+      "info": "t:sections.rich-text.settings.desktop_content_position.info"
+    },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.rich-text.settings.content_alignment.options__1.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.rich-text.settings.content_alignment.options__2.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.rich-text.settings.content_alignment.options__3.label"
+        }
+      ],
+      "default": "center",
+      "label": "t:sections.rich-text.settings.content_alignment.label"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "background-1"
+    },
+    {
+        "type": "color",
+        "id": "text_color",
+        "default": "#000000",
+        "label": "Text Color"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "default": true,
+      "label": "t:sections.rich-text.settings.full_width.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 52
+    }
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "name": "t:sections.rich-text.blocks.heading.name",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "default": "Talk about your brand",
+          "label": "t:sections.rich-text.blocks.heading.settings.heading.label"
+        },
+        {
+          "type": "select",
+          "id": "heading_size",
+          "options": [
+            {
+              "value": "h2",
+              "label": "t:sections.all.heading_size.options__1.label"
+            },
+            {
+              "value": "h1",
+              "label": "t:sections.all.heading_size.options__2.label"
+            },
+            {
+              "value": "h0",
+              "label": "t:sections.all.heading_size.options__3.label"
+            },
+            {
+              "value": "hxl",
+              "label": "t:sections.all.heading_size.options__4.label"
+            }
+          ],
+          "default": "h1",
+          "label": "t:sections.all.heading_size.label"
+        },
+
+        {
+          "type": "range",
+          "id": "heading_font_size",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "Heading Font Size Desktop",
+          "default": 32
+        },
+        {
+          "type": "range",
+          "id": "heading_font_size_mobile",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "Heading Font Size Mobile",
+          "default": 32
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "t:sections.rich-text.blocks.text.name",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "<p>Share information about your brand with your customers. Describe a product, make announcements, or welcome customers to your store.</p>",
+          "label": "t:sections.rich-text.blocks.text.settings.text.label"
+        },
+        {
+          "type": "range",
+          "id": "content_font_size",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "Content Font Size Desktop",
+          "default": 18
+        },
+        {
+          "type": "range",
+          "id": "content_font_size_mobile",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "Content Font Size Mobile",
+          "default": 18
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Get My Size",
+      "blocks": [
+        {
+          "type": "heading"
+        },
+        {
+          "type": "text"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

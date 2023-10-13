@@ -67,11 +67,10 @@
       form="{{ product_form_id }}"
       {% if option.selected_value == value %}
         checked
-        class="active"
       {% endif %}
-      {% if option_disabled %}
-        class="disabled"
-      {% endif %}
+      
+        class="{% if option_disabled %} disabled {% endif %} {% if option.selected_value == value and  option_disabled%} active {% elsif option.selected_value == value %} active {% endif %}"
+      
     >
     <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">
       {{ value -}}

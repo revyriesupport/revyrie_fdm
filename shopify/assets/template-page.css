@@ -1,0 +1,310 @@
+/* Dojomojo fix */
+ body#seven-days-of-fleur-day-1 #shopify-section-header, body#seven-days-of-fleur-day-2 #shopify-section-header, body#seven-days-of-fleur-day-3 #shopify-section-header, body#seven-days-of-fleur-day-4 #shopify-section-header, body#seven-days-of-fleur-day-5 #shopify-section-header, body#seven-days-of-fleur-day-6 #shopify-section-header, body#seven-days-of-fleur-day-7 #shopify-section-header, body#seven-days-of-fleur-day-1 #shopify-section-header-message, body#seven-days-of-fleur-day-2 #shopify-section-header-message, body#seven-days-of-fleur-day-3 #shopify-section-header-message, body#seven-days-of-fleur-day-4 #shopify-section-header-message, body#seven-days-of-fleur-day-5 #shopify-section-header-message, body#seven-days-of-fleur-day-6 #shopify-section-header-message, body#seven-days-of-fleur-day-7 #shopify-section-header-message, body#seven-days-of-fleur-day-1 #footer, body#seven-days-of-fleur-day-2 #footer, body#seven-days-of-fleur-day-3 #footer, body#seven-days-of-fleur-day-4 #footer, body#seven-days-of-fleur-day-5 #footer, body#seven-days-of-fleur-day-6 #footer, body#seven-days-of-fleur-day-7 #footer {
+	 display: none;
+}
+ body#seven-days-of-fleur-day-1 #MainContent, body#seven-days-of-fleur-day-2 #MainContent, body#seven-days-of-fleur-day-3 #MainContent, body#seven-days-of-fleur-day-4 #MainContent, body#seven-days-of-fleur-day-5 #MainContent, body#seven-days-of-fleur-day-6 #MainContent, body#seven-days-of-fleur-day-7 #MainContent {
+	 margin-top: 40px;
+}
+/* Contact page */
+ #contact-us img.store {
+	 width: 250px;
+	 margin-bottom: 30px;
+}
+ @media screen and (max-width: 639px) {
+	 #contact-us img.store {
+		 margin-bottom: 15px;
+	}
+}
+/* Newsletter Form */
+ .newsletter-message {
+	 font-family: "Dala Floda Roman", "Times New Roman", Times, serif;
+	 text-transform: lowercase;
+	 font-size: 1.1rem;
+	 line-height: 1;
+	 text-align: center;
+	 border: none;
+	 margin-top: 15px;
+	 margin-bottom: 0px;
+	 padding: 0;
+	 font-variant-ligatures: none;
+}
+/* Sentence Case Text */
+ p.sentence-case {
+	 text-transform: inherit;
+}
+/* Centered Text Module */
+ .centered-text-module {
+	 padding-right: 0.5375rem;
+	 padding-left: 0.5375rem;
+	 text-align: center;
+	 padding-top: 40px;
+	 padding-bottom: 40px;
+}
+ @media screen and (min-width: 1400px) {
+	 .centered-text-module {
+		 padding-top: 60px;
+		 padding-bottom: 60px;
+	}
+}
+ .centered-text-module p {
+	 max-width: 550px;
+	 margin-left: auto;
+	 margin-right: auto;
+}
+ @media screen and (max-width: 639px) {
+	 .centered-text-module p {
+		 max-width: 350px;
+	}
+}
+/* Two Col Module */
+ .two-col-module {
+	 text-align: center;
+	 padding-top: 60px;
+	 padding-bottom: 60px;
+}
+ @media screen and (min-width: 1024px) {
+	 .two-col-module {
+		 padding-top: 80px;
+		 padding-bottom: 80px;
+	}
+}
+ @media screen and (max-width: 639px) {
+	 .two-col-module {
+		 padding-top: 40px;
+		 padding-bottom: 40px;
+	}
+	 .two-col-module p {
+		 max-width: 350px;
+		 margin-left: auto;
+		 margin-right: auto;
+	}
+}
+ .two-col-module .img-col img {
+	 width: 100%;
+}
+ .two-col-module .left-aligned-text-col {
+	 text-align: left;
+	 max-width: 460px;
+	 padding-bottom: 40px;
+	 padding-bottom: 40px;
+	 padding-right: 20px;
+	 padding-left: 20px;
+	 margin-right: auto;
+}
+ @media screen and (max-width: 1023px) {
+	 .two-col-module .left-aligned-text-col {
+		 text-align: center;
+		 padding-top: 40px;
+		 margin-left: auto;
+	}
+}
+ .two-col-module .centered-text-col {
+	 text-align: center;
+	 padding-top: 40px;
+	 padding-bottom: 40px;
+	 padding-left: 20px;
+	 padding-right: 20px;
+	 max-width: 460px;
+	 margin-left: auto;
+	 margin-right: auto;
+}
+ .two-col-module .centered-text-col h2 {
+	 margin-bottom: 15px;
+}
+ .two-col-module .centered-text-col p, .two-col-module .centered-text-col ul {
+	 max-width: 350px;
+	 margin-left: auto;
+	 margin-right: auto;
+}
+ .two-col-module .centered-text-col ul li {
+	 text-transform: inherit;
+	 margin-bottom: 20px;
+}
+ .two-col-module .centered-text-col ul li:last-child {
+	 margin-bottom: 0px;
+}
+ .two-col-module .centered-text-col h6 {
+	 margin-bottom: 0px;
+}
+/* Module Styles */
+ .centered-text-module.invert, .two-col-module.invert {
+	 background: #000;
+}
+ .centered-text-module.no-padding, .two-col-module.no-padding {
+	 padding-top: 0px;
+	 padding-bottom: 0px;
+}
+ .centered-text-module.top-border, .two-col-module.top-border {
+	 border-top: 1px solid #ececec;
+}
+ .centered-text-module.bottom-border, .two-col-module.bottom-border {
+	 border-bottom: 1px solid #ececec;
+}
+/* Button Stack */
+ ul.button-stack li {
+	 margin-bottom: 20px;
+}
+ @media screen and (min-width: 1024px) {
+	 ul.button-stack li {
+		 display: inline-block;
+		 margin-left: 10px;
+		 margin-right: 10px;
+	}
+}
+ ul.button-stack li:last-child {
+	 margin-bottom: 0px;
+}
+/* Sub Nav */
+ .sub-nav {
+	 background: #000;
+	 padding-top: 10px;
+	 padding-bottom: 10px;
+}
+ @media screen and (max-width: 639px) {
+	 .sub-nav {
+		 display: none;
+	}
+}
+ .sub-nav ul {
+	 text-align: center;
+}
+ .sub-nav ul li {
+	 padding-top: 5px;
+	 padding-bottom: 5px;
+	 font-size: 0.75rem;
+	 display: inline-block;
+}
+ @media screen and (min-width: 1024px) and (max-width: 1399px) {
+	 .sub-nav ul li {
+		 font-size: 0.8rem;
+		 margin-right: 30px;
+	}
+}
+ @media screen and (min-width: 1400px) {
+	 .sub-nav ul li {
+		 font-size: 0.9rem;
+		 margin-right: 50px;
+	}
+}
+ .sub-nav ul li:last-child {
+	 margin-right: 0px;
+}
+ .sub-nav ul li a {
+	 color: #fff;
+	 padding-top: 5px;
+	 padding-bottom: 5px;
+	 padding-left: 10px;
+	 padding-right: 10px;
+	 font-weight: 600;
+	 display: block;
+	 text-transform: capitalize;
+}
+ @media screen and (min-width: 1024px) {
+	 .sub-nav ul li a {
+		 padding-left: 20px;
+		 padding-right: 20px;
+	}
+}
+ .sub-nav ul li a:hover {
+	 text-decoration: underline;
+}
+/*================ Page Banner ================*/
+ .page-banner img {
+	 width: 100%;
+}
+ .page-banner .content_table {
+	 height: 700px;
+	 background-size: cover;
+	 background-repeat: no-repeat;
+}
+ @media screen and (min-width: 1400px) {
+	 .page-banner .content_table {
+		 height: 900px;
+	}
+}
+ @media screen and (max-width: 639px) {
+	 .page-banner .content_table {
+		 height: 600px;
+	}
+}
+ .page-banner .content_table_cell {
+	 padding-top: 30px;
+	 padding-bottom: 30px;
+}
+ @media screen and (max-width: 1399px) {
+	 .page-banner .content_table_cell {
+		 background: rgba(255, 255, 255, 0.65);
+	}
+}
+ .page-banner .signature {
+	 margin-top: 15px;
+	 width: 300px;
+}
+ @media screen and (max-width: 1399px) {
+	 .page-banner .signature {
+		 width: 200px;
+	}
+}
+ .page-banner .video {
+	 height: inherit;
+	 width: 100%;
+	 position: relative;
+	 background: #fff;
+}
+ .page-banner .video .video-player {
+	 width: 100%;
+	 background: #fff;
+	 margin: 0 auto;
+	 display: flex;
+	 flex-direction: column;
+}
+ .page-banner .video .video-player video {
+	 width: 100%;
+	 position: relative;
+}
+ .page-banner .video .video-player .play svg {
+	 width: 100px;
+	 height: 100px;
+}
+ .page-banner .video .video-player .play svg path {
+	 fill: #fff;
+}
+ .page-banner.invert {
+	 background: #000;
+}
+ @media screen and (max-width: 1399px) {
+	 .page-banner.invert .content_table_cell {
+		 background: rgba(0, 0, 0, 0.35);
+	}
+}
+
+
+
+
+
+/*================ About Us ================*/
+ body#about-us .large-offset-1 img {
+	 width: 100%;
+}
+ body#about-us ul.masonry-grid:after {
+	 content: '';
+	 display: block;
+	 clear: both;
+}
+ body#about-us ul.masonry-grid {
+	 max-width: 85rem;
+	 margin: 0 auto;
+}
+ body#about-us ul.masonry-grid li.masonry-sizer {
+	 width: 49%;
+}
+ body#about-us ul.masonry-grid li.masonry-gutter-sizer {
+	 width: 2%;
+}
+ body#about-us ul.masonry-grid li.masonry-item {
+	 float: left;
+	 width: 49%;
+}
+ body#about-us ul.masonry-grid li.masonry-item.square {
+	 padding: 15px;
+}

@@ -1,0 +1,49 @@
+{{ 'template-page.css' | asset_url | stylesheet_tag }}
+<style>
+@media screen and (min-width: 640px) and (max-width: 1023px){
+h1.center.top-margin-small {
+    font-size: 35.2px;
+}
+  }
+@media screen and (max-width: 639px){
+h1.center.top-margin-small {
+    font-size: 32px;
+}
+}
+@media screen and (min-width: 1023px) and (max-width: 1400px){
+h1.center.top-margin-small {
+    font-size: 38.4px;
+}
+  }
+@media screen and (min-width: 1400px){
+h1.center.top-margin-small {
+    font-size: 41.6px;
+}
+}
+h1.center.top-margin-small {
+    text-transform: lowercase;
+        /* font-size: 38.4px ; */
+    font-weight: 500 !important;
+}
+
+.top-margin-small, .row.top-margin-small {
+      margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+@media (max-width: 560px){
+.ls-photo-wrapper {
+    width: 33% !important;
+}
+}
+
+.ls-container.dh-widget-container {
+    padding-bottom: 90px;
+}
+</style>
+<div class="row align-center page-width">
+      <div class="medium-12 small-12 columns">
+            <h1 class="center top-margin-small">{{ page.title }}</h1>
+          {{ page.content }}
+        </div><!-- medium-12 small-12 columns -->
+</div><!-- row align-center -->

@@ -170,12 +170,16 @@ noscript .localization-selector.link {
 }
 
 .disclosure__link {
-  display: block;
-  padding: 0.95rem 3.5rem 0.95rem 2rem;
-  text-decoration: none;
-  line-height: calc(1 + 0.8 / var(--font-body-scale));
-  color: rgba(var(--color-foreground), 0.75);
-  word-break: break-word;
+    display: block;
+    /* padding: -0.05rem 3.5rem .95rem 2rem; */
+    text-decoration: none;
+    line-height: calc(1 + .8 / var(--font-body-scale));
+    /* color: rgba(var(--color-foreground),.75); */
+    word-break: break-word;
+    font-family: var(--font-custom-family-body);
+    color: black;
+    text-align: center;
+    padding: 5px 0;
 }
 
 .disclosure__link:hover {

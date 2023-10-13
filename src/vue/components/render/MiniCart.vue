@@ -7,11 +7,13 @@ import { loadMiniCartOnlyWhenIsOpen } from "@/lib/store-definition";
 import { formatProductPrice } from "@/lib/utilities";
 
 import CartItem from "@render/CartItem.vue";
+import CartBundleItem from "@render/CartBundleItem.vue";
 import ShippingProgressBar from "@render/ShippingProgressBar.vue";
 
 export default {
   components: {
     CartItem,
+    CartBundleItem,
     ShippingProgressBar,
   },
   setup() {
@@ -68,7 +70,7 @@ export default {
 </script>
 <template>
   <div
-    class="visible fixed bottom-0 top-0 right-0 z-50 flex w-full max-w-lg flex-col border-ink bg-white shadow-lg transition duration-300 ease-in-out lg:max-w-xl cart_drawer_slide"
+    class="visible fixed bottom-0 top-0 right-0 z-50 flex w-full max-w-lg flex-col border-ink bg-white shadow-lg transition duration-300 ease-in-out lg:max-w-xl cart_drawer_slide" id="offCanvasRight"
     :class="{ 'translate-x-full': !cart.isOpen }"
     role="dialog"
     aria-modal="true"
@@ -136,23 +138,31 @@ export default {
         </div>
       </div> 
     </div>
+    <div class="cart-contents">
     <div
       v-if="cart.isEmpty"
-      class="flex w-full flex-1 items-center justify-center p-4 text-center text-ink"
+      class="flex w-full flex-1 items-center justify-center p-4 text-center text-ink cart_empty_box"
     >
       <p v-if="cart.isLoading" class="text-center text-xl">Loading...</p>
-      <p v-else class="text-center text-xl">Your cart is empty.</p>
+      <p v-else class="text-center text-xs">Your cart is empty.</p>
     </div>
+    
     <div v-else class="flex-1 overflow-auto">
+      <cart-bundle-item
+        v-for="(item, index) in cart.listBundleItems"
+        :key="item.key"
+        :line="item"
+        class="border-gray-200 flex border-b p-4 last:border-b-0"
+      ></cart-bundle-item>
       <cart-item
-        v-for="item in cart.listItems"
+        v-for="(item, index) in cart.listItems"
         :key="item.key"
         :line="item"
         class="border-gray-200 flex border-b p-4 last:border-b-0"
       ></cart-item>
     </div>
-
-    <div
+    <div v-if="cart.isEmpty" class=""></div>
+    <div v-else
       class="text-gray-800 flex w-full items-center justify-between self-end border-ink/20 p-4 text-lg font-medium sidecart_footer_block"
     >
       <div class="flex w-full flex-col px-6 text-ink">
@@ -174,7 +184,7 @@ export default {
         <div class="sidecart_total">
           <span class="text-xl font-medium text-ink">Estimated total</span>
           <span class="text-xl font-medium text-ink">{{
-            money(cart.total)
+            money(cart.finalTotal)
           }}</span>
         </div>
 
@@ -221,6 +231,7 @@ export default {
           </div>
         </div>
       </div>
+    </div>
     </div>
   </div>
   <div

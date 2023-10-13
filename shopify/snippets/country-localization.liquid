@@ -4,7 +4,22 @@
   Accepts:
     - localPosition: pass in the position in which the form is coming up to create specific IDs
 {%- endcomment -%}
+  <style>
+.localization-form__currency {
+    font-size: 1.3rem;
+}
+@media only screen and (max-device-width: 1024px) {
+    #location-desktop-text {
+      display: none;
+    }
 
+}
+@media only screen and (min-device-width: 1024px) {
+    #location-mob-text  {
+      display:none;
+    }
+}
+  </style>
 <div class="disclosure">
   <button
     type="button"
@@ -13,9 +28,15 @@
     aria-controls="{{ localPosition }}List"
     aria-describedby="{{ localPosition }}Label"
   >
-    <span>
+    <!-- <span>
       {{- localization.country.currency.iso_code }}
       {{ localization.country.currency.symbol }} | {{ localization.country.name -}}
+    </span> -->
+    <span id="location-desktop-text">
+{{ localization.country.iso_code }}
+    </span>
+    <span id="location-mob-text">
+({{ localization.country.currency.iso_code }} {{ localization.country.currency.symbol }})
     </span>
     {% render 'icon-caret' %}
   </button>
@@ -32,10 +53,8 @@
             data-value="{{ country.iso_code }}"
           >
             <span class="localization-form__currency">
-              {{- country.currency.iso_code }}
-              {{ country.currency.symbol }} |</span
+{{ country.name }} ({{ country.currency.iso_code }} {{ country.currency.symbol }})</span
             >
-            {{ country.name }}
           </a>
         </li>
       {%- endfor -%}

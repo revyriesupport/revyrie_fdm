@@ -1,0 +1,173 @@
+/*================ Content Story ================*/
+ body.template-collection .content-story {
+	 margin-top: 0px;
+}
+ .content-story .offset-layout {
+	 margin-top: 60px;
+	 background-color: black;
+	 text-align: center;
+	 padding-top: 40px;
+	 padding-bottom: 40px;
+}
+ .content-story .offset-layout img.image {
+	 width: 100%;
+	 margin-top: -80px;
+}
+ .content-story .offset-layout .copy {
+	 color: #fff;
+	 display: block;
+	 font-size: 1.2rem;
+	 max-width: 500px;
+	 margin-left: auto;
+	 margin-right: auto;
+}
+ @media screen and (max-width: 639px) {
+	 .content-story .offset-layout .copy {
+		 font-size: 1rem;
+		 margin-top: 20px;
+	}
+}
+ .content-story .offset-layout .graphic {
+	 margin-top: 20px;
+	 width: 290px;
+	 margin-left: auto;
+	 margin-right: auto;
+}
+ @media screen and (max-width: 639px) {
+	 .content-story .offset-layout .graphic {
+		 width: 250px;
+	}
+}
+ .content-story .content_table.image, .content-story .content_table.mobile_image {
+	 background-size: cover;
+	 background-position: center center;
+	 height: 100%;
+}
+ @media screen and (min-width: 640px) {
+	 .content-story .content_table.image, .content-story .content_table.mobile_image {
+		 min-height: 700px;
+	}
+}
+ @media screen and (max-width: 639px) {
+	 .content-story .content_table.image, .content-story .content_table.mobile_image {
+		 height: 255px;
+		 margin-top: 40px;
+	}
+}
+ .content-story hr.top-border {
+	 margin-top: 0px;
+	 margin-bottom: 40px;
+}
+ .content-story hr.bottom-border {
+	 margin-bottom: 0px;
+	 margin-top: 40px;
+}
+ .content-story .header {
+	 margin-bottom: 40px;
+}
+ .content-story .header .large-12 {
+	 text-align: center;
+}
+ .content-story .header .large-12 img, .content-story .header .large-12 h2.h1 {
+	 margin-bottom: 15px;
+}
+ .content-story .header img {
+	 width: 100%;
+	 max-width: 280px;
+}
+ @media screen and (min-width: 1400px) {
+	 .content-story .header img {
+		 max-width: 320px;
+	}
+}
+ @media screen and (max-width: 1023px) {
+	 .content-story .header img {
+		 margin-bottom: 15px;
+	}
+}
+ .content-story .header img.large {
+	 max-width: 400px;
+}
+ @media screen and (min-width: 1400px) {
+	 .content-story .header img.large {
+		 max-width: 500px;
+	}
+}
+ @media screen and (max-width: 639px) {
+	 .content-story .header img.large {
+		 max-width: 280px;
+	}
+}
+ @media screen and (max-width: 639px) {
+	 .content-story .header img {
+		 max-width: 160px;
+	}
+}
+ .content-story .header h2.h1 {
+	 font-size: 3.5rem;
+}
+ @media screen and (max-width: 639px) {
+	 .content-story .header h2.h1 {
+		 font-size: 2.5rem;
+	}
+}
+ @media screen and (min-width: 1024px) {
+	 .content-story .header h2.h1 {
+		 font-size: 4.5rem;
+	}
+}
+ .content-story .header .btn {
+	 margin-top: 20px;
+}
+ .content-story .panel h2.h1 {
+	 text-align: center;
+}
+ .content-story .panel img, .content-story .panel video {
+	 width: 100%;
+	 margin-bottom: 30px;
+}
+ @media screen and (max-width: 639px) {
+	 .content-story .panel img, .content-story .panel video {
+		 margin-bottom: 15px;
+	}
+}
+ .content-story .panel .video {
+	 line-height: 0;
+}
+ .content-story .panel .copy {
+	 margin-bottom: 10px;
+	 display: block;
+	 font-size: 1.5rem;
+}
+ @media screen and (min-width: 640px) and (max-width: 1023px) {
+	 .content-story .panel .copy {
+		 font-size: 1.2rem;
+	}
+}
+ .content-story .panel .btn {
+	 display: inline-block;
+	 margin-top: 20px;
+}
+ .content-story .panel .action {
+	 font-size: 0.8rem;
+	 text-transform: uppercase;
+	 color: #000;
+}
+ @media screen and (min-width: 1400px) {
+	 .content-story .panel .action {
+		 font-size: 0.9rem;
+	}
+}
+ @media screen and (min-width: 640px) {
+	 .content-story .large-up-3 .panel:nth-child(4), .content-story .medium-up-2 .panel:nth-child(4), .content-story .large-up-3 .panel:nth-child(5), .content-story .medium-up-2 .panel:nth-child(5), .content-story .large-up-3 .panel:nth-child(6), .content-story .medium-up-2 .panel:nth-child(6) {
+		 margin-top: 30px;
+	}
+}
+ @media screen and (max-width: 639px) {
+	 .content-story .large-up-3 .panel, .content-story .medium-up-2 .panel {
+		 margin-bottom: 30px;
+	}
+}
+ .content-story .large-up-3 .panel:last-child, .content-story .medium-up-2 .panel:last-child {
+	 margin-bottom: 0px;
+}

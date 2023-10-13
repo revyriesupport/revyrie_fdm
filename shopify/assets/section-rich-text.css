@@ -84,3 +84,35 @@
 .rich-text__blocks.right .rich-text__buttons {
   justify-content: flex-end;
 }
+/*=== Custom css ===*/
+.rich-text__buttons--multiple>* {
+    min-width: 204px !important;
+    padding: 0 16px !important;
+    height: 45px !important;
+    min-height: 45px !important;
+}
+.rich-text__blocks>*+* {
+    margin-top: 15px;
+}
+.rich-text h2.rich-text__heading.inline-richtext {
+    line-height: 1.2;
+}
+.rich-text__blocks .rich-text__text {
+    margin-top: 10px;
+}
+.rich-text__buttons {
+    gap: 20px;
+}
+@media screen and (min-width: 990px) {
+    .rich-text__blocks.center {
+      max-width: 550px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+}
+@media screen and (max-width: 749px) {
+    .rich-text__buttons--multiple>* {
+      flex-grow: inherit;
+      min-width: 211px !important;
+    }
+}

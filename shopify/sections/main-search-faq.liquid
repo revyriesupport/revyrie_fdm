@@ -1,0 +1,223 @@
+{{ 'component-accordion.css' | asset_url | stylesheet_tag }}
+{{ 'main-faq.css' | asset_url | stylesheet_tag }}
+
+<style>
+  .faq-sub-accordion{ display: none; }
+  form.search-form .input-group input.search {
+  	background-image: url({{ 'icon-search.svg' | asset_url }});
+  }
+  #faq .accordion .accordion-item .accordion .accordion-item .accordion-title::after {
+  	content: url({{ 'icon-chevron-down.svg' | asset_url }});
+  }
+  #faq .accordion .accordion-item .accordion .accordion-item.is-active .accordion-title::after {
+  	content: url({{ 'icon-chevron-up.svg' | asset_url }});
+  }
+  #faq .accordion .accordion-item .accordion-title.category::after {
+  	content: url({{ 'icon-arrow-down.svg' | asset_url }});
+  }
+  #faq .accordion .accordion-item.is-active .accordion-title.category::after {
+  	content: url({{ 'icon-arrow-up.svg' | asset_url }});
+  }
+  #faq .serach_title_heading{
+      font-size: {{section.settings.title_font_size}}px;
+  }
+  #faq .faq_search_grid_heading{
+       font-size: {{ section.settings.heading_font_size }}px;
+    }
+  #faq .faq_search_grid_content ol li, 
+  #faq .faq_search_grid_content ul li,
+  #faq .faq_search_grid_content p{
+       font-size: {{ section.settings.content_font_size }}px;
+  }
+      @media screen and (max-width: 768px) {
+    #faq .faq_search_grid_heading{
+      font-size: {{ section.settings.heading_font_size_mobile }}px;
+    }
+    #faq .faq_search_grid_content ol li, 
+    #faq .faq_search_grid_content ul li,
+    #faq .faq_search_grid_content p{
+        font-size: {{ section.settings.content_font_size_mobile }}px;
+    }
+  }
+</style>
+<style>
+  form.search-form .input-group input.search {
+    background-image: url({{ 'icon-search.svg' | asset_url }});
+  }
+
+  #faq.article-search-wrap .accordion .accordion-item .accordion-title::after {
+    content: url({{ 'icon-chevron-down.svg' | asset_url }});
+  }
+  #faq.article-search-wrap .accordion .accordion-item.is-active .accordion-title::after {
+    content: url({{ 'icon-chevron-up.svg' | asset_url }});
+  }
+</style>
+
+<div class="row align-center top-margin-small article-search-wrap" id="faq">
+  <div class="large-8 medium-10 small-11 columns">
+    {{ page.content }}
+    <h2 class="text-center top-margin-small serach_title_heading">{{ section.settings.title }}</h2>
+    <form action="/search#results" method="get" role="search" class="search-form">
+      <div class="input-group">
+        <input type="hidden" name="type" value="article">
+        <input type="hidden" name="view" value="faq">
+        <input
+          type="search"
+          name="q"
+          id="Search"
+          value="{{ search.terms | escape }}"
+          placeholder="Search"
+          class="search"
+        >
+        <div class="input-group-btn">
+          <input type="submit" class="btn" value="Search">
+        </div>
+        <!-- input-group-btn -->
+      </div>
+      <!-- input-group -->
+    </form>
+    {% if search.performed and search.results_count == 0 %}
+      <h3 class="text-center-medium-down medium">{{ 'templates.search.no_results' | t: terms: search.terms }}</h3>
+    {% else %}
+      <h3 class="text-center-medium-down medium search-result">
+        {{ 'templates.search.results_with_count_and_term' | t: terms: search.terms, count: search.results_count }}
+      </h3>
+    {% endif %}
+    <div class="search-result-count"> Search results for "{{ search.terms }}" </div>
+    {% paginate search.results by 60 %}
+      {% if search.performed and search.results_count > 0 %}
+        <ul class="faqaccordion accordion">
+          {% for item in search.results %}
+            {% if item.tags contains 'FAQ' %}
+              <li class="accordion-item">
+                <a href="#" class="faq-parent-accordion accordion-title category faq_search_grid_heading">{{ item.title }}</a>
+                <div class="faq-sub-accordion accordion-content faq_search_grid_content">
+                  {% if item.content.size > 0 %}
+                    {{ item.content }}
+                  {% endif %}
+                </div>
+                <!-- accordion-content -->
+              </li>
+              <!-- accordion-item -->
+            {% endif %}
+          {% endfor %}
+        </ul>
+        <!-- accordion -->
+      {% endif %}
+    {% endpaginate %}
+    <a href="/pages/faq" class="learn-more">Back to Faq</a>
+  </div>
+  <!-- large-8 medium-10 small-12 columns -->
+</div>
+<!-- row align-center faq -->
+<script>
+  // Get all elements with the class 'faq-parent-accordion'
+  var toggleElements = document.querySelectorAll('.faq-parent-accordion');
+  // Check the URL anchor and open the corresponding faqaccordion section and its parent
+  if (window.location.hash) {
+      var targetHash = window.location.hash.substr(1);
+      var targetElement = document.querySelector('a.faq-parent-accordion[href="#' + targetHash + '"]');
+      if (targetElement) {
+          var parentListItem = targetElement.parentElement;
+          while (parentListItem && !parentListItem.classList.contains('faqaccordion')) {
+              if (parentListItem.tagName === 'LI') {
+                  parentListItem.querySelector('.faq-sub-accordion').style.display = 'block';
+                  parentListItem.classList.add('is-active'); // Add the 'is-active' class
+              }
+              parentListItem = parentListItem.parentElement;
+          }
+          targetElement.nextElementSibling.style.display = 'block';
+      }
+  }
+  // Loop through each element and add a click event listener
+  toggleElements.forEach(function(toggleElement) {
+      toggleElement.addEventListener('click', function(e) {
+          e.preventDefault();
+          // Get the clicked element
+          var clickedElement = this;
+          // Check if the next sibling is visible
+          if (clickedElement.nextElementSibling.style.display === 'block') {
+              clickedElement.nextElementSibling.style.display = 'none';
+              clickedElement.parentElement.classList.remove('is-active'); // Remove the 'is-active' class
+          } else {
+              // Hide all '.faq-sub-accordion' elements in the parent's parent
+              var parentListItems = clickedElement.parentElement.parentElement.querySelectorAll('li .faq-sub-accordion');
+              parentListItems.forEach(function(innerElement) {
+                  innerElement.style.display = 'none';
+                  innerElement.parentElement.classList.remove('is-active'); // Remove the 'is-active' class from all elements
+              });
+              // Show the next sibling
+              clickedElement.nextElementSibling.style.display = 'block';
+              clickedElement.parentElement.classList.add('is-active'); // Add the 'is-active' class
+          }
+      });
+  });
+</script>
+{% schema %}
+{
+   "name":"Faq Search",
+   "disabled_on":{
+      "groups":[
+         "header",
+         "footer"
+      ]
+   },
+   "settings":[
+     {
+         "type":"text",
+         "id":"title",
+         "label":"Title"
+      },
+     {
+         "type":"range",
+         "id":"title_font_size",
+         "min":0,
+         "max":100,
+         "step":1,
+         "unit":"px",
+         "label":"Title Font Size Desktop",
+         "default":42
+      },
+      {
+         "type":"range",
+         "id":"heading_font_size",
+         "min":0,
+         "max":100,
+         "step":1,
+         "unit":"px",
+         "label":"Heading Font Size Desktop",
+         "default":20
+      },
+      {
+         "type":"range",
+         "id":"heading_font_size_mobile",
+         "min":0,
+         "max":100,
+         "step":1,
+         "unit":"px",
+         "label":"Heading Font Size Mobile",
+         "default":18
+      },
+      {
+         "type":"range",
+         "id":"content_font_size",
+         "min":0,
+         "max":100,
+         "step":1,
+         "unit":"px",
+         "label":"Content Font Size Desktop",
+         "default":13
+      },
+      {
+         "type":"range",
+         "id":"content_font_size_mobile",
+         "min":0,
+         "max":100,
+         "step":1,
+         "unit":"px",
+         "label":"Content Font Size Mobile",
+         "default":13
+      }
+   ]
+}
+{% endschema %}

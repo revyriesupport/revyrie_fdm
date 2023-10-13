@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "main": {
+      "type": "about-us-main",
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

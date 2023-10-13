@@ -11,8 +11,6 @@
     "spacing_sections": 0,
     "spacing_grid_horizontal": 16,
     "spacing_grid_vertical": 20,
-    "lovelist_enable": true,
-    "livechat_enable": true,
     "buttons_border_thickness": 2,
     "buttons_border_opacity": 100,
     "buttons_radius": 0,
@@ -125,7 +123,7 @@
     "gift_lover_note_link_text": "here",
     "gift_lover_note_text_link": "https:\/\/fleurdumal.com\/products\/gift-box",
     "gift_lover_button_text": "Add",
-    "gift_lover_image": "shopify:\/\/shop_images\/gift_box_256x256_240x_dd68151d-08c3-4cdb-b255-464e66590570.gif",
+    "gift_lover_image": "shopify:\/\/shop_images\/gift_box_256x256_68e16ca6-7241-4069-aec0-eb4fb98a8a98.gif",
     "gift_lover_image_alt": "Gift Box",
     "gift_lover_image_link": "https:\/\/fleurdumal.com\/products\/gift-box",
     "gift_product_select": "gift-box",
@@ -133,12 +131,14 @@
     "bundle_image_4": "shopify:\/\/shop_images\/IMG_0873.jpg",
     "bundle_image_5": "shopify:\/\/shop_images\/IMG_0874.jpg",
     "shipping_progress_text": "Free Shipping On orders over $250",
+    "lovelist_enable": true,
     "checkout_logo_image": "shopify:\/\/shop_images\/checkout_logo_cfb1f18e-4c81-42c3-97e7-cb29320e3b93.png",
     "checkout_logo_position": "center",
     "checkout_logo_size": "large",
     "checkout_sidebar_background_color": "#fbfbfb",
     "checkout_accent_color": "#d4857b",
     "checkout_button_color": "#000000",
+    "livechat_enable": true,
     "gift_lover_note_content": "<p>PLEASE NOTE: Box dimensions and more information can be found <a href=\"\/products\/gift-box\">here<\/a>.<\/p>",
     "gift_lover_noterichtext": "<p>PLEASE NOTE: Box dimensions and more information can be found <a href=\"\/products\/gift-box\">here<\/a>.<\/p>",
     "gift_lover_note_link": "<p>PLEASE NOTE: Box dimensions and more information can be found <a href=\"\/products\/gift-box\">here<\/a>.<\/p>",
@@ -160,6 +160,14 @@
     "content_for_index": [
 
     ],
+    "blocks": {
+      "855628211100114053": {
+        "type": "shopify:\/\/apps\/klaviyo-email-marketing-sms\/blocks\/klaviyo-onsite-embed\/2632fe16-c075-4321-a88b-50b567f42507",
+        "disabled": false,
+        "settings": {
+        }
+      }
+    },
     "color_schemes": {
       "background-1": {
         "settings": {

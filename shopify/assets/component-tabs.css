@@ -11,45 +11,10 @@
 	 display: inline-block;
 	 padding-bottom: 4px;
 	 line-height: 1;
-	 font-size: 11px;
+	 font-size: 0.65rem;
 	 text-transform: uppercase;
 }
-#sizing-modal #tab-conversionchart table td:first-child, #sizing-modal #tab-conversionchart table th:first-child {
-    position: -webkit-sticky;
-    position: sticky;
-    left: 0;
-    background: #fff;
-}
-div#sizing-modal a.close-button {
-    font-size: 28px;
-    color: #000;
-    font-weight: 400;
-    top: 4px;
-    right: 10px;
-    line-height: 1;
-    position: absolute;
-    z-index: 100;
-}
-div#sizing-modal .top-margin-small {
-    margin-top: 30px;
-}
-div#sizing-modal a {
-    color: #d4857b;
-}
-div#sizing-modal .tabs ul.tab-nav li a{
-  color: #000;
-  border-bottom: 1px solid transparent;
-}
-div#sizing-modal .tabs ul.tab-nav li a.active{
-  border-bottom-color: #000;
-}
-.tab-content{
-  display:none;
-}
-.tab-content.active {
-    display: block;
-}
-@media screen and (min-width: 640px) {
+ @media screen and (min-width: 640px) {
 	 .tabs ul.tab-nav li {
 		 letter-spacing: 0.05rem;
 	}
@@ -84,4 +49,40 @@ div#sizing-modal .tabs ul.tab-nav li a.active{
  .tabs div.tab-content#tab-fit ul li:last-child, .tabs div.tab-content#tab-details ul li:last-child, .tabs div.tab-content#tab-specs ul li:last-child {
 	 margin-bottom: 0px;
 }
- 
+ #sizing-modal #tab-conversionchart table td:first-child, #sizing-modal #tab-conversionchart table th:first-child {
+    position: -webkit-sticky;
+    position: sticky;
+    left: 0;
+    background: #fff;
+}
+div#sizing-modal a.close-button {
+    font-size: 28px;
+    color: #000;
+    font-weight: 400;
+    top: 4px;
+    right: 10px;
+    line-height: 1;
+    position: absolute;
+    z-index: 100;
+}
+div#sizing-modal .top-margin-small {
+    margin-top: 30px;
+}
+div#sizing-modal a {
+    color: #d4857b;
+}
+div#sizing-modal .tabs ul.tab-nav li a{
+  color: #000;
+  border-bottom: 1px solid transparent;
+  font-size: 11px;
+}
+div#sizing-modal .tabs ul.tab-nav li a.active{
+  border-bottom-color: #000;
+}
+.tab-content{
+  display:none;
+}
+.tab-content.active {
+    display: block;
+}
+font-size: 11px;

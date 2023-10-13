@@ -29,7 +29,7 @@
         padding-top: 0px;
         padding-bottom: {{ section.settings.padding_bottom }}px;
       }
-      
+
     }
   {%- endstyle -%}
 
@@ -69,11 +69,11 @@
   >
     <div class="gift_image">
       {% liquid
-      assign image_height = section.settings.gift_image.width | divided_by: section.settings.gift_image.aspect_ratio
+        assign image_height = section.settings.gift_image.width | divided_by: section.settings.gift_image.aspect_ratio
         assign image_class = 'lazy'
-          assign sizes = '100vw'
+        assign sizes = '100vw'
       %}
-        {{
+      {{
         section.settings.gift_image
         | image_url: width: 3840
         | image_tag:
@@ -116,7 +116,12 @@
                 </a>
               </div>
             {%- when 'price' -%}
-              <div class="no-js-hidden text-center-mobile center" id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
+              <div
+                class="price-main-block no-js-hidden text-center-mobile center"
+                id="price-{{ section.id }}"
+                role="status"
+                {{ block.shopify_attributes }}
+              >
                 {%- render 'price',
                   product: product,
                   use_variant: true,
@@ -135,23 +140,25 @@
                 </div>
               {%- endif -%}
               <div {{ block.shopify_attributes }}>
-                {%- assign product_form_installment_id = 'product-form-installment-' | append: section.id -%}
-                {%- form 'product', product, id: product_form_installment_id, class: 'installment caption-large' -%}
-                  <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-                  {{ form | payment_terms }}
-                {%- endform -%}
+                {% comment %}
+                  {%- assign product_form_installment_id = 'product-form-installment-' | append: section.id -%}
+                  {%- form 'product', product, id: product_form_installment_id, class: 'installment caption-large' -%}
+                    <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                    {{ form | payment_terms }}
+                  {%- endform -%}
+                {% endcomment %}
               </div>
             {%- when 'final_sale' -%}
-                {% if product.tags contains 'onsale' or product.tags contains 'ONSALE' %}
-            	     <div class="promotion_top hidden">{{ 'products.product.promotion_secondary_html' | t }}</div>
-        	    {% endif %}
-                {% if product.tags contains 'Final Sale' %}
-                  <div class="final-sale">{{ 'products.product.final_sale' | t }}</div>
-                {% endif %}
+              {% if product.tags contains 'onsale' or product.tags contains 'ONSALE' %}
+                <div class="promotion_top hidden">{{ 'products.product.promotion_secondary_html' | t }}</div>
+              {% endif %}
+              {% if product.tags contains 'Final Sale' %}
+                <div class="final-sale">{{ 'products.product.final_sale' | t }}</div>
+              {% endif %}
             {%- when 'description' -%}
               {%- if product.description != blank or page_select.content != blank -%}
                 <div class="product__description rte quick-add-hidden center " {{ block.shopify_attributes }}>
-                  {% if page_select.content contains "<!-- intro -->" %}
+                  {% if page_select.content contains '<!-- intro -->' %}
                     {{ page_select.content | split: '<!-- intro -->' | last | split: '<!-- end intro -->' | first }}
                   {% endif %}
                 </div>
@@ -182,7 +189,11 @@
                         </svg>
                       </span>
                     </span>
-                    <span>({{- 'products.product.quantity.in_cart_html' | t: quantity: cart_qty -}})</span>
+                    <span
+                      >(
+                      {{- 'products.product.quantity.in_cart_html' | t: quantity: cart_qty -}}
+                      )</span
+                    >
                   </span>
                 </label>
                 <quantity-input class="quantity">
@@ -207,7 +218,7 @@
                     step="{{ product.selected_or_first_available_variant.quantity_rule.increment }}"
                     value="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
                     form="{{ product_form_id }}"
-                  />
+                  >
                   <button class="quantity__button no-js-hidden" name="plus" type="button">
                     <span class="visually-hidden">
                       {{- 'products.product.quantity.increase' | t: product: product.title | escape -}}
@@ -244,18 +255,29 @@
               </div>
             {%- when 'variant_picker' -%}
               {% assign product_handle = product.handle %}
-              {% render 'product-variant-picker', product: product, block: block, product_handle:product_handle, product_form_id: product_form_id %}
+              {% render 'product-variant-picker',
+                product: product,
+                block: block,
+                product_handle: product_handle,
+                product_form_id: product_form_id
+              %}
             {%- when 'buy_buttons' -%}
               {% assign gift_card_box = true %}
-              {%- render 'buy-buttons', block: block, product: product, product_form_id: product_form_id, section_id: section.id, show_pickup_availability: true, gift_card_box: gift_card_box -%}
+              {%- render 'buy-buttons',
+                block: block,
+                product: product,
+                product_form_id: product_form_id,
+                section_id: section.id,
+                show_pickup_availability: true,
+                gift_card_box: gift_card_box
+              -%}
               {%- if page_select.content != blank -%}
                 <div class="product__description rte quick-add-hidden" {{ block.shopify_attributes }}>
-                  {% if page_select.content contains "<!-- legal -->" %}
+                  {% if page_select.content contains '<!-- legal -->' %}
                     {{ page_select.content | split: '<!-- legal -->' | last | split: '<!-- end legal -->' | first }}
                   {% endif %}
                 </div>
               {%- endif -%}
-            
           {%- endcase -%}
         {%- endfor -%}
         <a href="{{ product.url }}" class="link product__view-details animate-arrow">
@@ -264,10 +286,7 @@
         </a>
       </product-info>
     </div>
-    
   </div>
-
- 
 
   {% assign popups = section.blocks | where: 'type', 'popup' %}
   {%- for block in popups -%}
@@ -332,7 +351,6 @@
         hiddenInput.value = event.currentTarget.value;
       });
     });
-   
   </script>
 
   {%- liquid
@@ -388,7 +406,6 @@
     }
   </script>
 </section>
-
 
 {% schema %}
 {

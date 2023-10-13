@@ -79,7 +79,7 @@ export default {
   </div>
   <input
     v-else
-    class="w-16 border-ink bg-white text-center text-ink focus:outline-none focus:ring-2"
+    class="w-16 border-ink bg-white text-center text-ink focus:outline-none focus:ring-2 variant_quantity"
     type="number"
     ref="itemQuantity"
     v-model="quantity"

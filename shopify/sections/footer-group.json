@@ -48,6 +48,8 @@
         "heading_font_size_mobile": 18,
         "content_font_size": 16,
         "content_font_size_mobile": 16,
+        "background_color": "#000000",
+        "text_color": "#FFFFFF",
         "padding_top": 16,
         "padding_bottom": 8,
         "full_width": true
@@ -98,7 +100,7 @@
           "settings": {
             "heading": "COMPANY INFO",
             "heading_size": "h2",
-            "menu": "company-info",
+            "menu": "footer-company-info",
             "first_row_content": "",
             "image_ratio": "adapt",
             "second_row_content": ""
@@ -109,7 +111,7 @@
           "settings": {
             "heading": "GET HELP",
             "heading_size": "h2",
-            "menu": "get-help",
+            "menu": "footer-get-help",
             "first_row_content": "",
             "image_ratio": "adapt",
             "second_row_content": ""
@@ -175,14 +177,14 @@
           "type": "link_list",
           "settings": {
             "heading": "COMPANY INFO",
-            "menu": "company-info"
+            "menu": "footer-company-info"
           }
         },
         "footer-1": {
           "type": "link_list",
           "settings": {
             "heading": "GET HELP",
-            "menu": "get-help"
+            "menu": "footer-get-help"
           }
         },
         "footer-2": {
@@ -190,7 +192,7 @@
           "settings": {
             "heading": "Fleur Boutiques",
             "subtext": "<p>Visit our boutiques to shop fresh collections of lingerie, ready-to-wear & swim.<br\/><br\/><\/p><p><strong>Los Angeles<\/strong><br\/>519 N Almont Drive<\/p><p><strong><br\/>New York City<\/strong><br\/>175 Mott Street<\/p>",
-            "image": "shopify:\/\/shop_images\/visit_us_e708057a-26af-41cc-bcc1-8bb1dcbf4610.jpg"
+            "image": "shopify:\/\/shop_images\/visit_us_2b122531-8bdc-4550-887e-a2feb07459f4.jpg"
           }
         }
       },

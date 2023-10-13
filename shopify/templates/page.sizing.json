@@ -1,0 +1,452 @@
+{
+  "sections": {
+    "c205116a-7020-4b09-be3d-8ad834964bb7": {
+      "type": "image-with-text",
+      "blocks": {
+        "template--14634550886472__c205116a-7020-4b09-be3d-8ad834964bb7-heading-1": {
+          "type": "heading",
+          "settings": {
+            "heading": "find your <em>bra<\/em>  size",
+            "heading_size": "h0",
+            "heading_font_size": 42,
+            "heading_font_size_mobile": 32,
+            "heading_color": "#000000",
+            "heading_color_mobile": "#000000"
+          }
+        },
+        "template--14634550886472__c205116a-7020-4b09-be3d-8ad834964bb7-text-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Are you wearing the right size? What size are you in Fleur? Finding the right bra can be hard, but we're here to help. Let us get you the support you need.<\/p>",
+            "text_style": "body",
+            "content_font_size": 14,
+            "content_font_size_mobile": 14,
+            "content_color": "#000000",
+            "content_color_mobile": "#000000"
+          }
+        },
+        "template--14634550886472__c205116a-7020-4b09-be3d-8ad834964bb7-button-1": {
+          "type": "button",
+          "settings": {
+            "button_label": "GET STARTED",
+            "button_link": "#before-we-get-started",
+            "button_style_secondary": true
+          }
+        }
+      },
+      "block_order": [
+        "template--14634550886472__c205116a-7020-4b09-be3d-8ad834964bb7-heading-1",
+        "template--14634550886472__c205116a-7020-4b09-be3d-8ad834964bb7-text-1",
+        "template--14634550886472__c205116a-7020-4b09-be3d-8ad834964bb7-button-1"
+      ],
+      "settings": {
+        "image": "shopify:\/\/shop_images\/banner_sizing.jpg",
+        "height": "large",
+        "desktop_image_width": "medium",
+        "layout": "image_first",
+        "desktop_content_position": "middle",
+        "desktop_content_alignment": "center",
+        "content_layout": "no-overlap",
+        "color_scheme": "",
+        "image_behavior": "none",
+        "mobile_content_alignment": "left",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "section_identifier": "section-find-your-bra-size"
+      }
+    },
+    "6ab778c8-d4c1-42ef-8b74-bf38c30cf9db": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "{% render 'sizing-menu' %}",
+        "color_scheme": "",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "f83735c5-b724-42b8-a6bd-e8fc5800105d": {
+      "type": "rich-text",
+      "blocks": {
+        "template--14650614349896__f83735c5-b724-42b8-a6bd-e8fc5800105d-heading-1": {
+          "type": "heading",
+          "settings": {
+            "heading": "Before we get <em>started<\/em>...",
+            "heading_size": "h1",
+            "heading_font_size": 38,
+            "heading_font_size_mobile": 32
+          }
+        },
+        "template--14650614349896__f83735c5-b724-42b8-a6bd-e8fc5800105d-text-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Start by standing in front of a mirror wearing your best-fitting, non-padded underwire bra. You'll also need a soft measuring tape. Remember to measure in inches.<\/p>",
+            "content_font_size": 14,
+            "content_font_size_mobile": 14
+          }
+        }
+      },
+      "block_order": [
+        "template--14650614349896__f83735c5-b724-42b8-a6bd-e8fc5800105d-heading-1",
+        "template--14650614349896__f83735c5-b724-42b8-a6bd-e8fc5800105d-text-1"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "background_color": "",
+        "text_color": "#000000",
+        "full_width": true,
+        "padding_top": 36,
+        "padding_bottom": 52,
+        "section_identifier": "before-we-get-started"
+      }
+    },
+    "b7ce6714-d348-48fa-8e7c-3c8f266ea3c0": {
+      "type": "image-with-text",
+      "blocks": {
+        "template--14650614349896__b7ce6714-d348-48fa-8e7c-3c8f266ea3c0-heading-1": {
+          "type": "heading",
+          "settings": {
+            "heading": "the <em>band<\/em>",
+            "heading_size": "h1",
+            "heading_font_size": 38,
+            "heading_font_size_mobile": 32,
+            "heading_color": "#000000",
+            "heading_color_mobile": "#000000"
+          }
+        },
+        "template--14650614349896__b7ce6714-d348-48fa-8e7c-3c8f266ea3c0-text-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Your bra's band provides most of its support (not the straps!) Most women are wearing a band that's too loose.<\/p><ol><li>With a measuring tape, measure below your bust, directly below the wire of your bra.<\/li><li>Ensure the tape is parallel to the floor, i.e at the same level on your back, sides and front.<\/li><li>Enter this number in the \"band measurement\" box below.<\/li><\/ol><h6><strong>Hot Tip<\/strong><br\/>In between numbers? Round to the nearest whole number.<\/h6>",
+            "text_style": "body",
+            "content_font_size": 14,
+            "content_font_size_mobile": 14,
+            "content_color": "#000000",
+            "content_color_mobile": "#000000"
+          }
+        }
+      },
+      "block_order": [
+        "template--14650614349896__b7ce6714-d348-48fa-8e7c-3c8f266ea3c0-heading-1",
+        "template--14650614349896__b7ce6714-d348-48fa-8e7c-3c8f266ea3c0-text-1"
+      ],
+      "settings": {
+        "image": "shopify:\/\/shop_images\/sizing_band_zoom.jpg",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "text_first",
+        "desktop_content_position": "middle",
+        "desktop_content_alignment": "left",
+        "content_layout": "no-overlap",
+        "color_scheme": "",
+        "image_behavior": "none",
+        "mobile_content_alignment": "left",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "section_identifier": "find-your-size"
+      }
+    },
+    "6bc10fed-a254-43a3-916f-d66ca69e966f": {
+      "type": "image-with-text",
+      "blocks": {
+        "42ba070a-5c77-49f6-83c1-ece7363bb441": {
+          "type": "heading",
+          "settings": {
+            "heading": "the <em>bust<\/em>",
+            "heading_size": "h1",
+            "heading_font_size": 38,
+            "heading_font_size_mobile": 32,
+            "heading_color": "#000000",
+            "heading_color_mobile": "#000000"
+          }
+        },
+        "39306775-5f5b-4268-ac7a-198d957c688d": {
+          "type": "text",
+          "settings": {
+            "text": "<ol><li>Loop the measuring tape around your back, just under your shoulder blades to measure around the fullest part of your bust.<\/li><li>Keep the measuring tape level from end to end, ensuring it is close, but not too tight, to find a comfortable and snug position.<\/li><li>Enter this number in the \"bust measurement\" box below.<\/li><\/ol><h6><strong>Hot Tip<\/strong><br\/>If the measurement falls on the half inch, round it up!<\/h6>",
+            "text_style": "body",
+            "content_font_size": 14,
+            "content_font_size_mobile": 14,
+            "content_color": "#000000",
+            "content_color_mobile": "#000000"
+          }
+        }
+      },
+      "block_order": [
+        "42ba070a-5c77-49f6-83c1-ece7363bb441",
+        "39306775-5f5b-4268-ac7a-198d957c688d"
+      ],
+      "settings": {
+        "image": "shopify:\/\/shop_images\/sizing_bust_zoom.jpg",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "image_first",
+        "desktop_content_position": "middle",
+        "desktop_content_alignment": "left",
+        "content_layout": "no-overlap",
+        "color_scheme": "",
+        "image_behavior": "none",
+        "mobile_content_alignment": "left",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "section_identifier": "size-guid-bust-section"
+      }
+    },
+    "main": {
+      "type": "get-my-size",
+      "blocks": {
+        "template--14650614349896__1964c449-6f1c-49d4-b862-d69b100fc1ab-heading-1": {
+          "type": "heading",
+          "settings": {
+            "heading": "Your f<em>leur<\/em> size",
+            "heading_size": "h1",
+            "heading_font_size": 38,
+            "heading_font_size_mobile": 32
+          }
+        },
+        "template--14650614349896__1964c449-6f1c-49d4-b862-d69b100fc1ab-text-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Our products may vary in size from your universal sizing. Use the calculator below to determine your best fitting Fleur du Mal sizes.<\/p>",
+            "content_font_size": 14,
+            "content_font_size_mobile": 14
+          }
+        }
+      },
+      "block_order": [
+        "template--14650614349896__1964c449-6f1c-49d4-b862-d69b100fc1ab-heading-1",
+        "template--14650614349896__1964c449-6f1c-49d4-b862-d69b100fc1ab-text-1"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "text_color": "#000000",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "bra-style-guide": {
+      "type": "bra-style-guide",
+      "blocks": {
+        "af51dd81-8a2b-483f-97ce-585e5f351696": {
+          "type": "size-guide-slider",
+          "settings": {
+            "product_image": "shopify:\/\/shop_images\/1_e0bbf25b-f6f2-415a-8788-852a907102c7.jpg",
+            "product_title": "The Demi",
+            "product_description": "For everyday hotness. A demi-bra lifts up along the sides of the cup & pushes everything toward the center to create cleavage.",
+            "product_collection": "demi-bras"
+          }
+        },
+        "3fa5bad9-f5d9-40c0-95ff-d650c39ce6cc": {
+          "type": "size-guide-slider",
+          "settings": {
+            "product_image": "shopify:\/\/shop_images\/2_155b0bd1-c0e6-4c21-8e5b-fa4faf73bd20.jpg",
+            "product_title": "The Balconette",
+            "product_description": "Mais oui. A European favorite, balconettes fit straight across the bust & lift everything up like a shelf. They're perfect under a low neckline.",
+            "product_collection": "balconette-bras"
+          }
+        },
+        "67fca06a-082f-4c44-817b-f0f61f6a72b3": {
+          "type": "size-guide-slider",
+          "settings": {
+            "product_image": "shopify:\/\/shop_images\/sizing_bra_style_top.jpg",
+            "product_title": "The Bra Top",
+            "product_description": "Ideal when worn under a sheer top or on its own with something high-waisted. It's provocative, but not as bare as wearing just a bra.",
+            "product_collection": ""
+          }
+        },
+        "5db50b75-e087-4d80-8cab-8dc43dbf7619": {
+          "type": "size-guide-slider",
+          "settings": {
+            "product_image": "shopify:\/\/shop_images\/sizing_bra_style_soft_cup.jpg",
+            "product_title": "The Soft Cup",
+            "product_description": "Easy-going, soft and wireless. The best alternative to going sans bra with the comfort of 'next to nothing'. When a little satin, tulle or lace is all you need.",
+            "product_collection": ""
+          }
+        },
+        "0d044e92-efe2-45ac-8b60-9fa578a3f7ad": {
+          "type": "size-guide-slider",
+          "settings": {
+            "product_image": "shopify:\/\/shop_images\/sizing_bra_style_padded_lined.jpg",
+            "product_title": "Padded & Lined",
+            "product_description": "And...lift! Our lined bras add fullness & enhance the appearance of your bust, ‘redirecting’ the natural shape of your breast toward the center.",
+            "product_collection": ""
+          }
+        },
+        "243d57a0-a107-4720-8557-c9d87d61f8f4": {
+          "type": "size-guide-slider",
+          "settings": {
+            "product_image": "shopify:\/\/shop_images\/sizing_bra_style_bondage_peekaboo.jpg",
+            "product_title": "The Bondage & Peekaboo",
+            "product_description": "Pure seduction. For late night adventures, a peek-a-boo or ouvert bra does not disappoint. Lifts & frames your bust to highlight the main attraction.",
+            "product_collection": ""
+          }
+        },
+        "1cf4d110-8e99-4399-934b-8b28b17877ce": {
+          "type": "size-guide-slider",
+          "settings": {
+            "product_image": "shopify:\/\/shop_images\/sizing_bra_style_strapless.jpg",
+            "product_title": "Strapless \/ Convertible",
+            "product_description": "Show me your straps - or don’t. Featuring details like molded cups or silicone elastic for zero slippage, our convertibles are the lingerie staples you’ll wear over & over again.",
+            "product_collection": ""
+          }
+        },
+        "491eb3af-bfbe-40ae-ac7d-04f584c0fe16": {
+          "type": "size-guide-slider",
+          "settings": {
+            "product_image": "shopify:\/\/shop_images\/sizing_bra_style_fuller_cup.jpg",
+            "product_title": "Fuller Cup Bras",
+            "product_description": "Because you’re such a handful. Designed & engineered to offer the perfect amount of support for 32DD & above, our Fuller Cup collection supports & seduces.",
+            "product_collection": ""
+          }
+        }
+      },
+      "block_order": [
+        "af51dd81-8a2b-483f-97ce-585e5f351696",
+        "3fa5bad9-f5d9-40c0-95ff-d650c39ce6cc",
+        "67fca06a-082f-4c44-817b-f0f61f6a72b3",
+        "5db50b75-e087-4d80-8cab-8dc43dbf7619",
+        "0d044e92-efe2-45ac-8b60-9fa578a3f7ad",
+        "243d57a0-a107-4720-8557-c9d87d61f8f4",
+        "1cf4d110-8e99-4399-934b-8b28b17877ce",
+        "491eb3af-bfbe-40ae-ac7d-04f584c0fe16"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "title": "bra <em>style<\/em> guide",
+        "title_text_color": "#000000",
+        "title_font_size_desktop": 42,
+        "title_font_size_mobile": 32,
+        "sub-title": "The right bra should reflect your own personal style. Meet our core bra shapes to find one that feels just right for you.",
+        "sub_title_text_color": "#000000",
+        "sub_title_font_size_desktop": 13,
+        "sub_title_font_size_mobile": 13,
+        "columns_desktop": 3,
+        "columns_mobile": "1",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "section_identifier": "bra-style-guide"
+      }
+    },
+    "cec74b9c-2b56-4483-87ab-5ae5a56fde36": {
+      "type": "rich-text",
+      "blocks": {
+        "ebf329b3-d46c-4ddb-8219-2ef056a095ab": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Band too tight or straps sliding off your shoulders? Get schooled on all things bra fit & sister sizing below.<\/p>",
+            "content_font_size": 14,
+            "content_font_size_mobile": 14
+          }
+        },
+        "4f39c000-02b9-43fc-8e1c-49c16d559070": {
+          "type": "button",
+          "settings": {
+            "button_label": "BRA FIT 101",
+            "button_link": "https:\/\/fleurdumal.com\/pages\/faq#product-details-fit",
+            "button_style_secondary": true,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false,
+            "chat_button": false,
+            "apply_button_min_width": true,
+            "button_min_width": 240
+          }
+        }
+      },
+      "block_order": [
+        "ebf329b3-d46c-4ddb-8219-2ef056a095ab",
+        "4f39c000-02b9-43fc-8e1c-49c16d559070"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "background_color": "",
+        "text_color": "#000000",
+        "full_width": true,
+        "padding_top": 36,
+        "padding_bottom": 52,
+        "section_identifier": ""
+      }
+    },
+    "e683ae3b-7d48-421b-a6dc-eea36f1397c4": {
+      "type": "rich-text",
+      "blocks": {
+        "e97ae22b-c538-4658-a650-d16fe5f2c487": {
+          "type": "heading",
+          "settings": {
+            "heading": "We <em>support<\/em> you",
+            "heading_size": "h1",
+            "heading_font_size": 38,
+            "heading_font_size_mobile": 32
+          }
+        },
+        "ecf7ead9-d031-4959-b4b9-ebc473ab8a8a": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Still need help? Chat with a Fleur stylist for more information, or book<br\/> an in-store fitting with a bra specialist below (we recommend a <br\/>professional fitting every 6 months to a year).<\/p>",
+            "content_font_size": 14,
+            "content_font_size_mobile": 14
+          }
+        },
+        "5e5b639a-64f6-43c8-934c-cae8850a48a4": {
+          "type": "button",
+          "settings": {
+            "button_label": "Chat with a Fleur Girl",
+            "button_link": "",
+            "button_style_secondary": true,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false,
+            "chat_button": true,
+            "apply_button_min_width": true,
+            "button_min_width": 240
+          }
+        },
+        "8804e702-82cb-47d9-b8c9-158d6d918a34": {
+          "type": "button",
+          "settings": {
+            "button_label": "Book a fitting",
+            "button_link": "https:\/\/calendly.com\/fleurdumalnyc?utm_campaign=7.13%20new%20york%20store%20re-opening%20%2B%20safety%20guidelines%20%28SiJunr%29&utm_medium=email&utm_source=New%20York%202020&bxid=QvRbB2&_ke=eyJrbF9lbWFpbCI6ICJrYXRpZUBmbGV1cmR1bWFsLmNvbSIsICJrbF9jb21wYW55X2lkIjogIk1DWU1tcCJ9",
+            "button_style_secondary": true,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false,
+            "chat_button": false,
+            "apply_button_min_width": true,
+            "button_min_width": 240
+          }
+        }
+      },
+      "block_order": [
+        "e97ae22b-c538-4658-a650-d16fe5f2c487",
+        "ecf7ead9-d031-4959-b4b9-ebc473ab8a8a",
+        "5e5b639a-64f6-43c8-934c-cae8850a48a4",
+        "8804e702-82cb-47d9-b8c9-158d6d918a34"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "background_color": "",
+        "text_color": "#000000",
+        "full_width": true,
+        "padding_top": 36,
+        "padding_bottom": 52,
+        "section_identifier": "we-support-you"
+      }
+    }
+  },
+  "order": [
+    "c205116a-7020-4b09-be3d-8ad834964bb7",
+    "6ab778c8-d4c1-42ef-8b74-bf38c30cf9db",
+    "f83735c5-b724-42b8-a6bd-e8fc5800105d",
+    "b7ce6714-d348-48fa-8e7c-3c8f266ea3c0",
+    "6bc10fed-a254-43a3-916f-d66ca69e966f",
+    "main",
+    "bra-style-guide",
+    "cec74b9c-2b56-4483-87ab-5ae5a56fde36",
+    "e683ae3b-7d48-421b-a6dc-eea36f1397c4"
+  ]
+}

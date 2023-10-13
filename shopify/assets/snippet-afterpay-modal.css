@@ -1,0 +1,27 @@
+#afterpay-modal .afterpay-logo {
+	 width: 150px !important;
+	 margin-bottom: 15px;
+}
+ @media screen and (min-width: 1024px) {
+	 #afterpay-modal .afterpay-logo {
+		 width: 200px !important;
+	}
+}
+ #afterpay-modal .afterpay-icon {
+	 height: 40px;
+	 margin-bottom: 15px;
+}
+ @media screen and (min-width: 1024px) {
+	 #afterpay-modal .afterpay-icon {
+		 height: 80px;
+	}
+}
+ #afterpay-modal p {
+	 text-transform: initial;
+	 line-height: 1.6;
+	 letter-spacing: initial !important;
+}
+ #afterpay-modal h6 {
+	 margin-top: 0px;
+	 text-transform: lowercase;
+}

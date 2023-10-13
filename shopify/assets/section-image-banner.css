@@ -551,6 +551,12 @@
       overflow: hidden;
   }
   .banner.banner-image-version-two.banner--medium:not(.banner--mobile-bottom):not(.banner--adapt) .banner__content{
-        background: rgba(0,0,0,.2);
+        background: rgba(0,0,0,.3);
   }
+}
+.banner.banner-image-version-two .banner__url >a{
+  font-size: 1.28rem;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  border-bottom: 2px solid;
 }

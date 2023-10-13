@@ -1,0 +1,39 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-sustainability",
+      "settings": {
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "collection-product-slider": {
+      "type": "collection-product-slider",
+      "settings": {
+        "title": "sexy & sustainable",
+        "heading_font_size": 32,
+        "heading_font_mobile_size": 24,
+        "subtitle": "",
+        "subtitle_font_size": 19,
+        "subtitle_mobile_font_size": 19,
+        "text_position": "center",
+        "collection": "all",
+        "products_to_show": 10,
+        "columns_desktop": 3,
+        "image_ratio": "adapt",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "enable_quick_add": false,
+        "columns_mobile": "2",
+        "margin_bottom": 30,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "main",
+    "collection-product-slider"
+  ]
+}
