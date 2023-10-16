@@ -117,20 +117,20 @@
   },
   "products": {
     "product": {
-      "add_to_cart": "Add to cart",
+      "add_to_cart": "ADD TO BAG",
       "choose_options": "Choose options",
       "choose_product_options": "Choose options for {{ product_name }}",
       "description": "Description",
       "inventory_in_stock": "In stock",
       "inventory_in_stock_show_count": "{{ quantity }} in stock",
       "inventory_low_stock": "Low stock",
-      "inventory_low_stock_show_count": "Low stock: {{ quantity }} left",
+      "inventory_low_stock_show_count": "only {{ quantity }} left",
       "inventory_out_of_stock": "Out of stock",
       "inventory_out_of_stock_continue_selling": "In stock",
       "sku": "SKU",
       "on_sale": "Sale",
       "product_variants": "Product variants",
-      "coming_soon": "Coming Soon",
+      "coming_soon": "Join Waitlist",
       "media": {
         "gallery_viewer": "Gallery Viewer",
         "load_image": "Load image {{ index }} in gallery view",
@@ -206,7 +206,10 @@
       "specs": "Specifications",
       "shipping_returns": "Shipping & Returns",
       "select": "Select Size",
-      "sizing_chart": "Size Guide"
+      "sizing_chart": "Size Guide",
+      "coming_soon_message": "The selected style is coming soon. Fill out the form below to be notified when it becomes available.",
+      "sold_out_message": "The selected style is sold out online. Fill out the form below to be notified when it becomes available again.",
+      "sold_out_message_action": "Join waitlist"
     },
     "help": {
       "title": "Need help?",
@@ -430,7 +433,7 @@
   },
   "customer": {
     "account": {
-      "title": "Account",
+      "title": "My Account",
       "details": "Account details",
       "view_addresses": "View addresses",
       "return": "Return to Account details"
@@ -468,7 +471,7 @@
       "delete_confirm": "Are you sure you wish to delete this address?"
     },
     "log_in": "Log in",
-    "log_out": "Log out",
+    "log_out": "Sign Out",
     "login_page": {
       "cancel": "Cancel",
       "create_account": "Create account",
@@ -477,7 +480,7 @@
       "guest_continue": "Continue",
       "guest_title": "Continue as a guest",
       "password": "Password",
-      "title": "Login",
+      "title": "hey, beautiful",
       "sign_in": "Sign in",
       "submit": "Submit"
     },

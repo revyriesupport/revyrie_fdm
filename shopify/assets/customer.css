@@ -210,7 +210,7 @@
 /* works around colspan phantom border issues */
 .customer thead::after,
 .customer tfoot::before {
-  content: ' ';
+  content: " ";
   height: 0.1rem;
   width: 100%;
   display: block;
@@ -317,7 +317,7 @@
 }
 
 .customer .pagination li [aria-current]::after {
-  content: '';
+  content: "";
   display: block;
   width: 2rem;
   height: 0.01rem;
@@ -335,7 +335,7 @@
   width: fit-content;
 }
 
-.login a[href='#recover'] {
+.login a[href="#recover"] {
   margin-left: 0;
   margin-right: 0;
 }
@@ -385,15 +385,18 @@
   margin-bottom: 0;
 }
 
-.activate button[name='decline'],
+.activate button[name="decline"],
 .addresses li > button,
 .addresses form button[type] {
-  background-color: rgba(var(--color-background), var(--alpha-button-background));
+  background-color: rgba(
+    var(--color-background),
+    var(--alpha-button-background)
+  );
   color: rgb(var(--color-link));
 }
 
 @media only screen and (min-width: 750px) {
-  .activate button[name='decline'] {
+  .activate button[name="decline"] {
     margin-top: inherit;
     margin-left: 1rem;
   }
@@ -673,8 +676,8 @@
   margin-right: 1rem;
 }
 
-label[for='AddressCountryNew'],
-label[for='AddressProvinceNew'] {
+label[for="AddressCountryNew"],
+label[for="AddressProvinceNew"] {
   display: block;
   font-size: 1.4rem;
   margin-bottom: 0.6rem;
@@ -700,11 +703,11 @@ li[data-address] {
   margin-top: 5rem;
 }
 
-.addresses [aria-expanded='false'] ~ div[id] {
+.addresses [aria-expanded="false"] ~ div[id] {
   display: none;
 }
 
-.addresses [aria-expanded='true'] ~ div[id] {
+.addresses [aria-expanded="true"] ~ div[id] {
   display: block;
 }
 
@@ -728,7 +731,7 @@ li[data-address] > h2 {
   margin-bottom: 0;
 }
 
-.addresses input[type='checkbox'] {
+.addresses input[type="checkbox"] {
   margin-top: 2rem;
   margin-left: 0;
 }
@@ -752,4 +755,653 @@ li[data-address] > h2 {
 .addresses form > div:nth-of-type(7),
 .addresses form > div:nth-of-type(7) + div[id] {
   margin-top: 1.5rem;
+}
+
+/* login page UI corrections*/
+
+.login {
+  max-width: 86rem !important;
+  padding-top: 60px !important;
+  min-height: 600px;
+}
+
+.authPageTitle {
+  font-size: 38.2px;
+}
+
+.form__message {
+  display: none;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  .authPageTitle {
+    font-size: 35.2px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .authPageTitle {
+    font-size: 32px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .loginFormContainer {
+    max-width: 100% !important;
+    margin: 0 auto;
+  }
+  .login {
+    padding-right: 8px !important;
+    padding-left: 8px !important;
+    padding-top: 40px !important;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .loginFormContainer {
+    max-width: 49% !important;
+    margin: 0 auto;
+  }
+}
+
+.authPageInput input {
+  outline: none !important;
+  box-shadow: none !important;
+  padding: 9.6px !important;
+}
+
+.authPageFieldLabel {
+  text-align: left;
+  letter-spacing: 0.2px;
+  text-transform: capitalize;
+  margin-top: 30px;
+}
+
+.authPageSubmitBtn {
+  font-size: 12.8px !important;
+  font-weight: 600 !important;
+  margin: 30px 0px !important;
+  padding: 15px 18px !important;
+  text-transform: uppercase;
+  min-width: auto !important;
+  min-height: auto !important;
+}
+
+.authPageSubmitBtn::after {
+  display: none !important;
+}
+
+.authPageSubmitBtn::before {
+  display: none !important;
+}
+
+.authPageSubmitBtn:hover {
+  color: #d4857b;
+}
+
+.marginLeftZero {
+  margin-left: 0px !important;
+}
+
+.authOptionLinks {
+  text-align: left !important;
+  margin-left: 0px !important;
+  font-size: 12.8px !important;
+  text-decoration: none !important;
+  color: #d4857b !important;
+  font-weight: 600;
+}
+
+.authOptionLinks:hover {
+  color: #000;
+}
+
+/* register page UI corrections*/
+
+.register {
+  max-width: 86rem !important;
+  margin-bottom: 56px !important;
+}
+
+@media only screen and (max-width: 767px) {
+  .register {
+    padding-right: 8px !important;
+    padding-left: 8px !important;
+    padding-top: 30px !important;
+  }
+}
+
+/* reset password UI change */
+
+.authOptionCancelLink {
+  text-align: left !important;
+  margin-left: 0px !important;
+  font-size: 12.8px !important;
+  text-decoration: none !important;
+  color: #000 !important;
+  line-height: 1.15;
+  font-family: sans-serif !important;
+}
+
+.recoverTitle {
+  font-size: 13.6px;
+  letter-spacing: 0.4px;
+  color: #000;
+}
+
+@media only screen and (max-width: 767px) {
+  .recoverFormContainer {
+    max-width: 100% !important;
+    margin: 0 auto;
+    margin-top: -10px;
+  }
+  .recover {
+    padding-right: 8px !important;
+    padding-left: 8px !important;
+  }
+}
+
+.recover {
+  min-height: 600px;
+}
+
+.loginFormContainer form,
+.recoverFormContainer form {
+  margin-top: 0px !important;
+}
+
+@media only screen and (min-width: 768px) {
+  .recoverFormContainer {
+    max-width: 49% !important;
+    margin: 0 auto;
+    margin-top: -10px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .customer .errors {
+    margin-top: 15px;
+  }
+}
+
+.authPageFormErrorField {
+  border-color: #ff4136;
+  background-color: #000;
+  color: #ff4136;
+}
+
+.customer .errors {
+  margin-top: 10px;
+}
+
+.customer .errors ul {
+  margin-bottom: 0px !important;
+  padding: 0px;
+}
+
+.authPageErrorsUL {
+  margin-top: 10px;
+  margin-bottom: 0px !important;
+  padding: 0px !important;
+}
+
+.authPageErrorsUL li {
+  font-size: 13.6px;
+  line-height: 1.3;
+  letter-spacing: 0px;
+}
+
+.authPageErrorsUL li a {
+  text-decoration: none;
+  font-size: 13.6px;
+  line-height: 1.3;
+}
+
+.authPageErrorsUL li a[href="/account/login#recover"] {
+  color: #ff4136;
+}
+
+.customer .errors ul li {
+  font-size: 13.6px;
+  line-height: 1.3;
+  letter-spacing: 0px;
+}
+
+/* addresses page UI correction */
+
+.accountPageTitle {
+  font-size: 38.2px;
+  text-transform: lowercase;
+  margin-bottom: 5px;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  .accountPageTitle {
+    font-size: 35.2px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .accountPageTitle {
+    font-size: 32px;
+  }
+}
+
+.returnToAccountLink {
+  text-transform: capitalize;
+  font-style: italic;
+  margin-top: 15px;
+  margin-bottom: 0;
+  font-size: 13.6px !important;
+  letter-spacing: 0.2px;
+  text-underline-offset: 1px !important;
+  line-height: 1;
+  text-align: center;
+  color: #979797 !important;
+  text-decoration: underline;
+  margin-top: 0px;
+}
+
+.returnToAccountLink:hover {
+  color: #000 !important;
+  font-style: italic;
+  letter-spacing: 0.2px;
+  text-decoration-thickness: 1px !important;
+}
+
+.addressPageSubmitBtn {
+  font-size: 12.8px !important;
+  font-weight: 600 !important;
+  margin: 15px 0px !important;
+  padding: 15px 18px !important;
+  text-transform: uppercase;
+  min-width: auto !important;
+  min-height: auto !important;
+}
+
+.addressPageSubmitBtn::after {
+  display: none !important;
+}
+
+.addressPageSubmitBtn::before {
+  display: none !important;
+}
+
+.addressPageSubmitBtn:hover {
+  color: #d4857b;
+}
+
+.customer.addresses {
+  max-width: none !important;
+  padding: 30px 8px !important;
+}
+
+.addressCreateSplitter {
+  border-top: solid 1px #ececec !important;
+  background-color: #ececec !important;
+  border-width: 1px 0 0;
+  clear: both;
+  height: 0;
+  margin: 5px 0px 20px 0px !important;
+}
+
+.addressAddTitle {
+  margin-top: 30px;
+  text-align: center !important;
+}
+
+@media only screen and (max-width: 767px) {
+  .addressAddTitle {
+    font-size: 24px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .addressAddTitle {
+    font-size: 32px;
+  }
+  .addressCreateSplitter {
+    margin: 25px 0px 40px 0px !important;
+  }
+}
+
+.addAddressFieldLabel {
+  text-align: left;
+  letter-spacing: 0.2px;
+  text-transform: capitalize;
+  margin-top: 30px;
+  font-weight: 500;
+}
+
+.addAddressPageInput {
+  margin-top: 0px !important;
+}
+
+.addAddressPageInput input {
+  height: 28px !important;
+  min-height: unset !important;
+  outline: none !important;
+  box-shadow: none !important;
+  padding: 9.6px !important;
+  border: solid 1px #000 !important;
+  color: #000 !important;
+}
+
+.addAddressPageInput input::placeholder {
+  color: transparent;
+}
+
+.addAddressPageInput select {
+  min-height: unset !important;
+  outline: none !important;
+  box-shadow: none !important;
+  padding: 9.6px !important;
+  border-bottom: solid 2px #000;
+  color: #000 !important;
+  font-weight: 500;
+  font-size: 14.4px;
+}
+
+.addAddressPageInput.select::after {
+  box-shadow: none !important;
+}
+
+.addresses form {
+  margin-top: 0px;
+  display: block !important;
+}
+
+@media only screen and (max-width: 767px) {
+  .customer.addresses .addressFormContainer {
+    max-width: 100% !important;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1098px) {
+  .customer.addresses .addressFormContainer {
+    max-width: 83.33333% !important;
+    margin: 0 auto;
+  }
+}
+
+.customer.addresses .addressFormContainer {
+  max-width: 66.66667%;
+  margin: 0 auto;
+}
+
+.addressDefaultCheckBox {
+  display: flex;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.addressDefaultCheckBox input,
+.addressDefaultCheckBox label {
+  margin: 0px !important;
+}
+
+.addressDefaultCheckBox label {
+  padding-left: 10px;
+}
+
+.addressSubmitBtnBox {
+  display: flex;
+  flex-direction: column;
+  max-width: 135px;
+  margin-top: 15px;
+}
+
+.addressEditSubmitBtnBox {
+  display: flex;
+  flex-direction: column;
+  max-width: 170px;
+  margin-top: 15px;
+}
+
+.addressPageResetBtn {
+  justify-content: start !important;
+  padding: 0px !important;
+  font-size: 13.6px !important;
+  color: #000 !important;
+  letter-spacing: 0px !important;
+  line-height: 1.3 !important;
+  font-family: sans-serif !important;
+  margin-bottom: 0px !important;
+}
+
+.addressPageResetBtn::after {
+  display: none !important;
+}
+
+.addressPageResetBtn::before {
+  display: none !important;
+}
+
+.defaultAddress {
+  color: #000;
+  margin-top: 0;
+  margin-bottom: 15px !important;
+  font-size: 13.6px !important;
+  line-height: 1.7;
+  font-weight: bolder;
+  font-family: proxima-nova, Helvetica, Roboto, Arial, sans-serif;
+}
+
+.addressLists li {
+  border-bottom: solid 1px #ececec !important;
+  margin: 40px 0px 20px 0px !important;
+  text-align: left;
+}
+
+.addressLists li h2 {
+  text-align: left !important;
+}
+
+.addressLists li:first-child {
+  margin: 30px 0px 20px 0px !important;
+}
+
+.addressLists li:last-child {
+  border: none !important;
+}
+
+.addressActionBtn {
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+  margin-bottom: 40px !important;
+  min-width: min-content !important;
+  font-family: proxima-nova, Helvetica, Roboto, Arial, sans-serif !important;
+  border: 1px solid #000 !important;
+  text-transform: uppercase;
+  font-size: 12.8px !important;
+  font-weight: 600 !important;
+  padding: 0px 16px !important;
+}
+
+@media only screen and (max-width: 767px) {
+  .addressActionBtn {
+    margin-bottom: 20px !important;
+  }
+  .addressLists li {
+    margin: 30px 0px 20px 0px !important;
+  }
+}
+
+.addressActionBtn:hover {
+  color: #d4857b !important;
+  border: 1px solid #d4857b !important;
+}
+
+.addressActionBtn::after,
+.addressActionBtn::before {
+  box-shadow: none !important;
+}
+
+.addressEditTitle {
+  font-size: 19.2px !important;
+  text-transform: lowercase;
+  margin-top: 20px;
+  text-align: center;
+}
+
+@media only screen and (min-width: 768px) {
+  .addressEditTitle {
+    font-size: 22.4px !important;
+    margin-top: 0px;
+  }
+}
+
+/* account section */
+
+.accountSectionFieldsBox {
+  display: block !important;
+  margin-top: 0px !important;
+}
+
+@media only screen and (max-width: 767px) {
+  .customer.account {
+    max-width: 100% !important;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1098px) {
+  .customer.account {
+    max-width: 83.33333% !important;
+    margin: 0 auto;
+  }
+}
+
+.customer.account {
+  max-width: 66.66667%;
+  margin: 0 auto;
+  padding-left: 8px !important;
+  padding-right: 8px !important;
+  padding-top: 30px !important;
+  padding-bottom: 90px !important;
+}
+
+.accountSectionsSplitter {
+  margin: 40px 0px;
+  border-top: solid 1px #ececec !important;
+  background-color: #ececec !important;
+  border-width: 1px 0 0;
+  height: 0;
+}
+
+.padRZer {
+  padding: 0px !important;
+}
+
+.accountContentTitle {
+  font-size: 24px;
+  text-transform: lowercase;
+  margin-top: 0px !important;
+  letter-spacing: 0.8px;
+}
+
+.accSectionBtn {
+  display: inline-block;
+  width: auto;
+  text-decoration: none;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+  background: #000;
+  color: #fff !important;
+  font-size: 12.8px !important;
+  letter-spacing: 1.2px;
+  padding: 0px 16px !important;
+  cursor: pointer;
+  font-family: proxima-nova, Helvetica, Roboto, Arial, sans-serif !important;
+  text-decoration: none !important;
+  border: 1px solid #000;
+  text-transform: uppercase;
+  font-weight: 600;
+  border-radius: 0;
+  height: 45px;
+  line-height: 45px;
+  background-color: #000 !important;
+}
+
+.accSectionBtn:hover {
+  color: #d4857b !important;
+}
+
+.noOrderHistoryMsg {
+  color: #000;
+  font-size: 13.6px !important;
+  line-height: 1.7;
+  text-align: left !important;
+}
+
+.currentAddressField p {
+  text-align: left;
+  color: #000;
+  margin-top: 0px;
+  margin-bottom: 15px;
+  font-size: 13.6px;
+  line-height: 1.7;
+}
+
+.currentAddressField .returnToAccountLink {
+  display: block !important;
+  text-align: left !important;
+}
+
+@media only screen and (max-width: 767px) {
+  .accountSectionsSplitter {
+    margin: 20px 0px 40px 0px;
+  }
+  .accSectionBtn {
+    margin-bottom: 20px !important;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .accSectionBtn {
+    margin-bottom: 20px !important;
+  }
+}
+
+.address-country,.address-province{
+    background-image: url(//fleurdumal.com/cdn/shop/t/404/assets/ico-select.svg?v=1686168…);
+    appearance: none;
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 15px;
+    background-color: transparent;
+    height: 43px;
+    text-indent: 2px;
+    text-overflow: '';
+    background-color: #fff;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-bottom: 2px solid #000;
+    font-size: 14.4px;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-right: 1rem;
+    padding-left: 0;
+    text-transform: capitalize;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.returnToStore{
+  text-align:left;
+}
+.login-sucess-message{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+    color: #3d9970;
+    margin-top: -40px;
+  font-family:var(--font-custom-family-body);
+}
+@media only screen and (max-width: 767px) {
+.login-sucess-message{
+ text-align: left;
+}
 }

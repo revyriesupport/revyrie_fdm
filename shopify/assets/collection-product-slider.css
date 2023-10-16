@@ -44,3 +44,6 @@
     max-width: 50%;
   }
 }
+.collection_product_section .collection__title h2.title {
+    padding: 0px 10px 0px 10px !important;
+}

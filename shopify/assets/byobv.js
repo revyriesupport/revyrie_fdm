@@ -408,6 +408,7 @@ function scriptByob(arrayProductsAdd, countAdd) {
                 jsonData['properties[_product_from]'] = 'byob';
                 jsonData['properties[_byo]'] = slides.length;
                 jsonData['properties[_bundle_id]'] = bundleId;
+                jsonData['properties[final_sale]'] = slides[i].getAttribute('data-final-sale') == "false" ? 0 : 1;
                 viewData.items.push(jsonData);
             }
         }
@@ -1328,9 +1329,4 @@ $(function() {
         // });
     }
     eventPopup();
-    $('.paginate').on( 'append.infiniteScroll', function( event, response, path, items ) {
-        console.log('append.infiniteScroll');
-        $(document).foundation();
-        eventPopup();
-    });
 })

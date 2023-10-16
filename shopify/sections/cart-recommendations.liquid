@@ -1,0 +1,96 @@
+<style>
+  .x2_cartPageSize .x2_title {
+      font-size: 32px !important;
+      font-family: var(--font-custom-family-heading) !important;
+  }
+  .x2_cartPageSize .x2_name {
+        font-size: 14.4px !important;
+  }
+  .x2_cartPageSize .x2_price {
+      width: 100% !important;
+  }
+  .x2_cartPageSize .x2_price span.money {
+      margin: 0;
+      float: none !important;
+  }
+  .suggested-products button#AddToCart {
+    width: 100%;
+    background: #000;
+    color: #fff;
+    text-transform: uppercase;
+  }
+  .suggested-products button#AddToCart span {
+      line-height: 45px;
+  }
+  .suggested-products button#AddToCart:hover {
+    color: #d4857b;
+  }
+  
+@media screen and (min-width: 750px) {
+  .suggested-products .page-width {
+      max-width: 1162px;
+      margin: 0 auto;
+  }
+  .suggested-products {
+      margin-bottom: 80px;
+  }
+}
+@media screen and (max-width: 749px) {
+  .suggested-products {
+      margin-bottom: 80px;
+  }
+}
+</style>
+{% if section.settings.show_content %}
+<div class="suggested-products top-margin">
+    {%- assign collection = collections[section.settings.collection] -%}
+    {%- assign product_limit = 3 -%}
+    <div class="page-width align-center center">
+        <div class="medium-12 small-12 columns">
+            {% if section.settings.title != blank %}
+            <h2 class="center">{{ section.settings.title | escape }}</h2>
+            {% endif %}
+            <ul class="row large-up-3 medium-up-3 small-up-2">
+          {% for product in collection.products limit:product_limit %}
+          <li class="column product product-{{ product.id }}">
+            {% render 'card-product',
+              card_product: product,
+              section_id: section.id
+            %}
+          </li><!-- column product -->
+          {% endfor %}
+        </ul><!-- row large-up-3 medium-up-3 small-up-2 -->
+    </div><!-- medium-12 small-12 columns -->
+    </div><!-- row align-center center -->
+</div><!--suggested-products top-margin-->
+{% endif %}
+{% schema %}
+{
+	"name": "Cart Recommendations",
+	"settings": [
+	{
+		"type": "checkbox",
+		"id": "show_content",
+		"label": "Enable",
+		"default": true
+	},
+	{
+	"id": "collection",
+	"type": "collection",
+	"label": "Collection"
+},
+	{
+		"type": "textarea",
+		"id": "title",
+		"label": "Title",
+		"default": "Wait, there's more"
+	}
+	],
+  "presets": [
+    {
+      "name": "Cart Recommendations"
+      
+    }
+  ]
+}
+{% endschema %}

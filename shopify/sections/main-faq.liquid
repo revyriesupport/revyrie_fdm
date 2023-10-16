@@ -1,0 +1,282 @@
+{{ 'component-accordion.css' | asset_url | stylesheet_tag }}
+{{ 'main-faq.css' | asset_url | stylesheet_tag }}
+<style>
+  #faq .faq_gird_heading{
+    color: {{section.settings.text_color}};
+    font-size: {{ section.settings.heading_font_size }}px;
+  }
+  #faq .accordion .accordion-item .accordion-content.category .accordion-content ol li, 
+  #faq .accordion .accordion-item .accordion-content.category .accordion-content ul li,
+  #faq .faq_gird_content ,#faq .faq_gird_content p{
+    color: {{section.settings.text_color}};
+    font-size: {{ section.settings.content_font_size }}px;
+  }
+  @media screen and (max-width: 768px) {
+    #faq .faq_gird_heading{
+      font-size: {{ section.settings.heading_font_size_mobile }}px;
+    }
+    #faq .accordion .accordion-item .accordion-content.category .accordion-content ol li, 
+    #faq .accordion .accordion-item .accordion-content.category .accordion-content ul li,
+    #faq .faq_gird_content ,#faq .faq_gird_content p{
+        font-size: {{ section.settings.content_font_size_mobile }}px;
+    }
+  }
+  
+.faq-sub-accordion{ display: none; }
+form.search-form .input-group input.search {
+	background-image: url({{ 'icon-search.svg' | asset_url }});
+}
+#faq .accordion .accordion-item .accordion .accordion-item .accordion-title::after {
+	content: url({{ 'icon-chevron-down.svg' | asset_url }});
+}
+#faq .accordion .accordion-item .accordion .accordion-item.is-active .accordion-title::after {
+	content: url({{ 'icon-chevron-up.svg' | asset_url }});
+}
+#faq .accordion .accordion-item .accordion-title.category::after {
+	content: url({{ 'icon-arrow-down.svg' | asset_url }});
+}
+#faq .accordion .accordion-item.is-active .accordion-title.category::after {
+	content: url({{ 'icon-arrow-up.svg' | asset_url }});
+}
+</style>
+
+<form action="/search#results" method="get" role="search" class="search-form">
+	<div class="input-group">
+		<input type="hidden" name="type" value="article" />
+		<input type="hidden" name="view" value="faq" />
+		<input type="search" name="q" id="Search" value="{{ search.terms | escape }}" placeholder="Search for an answer" class="search">
+		<div class="input-group-btn">
+			<input type="submit" class="btn" value="Search">
+		</div><!-- input-group-btn -->
+	</div><!-- input-group -->
+</form>
+<div class="row align-center top-margin-small" id="faq">
+	<div class="large-8 medium-10 small-11 columns">
+		{{ page.content }}	
+		<ul class="faqaccordion accordion">
+			<li class="accordion-item">
+				<a class="faq-parent-accordion accordion-title category faq_gird_heading" href="#placing-your-order">Placing Your Order</a>
+				<!-- <div class="accordion-content category"> -->
+				<ul class="faq-sub-accordion accordion accordion-content category">
+					{% for article in blogs.placing-your-order.articles %}
+					<li class="accordion-item small">
+						<a href="#{{ article.title | handleize }}" class="faq-parent-accordion accordion-title faq_gird_content">{{ article.title }}</a>
+						<div class="faq-sub-accordion accordion-content faq_gird_content">
+							{% if article.content.size > 0 %}
+							{{ article.content }}
+							{% endif %}
+						</div>
+					</li>
+					{% endfor %}
+				</ul>
+				<!-- </div> -->
+			</li>
+			<li class="accordion-item">
+				<a class="faq-parent-accordion accordion-title category faq_gird_heading" href="#order-status">Order Status</a>
+				<!-- <div class="accordion-content category"> -->
+					<ul class="faq-sub-accordion accordion accordion-content category">
+						{% for article in blogs.order-status.articles %}
+						<li class="accordion-item small">
+							<a href="#{{ article.title | handleize }}" class="faq-parent-accordion accordion-title faq_gird_content">{{ article.title }}</a>
+							<div class="faq-sub-accordion accordion-content faq_gird_content">
+								{% if article.content.size > 0 %}
+								{{ article.content }}
+								{% endif %}
+							</div>
+						</li>
+						{% endfor %}
+					</ul>
+				<!-- </div> -->
+			</li>
+			<li class="accordion-item">
+				<a class="faq-parent-accordion accordion-title category faq_gird_heading" href="#shipping-delivery">Shipping & Delivery</a>
+				<!-- <div class="accordion-content category"> -->
+				<ul class="faq-sub-accordion accordion accordion-content category">
+					{% for article in blogs.shipping-delivery.articles %}
+					<li class="accordion-item small">
+						<a href="#{{ article.title | handleize }}" class="faq-parent-accordion accordion-title faq_gird_content">{{ article.title }}</a>
+						<div class="faq-sub-accordion accordion-content faq_gird_content">
+							{% if article.content.size > 0 %}
+							{{ article.content }}
+							{% endif %}
+						</div>
+					</li>
+					{% endfor %}
+				</ul>
+				<!-- </div> -->
+			</li>
+			<li class="accordion-item">
+				<a class="faq-parent-accordion accordion-title category faq_gird_heading" href="#returns">Returns</a>
+				<!-- <div class="accordion-content category"> -->
+					<ul class="faq-sub-accordion accordion accordion-content category">
+						{% for article in blogs.returns.articles %}
+						<li class="accordion-item small">
+							<a href="#{{ article.title | handleize }}" class="faq-parent-accordion accordion-title faq_gird_content">{{ article.title }}</a>
+							<div class="faq-sub-accordion accordion-content faq_gird_content">
+								{% if article.content.size > 0 %}
+								{{ article.content }}
+								{% endif %}
+							</div>
+						</li>
+						{% endfor %}
+					</ul>
+				<!-- </div> -->
+			</li>
+			<li class="accordion-item">
+				<a class="faq-parent-accordion accordion-title category faq_gird_heading" href="#refunds">Refunds</a>
+				<!-- <div class="accordion-content category"> -->
+					<ul class="faq-sub-accordion accordion accordion-content category">
+						{% for article in blogs.refunds.articles %}
+						<li class="accordion-item small">
+							<a href="#{{ article.title | handleize }}" class="faq-parent-accordion accordion-title faq_gird_content">{{ article.title }}</a>
+							<div class="faq-sub-accordion accordion-content faq_gird_content">
+								{% if article.content.size > 0 %}
+								{{ article.content }}
+								{% endif %}
+							</div>
+						</li>
+						{% endfor %}
+					</ul>
+				<!-- </div> -->
+			</li>
+			<li class="accordion-item" >
+				<a class="faq-parent-accordion accordion-title category faq_gird_heading" href="#product-details-fit">Product Details &amp; Fit</a>
+				<!-- <div class="accordion-content category"> -->
+					<ul class="faq-sub-accordion accordion accordion-content category">
+						{% for article in blogs.product-details.articles %}
+						<li class="accordion-item small">
+							<a href="#{{ article.title | handleize }}" class="faq-parent-accordion accordion-title faq_gird_content">{{ article.title }}</a>
+							<div class="faq-sub-accordion accordion-content faq_gird_content">
+								{% if article.content.size > 0 %}
+								{{ article.content }}
+								{% endif %}
+							</div>
+						</li>
+						{% endfor %}
+					</ul>
+				<!-- </div> -->
+			</li>
+			<li class="accordion-item">
+				<a class="faq-parent-accordion accordion-title category faq_gird_heading" href="#fleur-du-mal-boutiques">Fleur du Mal Boutiques</a>
+				<!-- <div class="accordion-content category"> -->
+					<ul class="faq-sub-accordion accordion accordion-content category">
+						{% for article in blogs.fleur-du-mal-boutiques.articles %}
+						<li class="accordion-item small">
+							<a href="#{{ article.title | handleize }}" class="faq-parent-accordion accordion-title faq_gird_content">{{ article.title }}</a>
+							<div class="faq-sub-accordion accordion-content faq_gird_content">
+								{% if article.content.size > 0 %}
+								{{ article.content }}
+								{% endif %}
+							</div>
+						</li>
+						{% endfor %}
+					</ul>
+				<!-- </div> -->
+			</li>
+		</ul>
+	</div><!-- large-8 medium-10 small-11 columns -->
+</div><!-- row align-center faq -->
+<script>
+// Get all elements with the class 'faq-parent-accordion'
+var toggleElements = document.querySelectorAll('.faq-parent-accordion');
+// Check the URL anchor and open the corresponding faqaccordion section and its parent
+if (window.location.hash) {
+    var targetHash = window.location.hash.substr(1);
+    var targetElement = document.querySelector('a.faq-parent-accordion[href="#' + targetHash + '"]');
+    if (targetElement) {
+        var parentListItem = targetElement.parentElement;
+        while (parentListItem && !parentListItem.classList.contains('faqaccordion')) {
+            if (parentListItem.tagName === 'LI') {
+                parentListItem.querySelector('.faq-sub-accordion').style.display = 'block';
+                parentListItem.classList.add('is-active'); // Add the 'is-active' class
+            }
+            parentListItem = parentListItem.parentElement;
+        }
+        targetElement.nextElementSibling.style.display = 'block';
+    }
+}
+// Loop through each element and add a click event listener
+toggleElements.forEach(function(toggleElement) {
+    toggleElement.addEventListener('click', function(e) {
+        e.preventDefault();
+        // Get the clicked element
+        var clickedElement = this;
+        // Check if the next sibling is visible
+        if (clickedElement.nextElementSibling.style.display === 'block') {
+            clickedElement.nextElementSibling.style.display = 'none';
+            clickedElement.parentElement.classList.remove('is-active'); // Remove the 'is-active' class
+        } else {
+            // Hide all '.faq-sub-accordion' elements in the parent's parent
+            var parentListItems = clickedElement.parentElement.parentElement.querySelectorAll('li .faq-sub-accordion');
+            parentListItems.forEach(function(innerElement) {
+                innerElement.style.display = 'none';
+                innerElement.parentElement.classList.remove('is-active'); // Remove the 'is-active' class from all elements
+            });
+            // Show the next sibling
+            clickedElement.nextElementSibling.style.display = 'block';
+            clickedElement.parentElement.classList.add('is-active'); // Add the 'is-active' class
+        }
+        window.location.hash = clickedElement.getAttribute('href').substr(1);
+    });
+});
+
+</script>
+{% schema %}
+{
+   "name":"Faq",
+   "disabled_on":{
+      "groups":[
+         "header",
+         "footer"
+      ]
+   },
+   "settings":[
+     {
+         "type":"color",
+         "id":"text_color",
+         "default":"#000000",
+         "label":"Text Color"
+      },
+      {
+         "type":"range",
+         "id":"heading_font_size",
+         "min":0,
+         "max":100,
+         "step":1,
+         "unit":"px",
+         "label":"Heading Font Size Desktop",
+         "default":19
+      },
+      {
+         "type":"range",
+         "id":"heading_font_size_mobile",
+         "min":0,
+         "max":100,
+         "step":1,
+         "unit":"px",
+         "label":"Heading Font Size Mobile",
+         "default":18
+      },
+      {
+         "type":"range",
+         "id":"content_font_size",
+         "min":0,
+         "max":100,
+         "step":1,
+         "unit":"px",
+         "label":"Content Font Size Desktop",
+         "default":14
+      },
+      {
+         "type":"range",
+         "id":"content_font_size_mobile",
+         "min":0,
+         "max":100,
+         "step":1,
+         "unit":"px",
+         "label":"Content Font Size Mobile",
+         "default":14
+      }
+   ]
+}
+{% endschema %}

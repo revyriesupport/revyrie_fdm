@@ -102,7 +102,19 @@
       </span>
       <span class="saved-price-main">
         {% if product.compare_at_price > product.price %}
-          <span class="saved-price">{{ product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | money_without_currency | times: 100 | remove: '.0' }}%  OFF</span>
+        <span class="saved-price">
+          {% capture discount %}
+              {{ product.compare_at_price_max | minus: product.price | times: 100 |
+              divided_by: product.compare_at_price_max |
+              replace: '22', '25' | replace: '27', '30' | replace: '28', '30' | replace: '29', '30' | replace: '31', '30' | replace: '33', '35' | replace: '38', '40' | replace: '39', '40' | replace: '48', '50' | replace: '49',
+              '50' |
+              replace: '48', '50' | replace: '49', '50' | replace: '51', '50' | replace: '68', '70' | replace: '69',
+              '70' }}%
+              OFF
+            {% endcapture %}
+          {{ discount }}
+          
+        </span>
           {% endif %}
         </span>
     </div>

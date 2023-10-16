@@ -1,0 +1,38 @@
+{
+  "sections": {
+    "main": {
+      "type": "subscribe-newsletter",
+      "blocks": {
+        "e40834df-72a7-43ec-a933-8f72a00c577a": {
+          "type": "newsletter",
+          "settings": {
+            "heading": "Subscribe to our emails",
+            "text": "<p>Be the first to know about new collections and exclusive offers.<\/p>",
+            "caption": "",
+            "show_social_on_mobile": true,
+            "desktop_column_alignment": "left",
+            "mobile_column_alignment": "center"
+          }
+        }
+      },
+      "block_order": [
+        "e40834df-72a7-43ec-a933-8f72a00c577a"
+      ],
+      "settings": {
+        "heading_size": "h1",
+        "heading_font_size": 32,
+        "heading_font_size_mobile": 32,
+        "content_font_size": 18,
+        "content_font_size_mobile": 18,
+        "background_color": "#000000",
+        "text_color": "#FFFFFF",
+        "padding_top": 40,
+        "padding_bottom": 52,
+        "full_width": true
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

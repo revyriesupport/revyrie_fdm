@@ -1,0 +1,201 @@
+
+/*================ Carousel ================*/
+
+.main-carousel {
+	 -ms-flex-wrap: wrap;
+	 flex-wrap: wrap;
+	 opacity: 0;
+	 overflow: hidden;
+	 position: relative;
+}
+ @media screen and (min-width: 1024px) {
+	 .main-carousel {
+		 margin-right: -0.5375rem;
+		 margin-left: -0.5375rem;
+	}
+}
+ .main-carousel.secondary.invert {
+	 background: #000;
+	 margin-right: 0;
+	 margin-left: 0;
+}
+ .main-carousel.secondary .flickity-page-dots {
+	 display: none;
+}
+ @media screen and (max-width: 639px) {
+	 .main-carousel.secondary .flickity-page-dots {
+		 display: block;
+		 bottom: 160px;
+	}
+}
+ .main-carousel.secondary .carousel-cell {
+	 text-align: left;
+	 width: 33.3333%;
+}
+ @media screen and (max-width: 639px) {
+	 .main-carousel.secondary .carousel-cell {
+		 padding-left: 40px;
+		 padding-right: 40px;
+	}
+}
+ .main-carousel.secondary .carousel-cell img {
+	 width: 100%;
+	 margin-bottom: 15px;
+}
+ .main-carousel.secondary .carousel-cell h4 {
+	 font-family: "proxima-nova", Helvetica, Roboto, Arial, sans-serif;
+	 text-transform: capitalize;
+}
+ .main-carousel.secondary .carousel-cell p {
+	 max-width: 350px;
+	 margin-left: inherit;
+	 margin-right: inherit;
+}
+ @media screen and (min-width: 640px) and (max-width: 1023px) {
+	 .main-carousel.secondary .carousel-cell {
+		 width: 50%;
+	}
+}
+ @media screen and (max-width: 639px) {
+	 .main-carousel.secondary .carousel-cell {
+		 width: 100%;
+	}
+}
+ .main-carousel .flickity-prev-next-button {
+	 top: 45%;
+	 width: 30px;
+	 height: 30px;
+}
+ @media screen and (max-width: 639px) {
+	 .main-carousel .flickity-prev-next-button {
+		 top: 40%;
+	}
+}
+ @media screen and (max-width: 639px) {
+	 .main-carousel .flickity-prev-next-button .flickity-button-icon {
+		 left: 25%;
+		 top: 25%;
+		 width: 50%;
+		 height: 50%;
+	}
+}
+ .main-carousel .flickity-prev-next-button.previous {
+	 z-index: 4;
+	 left: 15px;
+}
+ .main-carousel .flickity-prev-next-button.next {
+	 z-index: 4;
+	 right: 15px;
+}
+ .main-carousel .flickity-prev-next-button.flickity-button {
+	 background: rgba(0, 0, 0, 0.1);
+}
+ .main-carousel .flickity-prev-next-button.flickity-button .flickity-button-icon {
+	 fill: #fff;
+}
+ .main-carousel .flickity-prev-next-button.flickity-button:focus {
+	 box-shadow: none;
+}
+ .main-carousel .carousel-cell {
+	 width: 33.33333%;
+	 padding-right: 0.5375rem;
+	 padding-left: 0.5375rem;
+	 min-width: 0;
+}
+ .main-carousel .carousel-cell ul.information {
+	 margin-bottom: 10px;
+}
+ @media screen and (min-width: 640px) and (max-width: 1023px) {
+	 .main-carousel .carousel-cell {
+		 width: 50%;
+	}
+}
+ @media screen and (max-width: 639px) {
+	 .main-carousel .carousel-cell {
+		 width: 50%;
+	}
+}
+ .main-carousel .carousel-cell.product {
+	 margin-bottom: 0px;
+}
+
+
+/*================ Related Products ================*/
+ .related-products .product .product-image-wrapper .badge-corner {
+	 font-size: 10px;
+}
+ .featured-collection {
+	 margin-top: 60px;
+}
+ @media screen and (max-width: 639px) {
+	 .featured-collection {
+		 margin-top: 30px;
+	}
+}
+ .featured-collection h2.has-h3 {
+	 margin-bottom: 0px;
+}
+ .featured-collection h2.h3 {
+	 margin-bottom: 30px;
+}
+ .featured-collection.related h2.h5, .featured-collection.suggested h2.h5, .featured-collection.recent h2.h5 {
+	 margin-bottom: 20px;
+}
+ @media screen and (max-width: 639px) {
+	 .featured-collection.related h2.h5, .featured-collection.suggested h2.h5, .featured-collection.recent h2.h5 {
+		 text-align: center;
+	}
+}
+ .featured-collection.related .main-carousel, .featured-collection.suggested .main-carousel, .featured-collection.recent .main-carousel {
+	 overflow: visible;
+}
+ .featured-collection.related .main-carousel .flickity-prev-next-button, .featured-collection.suggested .main-carousel .flickity-prev-next-button, .featured-collection.recent .main-carousel .flickity-prev-next-button {
+	 top: 40%;
+}
+ @media screen and (min-width: 1024px) {
+	 .featured-collection.related .main-carousel .flickity-prev-next-button, .featured-collection.suggested .main-carousel .flickity-prev-next-button, .featured-collection.recent .main-carousel .flickity-prev-next-button {
+		 background: none;
+	}
+	 .featured-collection.related .main-carousel .flickity-prev-next-button .flickity-button-icon, .featured-collection.suggested .main-carousel .flickity-prev-next-button .flickity-button-icon, .featured-collection.recent .main-carousel .flickity-prev-next-button .flickity-button-icon {
+		 fill: #000;
+	}
+}
+ .featured-collection.related .main-carousel .flickity-prev-next-button.previous, .featured-collection.suggested .main-carousel .flickity-prev-next-button.previous, .featured-collection.recent .main-carousel .flickity-prev-next-button.previous {
+	 left: 15px;
+}
+ @media screen and (min-width: 1024px) {
+	 .featured-collection.related .main-carousel .flickity-prev-next-button.previous, .featured-collection.suggested .main-carousel .flickity-prev-next-button.previous, .featured-collection.recent .main-carousel .flickity-prev-next-button.previous {
+		 left: -25px;
+	}
+}
+ .featured-collection.related .main-carousel .flickity-prev-next-button.next, .featured-collection.suggested .main-carousel .flickity-prev-next-button.next, .featured-collection.recent .main-carousel .flickity-prev-next-button.next {
+	 right: 15px;
+}
+ @media screen and (min-width: 1024px) {
+	 .featured-collection.related .main-carousel .flickity-prev-next-button.next, .featured-collection.suggested .main-carousel .flickity-prev-next-button.next, .featured-collection.recent .main-carousel .flickity-prev-next-button.next {
+		 right: -25px;
+	}
+}
+ .featured-collection.related .main-carousel .carousel-cell, .featured-collection.suggested .main-carousel .carousel-cell, .featured-collection.recent .main-carousel .carousel-cell {
+	 width: 33.333333%;
+	 padding-right: 0.5375rem;
+	 padding-left: 0.5375rem;
+	 min-width: 0;
+}
+ @media screen and (min-width: 1024px) {
+	 .featured-collection.related .main-carousel .carousel-cell, .featured-collection.suggested .main-carousel .carousel-cell, .featured-collection.recent .main-carousel .carousel-cell {
+		 width: 20%;
+	}
+}
+ @media screen and (max-width: 639px) {
+	 .featured-collection.related .main-carousel .carousel-cell, .featured-collection.suggested .main-carousel .carousel-cell, .featured-collection.recent .main-carousel .carousel-cell {
+		 width: 50%;
+		 padding-right: 0.26875rem;
+		 padding-left: 0.26875rem;
+	}
+}
+ @media screen and (min-width: 1024px) {
+	 .featured-collection.related.suggested .flickity-prev-next-button, .featured-collection.suggested.suggested .flickity-prev-next-button, .featured-collection.recent.suggested .flickity-prev-next-button {
+		 display: none;
+	}
+}

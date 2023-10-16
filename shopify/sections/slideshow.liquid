@@ -1,7 +1,12 @@
 {{ 'section-image-banner.css' | asset_url | stylesheet_tag }}
 {{ 'component-slider.css' | asset_url | stylesheet_tag }}
 {{ 'component-slideshow.css' | asset_url | stylesheet_tag }}
-
+{% style %}
+    #video-{{ section.id }}.banner_video{
+    object-fit: cover;
+    object-position: top center;
+  }
+{% endstyle %}
 {%- if section.settings.slide_height == 'adapt_image' and section.blocks.first.settings.image != blank -%}
   {%- style -%}
     @media screen and (max-width: 749px) {
@@ -128,6 +133,16 @@
         tabindex="-1"
       >
         <div class="slideshow__media banner__media media{% if block.settings.image == blank %} placeholder{% endif %}{% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}">
+          {% if block.settings.show_slide_video == true %}
+            <video class="banner_video" id="video-{{ section.id }}" poster="{{ section.settings.image | img_url:'master' }}" preload="none" controlslist="nodownload" autoplay="" muted="" loop="" playsinline="" webkit-playsinline="">
+			{% if block.settings.show_slide_video_mp4_url != blank %}
+			<source src="{{ block.settings.show_slide_video_mp4_url }}" type="video/mp4">
+			{% endif %}
+			{% if block.settings.show_slide_video_ogv_url != blank %}
+			<source src="{{ block.settings.show_slide_video_ogv_url }}" type="video/ogv">
+			{% endif %}
+      </video>
+          {% else %}
           {%- if block.settings.image -%}
             {%- liquid
               assign height = block.settings.image.width | divided_by: block.settings.image.aspect_ratio | round
@@ -168,6 +183,7 @@
               {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
             {%- endif -%}
           {%- endif -%}
+            {%- endif -%}
         </div>
         <div class="slideshow__text-wrapper banner__content banner__content--{{ block.settings.box_align }} page-width{% if block.settings.show_text_box == false %} banner--desktop-transparent{% endif %}{% if settings.animations_reveal_on_scroll and forloop.index == 1 %} scroll-trigger animate--slide-in{% endif %}">
           <div
@@ -183,13 +199,21 @@
                </div>
               {%- endif -%}
             {%- if block.settings.heading != blank -%}
-              <h2 class="banner__heading inline-richtext" data-index="{{ forloop.index }}">
+              <h2 class="banner__heading inline-richtext {% if block.settings.dropshadow_desktop_enable %}dropshadow-desktop{% endif %} {% if block.settings.dropshadow_mobile_enable %}dropshadow-mobile{% endif %}" data-index="{{ forloop.index }}">
                 {{ block.settings.heading }}
               </h2>
               <style>
-                #Slider-{{ section.id }} .slideshow__text .banner__heading[data-index="{{ forloop.index }}"] {
+              #Slider-{{ section.id }} .slideshow__text .banner__heading[data-index="{{ forloop.index }}"] {
                   font-size: {{ block.settings.heading_font_size_desktop }}px;
                   color: {{ block.settings.heading_color }};
+                }
+                #Slider-{{ section.id }} .slideshow__text .dropshadow-desktop {
+                  filter: drop-shadow(3px 3px 3px #000);
+                }
+                @media screen and (max-width: 639px) {
+                  #Slider-{{ section.id }} .slideshow__text .dropshadow-mobile {
+                    filter: drop-shadow(3px 3px 3px #000);
+                  }
                 }
                 @media screen and (max-width: 768px) {
                   #Slider-{{ section.id }} .slideshow__text .banner__heading[data-index="{{ forloop.index }}"] {
@@ -461,14 +485,32 @@
       "limit": 5,
       "settings": [
         {
+          "type": "checkbox",
+          "id": "show_slide_video",
+          "label": "t:sections.slideshow.blocks.slide.settings.show_slide_video.label",
+          "default": false
+        },
+        {
+          "type": "textarea",
+          "id": "show_slide_video_mp4_url",
+          "label": "t:sections.slideshow.blocks.slide.settings.show_slide_video_mp4_url.label"
+        },
+        {
+          "type": "textarea",
+          "id": "show_slide_video_ogv_url",
+          "label": "t:sections.slideshow.blocks.slide.settings.show_slide_video_ogv_url.label"
+        },
+        {
           "type": "image_picker",
           "id": "image",
-          "label": "t:sections.slideshow.blocks.slide.settings.image.label"
+          "label": "t:sections.slideshow.blocks.slide.settings.image.label",
+          "info": "t:sections.slideshow.blocks.slide.settings.image.info"
         },
         {
           "type": "image_picker",
           "id": "mobile_image",
-          "label": "t:sections.slideshow.blocks.slide.settings.mobile_image.label"
+          "label": "t:sections.slideshow.blocks.slide.settings.mobile_image.label",
+           "info": "t:sections.slideshow.blocks.slide.settings.mobile_image.info"
         },
         {
           "type": "image_picker",
@@ -513,6 +555,18 @@
           "unit": "px",
           "label": "t:sections.slideshow.blocks.slide.settings.heading_font_size_mobile.label",
           "default": 20
+        },
+       {
+          "type": "checkbox",
+          "id": "dropshadow_desktop_enable",
+          "label": "t:sections.slideshow.blocks.slide.settings.dropshadow_desktop_enable.label",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "dropshadow_mobile_enable",
+          "label": "t:sections.slideshow.blocks.slide.settings.dropshadow_mobile_enable.label",
+          "default": true
         },
         {
           "type": "inline_richtext",

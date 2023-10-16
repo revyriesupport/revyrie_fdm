@@ -32,7 +32,11 @@ export function formatProductPrice(price, currencyCode = window.currencyCode) {
     currency: currencyCode,
   });
   const formattedPrice = price / 100;
-  return formatter.format(formattedPrice);
+  //return formatter.format(formattedPrice);
+  var priceFormatted = new Intl.NumberFormat().format(formattedPrice);
+  var price_format = document.getElementById("custom_price_format").value;
+  let finalFormattedPrice = price_format.replace("*", priceFormatted);
+  return finalFormattedPrice;
 }
 /**
  * 

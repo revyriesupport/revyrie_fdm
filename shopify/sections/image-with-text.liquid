@@ -16,7 +16,10 @@
 
 {% assign scheme1 = settings.color_schemes | first %}
 
-<div class="image-with-text image-with-text--{{ section.settings.content_layout }} page-width isolate{% if settings.text_boxes_border_thickness > 0 and settings.text_boxes_border_opacity > 0 and settings.media_border_thickness > 0 and settings.media_border_opacity > 0 %} collapse-borders{% endif %}{% unless section.settings.color_scheme == scheme1 and settings.media_border_thickness > 0 and settings.text_boxes_shadow_opacity == 0 and settings.text_boxes_border_thickness == 0 or settings.text_boxes_border_opacity == 0 %} collapse-corners{% endunless %} section-{{ section.id }}-padding{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+<div
+  id="{{ section.settings.section_identifier }}"
+  class="image-with-text image-with-text--{{ section.settings.content_layout }} page-width isolate{% if settings.text_boxes_border_thickness > 0 and settings.text_boxes_border_opacity > 0 and settings.media_border_thickness > 0 and settings.media_border_opacity > 0 %} collapse-borders{% endif %}{% unless section.settings.color_scheme == scheme1 and settings.media_border_thickness > 0 and settings.text_boxes_shadow_opacity == 0 and settings.text_boxes_border_thickness == 0 or settings.text_boxes_border_opacity == 0 %} collapse-corners{% endunless %} section-{{ section.id }}-padding{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+>
   <div class="image-with-text__grid grid grid--gapless grid--1-col grid--{% if section.settings.desktop_image_width == 'medium' %}2-col-tablet{% else %}3-col-tablet{% endif %}{% if section.settings.layout == 'text_first' %} image-with-text__grid--reverse{% endif %}">
     <div class="image-with-text__media-item image-with-text__media-item--{{ section.settings.desktop_image_width }} image-with-text__media-item--{{ section.settings.desktop_content_position }} grid__item">
       <div
@@ -57,18 +60,18 @@
         {%- for block in section.blocks -%}
           {% case block.type %}
             {%- when 'heading' -%}
-            <style>
-              #ImageWithText--{{ section.id }} .image-with-text__heading{
-                  font-size: {{ block.settings.content_font_size_mobile }}px;
-                  color: {{ block.settings.content_color_mobile }};
-              }
-             @media only screen and (min-device-width: 768px){
-                #ImageWithText--{{ section.id }} .image-with-text__heading{
-                   font-size: {{ block.settings.content_font_size }}px;
-                  color: {{ block.settings.content_color }};
+              <style>
+                 #ImageWithText--{{ section.id }} .image-with-text__heading{
+                     font-size: {{ block.settings.heading_font_size_mobile }}px;
+                     color: {{ block.settings.heading_color_mobile }};
+                 }
+                @media only screen and (min-device-width: 768px){
+                   #ImageWithText--{{ section.id }} .image-with-text__heading{
+                      font-size: {{ block.settings.heading_font_size }}px;
+                     color: {{ block.settings.heading_color }};
+                   }
                 }
-             }
-            </style>
+              </style>
               <h2
                 class="image-with-text__heading inline-richtext"
                 {{ block.shopify_attributes }}
@@ -83,10 +86,51 @@
                 {{ block.settings.caption | escape }}
               </p>
             {%- when 'text' -%}
+              <style>
+                 #ImageWithText--{{ section.id }} .image-with-text__text{
+                     font-size: {{ block.settings.content_font_size_mobile }}px;
+                     color: {{ block.settings.content_color_mobile }};
+                 }
+                @media only screen and (min-device-width: 768px){
+                   #ImageWithText--{{ section.id }} .image-with-text__text{
+                      font-size: {{ block.settings.content_font_size }}px;
+                     color: {{ block.settings.content_color }};
+                   }
+                }
+              </style>
               <div class="image-with-text__text rte {{ block.settings.text_style }}" {{ block.shopify_attributes }}>
                 {{ block.settings.text }}
               </div>
             {%- when 'button' -%}
+              <style>
+                #ImageWithText--{{ section.id }} .button--secondary:hover {
+                    border-color: #000;
+                    color: #d4857b;
+                }
+                #ImageWithText--{{ section.id }}  .button--secondary {
+                    -webkit-user-select: "none";
+                    user-select: "none";
+                    display: inline-block;
+                    width: auto;
+                    text-decoration: none;
+                    text-align: center;
+                    vertical-align: middle;
+                    white-space: nowrap;
+                    background: #000;
+                    color: #fff;
+                    font-size: 13px;
+                    letter-spacing: .075rem;
+                    padding: 0rem 3rem;
+                    cursor: pointer;
+                    font-family: proxima-nova,Helvetica,Roboto,Arial,sans-serif;
+                    border: 1px solid #000;
+                    text-transform: uppercase;
+                    font-weight: 600;
+                    border-radius: 0;
+                    height: 45px;
+                    line-height: 45px;
+                }
+              </style>
               {%- if block.settings.button_label != blank -%}
                 <a
                   {% if block.settings.button_link == blank %}
@@ -315,6 +359,11 @@
       "unit": "px",
       "label": "t:sections.all.padding.padding_bottom",
       "default": 36
+    },
+    {
+      "type": "text",
+      "id": "section_identifier",
+      "label": "Section Identifier"
     }
   ],
   "blocks": [
@@ -351,34 +400,34 @@
         },
         {
           "type": "range",
-          "id": "content_font_size",
+          "id": "heading_font_size",
           "min": 0,
           "max": 100,
           "step": 1,
           "unit": "px",
-          "label": "t:sections.image-with-text.blocks.text.settings.content_font_size.label",
+          "label": "t:sections.image-with-text.blocks.heading.settings.heading_font_size.label",
           "default": 19
         },
         {
           "type": "range",
-          "id": "content_font_size_mobile",
+          "id": "heading_font_size_mobile",
           "min": 0,
           "max": 100,
           "step": 1,
           "unit": "px",
-          "label": "t:sections.image-with-text.blocks.text.settings.content_font_size_mobile.label",
+          "label": "t:sections.image-with-text.blocks.heading.settings.heading_font_size_mobile.label",
           "default": 17
         },
         {
           "type": "color",
-          "id": "content_color",
-          "label": "t:sections.image-with-text.blocks.text.settings.content_color.label",
+          "id": "heading_color",
+          "label": "t:sections.image-with-text.blocks.heading.settings.heading_color.label",
           "default": "#000"
         },
         {
           "type": "color",
-          "id": "content_color_mobile",
-          "label": "t:sections.image-with-text.blocks.text.settings.content_color_mobile.label",
+          "id": "heading_color_mobile",
+          "label": "t:sections.image-with-text.blocks.heading.settings.heading_color_mobile.label",
           "default": "#000"
         }
       ]
@@ -458,6 +507,39 @@
           ],
           "default": "body",
           "label": "t:sections.image-with-text.blocks.text.settings.text_style.label"
+        },
+
+        {
+          "type": "range",
+          "id": "content_font_size",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "t:sections.image-with-text.blocks.text.settings.content_font_size.label",
+          "default": 19
+        },
+        {
+          "type": "range",
+          "id": "content_font_size_mobile",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "t:sections.image-with-text.blocks.text.settings.content_font_size_mobile.label",
+          "default": 17
+        },
+        {
+          "type": "color",
+          "id": "content_color",
+          "label": "t:sections.image-with-text.blocks.text.settings.content_color.label",
+          "default": "#000"
+        },
+        {
+          "type": "color",
+          "id": "content_color_mobile",
+          "label": "t:sections.image-with-text.blocks.text.settings.content_color_mobile.label",
+          "default": "#000"
         }
       ]
     },

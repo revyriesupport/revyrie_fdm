@@ -1,0 +1,44 @@
+/*============================================================================ Responsive tables, defined with .responsive-table on table element. ==============================================================================*/
+ @media screen and (max-width: 639px) {
+	 .responsive-table {
+		 width: 100%;
+	}
+	 .responsive-table thead {
+		 display: none;
+	}
+	 .responsive-table tr {
+		 display: block;
+	}
+	 .responsive-table tr, .responsive-table td {
+		 float: left;
+		 clear: both;
+		 width: 100%;
+	}
+	 .responsive-table th, .responsive-table td {
+		 display: block;
+		 text-align: right;
+		 padding: 0.46875rem;
+		 margin: 0;
+	}
+	 .responsive-table td::before {
+		 content: attr(data-label);
+		 float: left;
+		 text-align: center;
+		 padding-right: 10px;
+	}
+	 .responsive-table-row + .responsive-table-row, tfoot > .responsive-table-row:first-child {
+		 position: relative;
+		 margin-top: 10px;
+		 padding-top: 0.46875rem;
+	}
+	 .responsive-table-row + .responsive-table-row::after, tfoot > .responsive-table-row:first-child::after {
+		 content: '';
+		 display: block;
+		 position: absolute;
+		 top: 0;
+		 left: 0.46875rem;
+		 right: 0.46875rem;
+		 border-bottom: 1px solid #ececec;
+	}
+}
+ 

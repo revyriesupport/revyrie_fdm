@@ -365,7 +365,7 @@ Disabled currently in favor of Vue Cart
           </div>
           <div class="header_user_box">
             <ul class="header_user_category">
-              {% for sub_link in linklists.my-account-desktop.links %}
+              {% for sub_link in linklists.main-my-account-desktop.links %}
                 <li><a href="{{ sub_link.url }}"{% if sub_link.active %} class="active"{% endif %} aria-label="Shop {{ sub_link.title }}">{{ sub_link.title }}</a>
               {% endfor %}
               {% if customer %}
@@ -446,10 +446,12 @@ Disabled currently in favor of Vue Cart
             <span class="visually-hidden">{{ 'sections.header.cart_count' | t: count: cartItemSize }}</span>
           </div>
         {% else %}
+            <div class="cart-count-bubble">
             {%- if cart.item_count < 100 -%}
               <span aria-hidden="true">0</span>
             {%- endif -%}
             <span class="visually-hidden">{{ 'sections.header.cart_count' | t: count: cartItemSize }}</span>
+            </div>
         {%- endif -%}
       </a>
     </div>
@@ -1412,6 +1414,224 @@ function toggleAccordion() {
           "type": "url",
           "id": "block_link_4",
           "label": "t:sections.header.blocks.image_content.settings.block_link_4.label"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.header.blocks.image_content.settings.fifth_image_block.content"
+        },
+        {
+          "type": "checkbox",
+          "id": "hide_desktop_5",
+          "label": "t:sections.header.blocks.image_content.settings.hide_desktop_5.label",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "hide_mobile_5",
+          "label": "t:sections.header.blocks.image_content.settings.hide_mobile_5.label",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "marge_five",
+          "label": "t:sections.header.blocks.image_content.settings.marge_five.label",
+          "default": false
+        },
+        {
+          "type": "image_picker",
+          "id": "image_5",
+          "label": "t:sections.header.blocks.image_content.settings.image_5.label"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_5_mobile",
+          "label": "t:sections.header.blocks.image_content.settings.image_5_mobile.label"
+        },
+        {
+          "type": "select",
+          "id": "text_position_five",
+          "options": [
+            {
+              "value": "left",
+              "label": "t:sections.header.blocks.image_content.settings.text_position_five.options__1.label"
+            },
+            {
+              "value": "center",
+              "label": "t:sections.header.blocks.image_content.settings.text_position_five.options__2.label"
+            },
+            {
+              "value": "right",
+              "label": "t:sections.header.blocks.image_content.settings.text_position_five.options__3.label"
+            }
+          ],
+          "default": "left",
+          "label": "t:sections.header.blocks.image_content.settings.text_position_five.label"
+        },
+        {
+          "type": "text",
+          "id": "heading_5",
+          "label": "t:sections.header.blocks.image_content.settings.heading_5.label"
+        },
+        {
+          "type": "range",
+          "id": "heading_5_font_size",
+          "min": 0,
+          "max": 30,
+          "step": 1,
+          "unit": "px",
+          "label": "t:sections.header.blocks.image_content.settings.heading_5_font_size.label",
+          "default": 15
+        },
+        {
+          "type": "range",
+          "id": "heading_5_font_size_mobile",
+          "min": 0,
+          "max": 30,
+          "step": 1,
+          "unit": "px",
+          "label": "t:sections.header.blocks.image_content.settings.heading_5_font_size_mobile.label",
+          "default": 19
+        },
+        {
+          "type": "color",
+          "id": "heading_5_color",
+          "label": "t:sections.header.blocks.image_content.settings.heading_5_color.label",
+          "default": "#000"
+        },
+        {
+          "type": "richtext",
+          "id": "content_5",
+          "label": "t:sections.header.blocks.image_content.settings.content_5.label"
+        },
+        {
+          "type": "range",
+          "id": "content_5_font_size",
+          "min": 0,
+          "max": 30,
+          "step": 1,
+          "unit": "px",
+          "label": "t:sections.header.blocks.image_content.settings.content_5_font_size.label",
+          "default": 12
+        },
+        {
+          "type": "color",
+          "id": "content_5_color",
+          "label": "t:sections.header.blocks.image_content.settings.content_5_color.label",
+          "default": "#000"
+        },
+        {
+          "type": "url",
+          "id": "block_link_5",
+          "label": "t:sections.header.blocks.image_content.settings.block_link_5.label"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.header.blocks.image_content.settings.sixth_image_block.content"
+        },
+        {
+          "type": "checkbox",
+          "id": "hide_desktop_6",
+          "label": "t:sections.header.blocks.image_content.settings.hide_desktop_6.label",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "hide_mobile_6",
+          "label": "t:sections.header.blocks.image_content.settings.hide_mobile_6.label",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "marge_six",
+          "label": "t:sections.header.blocks.image_content.settings.marge_six.label",
+          "default": false
+        },
+        {
+          "type": "image_picker",
+          "id": "image_6",
+          "label": "t:sections.header.blocks.image_content.settings.image_6.label"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_6_mobile",
+          "label": "t:sections.header.blocks.image_content.settings.image_6_mobile.label"
+        },
+        {
+          "type": "select",
+          "id": "text_position_six",
+          "options": [
+            {
+              "value": "left",
+              "label": "t:sections.header.blocks.image_content.settings.text_position_six.options__1.label"
+            },
+            {
+              "value": "center",
+              "label": "t:sections.header.blocks.image_content.settings.text_position_six.options__2.label"
+            },
+            {
+              "value": "right",
+              "label": "t:sections.header.blocks.image_content.settings.text_position_six.options__3.label"
+            }
+          ],
+          "default": "left",
+          "label": "t:sections.header.blocks.image_content.settings.text_position_six.label"
+        },
+        {
+          "type": "text",
+          "id": "heading_6",
+          "label": "t:sections.header.blocks.image_content.settings.heading_6.label"
+        },
+        {
+          "type": "range",
+          "id": "heading_6_font_size",
+          "min": 0,
+          "max": 30,
+          "step": 1,
+          "unit": "px",
+          "label": "t:sections.header.blocks.image_content.settings.heading_6_font_size.label",
+          "default": 16
+        },
+        {
+          "type": "range",
+          "id": "heading_6_font_size_mobile",
+          "min": 0,
+          "max": 30,
+          "step": 1,
+          "unit": "px",
+          "label": "t:sections.header.blocks.image_content.settings.heading_6_font_size_mobile.label",
+          "default": 19
+        },
+        {
+          "type": "color",
+          "id": "heading_6_color",
+          "label": "t:sections.header.blocks.image_content.settings.heading_6_color.label",
+          "default": "#000"
+        },
+        {
+          "type": "richtext",
+          "id": "content_6",
+          "label": "t:sections.header.blocks.image_content.settings.content_6.label"
+        },
+        {
+          "type": "range",
+          "id": "content_6_font_size",
+          "min": 0,
+          "max": 30,
+          "step": 1,
+          "unit": "px",
+          "label": "t:sections.header.blocks.image_content.settings.content_6_font_size.label",
+          "default": 12
+        },
+        {
+          "type": "color",
+          "id": "content_6_color",
+          "label": "t:sections.header.blocks.image_content.settings.content_6_color.label",
+          "default": "#000"
+        },
+        {
+          "type": "url",
+          "id": "block_link_6",
+          "label": "t:sections.header.blocks.image_content.settings.block_link_6.label"
         }
       ]
     },

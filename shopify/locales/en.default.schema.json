@@ -862,7 +862,8 @@
               "label": "Show overlay"
             },
             "collection_image": {
-              "label": "Custom collection image for desktop"
+              "label": "Custom collection image for desktop",
+              "info": "700px by 600px @ 72dpi suggested, upload as JPG."
             },
             "collection_image_mobile": {
               "label": "Custom collection image for mobile"
@@ -945,6 +946,9 @@
         "title": {
           "label": "Heading"
         },
+        "heading_link": {
+          "label": "Heading Link"
+        },
         "description": {
           "label": "Description"
         },
@@ -968,6 +972,9 @@
         },
         "products_to_show": {
           "label": "Maximum products to show"
+        },
+        "products_to_offset": {
+          "label": "Maximum products to offset"
         },
         "columns_desktop": {
           "label": "Number of columns on desktop"
@@ -1016,7 +1023,7 @@
         },
         "show_rating": {
           "label": "Show product rating",
-          "info": "To display a rating, add a product rating app. (This field in not in use) [Learn more](https:\/\/help.shopify.com\/manual\/online-store\/themes\/theme-structure\/theme-features#featured-collection-show-product-rating)"
+          "info": "To display a rating, add a product rating app. (This field is not in use) [Learn more](https:\/\/help.shopify.com\/manual\/online-store\/themes\/theme-structure\/theme-features#featured-collection-show-product-rating)"
         },
         "enable_quick_buy": {
           "label": "Enable quick add button",
@@ -1095,7 +1102,7 @@
         },
         "show_rating": {
           "label": "Show product rating",
-          "info": "To display a rating, add a product rating app. [Learn more](https:\/\/help.shopify.com\/manual\/online-store\/themes\/theme-structure\/theme-features#featured-collection-show-product-rating)"
+          "info": "To display a rating, add a product rating app.(This field is not in use) [Learn more](https:\/\/help.shopify.com\/manual\/online-store\/themes\/theme-structure\/theme-features#featured-collection-show-product-rating)"
         },
         "enable_quick_buy": {
           "label": "Enable quick add button",
@@ -1296,7 +1303,8 @@
               "label": "Row content"
             },
             "image": {
-              "label": "Image"
+              "label": "Image",
+              "info": "300 x 300px @ 72dpi suggested, Upload as JPG."
             },
             "image_ratio": {
               "label": "Image ratio",
@@ -1868,6 +1876,114 @@
             },
             "block_link_4": {
               "label": "URL"
+            },
+            "fifth_image_block": {
+              "content": "Fifth Image Block"
+            },
+            "hide_desktop_5": {
+              "label": "Hide on desktop"
+            },
+            "hide_mobile_5": {
+              "label": "Hide on mobile"
+            },
+            "marge_five": {
+              "label": "Marge 2 column"
+            },
+            "image_5": {
+              "label": "Image 5"
+            },
+            "image_5_mobile": {
+              "label": "Image 5 mobile"
+            },
+            "text_position_five": {
+              "label": "Select text position",
+              "options__1": {
+                "label": "Left"
+              },
+              "options__2": {
+                "label": "Center"
+              },
+              "options__3": {
+                "label": "Right"
+              }
+            },
+            "heading_5": {
+              "label": "Heading"
+            },
+            "heading_5_font_size": {
+              "label": "Heading font size for desktop"
+            },
+            "heading_5_font_size_mobile": {
+              "label": "Heading font size for mobile"
+            },
+            "heading_5_color": {
+              "label": "Heading Color"
+            },
+            "content_5": {
+              "label": "Content"
+            },
+            "content_5_font_size": {
+              "label": "Content Font Size"
+            },
+            "content_5_color": {
+              "label": "Content Color"
+            },
+            "block_link_5": {
+              "label": "URL"
+            },
+            "sixth_image_block": {
+              "content": "Sixth Image Block"
+            },
+            "hide_desktop_6": {
+              "label": "Hide on desktop"
+            },
+            "hide_mobile_6": {
+              "label": "Hide on mobile"
+            },
+            "marge_six": {
+              "label": "Marge 2 column"
+            },
+            "image_6": {
+              "label": "Image 6"
+            },
+            "image_6_mobile": {
+              "label": "Image 6 mobile"
+            },
+            "text_position_six": {
+              "label": "Select text position",
+              "options__1": {
+                "label": "Left"
+              },
+              "options__2": {
+                "label": "Center"
+              },
+              "options__3": {
+                "label": "Right"
+              }
+            },
+            "heading_6": {
+              "label": "Heading"
+            },
+            "heading_6_font_size": {
+              "label": "Heading font size for desktop"
+            },
+            "heading_6_font_size_mobile": {
+              "label": "Heading font size for mobile"
+            },
+            "heading_6_color": {
+              "label": "Heading Color"
+            },
+            "content_6": {
+              "label": "Content"
+            },
+            "content_6_font_size": {
+              "label": "Content Font Size"
+            },
+            "content_6_color": {
+              "label": "Content Color"
+            },
+            "block_link_6": {
+              "label": "URL"
             }
           }
         }
@@ -1882,11 +1998,16 @@
         "video_url": {
           "label": "Video url"
         },
+        "video_url_ogv": {
+          "label": "OGV file"
+        },
         "image": {
-          "label": "First image"
+          "label": "First image",
+          "info": "1800px x 1000px @ 72dpi suggested, Upload as JPG."
         },
         "image_mobile": {
-          "label": "Mobile first image"
+          "label": "Mobile first image",
+          "info": "600px x 400px @ 72dpi suggested, upload as JPG."
         },
         "image_2": {
           "label": "Second image"
@@ -1991,6 +2112,9 @@
         "adapt_height_first_image": {
           "label": "Adapt section height to first image size",
           "info": "Overwrites image banner height setting when checked."
+        },
+        "expanded_layout_enable": {
+          "label": "Display expanded layout"
         }
       },
       "blocks": {
@@ -2074,10 +2198,12 @@
       "name": "Image banner version 2",
       "settings": {
         "image": {
-          "label": "First image"
+          "label": "First image",
+          "info": "1800px x 1000px @ 72dpi suggested, Upload as JPG."
         },
         "image_mobile": {
-          "label": "Mobile first image"
+          "label": "Mobile first image",
+          "info": "600px x 400px @ 72dpi suggested, upload as JPG."
         },
         "image_overlay_opacity": {
           "label": "Image overlay opacity"
@@ -2224,10 +2350,107 @@
               "label": "Description"
             }
           }
+        },
+        "banner-link": {
+          "name": "Banner link",
+          "settings": {
+            "banner-link": {
+              "label": "Link"
+            },
+            "banner-link-label": {
+              "label": "Action"
+            }
+          }
         }
       },
       "presets": {
         "name": "Image banner version 2"
+      }
+    },
+    "content-story": {
+      "name": "Content Stories",
+      "settings": {
+        "content_stories_layout": {
+          "options__1": {
+            "label": "Large graphic layout"
+          },
+          "options__2": {
+            "label": "Offset layout"
+          },
+          "options__3": {
+            "label": "Expanded layout"
+          },
+          "options__4": {
+            "label": "Single column layout"
+          },
+          "label": "Layout"
+        },
+        "graphic_textarea": {
+          "label": "Graphic",
+          "info": "Upload to Files section, copy URL here. Will replace Title."
+        },
+        "story_title": {
+          "label": "Title"
+        },
+        "story_copy": {
+          "label": "Copy"
+        },
+        "story_button_first": {
+          "label": "Action 1"
+        },
+        "story_button_first_url": {
+          "label": "Link 1"
+        },
+        "story_button_second": {
+          "label": "Action 2"
+        },
+        "story_button_second_url": {
+          "label": "Link 2"
+        },
+        "story_top_border": {
+          "label": "Enable Top Border"
+        },
+        "story_bottom_border": {
+          "label": "Enable Bottom Border"
+        }
+      },
+      "blocks": {
+        "panels": {
+          "name": "Content Panels",
+          "settings": {
+            "content-panel-copy": {
+              "label": "Copy"
+            },
+            "panel_graphic": {
+              "label": "graphic"
+            },
+            "panel_action": {
+              "label": "Action"
+            },
+            "panel_action_url": {
+              "label": "Link"
+            },
+            "panel_action_color": {
+              "label": "Desktop Action Color"
+            },
+            "panel_action_color_mobile": {
+              "label": "Mobile Action Color"
+            },
+            "panel_main_image": {
+              "label": "Image",
+              "info": "1400px x 600px @ 72dpi suggested for 1 image, 700px x 600px for 2 images, 500px x 500px for 3 images, upload as JPG."
+            },
+            "panel_video_enable": {
+              "label": "Enable Video"
+            },
+            "panel_video_mp4": {
+              "label": "Video MP4 File"
+            },
+            "panel_video_ogv": {
+              "label": "Video OGV File"
+            }
+          }
+        }
       }
     },
     "image-with-text": {
@@ -2235,7 +2458,14 @@
       "name_modular": "Image with text for Modular collection template",
       "settings": {
         "image": {
-          "label": "Image"
+          "label": "Image",
+          "info": "700px by 600px, upload as JPG."
+        },
+        "modular_section_link": {
+          "label": "Link"
+        },
+        "modular_image_alt_text": {
+          "label": "Alt Text"
         },
         "mobile_image": {
           "label": "Mobile image"
@@ -2604,7 +2834,8 @@
           "name": "Row",
           "settings": {
             "image": {
-              "label": "Image"
+              "label": "Image",
+              "info": "700px by 600px, upload as JPG."
             },
             "caption": {
               "label": "Caption"
@@ -2640,6 +2871,16 @@
     "main-article": {
       "name": "Blog post",
       "blocks": {
+        "blog_product_slider": {
+          "label": "Blog product slider"
+        },
+        "blog_product_slider_count": {
+          "label": "Maximum products to show",
+          "note": "This is general count for all the blog products"
+        },
+        "social_sharing_blog": {
+          "label": "Social sharing"
+        },
         "featured_image": {
           "name": "Featured image",
           "settings": {
@@ -2694,6 +2935,36 @@
     "main-blog": {
       "name": "Blog posts",
       "settings": {
+        "sub_title_header": {
+          "content": "Blog posts title"
+        },
+        "sub_title_image": {
+          "label": "Image"
+        },
+        "blog-subtitle": {
+          "label": "Blog Post sub title"
+        },
+        "sub_title_text_color": {
+          "label": "Text color"
+        },
+        "content_alignment": {
+          "options__1": {
+            "label": "Left"
+          },
+          "options__2": {
+            "label": "Center"
+          },
+          "options__3": {
+            "label": "Right"
+          },
+          "label": "Content alignment"
+        },
+        "sub_title_heading_font_size": {
+          "label": "Sub title Font Size"
+        },
+        "blogs_to_show": {
+          "label": "Blogs per page"
+        },
         "header": {
           "content": "Blog post card"
         },
@@ -2708,6 +2979,24 @@
         },
         "paragraph": {
           "content": "Change excerpts by editing your blog posts. [Learn more](https:\/\/help.shopify.com\/manual\/online-store\/blogs\/writing-blogs#display-an-excerpt-from-a-blog-post)"
+        },
+        "font_size_color_section": {
+          "label": "Font size and color section"
+        },
+        "text_color": {
+          "label": "Text color"
+        },
+        "heading_font_size": {
+          "label": "Heading Font Size Desktop"
+        },
+        "heading_font_size_mobile": {
+          "label": "Heading Font Size Mobile"
+        },
+        "content_font_size": {
+          "label": "Content Font Size Desktop"
+        },
+        "content_font_size_mobile": {
+          "label": "Content Font Size Mobile"
         },
         "layout": {
           "label": "Desktop layout",
@@ -2815,7 +3104,7 @@
         },
         "show_rating": {
           "label": "Show product rating",
-          "info": "To display a rating, add a product rating app. [Learn more](https:\/\/help.shopify.com\/manual\/online-store\/themes\/theme-structure\/page-types#product-grid-section-settings)"
+          "info": "To display a rating, add a product rating app.  (This field is not in use) [Learn more](https:\/\/help.shopify.com\/manual\/online-store\/themes\/theme-structure\/page-types#product-grid-section-settings)"
         },
         "header__1": {
           "content": "Filtering and sorting"
@@ -3458,7 +3747,7 @@
         },
         "show_rating": {
           "label": "Show product rating",
-          "info": "To display a rating, add a product rating app. [Learn more](https:\/\/help.shopify.com\/manual\/online-store\/themes\/theme-structure\/page-types#search-results-section-settings)"
+          "info": "To display a rating, add a product rating app.  (This field is not in use) [Learn more](https:\/\/help.shopify.com\/manual\/online-store\/themes\/theme-structure\/page-types#search-results-section-settings)"
         },
         "header__1": {
           "content": "Product card"
@@ -3577,7 +3866,8 @@
           "name": "Column",
           "settings": {
             "image": {
-              "label": "Image"
+              "label": "Image",
+              "info": "400px x 120px @ 72dpi suggested, upload as PNG with transparent background."
             },
             "title": {
               "label": "Heading"
@@ -4108,7 +4398,8 @@
           "label": "Heading"
         },
         "cover_image": {
-          "label": "Cover image"
+          "label": "Cover image",
+          "info": "1800px x 1000px @ 72dpi suggested, Upload as JPG."
         },
         "video": {
           "label": "Video"
@@ -4209,11 +4500,22 @@
         "slide": {
           "name": "Slide",
           "settings": {
+            "show_slide_video": {
+              "label": "Show Video"
+            },
+            "show_slide_video_mp4_url": {
+              "label": "MP4 File"
+            },
+            "show_slide_video_ogv_url": {
+              "label": "OGV File"
+            },
             "image": {
-              "label": "Image"
+              "label": "Image",
+              "info": "1800px x 1000px @ 72dpi suggested, Upload as JPG."
             },
             "mobile_image": {
-              "label": "Mobile image"
+              "label": "Mobile image",
+              "info": "600px x 400px @ 72dpi suggested, upload as JPG."
             },
             "graphic": {
               "label": "Graphic",
@@ -4270,7 +4572,7 @@
             },
             "box_align": {
               "label": "Content position",
-              "info": "Position is automatically optimized for mobile.",
+              "info": "",
               "options__1": {
                 "label": "Top left"
               },
@@ -4331,6 +4633,12 @@
               "options__3": {
                 "label": "Right"
               }
+            },
+            "dropshadow_desktop_enable": {
+              "label": "Display dropshadow effect on desktop"
+            },
+            "dropshadow_mobile_enable": {
+              "label": "Display dropshadow effect on mobile"
             }
           }
         }

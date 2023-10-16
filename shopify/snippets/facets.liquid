@@ -32,7 +32,7 @@
 <div class="facets-container{% if filter_type == 'drawer' %} facets-container-drawer{% endif %}">
   <h1 id="price-currency-reference" class="hidden" style="opacity: 0;">$100</h1>
   {%- if filter_type == 'vertical' or filter_type == 'horizontal' -%}
-    <facet-filters-form class="facets small-hide">
+    <facet-filters-form class="facets small-hide {% if filter_type == 'horizontal' %}facets__horizontal{% else if filter_type == 'vertical' %}facets__vertical{% endif %}">
       <form
         id="FacetFiltersForm"
         class="{% if filter_type == 'horizontal' %}facets__form{% else %}facets__form-vertical{% endif %}"
@@ -1261,7 +1261,7 @@
           {%- if enable_sorting -%}
             <details
               id="Details-sort_by-{{ section.id }}"
-              class="{% if filter_type == 'horizontal' %}disclosure-has-popup facets__disclosure{% else %} facets__disclosure-vertical{% endif %} js-filter"
+              class="sort-parent {% if filter_type == 'horizontal' %}disclosure-has-popup facets__disclosure{% else %} facets__disclosure-vertical{% endif %} js-filter"
               data-index="sort_by"
             >
               <summary class="facets__summary caption-large focus-offset" aria-label="{{ filter.label }}">
@@ -2611,7 +2611,7 @@
       <form id="FacetFiltersFormMobileSort" class="mobile-facets__sort">
         <details
           id="Details-Mobile-sort_by-{{ section.id }}"
-          class="{% if filter_type == 'horizontal' %}disclosure-has-popup facets__disclosure{% else %} facets__disclosure-vertical{% endif %} js-filter"
+          class="sort-parent {% if filter_type == 'horizontal' %}disclosure-has-popup facets__disclosure{% else %} facets__disclosure-vertical{% endif %} js-filter"
           data-index="mobile-sort_by"
         >
           <summary class="facets__summary caption-large focus-offset" aria-label="{{ filter.label }}">

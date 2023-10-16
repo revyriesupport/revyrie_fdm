@@ -1,0 +1,20 @@
+.seo-description {
+	 font-size: 0.75rem;
+	 margin-top: 40px;
+	 border-top: 1px solid #ececec;
+	 padding-top: 30px;
+}
+ .seo-description h2 {
+	 margin-top: 20px;
+	 font-size: 1.7rem;
+}
+ .seo-description h2:first-child {
+	 font-size: 2.2rem;
+}
+ .seo-description h3 {
+	 margin-top: 20px;
+}
+ .seo-description p {
+	 font-size: 0.75rem;
+}
+ 

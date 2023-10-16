@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-article-careers",
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

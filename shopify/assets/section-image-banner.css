@@ -493,7 +493,7 @@
 .banner__heading {
   letter-spacing: 1px;
   /*filter: drop-shadow(3px 3px 3px #000);*/
-  font-family: var(--font-custom-family-heading-italic);
+  /* font-family: var(--font-custom-family-heading-italic); */
   line-height: 1;
 }
 .banner__heading.regular {
@@ -551,6 +551,35 @@
       overflow: hidden;
   }
   .banner.banner-image-version-two.banner--medium:not(.banner--mobile-bottom):not(.banner--adapt) .banner__content{
-        background: rgba(0,0,0,.2);
+        background: rgba(0,0,0,.3);
   }
+}
+.banner.banner-image-version-two .banner__url >a{
+  font-size: 1.28rem;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  border-bottom: 2px solid;
+}
+.banner.banner-image-version-two .banner__text.heading_font{
+  max-width:300px;
+  margin-left:auto;
+  margin-right:auto;
+  margin-bottom:15px;
+}
+/* Invert Overlay css */
+.img-banner-wrapper .banner__content.invert.overlay {
+    background: rgba(0,0,0,.3);
+      width: 100%;
+    max-width: 100%;
+}
+.img-banner-wrapper .banner__content.overlay {
+    background: rgba(255,255,255,.3);
+      width: 100%;
+    max-width: 100%;
+}
+.img-banner-wrapper  .invert *,
+.img-banner-wrapper  .invert,
+.img-banner-wrapper  .invert * input[type=text],
+.img-banner-wrapper  .invert input[type=text] {
+    color: #fff;
 }

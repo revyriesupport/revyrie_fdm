@@ -73,6 +73,54 @@
   {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
 
   <div class="product-page-template product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid-config grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
+    <div class="quick-view-top-content-box medium-hide large-up-hide">
+      <div class="quick_box"><img src="{{ 'fdm_logo.png' | asset_url }}" alt="FDM logo"></div>
+      {%- for block in section.blocks -%}
+      {%- case block.type -%}
+      {%- when 'title' -%}
+      <div class="product__title text-center-mobile" {{ block.shopify_attributes }}>
+        <h1 class="h5">{{ product.title | escape }}</h1>
+        <a href="{{ product.url }}" class="product__title">
+          <h2 class="h1">
+            {{ product.title | escape }}
+          </h2>
+        </a>
+      </div>
+      {%- when 'price' -%}
+      <div class="no-js-hidden" id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
+        {%- render 'price',
+        product: product,
+        use_variant: true,
+        show_badges: true,
+        price_class: 'price--large'
+        -%}
+      </div>
+      {%- if product.quantity_price_breaks_configured? -%}
+      <div class="volume-pricing-note">
+        <span>{{ 'products.product.volume_pricing.note' | t }}</span>
+      </div>
+      {%- endif -%}
+      <div class="product__tax caption rte">
+        {%- if cart.taxes_included -%}
+        {{ 'products.product.include_taxes' | t }}
+        {%- endif -%}
+        {%- if shop.shipping_policy.body != blank -%}
+        {{ 'products.product.shipping_policy_html' | t: link: shop.shipping_policy.url }}
+        {%- endif -%}
+      </div>
+      {% comment %}
+      <div {{ block.shopify_attributes }} class="shop-pay-plans">
+        {%- assign product_form_installment_id = 'product-form-installment-' | append: section.id -%}
+        {%- form 'product', product, id: product_form_installment_id, class: 'installment caption-large' -%}
+        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+        {{ form | payment_terms }}
+        {%- endform -%}
+      </div>
+      {% endcomment %}
+      {% endcase %}
+      {%- endfor -%}
+    </div>
+    
     <div class="grid__item product__media-wrapper{% if section.settings.media_position == 'right' %} medium-hide large-up-hide{% endif %}">
       {% render 'product-media-gallery', variant_images: variant_images, desktop_slider: section.settings.desktop_slider, reduce_images: section.settings.only_current_color_images %}
     </div>
@@ -83,7 +131,7 @@
         data-url="{{ product.url }}"
         class="product__info-container{% if section.settings.enable_sticky_info %} product__column-sticky{% endif %}"
       >
-        <div class="quick_box"><img src="{{ 'fdm_logo.png' | asset_url }}" alt="FDM logo"></div>
+        <div class="quick_box quick_box_alt"><img src="{{ 'fdm_logo.png' | asset_url }}" alt="FDM logo"></div>
         {%- assign product_form_id = 'product-form-' | append: section.id -%}
 
         {%- for block in section.blocks -%}
@@ -107,7 +155,7 @@
                 </a>
               </div>
             {%- when 'price' -%}
-              <div class="no-js-hidden" id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
+              <div class="no-js-hidden price-main-block" id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
                 {%- render 'price',
                   product: product,
                   use_variant: true,
@@ -128,13 +176,15 @@
                     {{ 'products.product.shipping_policy_html' | t: link: shop.shipping_policy.url }}
                   {%- endif -%}
                 </div>
-              <div {{ block.shopify_attributes }}>
+              {% comment %}
+              <div {{ block.shopify_attributes }} class="shop-pay-plans">
                 {%- assign product_form_installment_id = 'product-form-installment-' | append: section.id -%}
                 {%- form 'product', product, id: product_form_installment_id, class: 'installment caption-large' -%}
                   <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
                   {{ form | payment_terms }}
                 {%- endform -%}
               </div>
+              {% endcomment %}
             {%- when 'inventory' -%}
               <p
                 class="product__inventory no-js-hidden{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}{% if product.selected_or_first_available_variant.inventory_management != 'shopify' %} visibility-hidden{% endif %}"
@@ -402,7 +452,8 @@
                 </div>
               {% endunless %}
             
-              {% if product.tags contains 'bridal' %}
+              {% comment %}{% if product.tags contains 'bridal' %}{% endif %}{% endcomment %}
+              {% if product.tags contains 'bridalDISABLED' %}
                 <div class="product__accordion accordion quick-add-hidden" {{ block.shopify_attributes }}>
                   <details id="Details-{{ block.id }}-{{ section.id }}">
                     <summary>
@@ -631,7 +682,9 @@
                 block: block,
                 share_link: share_url
               %}{% endcomment %}
+<div class="social-share-options">
                 {%- render 'social-share' -%}
+</div>
             {%- when 'variant_picker' -%}
               {% assign product_handle = product.handle %}
               {% render 'product-variant-picker', product: product, block: block, product_handle: product_handle, product_form_id: product_form_id %}
@@ -790,10 +843,16 @@
               {% endunless %}
           {%- endcase -%}
         {%- endfor -%}
-        <a href="{{ product.url }}" class="link product__view-details animate-arrow">
-          {{ 'products.product.view_full_details' | t }}
-          {% comment %}{% render 'icon-arrow' %}{% endcomment %}
-        </a>
+
+        <div class="Quick-view-mobile-details-section">
+          <a class="medium-hide large-up-hide quick-mobile-size-guide"
+            onclick="document.querySelector('.sizeguide_text a').click()">Size Guide</a>
+          <a class="medium-hide large-up-hide quick-mobile-find-size" href="/pages/size-guide" target="_blank">Find Size</a>
+          <a href="{{ product.url }}" class="link product__view-details animate-arrow">
+            {{ 'products.product.view_full_details' | t }}
+            {% comment %}{% render 'icon-arrow' %}{% endcomment %}
+          </a>
+        </div>  
       </product-info>
     </div>
     {%- if section.settings.media_position == 'right' -%}
@@ -917,6 +976,7 @@
               ready_to_wear_alpha_sizing: ready_to_wear_alpha_sizing,
               has_two_sizing_guides: has_two_sizing_guides
             %}
+  <div class="sizeguide_overlay hidden"></div>
         {% endif %}
         {% endfor %}
 
@@ -953,6 +1013,8 @@
     <div class="mobile_column mobile-sticky-button-atc">
         <a href="#" id="add-to-cart">Select Size</a>
     </div>
+<!-- ak -->
+
 </div>
 
 
@@ -994,24 +1056,32 @@
       });
     });
 
+          
     // SizeGuide Modal js 
     document.querySelector('.sizeguide_text a[data-open="sizing-modal"]').addEventListener('click', function (event) {
         document.querySelector('div#sizing-modal').style.display = "block";
         document.querySelector('body').classList.add('is-sizeguide-open');
+        document.querySelector('.sizeguide_overlay').classList.remove('hidden');
     });
     document.querySelector('div#sizing-modal a.close-button').addEventListener('click', function (event) {
         document.querySelector('div#sizing-modal').style.display = "none";
         document.querySelector('body').classList.remove('is-sizeguide-open');
+        document.querySelector('.sizeguide_overlay').classList.add('hidden');
     });
-    // document.querySelector('.is-sizeguide-open').addEventListener('click', function (event) {
-    //     document.querySelector('div#sizing-modal').style.display = "none";
-    // });
+    document.querySelector('.sizeguide_overlay').addEventListener('click', function (event) {
+        document.querySelector('div#sizing-modal').style.display = "none";
+      document.querySelector('.sizeguide_overlay').classList.add('hidden');
+    });
     
-    
+    const customAddToBag = document.querySelector('#ProductCustomButton-{{ section.id }}');
+      customAddToBag.addEventListener("click", (event) => {
+          event.preventDefault();
+          document.querySelector('#custom_variant_selector__error-{{ section.id }}').style.display = 'block';
+      });
             
     const productsizeguides = document.querySelectorAll('.sizeguide_text a[data-open="sizing-modal"]');
     productsizeguides.forEach(sizeguide => {
-         sizeguide.addEventListener('click', (e) => { 
+         sizeguide.addEventListener('click', (e) => {
              document.querySelector('div#sizing-modal').style.display = "block";
          })
     })
@@ -1050,9 +1120,10 @@
 
 
     const floatAddToCart = document.querySelector('.mobile-sticky-atc');
-const addTocartMobile = document.querySelector('.mobile-sticky-atc #add-to-cart');
-const btnAddToBagForm = document.querySelector('button#ProductSubmitButton-{{ section.id }}');
-const addtocartoffset = btnAddToBagForm.offsetTop + 500;
+    const addTocartMobile = document.querySelector('.mobile-sticky-atc #add-to-cart');
+    const btnAddToBagForm = document.querySelector('button#ProductSubmitButton-{{ section.id }}');
+    const addtocartoffset = btnAddToBagForm.offsetTop + 500;
+          
     window.addEventListener('scroll', () => {
         if (scrollY > addtocartoffset) {
             floatAddToCart.classList.remove('mobileCart_hidden');
@@ -1072,11 +1143,7 @@ const addtocartoffset = btnAddToBagForm.offsetTop + 500;
         }
       });
 
-      const varientSelect = document.querySelector('#ProductCustomButton-{{ section.id }}');
-      varientSelect.addEventListener("click", (event) => {
-        event.preventDefault();
-          document.querySelector('#custom_variant_selector__error-{{ section.id }}').style.display = 'block';
-      });
+      
 
   </script>
 

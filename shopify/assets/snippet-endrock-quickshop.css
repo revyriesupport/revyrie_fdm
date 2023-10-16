@@ -1,0 +1,175 @@
+/*================ Endrock Quickshop ================*/
+
+ul.information li.price.badge-essentiels {
+ /* top: -10px; */
+}
+
+
+
+.form-atc-featured {
+ margin-top: 0px;
+}
+
+.form-atc-featured button {
+ background: transparent;
+ border: none;
+ color: #000;
+ text-decoration: underline;
+ font-size: 10px;
+}
+
+.content-information {
+ height: 50px;
+}
+
+@media (max-width: 767px) {
+
+ .form-atc-featured {
+   margin-top: 18px;
+ }
+
+ .content-information {
+   height: 32px !important;
+ }
+}
+
+.price-discount {
+ text-transform: uppercase;
+ margin-left: 5px;
+}
+
+.product ul .add-to-cart{
+   max-width: 220px;
+   margin: 0 auto 10px;
+}
+
+@media (max-width: 768px){
+   .product ul .add-to-cart .variants span{
+       font-size: 10px !important;
+   }
+   .product ul .add-to-cart .button{
+       height: 24px!important;
+       font-size: 10px !important;
+       line-height: 19px !important;
+       max-width: 100px !important;
+   }
+}
+
+
+
+.product ul .add-to-cart .button{
+   background-color: #fff;
+   font-size: 12px;
+   color: #000;
+   font-weight: 600;
+   text-decoration: underline;
+   text-transform: uppercase;
+   text-align: center;
+   transition: .3s all;
+   display: block;
+   height: 0px;
+   line-height: 22px;
+   max-width: 121px;
+   margin: 0 auto;
+}
+
+.product ul .add-to-cart.active .variants{
+   display: flex !important;
+}
+
+.product ul .add-to-cart.active .button{
+   height: 0 !important;
+   opacity: 0;
+}
+
+.product ul .add-to-cart .variants{
+   display: none;
+   align-items: center;
+   flex-wrap: wrap;
+   justify-content: center;
+   gap: 8px;
+}
+
+.product .information .add-to-cart .button{
+   height: 28px;
+}
+
+.product ul .add-to-cart .variants span{
+   border: 1px solid black;
+   color: black;
+   font-size: 13px;
+   text-transform: uppercase;
+   line-height: 14px;
+   text-align: center;
+   padding: 4px;
+   font-weight: bold;
+   cursor: pointer;
+   position: relative;
+   z-index: 1;
+}
+
+.product ul .add-to-cart .variants span:hover{
+   background-color: black;
+   color: white;
+}
+
+.template-product .container-atc{
+   display: flex;
+   align-items: center;
+   position: fixed;
+   bottom: 10px;
+   width: 100%;
+   background-color: white;
+   max-width: 95%;
+   left: 50%;
+   transform: translateX(-50%);
+   border: 1px solid #F2F2F2;
+   box-sizing: border-box;
+   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.04);
+   z-index: 9999999999;
+}
+
+@media (min-width: 768px){
+   .template-product .container-atc{
+       display: none !important;
+   }
+}
+
+.template-product .container-atc .column{
+   width: 33.3%;
+}
+
+.template-product .container-atc .column .product-title{
+   font-size: 12px;
+   line-height: 12px;
+   font-weight: 600;
+   text-transform: initial;
+   display: block;
+   margin-bottom: 5px;
+}
+
+.template-product .container-atc .column .color,
+.template-product .container-atc .column .size{
+   font-size: 10px;
+   color: #585858;
+   text-transform: capitalize;
+   display: block;
+   font-weight: 600;
+   line-height: 12px;
+}
+
+.template-product .container-atc #add-to-cart{
+   background-color: #000;
+   text-align: center;
+   color: #fff;
+   display: block;
+   text-transform: uppercase;
+   padding: 13px 0;
+   font-size: 12px;
+   line-height: 12px;
+   font-weight: 600;
+}
+
+.wrapper-sticky {
+ z-index: 9;
+}

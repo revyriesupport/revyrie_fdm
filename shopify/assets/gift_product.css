@@ -138,3 +138,6 @@
     border-color: transparent;
     border-bottom: 2px solid #000;
 }
+.product_gift_template .swym-button-bar.swym-wishlist-button-bar.swym-inject {
+    display: none;
+}

@@ -1,0 +1,83 @@
+{{ 'flickity.min.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'flickity.pkgd.min.js' | asset_url }}"></script>
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
+{{ 'collection-product-slider.css' | asset_url | stylesheet_tag }}
+<link rel="stylesheet" href="{{ 'component-slider.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'template-collection.css' | asset_url }}" media="print" onload="this.media='all'">
+{%- if section.settings.enable_quick_add -%}
+  <link rel="stylesheet" href="{{ 'quick-add.css' | asset_url }}" media="print" onload="this.media='all'">
+  <script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
+<noscript>{{ 'component-slider.css' | asset_url | stylesheet_tag }}</noscript>
+<noscript>{{ 'template-collection.css' | asset_url | stylesheet_tag }}</noscript>
+{% style %}
+  .blog-slider{
+  max-width: 88rem;
+  margin:20px auto 50px auto;
+}
+.blog-collection-title{
+  text-align:{{text_position}};
+}
+
+{% endstyle %}
+<div class="color-{{ section_name }} isolate gradient blog-slider">
+  <div class="collection collection_product_section collection_product_{{ section_name }} section-{{ section_name }}-padding{% if section.settings.full_width %} collection--full-width{% endif %}">
+    <div class="collection__title title-wrapper title-wrapper--no-top-margin page-width  {{ section.settings.text_position }}">
+      {%- if collection.title != blank -%}
+        <h2 class="blog-collection-title"><a href="{{ collection.url }}">{{ collection.title | escape }}</a></h2>
+      {%- endif -%}
+      {%- if section.settings.subtitle != blank -%}
+        <div class="collection__subtitle rte">
+            <h3>{{ section.settings.subtitle -}}</h3>
+        </div>
+      {%- endif -%}
+    </div>
+    <slider-component class="slider-mobile-gutter page-width">
+      <ul
+        id="Slider-{{ section_name }}"
+        class="grid-configaa main-carousel main-carousel-{{ section_name }} cproduct-grid contains-card contains-card--product{% if settings.card_style == 'standard' %} contains-card--standard{% endif %} grid--3-col-desktop grid--{{ columns_mobile }}-col-tablet-down"
+        role="list"
+        aria-label="{{ 'general.slider.name' | t }}"
+      >
+        {%- for product in collection.products limit: product_limit -%}
+          <li
+            id="Slide-{{ section_name }}-{{ forloop.index }}"
+            class="grid__item"
+          >
+            {% render 'card-product',
+              card_product: product,
+              media_aspect_ratio: image_ratio,
+              show_secondary_image: show_secondary_image,
+              show_vendor: section.settings.show_vendor,
+              show_rating: section.settings.show_rating,
+              show_quick_add: section.settings.enable_quick_add,
+              section_id: section_name
+            %}
+          </li>
+        {%- else -%}
+          {%- for i in (1..4) -%}
+            <li class="grid__item">
+              {% render 'card-product', show_vendor: section.settings.show_vendor %}
+            </li>
+          {%- endfor -%}
+        {%- endfor -%}
+      </ul>
+    </slider-component>
+  </div>
+</div>
+
+<script>
+var elem = document.querySelector('.main-carousel-{{ section_name }}');
+var flkty = new Flickity( elem, {
+  // options
+    wrapAround: true,
+    percentPosition: false,
+    pageDots: false,
+    cellAlign: "left",
+    imagesLoaded: true,
+    freeScroll: true,
+    contain: true
+});
+</script>

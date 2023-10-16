@@ -1,0 +1,192 @@
+.get-my-size-wrapper .rich-text__wrapper {
+  padding-right: 0.5375rem;
+  padding-left: 0.5375rem;
+  text-align: center;
+}
+@media screen and (min-width: 1400px) {
+  .get-my-size-wrapper .rich-text__wrapper {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+}
+
+.get-my-size-wrapper .row {
+  max-width: 1408px;
+  margin-right: auto;
+  margin-left: auto;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+}
+.get-my-size-wrapper .align-center {
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+.get-my-size-wrapper .row:not(.expanded) .row {
+    max-width: none;
+}
+@media print, screen and (min-width: 64em) {
+  .get-my-size-wrapper .row .row {
+    margin-right: -0.5rem;
+    margin-left: -0.5rem;
+  }
+}
+.get-my-size-wrapper .top-margin,
+.get-my-size-wrapper .row.top-margin {
+  margin-top: 60px;
+}
+.get-my-size-wrapper .row:not(.expanded) .row {
+  max-width: none;
+}
+.get-my-size-wrapper .column,
+.get-my-size-wrapper .columns {
+  -ms-flex: 1 1 0px;
+  flex: 1 1 0px;
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+  min-width: 0;
+}
+.get-my-size-wrapper .small-12 {
+  -ms-flex: 0 0 100%;
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+@media print, screen and (min-width: 40em) {
+  .get-my-size-wrapper .medium-4 {
+    -ms-flex: 0 0 33.33333%;
+    flex: 0 0 33.33333%;
+    max-width: 33.33333%;
+  }
+  .get-my-size-wrapper .medium-12 {
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  .get-my-size-wrapper .large-7 {
+    -ms-flex: 0 0 58.33333%;
+    flex: 0 0 58.33333%;
+    max-width: 58.33333%;
+  }
+}
+.get-my-size-wrapper select {
+  background-image: url(//fleurdumal.com/cdn/shop/t/404/assets/ico-select.svg?v=1686168…);
+}
+.get-my-size-wrapper button,
+.get-my-size-wrapper select {
+  line-height: 1.15;
+  margin: 0;
+}
+.get-my-size-wrapper select {
+  box-shadow: none;
+  transition: none;
+  color: #000;
+  border-radius: 0;
+  width: 100%;
+  outline: none;
+  min-width: 20px;
+  appearance: none;
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 15px;
+  background-color: transparent;
+  height: 43px;
+  text-indent: 2px;
+  text-overflow: "";
+  background-color: #fff;
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+  border-bottom: 2px solid #000;
+  font-size: 14.1px;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-right: 1rem;
+  padding-left: 0;
+  text-transform: capitalize;
+  cursor: pointer;
+  font-weight: 500;
+}
+.get-my-size-wrapper option {
+  color: #000;
+  background-color: #fff;
+}
+.get-my-size-wrapper select[disabled] {
+  cursor: default;
+  opacity: 0.2;
+  pointer-events: none;
+}
+.get-my-size-wrapper .btn {
+  -webkit-user-select: "none";
+  user-select: "none";
+  display: inline-block;
+  text-decoration: none;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+  background: #000;
+  color: #fff;
+  font-size:14.1px;
+  letter-spacing: 0.075rem;
+  padding: 0rem 1rem;
+  cursor: pointer;
+  font-family: proxima-nova, Helvetica, Roboto, Arial, sans-serif;
+  border: 1px solid #000;
+  text-transform: uppercase;
+  font-weight: 600;
+  border-radius: 0;
+  height: 45px;
+  line-height: 45px;
+  width: 100%;
+  max-width: initial;
+}
+.get-my-size-wrapper .btn.disabled,
+.get-my-size-wrapper .btn[disabled],
+.get-my-size-wrapper .btn.disabled.outline,
+.get-my-size-wrapper .btn[disabled].outline {
+  color: #000;
+  border-color: #f3f3f3;
+  background: #f3f3f3;
+}
+
+.get-my-size-wrapper small {
+  /* font-size: 80%; */
+  margin-top: 30px;
+  display: block;
+  text-align: center;
+  color: #979797;
+}
+@media screen and (max-width: 639px){ 
+.top-margin-small-only, .row.top-margin-small-only {
+    margin-top: 30px;
+}
+  .get-my-size-wrapper button,
+.get-my-size-wrapper select ,
+  .get-my-size-wrapper .btn{
+    max-width: 220px;
+}
+}
+.get-my-size-wrapper .rich-text__text p{
+    max-width: 550px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.get-my-size-wrapper #size_result {
+    border: 1px solid #ececec;
+    text-align: center;
+    padding: 15px;
+    margin-top: 45px;
+    text-transform: inherit;
+    font-size: 12.8px;
+}
+.get-my-size-wrapper #size_result .btn {
+    margin-top: 15px;
+}
+.get-my-size-wrapper #size_result .btn{
+  width:auto;
+}
+.get-my-size-wrapper .btn:hover,
+.get-my-size-wrapper .btn:focus {
+    border-color: #000;
+    color: #d4857b;
+}

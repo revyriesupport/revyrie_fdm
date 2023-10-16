@@ -19,8 +19,7 @@
     font-weight: 500;
     text-decoration: none;
     outline: none;
-  }
-  
+  }  
   #collection_title {
     font-size: {{ section.settings.heading_font_size }}px;
     color: {{ section.settings.desktop_text_color }};
@@ -30,32 +29,42 @@
    display:block;
  }
   .collection-description,
-  .collection-description > *{
+  .collection-description > *,
+  .content-seo-inn,
+  .content-seo-inn > *{
     font-size: {{ section.settings.content_font_size }}px;
     color: {{ section.settings.desktop_text_color }};
   }
-  .collection-rich-text__block {
-    text-align:  {{ section.settings.desktop_content_alignment }};
+  .collection-rich-text__block,
+  .content-seo-inn{
+    text-align: {{ section.settings.desktop_content_alignment }};
     max-width: 90rem !important;
+  }
+  .content-seo-inn{
+    margin-left:auto;
+    margin-right:auto;
   }
   @media screen and (max-device-width: 767px) {
     #collection_title {
         font-size: {{ section.settings.heading_font_size_mobile }}px;
         color: {{ section.settings.mobile_text_color }};
     }
-   .collection-description {
+   .collection-description,
+    .content-seo-inn{
         font-size: {{ section.settings.content_font_size_mobile }}px;
         color: {{ section.settings.mobile_text_color }};
     }
-    .collection-rich-text__block {
+    .collection-rich-text__block,
+    .content-seo-inn{
       text-align: {{ section.settings.mobile_content_alignment }};
     }
   }
 {%- endstyle -%}
 
-{% if collection.description contains '<!-- seo -->' %}
-<div class="isolate{% unless section.settings.full_width %} page-width{% endunless %}">
-  <div class="collection-description-modular rich-text content-container color-{{ section.settings.color_scheme }} gradient{% if section.settings.full_width %} rich-text--full-width content-container--full-width{% endif %} section-{{ section.id }}-padding">
+
+<div class="section-{{ section.id }}-padding isolate{% unless section.settings.full_width %} page-width{% endunless %}">
+ {% if collection.description contains '<!-- seo -->' %}
+  <div class="collection-description-modular rich-text content-container color-{{ section.settings.color_scheme }} gradient{% if section.settings.full_width %} rich-text--full-width content-container--full-width{% endif %}">
     <div class="rich-text__wrapper {% if section.settings.full_width %} page-width{% endif %}">
       <div class="rich-text__blocks collection-rich-text__block">
         <h2 id="collection_title" class="{% if section.settings.collection_seo_title %} rich-text__heading__visible {% endif %} rich-text__heading rte {{ block.settings.heading_size }}" {{ block.shopify_attributes }}>
@@ -63,14 +72,24 @@
         </h2>  
        <div class="collection-description">
             {{ collection.description | split: '<!-- seo -->' | last | split: '<!-- end seo -->' | first }}
-        </div>
-        
+        </div>        
       </div>
     </div>
   </div>
-</div>
+{% else %}
+  <div class="content-seo">
+    <div class="content-seo-inn">
+      <small>Marilyn Monroe™ and the Marilyn Monroe signature are trademarks of The Estate of Marilyn Monroe LLC.<br>
+      Rights of Publicity and Persona Rights are used with permission of The Estate of Marilyn Monroe LLC. Photography © The Bert Stern Trust</small>
+    </div>
+  </div>
 {% endif %}
+</div>
 
+
+{% if section.settings.bottom_border %}
+  <hr class="content-story-border content-story-border-bottom">
+{% endif %}
 
 {% schema %}
 {
@@ -255,7 +274,12 @@
       "unit": "px",
       "label": "Content Font Size Mobile",
       "default": 18
-    }
+    },
+    {
+      "type": "checkbox",
+	  "id": "bottom_border",
+	  "label": "Enable Bottom Border"
+	}
   ],
   "presets": [
     {

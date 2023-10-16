@@ -1,0 +1,69 @@
+/*================ Header Message ================*/
+ #shopify-section-header-message.sticky {
+	 position: fixed;
+	 top: 0;
+	 width: 100%;
+	 transition: all ease-in-out 0.25s;
+}
+ #header-message {
+	 background: #000;
+	 height: 35px;
+	 overflow: hidden;
+}
+ @media screen and (min-width: 1024px) {
+	 #header-message {
+		 height: 40px;
+	}
+}
+ #header-message ul {
+	 background: #000;
+	 text-align: center;
+	 padding-top: 5px;
+	 padding-bottom: 5px;
+}
+ #header-message ul li {
+	 color: #fff;
+	 display: none;
+	 font-size: 0.85rem;
+	 width: 100%;
+	 line-height: 35px;
+}
+ @media screen and (min-width: 1024px) {
+	 #header-message ul li {
+		 line-height: 40px;
+		 font-size: 0.9rem;
+	}
+}
+ @media screen and (max-width: 1023px) {
+	 #header-message ul li {
+		 font-size: 0.75rem;
+		 letter-spacing: inherit;
+	}
+}
+ #header-message ul li a {
+	 text-decoration: underline;
+	 color: #fff;
+}
+ @media screen and (max-width: 639px) {
+	 #header-message ul li span {
+		 display: none;
+	}
+	 #header-message ul li span.show-for-small-only {
+		 display: initial !important;
+	}
+}
+ #header-message .close-button {
+	 font-size: 1.6rem;
+	 line-height: 34px;
+	 top: 0;
+	 right: 10px;
+	 z-index: 12;
+}
+ @media screen and (max-width: 639px) {
+	 #header-message .close-button {
+		 display: none;
+	}
+}
+ #header-message .close-button:hover {
+	 color: #fff;
+}

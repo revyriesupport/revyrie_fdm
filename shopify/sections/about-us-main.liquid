@@ -1,0 +1,107 @@
+{{ 'template-page.css' | asset_url | stylesheet_tag }}
+{{ 'vendor-lightbox.css' | asset_url | stylesheet_tag }}
+{{ 'vendor.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'vendor-manual.js' | asset_url }}"defer="defer"></script>
+<!-- <script src="{{ 'vendor-dist.js' | asset_url }}" async></script>
+<script src="{{ 'vendor-require-2-dist.js' | asset_url }}" async></script> -->
+{{ 'section-masonry-content.css' | asset_url | stylesheet_tag }}
+
+
+<style>
+h6, .h6 {
+    margin-top: 0;
+    font-weight: 600;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    font-family: var(--font-custom-family-body);
+    font-size: .8rem;
+    letter-spacing: .05rem;
+color: black;
+}
+.about-page-padding {
+    padding-bottom: 5rem;
+}
+
+.quote.large {
+    font-size: 4rem;
+    line-height: 1.4;
+}
+.row {
+    max-width: 108.5rem;
+    margin-right: auto;
+    margin-left: auto;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+}
+.align-middle {
+    -ms-flex-align: center;
+    align-items: center;
+}
+.quote {
+ font-family: var(--font-custom-family-heading-bold);
+    letter-spacing: 0.25rem;
+    font-size: 32px;
+    color: #000;
+    font-weight: 00;
+    font-weight: 900;
+    margin-bottom: 30px;
+    line-height: 1.4;
+    font-variant-ligatures: none;
+}
+</style>
+<div class="about-page-padding">
+<div class="row hide-for-medium">
+		<div class="medium-12 small-12 columns">
+			<h1 class="center top-margin-small">{{ page.title }}</h1>
+		</div><!--medium-12 columns-->
+	</div><!--row hide-for-large-->
+	{% if page.content contains "<!-- section 1 -->" %}
+	<div class="row align-middle">
+		<div class="large-5 medium-6 small-12 columns">
+					<div class="show-for-medium"><h6>{{ page.title }}</h6></div>
+					{{ page.content | split: '<!-- section 1 -->' | last | split: '<!-- end section 1 -->' | first }}
+		</div><!--large-5 medium-6 columns-->
+		<div class="large-6 large-offset-1 medium-6 small-12 columns top-margin-small-only">
+			<a data-lightbox="lightbox" href="{{ 'about_us_1.jpg' | asset_url }}"><img src="{{ 'about_us_1_crop.jpg' | asset_url }}" data-equalizer-watch></a>
+		</div><!--large-6 large-offset-1 medium-6 small-12 columns top-margin-small-only-->
+	</div><!--row top-margin-small-->
+	{% endif %}
+	{% if page.content contains "<!-- section 2 -->" %}
+	<div class="row top-margin-small">
+		<div class="medium-12 small-12 columns">
+      <hr>
+		{{ page.content | split: '<!-- section 2 -->' | last | split: '<!-- end section 2 -->' | first }}
+    <hr>
+  	</div><!--medium-12 columns-->
+	</div><!--row top-margin-small-->
+	{% endif %}
+	{% if page.content contains "<!-- section 3 -->" %}
+	<div class="row align-middle top-margin-small">
+		<div class="large-5 medium-12 small-12 columns">
+					{{ page.content | split: '<!-- section 3 -->' | last | split: '<!-- end section 3 -->' | first }}
+		</div><!--large-5 medium-6 columns-->
+		<div class="large-7 medium-12 small-12 columns">
+					<ul class="masonry-grid top-margin-small-only">
+						<li class="masonry-sizer"></li>
+						<li class="masonry-gutter-sizer"></li>
+						<li class="masonry-item"><a data-lightbox="lightbox" href="{{ 'about_us_2.jpg' | asset_url }}" ><img src="{{ 'about_us_2_crop.jpg' | asset_url }}"></a></li>
+						<li class="masonry-item square"><a data-lightbox="lightbox" href="{{ 'about_us_3.jpg' | asset_url }}" ><img src="{{ 'about_us_3_crop.jpg' | asset_url }}"></a></li>
+						<li class="masonry-item"><a data-lightbox="lightbox" href="{{ 'about_us_4.jpg' | asset_url }}" ><img src="{{ 'about_us_4_crop.jpg' | asset_url }}"></a></li>
+						<li class="masonry-item square"><a data-lightbox="lightbox" href="{{ 'about_us_5.jpg' | asset_url }}" ><img src="{{ 'about_us_5_crop.jpg' | asset_url }}"></a></li>
+					</ul><!--masonry-grid-->
+		</div><!--large-7 medium-6 columns-->
+	</div><!--row top-margin-small-->
+	{% endif %}
+	{% if page.content contains "<!-- section 4 -->" %}
+	<div class="row align-middle top-margin-small">
+		<div class="medium-6 small-12 columns">
+					{{ page.content | split: '<!-- section 4 -->' | last | split: '<!-- end section 4 -->' | first }}
+		</div><!--medium-6 columns-->
+		<div class="medium-6 small-12 columns top-margin-small-only">
+			<a data-lightbox="lightbox" href="{{ 'about_us_6.jpg' | asset_url }}"><img src="{{ 'about_us_6_crop.jpg' | asset_url }}"></a>
+		</div><!--medium-6 columns-->
+	</div><!--row top-margin-small-->
+	{% endif %}
+</div>

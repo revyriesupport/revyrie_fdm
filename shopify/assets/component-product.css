@@ -1,0 +1,179 @@
+
+/*================ Endrock ================*/
+
+		.product .product-image-wrapper .badge-corner,
+.x2_product .badge-corner {
+	position: absolute;
+	right: 0;
+	bottom: -9px;
+	left: 0;
+	margin: 0 auto;
+	text-align: center;
+	z-index: 15;
+	background-color: transparent;
+	color: #fff;
+	background-color: #000;
+	width: 95px;
+	padding: 2px;
+	font-weight: 600;
+	font-size: 13px;
+	line-height: 16px;
+	border-radius: 2px;
+	font-family: "proxima-nova", Helvetica, Roboto, Arial, sans-serif;
+	top: inherit !important;
+	border-radius: 10px;
+ }
+
+
+
+ 	.featured-collection.suggested {
+ 	  z-index: 1;
+ 	  position: relative;
+ 	}
+ 	.featured-collection.suggested .flickity-viewport {
+ 	  overflow: unset;
+		transition: all 0.3s ease 0s;
+ 	}
+ 	.featured-collection.suggested .product ul .add-to-cart .variants {
+ 	  background: #fff;
+ 	}
+
+
+ .featured-collection .product .product-image-wrapper .badge-corner,
+ .x2_product .badge-corner{
+  width: 135px !important;
+ }
+
+ .x2_productGroup .x2_product .badge-corner {
+  bottom: 62px;
+  font-size: 10px;
+  width: 102px !important;
+ }
+
+
+ .x2_productGroup .x2_name {
+  margin-top: 25px;
+ }
+
+ @media (max-width: 767px) {
+  .x2_productGroup .x2_product .badge-corner {
+    bottom: 76px;
+    font-size: 12px;
+  }
+
+  .x2_productGroup .x2_name {
+    margin-top: 10px;
+  }
+ }
+
+ @media only screen and (min-width: 1400px) {
+  .product .product-image-wrapper .badge-corner,
+  .x2_product .badge-corner {
+    line-height: 16px;
+  }
+ }
+ @media only screen and (max-width: 1023px) {
+  .product .product-image-wrapper .badge-corner,
+  .x2_product .badge-corner {
+    right: -1px;
+    top: 12px;
+    font-size: 10px;
+    line-height: 8px;
+    width: 80px;
+    padding: 4px;
+
+  }
+ }
+
+
+
+
+
+/*================ Collection Product ================*/
+ .product {
+	 margin-bottom: 20px;
+	 overflow: hidden;
+}
+ .product .product-image-wrapper {
+	 position: relative;
+}
+ .product .product-image-wrapper .video {
+	 height: inherit;
+	 overflow: hidden;
+	 z-index: 1;
+	 position: absolute;
+	 top: 0;
+	 width: 100%;
+}
+
+.product .product-image-wrapper img.poster {
+	position: relative;
+	top: 0;
+	z-index: 0;
+}
+
+ .product .product-image-wrapper .video .video-player {
+	 width: 111.5%;
+	 overflow: hidden;
+	 margin: 0 auto;
+	 display: flex;
+	 flex-direction: column;
+}
+ .product .product-image-wrapper .video .video-player video {
+	 width: 100%;
+	 position: relative;
+}
+ .product .product-image-wrapper .video .video-player .play svg {
+	 width: 100px;
+	 height: 100px;
+}
+ .product .product-image-wrapper .video .video-player .play svg path {
+	 fill: #fff;
+}
+ .product .product-image-wrapper button {
+	 position: absolute;
+	 padding: 15px;
+	 top: 0px;
+	 right: 0px;
+	 font-size: 1rem;
+	 z-index: 1;
+	 display: none;
+}
+ .product .product-image-wrapper img {
+	 width: 100%;
+}
+
+ .product .product-image-wrapper a img.product-image {
+	 border: 1px solid #ececec;
+}
+ .product .product-image-wrapper a img.product-image.hover {
+	 display: none;
+}
+ @media screen and (min-width: 640px) {
+	 .product .product-image-wrapper a:hover img.product-image.single:first-child {
+		 display: block;
+	}
+	 .product .product-image-wrapper a:hover img.product-image.hover.single {
+		 display: none;
+	}
+	 .product .product-image-wrapper a:hover img.product-image:first-child {
+		 display: none;
+	}
+	 .product .product-image-wrapper a:hover img.product-image.hover {
+		 display: block;
+	}
+}
+ @media (-moz-touch-enabled: 1), (pointer: coarse) {
+	 .product .product-image-wrapper a:hover img.product-image.single:first-child {
+		 display: block !important;
+	}
+	 .product .product-image-wrapper a:hover img.product-image.hover.single {
+		 display: block !important;
+	}
+	 .product .product-image-wrapper a:hover img.product-image:first-child {
+		 display: block !important;
+	}
+	 .product .product-image-wrapper a:hover img.product-image.hover {
+		 display: none !important;
+	}
+}

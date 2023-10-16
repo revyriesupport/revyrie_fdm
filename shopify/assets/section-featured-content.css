@@ -1,0 +1,103 @@
+/*================ Featured Content ================*/
+ body.template-collection .featured-content {
+	 margin-top: 0px;
+}
+ body.template-collection .featured-content .content_table {
+	 height: 260px;
+}
+ @media screen and (min-width: 1024px) {
+	 body.template-collection .featured-content .content_table {
+		 height: 430px;
+	}
+}
+ @media screen and (max-width: 639px) {
+	 body.template-collection .featured-content .content_table {
+		 height: 300px;
+	}
+}
+ .featured-content {
+	 margin-top: 30px;
+}
+
+ .featured-content .content_table {
+	 background-repeat: no-repeat;
+	 background-size: cover;
+	 height: 550px;
+}
+ @media screen and (min-width: 1024px) {
+	 .featured-content .content_table {
+		 height: 600px;
+	}
+}
+ @media screen and (max-width: 639px) {
+	 .featured-content .content_table {
+		 height: 450px;
+	}
+}
+ .featured-content .content_table .content_table_cell {
+	 padding: 30px;
+}
+ @media screen and (max-width: 639px) {
+	 .featured-content .content_table .content_table_cell {
+		 background: rgba(0, 0, 0, 0.4);
+	}
+}
+ .featured-content .content_table .content_table_cell h2 {
+	 max-width: 420px;
+	 margin-left: auto;
+	 margin-right: auto;
+	 color: #000;
+	 font-size: 2rem;
+	 line-height: 1;
+}
+ @media screen and (min-width: 1024px) {
+	 .featured-content .content_table .content_table_cell h2 {
+		 font-size: 2.2rem;
+	}
+}
+ @media screen and (max-width: 639px) {
+	 .featured-content .content_table .content_table_cell h2 {
+		 color: #fff;
+	}
+}
+ .featured-content .content_table .content_table_cell h2.h1 {
+	 font-size: 2.7rem;
+}
+ @media screen and (min-width: 1024px) {
+	 .featured-content .content_table .content_table_cell h2.h1 {
+		 font-size: 3rem;
+	}
+}
+ @media screen and (max-width: 639px) {
+	 .featured-content .content_table .content_table_cell .action {
+		 color: #fff;
+		 border-color: #fff;
+	}
+}
+ .featured-content .content_table .content_table_cell .copy {
+	 max-width: 420px;
+	 margin-left: auto;
+	 margin-right: auto;
+}
+ .featured-content .content_table .content_table_cell .copy p {
+	 font-size: 1.1rem;
+	 line-height: 1.5;
+}
+ @media screen and (min-width: 1024px) {
+	 .featured-content .content_table .content_table_cell .copy p {
+		 font-size: 1.2rem;
+	}
+}
+ @media screen and (max-width: 639px) {
+	 .featured-content .content_table .content_table_cell .copy p {
+		 color: #fff;
+	}
+}
+ .featured-content .content_table .content_table_cell .action {
+	 margin-top: 15px;
+}
+ @media screen and (min-width: 640px) {
+	 .featured-content .image .content_table .content_table_cell {
+		 display: none;
+	}
+}

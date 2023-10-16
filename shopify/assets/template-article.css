@@ -1,0 +1,222 @@
+/*================ Article ================*/
+.article-{{ article.id }} .featured-collection {
+	 margin-top: 30px;
+}
+ article .article-{{ article.id }}.article-image {
+	 height: 500px;
+	 background-size: cover;
+}
+ @media screen and (min-width: 1024px) {
+	 article .article-{{ article.id }}.article-image {
+		 height: 650px;
+	}
+}
+ @media screen and (max-width: 639px) {
+	 article .article-{{ article.id }}.article-image {
+		 height: 350px;
+     {% if article.metafields.custom.mobile_featured_image != blank %}
+     background-image: url('{{ article.metafields.custom.mobile_featured_image }}');
+     {% endif %}
+     {% if article.metafields.custom.image_alignment_mobile != blank %}
+     background-position: {{ article.metafields.custom.image_alignment_mobile | remove: '"]' | remove: '["' | escape }};
+     {% endif %}
+	}
+}
+
+ article .article-header {
+	 background-color: #fff;
+	 text-align: center;
+	 margin-bottom: 40px;
+	 position: relative;
+	 max-width: 750px;
+	 margin-left: auto;
+	 margin-right: auto;
+	 padding: 30px 30px 0px 30px;
+}
+ article .article-header.has-image {
+	 margin-top: -100px;
+}
+ article .article-header h1 {
+	 text-transform: inherit;
+	 margin-bottom: 0px;
+}
+ @media screen and (max-width: 639px) {
+	 article .article-header h1 {
+		 font-size: 2.4rem;
+	}
+}
+ article .article-header .article-subtitle {
+	 margin-top: 5px;
+	 font-size: 1.3rem;
+}
+ @media screen and (max-width: 639px) {
+	 article .article-header .article-subtitle {
+		 font-size: 1.4rem;
+	}
+}
+
+ article .article-header ul.article-details {
+	 text-align: center;
+	 margin-top: 15px;
+}
+ article .article-header ul.article-details li {
+	 text-transform: uppercase;
+	 font-size: 0.75rem;
+	 color: #979797;
+	 display: inline-block;
+	 margin-right: 15px;
+}
+ article .article-header ul.article-details li:last-child {
+	 margin-right: 0px;
+}
+ article .article-header ul.article-details li a:hover, article .article-header ul.article-details li a:focus {
+	 color: #d4857b;
+}
+ article .article-header ul.article-details li a svg {
+	 fill: #d4857b;
+	 width: 15px;
+	 height: 15px;
+}
+ article .article-header ul.social-sharing li a .icon {
+	 width: 16px;
+	 height: 16px;
+}
+ @media screen and (max-width: 639px) {
+	 article .article-header ul.social-sharing li a .icon {
+		 width: 22px;
+		 height: 22px;
+	}
+}
+ article .article-body h2 {
+	 margin-top: 30px;
+	 font-size: 2rem;
+}
+ article .article-body img.wide {
+	 width: 100%;
+}
+ article .article-body p {
+	 font-size: 1rem;
+	 line-height: 1.5;
+}
+ @media screen and (max-width: 639px) {
+	 article .article-body p {
+		 font-size: 1.1rem;
+	}
+}
+ @media screen and (min-width: 1024px) {
+	 article .article-body p.large {
+		 font-size: 1.1rem;
+		 line-height: 1.5;
+	}
+}
+ @media screen and (min-width: 1024px) {
+	 article .article-body h3 {
+		 font-size: 1.5rem;
+	}
+}
+ article .article-body .btn {
+	 margin-bottom: 30px;
+}
+ article .article-body .text-wrap-left {
+	 padding-right: 15px;
+	 padding-bottom: 15px;
+}
+ @media screen and (min-width: 1024px) {
+	 article .article-body .text-wrap-left {
+		 padding-right: 30px;
+		 padding-bottom: 30px;
+	}
+}
+ @media screen and (max-width: 639px) {
+	 article .article-body .text-wrap-left {
+		 width: 100%;
+		 padding-right: 0px;
+	}
+}
+ article .article-body .text-wrap-right {
+	 padding-left: 15px;
+	 padding-bottom: 15px;
+}
+ @media screen and (min-width: 1024px) {
+	 article .article-body .text-wrap-right {
+		 padding-left: 30px;
+		 padding-bottom: 30px;
+	}
+}
+ @media screen and (max-width: 639px) {
+	 article .article-body .text-wrap-right {
+		 padding-left: 0px;
+		 width: 100%;
+	}
+}
+
+article .featured-collection{
+	margin-bottom: 60px;
+}
+
+ article .article-quote {
+	 text-align: center;
+	 font-weight: 600;
+	 font-size: 1rem;
+	 margin-top: 60px;
+	 margin-bottom: 60px;
+}
+ @media screen and (min-width: 1024px) {
+	 article .article-quote {
+		 margin-top: 80px;
+		 margin-bottom: 80px;
+	}
+}
+ article .article-quote .mark {
+	 line-height: 0;
+	 font-weight: normal;
+	 font-size: 4rem;
+	 font-family: "Dala Floda Roman", "Times New Roman", Times, serif;
+}
+ @media screen and (min-width: 1024px) {
+	 article .article-quote .mark {
+		 font-size: 5rem;
+	}
+}
+ article .article-recipe {
+	 margin-bottom: 30px;
+}
+ @media screen and (min-width: 1024px) {
+	 article .article-recipe {
+		 margin-bottom: 60px;
+	}
+}
+ article .article-recipe h3 {
+	 font-family: "Dala Floda Italic", "Times New Roman", Times, serif;
+	 font-size: 2rem;
+	 margin-bottom: 20px;
+}
+ article .article-recipe h6 {
+	 margin-bottom: 15px;
+}
+ article .article-recipe .article-recipe-video, article .article-recipe .article-recipe-image {
+	 margin-bottom: 30px;
+}
+ article .article-recipe .recipe-ingredients ul li {
+	 line-height: 1.8;
+}
+ @media screen and (min-width: 1024px) {
+	 article .article-wide-image {
+		 margin-bottom: 60px;
+	}
+}
+ article .article-wide-image, article .article-col2-image {
+	 margin-bottom: 30px;
+}
+ article .article-wide-image img, article .article-col2-image img {
+	 width: 100%;
+	 display: block;
+}
+ article .article-wide-image .caption, article .article-col2-image .caption {
+	 text-align: left;
+	 margin-top: 10px;
+	 color: #979797;
+}
+ article .article-wide-image .caption span, article .article-col2-image .caption span {
+	 font-style: italic;
+}

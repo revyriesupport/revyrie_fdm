@@ -1,0 +1,57 @@
+{
+  "sections": {
+    "image_banner": {
+      "type": "image-banner",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "returns center",
+            "heading_size": "h1",
+            "heading_font_size": 80,
+            "heading_font_mobile_size": 40,
+            "heading_font_style": "italic"
+          }
+        }
+      },
+      "block_order": [
+        "heading"
+      ],
+      "settings": {
+        "show_video": false,
+        "video_url": "",
+        "video_url_ogv": "",
+        "image": "shopify:\/\/shop_images\/banner_returns.jpg",
+        "expanded_layout_enable": true,
+        "image_overlay_opacity": 0,
+        "image_height": "medium",
+        "desktop_content_position": "middle-center",
+        "show_text_box": false,
+        "desktop_content_alignment": "center",
+        "banner_color": "#ffffff",
+        "banner_color_mobile": "#ffffff",
+        "color_scheme": "inverse",
+        "image_behavior": "none",
+        "mobile_content_alignment": "center",
+        "stack_images_on_mobile": false,
+        "show_text_below": false
+      }
+    },
+    "main": {
+      "type": "main-returns",
+      "settings": {
+        "padding_top": 32,
+        "padding_bottom": 88,
+        "text_color": "#000000",
+        "heading_font_size": 32,
+        "heading_font_size_mobile": 32,
+        "content_font_size": 14,
+        "content_font_size_mobile": 14
+      }
+    }
+  },
+  "order": [
+    "image_banner",
+    "main"
+  ]
+}

@@ -219,6 +219,12 @@ details[open].menu-opening > .menu-drawer__submenu {
   .header--has-account:where(:not(.header--has-social):not(.header--has-localizations)) .menu-drawer__utility-links {
     padding: 2rem 3rem;
   }
+  .header--has-social .menu-drawer__navigation-container .menu-drawer__utility-links{
+    height:100%;
+  }
+  /* .js .menu-drawer{
+    height:calc(100vh - 110px) !important;
+  } */
 }
 
 @media screen and (max-width: 989px) {

@@ -1,4 +1,6 @@
 <div id="GlobaleFreeShippingBannerContainer">
+  <div class=" ge-hide-display-none">
+
   <div
     class="announcement-bar gradient"
     role="region"
@@ -10,15 +12,8 @@
         <span style="color: {{ section.settings.font_color }};">{{ block.settings.text | escape }}</span>
       </p>
     </div>
-    <style>
-      @media(max-width: 768px) {
-        .announcement-bar__message {
-          font-size: {{ section.settings.heading_font_size_mobile_announcement_bar }}
-          px !important;
-        }
-      }
-    </style>
-    <div class="announce_slide">
+    
+    <div id="header-message" class="announce_slide {% if section.settings.cookie_enable %} cookie hidden{% endif %}">
       {% assign messages = "" %}
       {% if section.settings.msg_1st_enabled %}
         {% if section.settings.msg_1st_text != blank %}
@@ -53,8 +48,24 @@
           setTimeout(rotateMessages, 2000); // Change message every 2 seconds
         }rotateMessages();
       </script>
-    </div>
+    
+              
+{% if section.settings.cookie_enable %}
+              <script>
+              $(document).ready(function() {
+                if ($.cookie("{{ section.settings.cookie }}") == null) {
+                  $('#header-message').removeClass('hidden');
+                  }
+                  $("#header-message .close-button").click(function() {
+                    $.cookie('{{ section.settings.cookie }}', 'true', { expires: {{ section.settings.cookie_expiration }}, path: '/' });
+                    $('#header-message').addClass('hidden');
+                  });
+                });
+              </script>
+              {% endif %}
+</div>
   </div>
+</div>
 </div>
 <script>
   const header = document.querySelector(".announcement-bar-section");
@@ -71,9 +82,11 @@
 </script>
 <style>
   .announcement-bar__message {
-    padding: 7px 0;
+    /* padding: 7px 0; */
+    padding: 0px 0;
     letter-spacing: 0.4px;
     min-height: auto;
+    line-height: 40px;
   }
   .announcement-bar__message a {
     text-decoration: underline;
@@ -82,6 +95,14 @@
     position: fixed;
     width: 100%;
   }
+  
+      @media(max-width: 768px) {
+        .announcement-bar__message {
+          line-height: 35px;
+          font-size: {{ section.settings.heading_font_size_mobile_announcement_bar }}px !important;
+        }
+      }
+    
 </style>
 {% schema %}
 

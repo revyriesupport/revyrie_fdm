@@ -21,7 +21,7 @@
   padding: 0 1.5rem;
   opacity: 0.7;
   z-index: 150;
-  position:fixed;
+  position: fixed;
 }
 #collection_loader img {
   margin: auto;
@@ -78,7 +78,7 @@
 
   .collection--full-width slider-component:not(.slider-component-desktop) {
     /* padding: 0 1.5rem; */
-    padding:0 8px;
+    padding: 0 8px;
     max-width: none;
   }
 }
@@ -113,17 +113,25 @@
 #AjaxinatePagination {
   width: max-content;
   margin: auto;
+  margin-bottom: 10px;
 }
 #AjaxinatePagination #load-more-btn {
   text-transform: uppercase;
   --border-offset: -1px;
-} 
+  font-size: 12.8px;
+  padding: 0px 13px;
+  min-height: 45px !important;
+  letter-spacing: 1.2px;
+  min-width: 117px !important;
+  font-weight: 600;
+  margin: 30px 0px;
+}
 #AjaxinatePagination #load-more-btn:hover {
   color: #d4857b;
-} 
+}
 #AjaxinatePagination #load-more-btn:before {
   box-shadow: 0 0 0 1px !important;
-}  
+}
 #AjaxinatePagination #load-more-btn:after {
   box-shadow: none !important;
 }
@@ -138,7 +146,7 @@
 #verticalTitle {
   cursor: pointer;
   text-transform: uppercase;
-/* }
-#FacetsWrapperDesktop details {
+}
+/*#FacetsWrapperDesktop details {
   opacity: 0;
 } */

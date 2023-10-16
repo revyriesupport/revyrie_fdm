@@ -1,0 +1,328 @@
+/*================ Index - Header ================*/
+ @media screen and (min-width: 1024px) {
+	 body.template-index header.transparent {
+		 border: none;
+		 background: #fff;
+		 background: -moz-linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.8416141456582633) 100%);
+		 background: -webkit-linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.8416141456582633) 100%);
+		 background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.8416141456582633) 100%);
+		 filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#000000",GradientType=1);
+		 position: absolute;
+		 top: 30px;
+		 left: auto;
+		 right: auto;
+		 width: 100%;
+	}
+	 body.template-index header.transparent:hover, body.template-index header.transparent:focus {
+		 border-bottom: 1px solid #ececec;
+		 background-color: #fff;
+		 background: #fff;
+		 filter: none;
+	}
+	 body.template-index header.transparent:hover .site-logo svg path, body.template-index header.transparent:focus .site-logo svg path, body.template-index header.transparent:hover ul.secondary-nav li svg path, body.template-index header.transparent:focus ul.secondary-nav li svg path {
+		 fill: #000 !important;
+	}
+	 body.template-index header.transparent:hover .gep-switcher-text-desktop, body.template-index header.transparent:focus .gep-switcher-text-desktop {
+		 color: #000 !important;
+	}
+	 body.template-index header.transparent:hover ul.secondary-nav li a, body.template-index header.transparent:focus ul.secondary-nav li a {
+		 color: #000;
+	}
+	 body.template-index header.transparent:hover ul.secondary-nav li.cart a:hover, body.template-index header.transparent:focus ul.secondary-nav li.cart a:hover, body.template-index header.transparent:hover ul.secondary-nav li.cart a:focus, body.template-index header.transparent:focus ul.secondary-nav li.cart a:focus {
+		 color: #000;
+	}
+  body.template-index header.transparent:hover ul.site-nav li.saleDISABLED a, body.template-index header.transparent:focus ul.site-nav li.saleDISABLED a {
+		 color: #a51661!important;
+	}
+  body.template-index header.transparent:hover ul.site-nav li.saleDISABLED a:hover, body.template-index header.transparent:focus ul.site-nav li.saleDISABLED a:hover,body.template-index header.transparent:hover ul.site-nav li.saleDISABLED a:focus, body.template-index header.transparent:focus ul.site-nav li.saleDISABLED a:focus {
+		 border-color: #a51661!important;
+	}
+	 body.template-index header.transparent:hover ul.site-nav li a, body.template-index header.transparent:focus ul.site-nav li a {
+		 color: #000;
+	}
+	 body.template-index header.transparent:hover ul.site-nav li a:hover, body.template-index header.transparent:focus ul.site-nav li a:hover, body.template-index header.transparent:hover ul.site-nav li a:focus, body.template-index header.transparent:focus ul.site-nav li a:focus, body.template-index header.transparent:hover ul.site-nav li a.hover, body.template-index header.transparent:focus ul.site-nav li a.hover {
+		 border-bottom: 1px solid #000;
+	}
+	 body.template-index header.transparent .site-logo svg path, body.template-index header.transparent ul.secondary-nav li svg path {
+		 fill: #fff !important;
+	}
+	 body.template-index header.transparent .gep-switcher-text-desktop {
+		 color: #fff !important;
+	}
+	 body.template-index header.transparent ul.secondary-nav li a {
+		 color: #fff;
+	}
+	 body.template-index header.transparent ul.secondary-nav li.cart a:hover, body.template-index header.transparent ul.secondary-nav li.cart a:focus {
+		 color: #fff;
+	}
+	 body.template-index header.transparent ul.site-nav li a {
+		 color: #fff;
+	}
+	 body.template-index header.transparent ul.site-nav li a:hover, body.template-index header.transparent ul.site-nav li a:focus, body.template-index header.transparent ul.site-nav li a.hover {
+		 border-bottom: none;
+	}
+}
+/*================ Header ================*/
+ header {
+	 border-bottom: 1px solid #ececec;
+	 z-index: 2;
+	 padding-bottom: 0px;
+	 margin: 0;
+	 position: relative;
+	 background: #fff;
+}
+ @media screen and (max-width: 639px) {
+	 header {
+		 border: none;
+	}
+}
+ header:hover, header.active:hover {
+	 background: #fff;
+}
+ header.active {
+	 background: #fff;
+}
+ @media screen and (max-width: 639px) {
+	 header .logo-wrapper {
+		 padding: 0;
+	}
+}
+ header .icon {
+	 width: 19px;
+	 height: 19px;
+}
+ header .icon.fa-chevron-down {
+	 width: 12px;
+	 height: 12px;
+}
+ header ul.site-nav {
+	 text-align: center;
+	 margin-top: 15px;
+	 margin-bottom: 20px;
+	 line-height: 1;
+   padding-bottom: 1px;
+}
+ @media screen and (max-width: 639px) {
+	 header ul.site-nav {
+		 margin-bottom: 18px;
+		 text-align: left;
+	}
+}
+ @media screen and (min-width: 640px) and (max-width: 1023px) {
+	 header ul.site-nav {
+		 margin-bottom: 25px;
+		 text-align: left;
+		 padding-left: 20px;
+	}
+}
+ header ul.site-nav li {
+	 display: inline-block;
+	 line-height: 1;
+	 margin-right: 13px;
+}
+ header ul.site-nav li img {
+	 height: 20px;
+}
+header ul.site-nav li.saleDISABLED a {
+	 color: #a30a50;
+}
+header ul.site-nav li.saleDISABLED a:hover,header ul.site-nav li.saleDISABLED a:focus,header ul.site-nav li.saleDISABLED a.hover {
+	 border-color: #a30a50;
+}
+ @media screen and (min-width: 1400px) {
+	 header ul.site-nav li {
+		 margin-right: 35px;
+	}
+}
+ header ul.site-nav li:last-child {
+	 margin-right: 0px;
+}
+ header ul.site-nav li.black-friday a, header ul.site-nav li.cyber-monday a, header ul.site-nav li.loyalty a, header ul.site-nav li.valentines-day-edit a, header ul.site-nav li.v-day-edit a, header ul.site-nav li.saleDISABLED a {
+	 font-weight: 600;
+	 color: #a51661;
+}
+header ul.site-nav li.saleDISABLED a:hover,header ul.site-nav li.saleDISABLED a:focus,header ul.site-nav li.saleDISABLED a.hover {
+	 border-color: #a51661;
+}
+ header ul.site-nav li a {
+	 padding-top: 15px;
+	 padding-bottom: 18px;
+	 font-size: 0.8rem;
+	 text-transform: uppercase;
+	 line-height: 1;
+	 color: #000;
+}
+ @media screen and (min-width: 1400px) {
+	 header ul.site-nav li a {
+		 font-size: 0.85rem;
+		 letter-spacing: 0.025rem;
+	}
+}
+ header ul.site-nav li a:hover, header ul.site-nav li a:focus, header ul.site-nav li a.hover {
+	 font-weight: 600;
+	 border-bottom: 1px solid #000;
+}
+ header ul.site-nav li a.hamburger:hover, header ul.site-nav li a.hamburger:focus {
+	 border: none;
+}
+ header ul.secondary-nav {
+	 margin-top: 0px;
+	 line-height: 1;
+}
+ header ul.secondary-nav li {
+	 margin-right: 15px;
+	 display: inline-block;
+	 vertical-align: middle;
+	 color: #000;
+}
+ @media screen and (min-width: 1400px) {
+	 header ul.secondary-nav li {
+		 margin-right: 17px;
+	}
+}
+ @media screen and (max-width: 639px) {
+	 header ul.secondary-nav li {
+		 margin-right: 10px;
+	}
+}
+ header ul.secondary-nav li.fleur-files img {
+	 width: 100px;
+}
+ @media screen and (min-width: 1024px) {
+	 header ul.secondary-nav li.fleur-files img {
+		 width: 140px;
+	}
+}
+ header ul.secondary-nav li.back-link a {
+	 text-transform: uppercase;
+}
+ header ul.secondary-nav li.back-link a svg {
+	 height: 15px;
+}
+ @media screen and (max-width: 1023px) {
+	 header ul.secondary-nav li.gep-switcher-container {
+		 display: none;
+	}
+}
+ header ul.secondary-nav li.gep-switcher-container .gep-switcher-text.gep-switcher-text-desktop:hover, header ul.secondary-nav li.gep-switcher-container .gep-switcher-text.gep-switcher-text-desktop:focus {
+	 color: #979797;
+}
+ header ul.secondary-nav li a {
+	 text-transform: initial;
+	 display: inline-block;
+	 font-size: 0.75rem;
+	 line-height: 1;
+	 color: #000;
+}
+ @media screen and (min-width: 1024px) {
+	 header ul.secondary-nav li a {
+		 font-size: 0.8rem;
+	}
+}
+ header ul.secondary-nav li a:hover, header ul.secondary-nav li a:focus {
+	 color: #979797;
+}
+ header ul.secondary-nav li .icon.special {
+	 width: 40px;
+	 height: initial;
+}
+ @media screen and (min-width: 1024px) {
+	 header ul.secondary-nav li .icon.special {
+		 width: 45px;
+	}
+}
+ @media screen and (min-width: 1400px) {
+	 header ul.secondary-nav li .icon.special {
+		 width: 50px;
+	}
+}
+ @media screen and (max-width: 639px) {
+	 header ul.secondary-nav li .icon.special {
+		 width: 35px;
+		 margin-left: 5px;
+	}
+}
+ @keyframes shake {
+	 10%, 90% {
+		 transform: translate3d(-1px, 0, 0);
+	}
+	 20%, 80% {
+		 transform: translate3d(1px, 0, 0);
+	}
+	 30%, 50%, 70% {
+		 transform: translate3d(-2px, 0, 0);
+	}
+	 40%, 60% {
+		 transform: translate3d(2px, 0, 0);
+	}
+}
+ header ul.secondary-nav li.search img {
+	 height: 20px;
+}
+ @media screen and (max-width: 639px) {
+	 header ul.secondary-nav li.search img {
+		 height: 18px;
+	}
+}
+ @media screen and (min-width: 1024px) {
+	 header ul.secondary-nav li.search img {
+		 height: 20px;
+	}
+}
+ header ul.secondary-nav li.cart a .cart-count {
+	 color: #b83182;
+}
+ header ul.secondary-nav li.cart a:hover, header ul.secondary-nav li.cart a:focus {
+	 color: #000;
+}
+ header ul.secondary-nav li.cart a svg {
+	 top: 5px;
+	 position: relative;
+	 height: 22px;
+}
+ @media screen and (max-width: 639px) {
+	 header ul.secondary-nav li.cart a svg {
+		 height: 20px;
+	}
+}
+ header ul.secondary-nav li:last-child {
+	 margin-right: 0px;
+}
+ header h1 {
+	 display: none;
+}
+ header .h1 {
+	 width: 190px;
+	 margin: 0px auto;
+	 text-align: center;
+	 line-height: 0;
+}
+ @media screen and (min-width: 1024px) {
+	 header .h1 {
+		 margin: 5px auto 0px auto;
+		 width: 240px;
+	}
+	 header .h1.no-nav {
+		 margin: 5px auto 20px auto;
+	}
+}
+ @media screen and (max-width: 639px) {
+	 header .h1 {
+		 max-width: 190px;
+		 width: 100%;
+	}
+}
+ header .h1 svg {
+	 width: 190px;
+}
+ @media screen and (min-width: 1024px) {
+	 header .h1 svg {
+		 width: 240px;
+	}
+}
+ @media screen and (max-width: 639px) {
+	 header .h1 svg {
+		 max-width: 190px;
+		 width: 100%;
+	}
+}

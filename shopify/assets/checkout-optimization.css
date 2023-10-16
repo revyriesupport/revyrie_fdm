@@ -1,0 +1,331 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&display=swap');
+
+.progress-steps-wrapper {
+    background: #000000;
+  }
+  .wrapper {
+    max-width: 1260px;
+    margin: 0 auto;
+    padding: 0 15px;
+  }
+  @media screen and (min-width: 591px) {
+    .wrapper {
+      padding: 0 30px;
+    }
+  }
+  .progress-steps {
+    max-width: 840px;
+    margin: 32px auto 24px;
+    position: relative;
+    padding: 40px 0 40px;
+    text-align: center;
+  }
+  .progress-steps .progress {
+    background-color: #565656;
+    height: 4px;
+    margin: 0px;
+  }
+  .progress-steps .progress .progress-bar {
+    background-color: #FFFFFF;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    height: 4px;
+    max-width: 100%;
+  }
+  .progress-steps .progress .progress-bar span {
+    display: none;
+  }
+  .steps .step {
+    position: absolute;
+    top: 0px;
+    display: inline-block;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 1.14;
+    text-align: center;
+    margin: 0;
+    width: 33.33%;
+    height: 100%;
+  }
+  .steps .step .icon-top {
+    height: 32%;
+    margin-bottom: 11px;
+  }
+  .steps .step .icon {
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #565656;
+    margin: auto;
+  }
+  .steps .step .title {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+    color: #565656;
+    margin-top: 11px;
+  }
+  .steps .step .title svg path {
+    fill: #565656;
+  }
+  .steps .step .icon-top svg path,
+  .steps .step .icon-top svg circle,
+  .steps .step .icon-top svg rect {
+    stroke: #565656;
+  }
+  .steps .step.active .title {
+    color: #FFFFFF;
+  }
+  .steps .step.active .title svg path {
+    fill: #FFFFFF;
+  }
+  .steps .step.active .icon-top svg path,
+  .steps .step.active .icon-top svg circle,
+  .steps .step.active .icon-top svg rect {
+    stroke: #FFFFFF;
+  }
+  .steps .step.active .icon {
+    background: #FFFFFF;
+  }
+  .steps .step-1 {
+    left: calc(-33.33% / 2);
+  }
+  .steps .step-2 {
+    left: calc(33.33% - (33.33% / 2));
+  }
+  .steps .step-3 {
+    left: calc(66.66% - (33.33% / 2));
+  }
+  .steps .step-4 {
+    left: calc(100% - (33.33% / 2));
+  }
+  .steps .step span {
+    display: block;
+  }
+  .steps .step.active {
+    color: #FFFFFF;
+  }
+  .content {
+    -webkit-box-shadow: 0px 1px 0px #e1e1e1 inset;
+    box-shadow: 0px 1px 0px #e1e1e1 inset;
+  }
+  @media (min-width: 1000px) {
+    .content .sidebar::after {
+      -webkit-box-shadow: 1px 0 0 #e1e1e1 inset;
+      box-shadow: 1px 0px 0 #e1e1e1 inset;
+    }
+  }
+  .main {
+    margin: 0 !important;
+  }
+  .breadcrumb__container {
+    display: none;
+  }
+  .step[data-step="contact_information"] .step__footer {
+    -webkit-box-orient: inherit;
+    -webkit-box-direction: inherit;
+    -ms-flex-direction: inherit;
+    flex-direction: inherit;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-pack: inherit;
+    -ms-flex-pack: inherit;
+    justify-content: inherit;
+  }
+  /*.review {
+    background-color: #fff;
+    margin: 20px 0 0;
+    padding: 24px 40px 24px;
+  }
+  .review_stars {
+    align-items: center;
+    display: flex;
+    height: 16px;
+    margin-bottom: 2px;
+    margin-left: -6px;
+  }
+  .review_stars_star {
+    width: 27px;
+    height: auto;
+    margin-right: -8px;
+  }
+  .review_content_title {
+    font-size: 12px !important;
+    font-weight: bold;
+    line-height: 1.67;
+    letter-spacing: normal;
+  }
+  .review_content {
+    font-size: 12px !important;
+    line-height: 1.67;
+    letter-spacing: normal;
+    margin-bottom: 3px;
+  }
+  .review_author {
+    align-items: center;
+    display: flex;
+  }
+  .review_author_name {
+    font-size: 12px !important;
+    font-weight: normal;
+    line-height: 1.67 !important;
+    color: #585858;
+  }
+  .review_author_icon {
+    display: flex;
+    margin-left: 6px;
+  }
+  .review_author_icon_s {
+    height: 20px;
+    width: 20px;
+  }*/
+  .sidebar__content-title {
+    padding: 18px 8px;
+    background: #F2F2F2;
+    text-align: center;
+    font-family: 'Dala Floda Roman',"Times New Roman",Times,serif;
+    font-weight: normal;
+    font-size: clamp(16px, 1vw, 20px);
+    line-height: 0.8;
+    letter-spacing: 0.3px;
+    color: #000;
+    margin-bottom: 8px;
+    margin-right: -1em;
+    margin-left: -1em;
+  }
+  @media (min-width: 750px) {
+    .step[data-step="contact_information"] .step__footer .step__footer__previous-link {
+      margin-left: 1em;
+      margin-right: 0;
+    }
+    .step[data-step="contact_information"] .step__footer .step__footer__previous-link svg {
+      display: none;
+    }
+  }
+
+  .payment_info_credibility {
+    padding: 14px 24px;  
+    background: #f2f2f2;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 1.17;    
+    letter-spacing: 0.3px;
+    text-transform: capitalize;
+    color: #000000;
+    margin-top: 30px;
+  } 
+  .payment_info_credibility img{
+      margin: 0;
+  }
+  .payment_info_credibility-body {
+        -webkit-box-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+  } 
+  .payment_infos_icons .payment_infos_icons__content .payment_infos {
+    display: flex;
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 4px;
+  }
+  .payment_infos_icons .payment_infos_icons__content .payment_infos:first-child {
+    margin-top: 0;
+  }
+  .payment_infos_icons .payment_infos_icons__content .payment_infos svg {
+    width: 14px;
+    margin-right: 8px;
+  }
+  .payment_infos_icons .payment_infos_icons__content .payment_infos div {
+    width: calc(100% - 31px - 15px);
+  }
+  .payment_infos_icons .payment_infos_icons__content .payment_infos .al-text--info {
+    font-family: 'Montserrat', sans-serif;
+    margin-top: 0;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 1;
+    letter-spacing: 0.3px;
+    margin-bottom: 2px;
+  }
+  .payment_infos_icons .payment_infos_icons__content .al-text {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 1.33;
+    letter-spacing: 0.3px;
+    color: #000000;
+    text-transform: none;
+  }
+  @media (min-width: 1000px) {
+    .sidebar {
+        padding-left: 0;
+        width: 42%;
+    }
+    .page--no-banner .sidebar {
+      padding-top: 0;
+    }
+    .sidebar .order-summary__sections,
+    .payment_infos_icons__content {
+        padding-left: 8%;
+    }
+    .payment_infos_icons-wrapper,
+    .sidebar__content-title {
+        margin-right: -10.33%;
+        margin-left: 0;
+    }
+    .sidebar::after {
+      left: 0;
+      background-position: left top;
+    }
+    .order-summary__sections {
+      height: inherit;
+    }
+  }
+  @media (max-width: 999px) {
+    .progress-steps {
+      margin: 14px auto 13px;
+    }
+  }
+  @media (max-width: 650px) {
+    .progress-steps {
+      max-width: 85%;
+      padding: 35px 0 23px;
+    }
+    .steps .step .icon-top {
+      height: 40%;
+      margin-bottom: 9px;
+    }
+    .steps .step .icon {
+      width: 6px;
+      height: 6px;
+    }
+    .steps .step .title {
+      font-size: 12px;
+      line-height: 14px;
+      margin-top: 7px;
+    }
+  }
+  @media (max-width: 550px) {
+    .header__logo {
+      padding: 30px 0;
+    }
+    .steps .step {
+      font-size: 12px;
+      margin: 0;
+    }
+  }

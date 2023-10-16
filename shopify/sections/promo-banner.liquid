@@ -1,0 +1,167 @@
+{%- style -%}
+    .promo-banner-wrapper .promo-banner .content_table{
+    background-color: {{ section.settings.background_color }} !important;
+    color: {{ section.settings.text_color }} !important;
+  }
+   .promo_banner_grid_heading {
+    font-size: {{ section.settings.heading_font_size }}px;
+    color: {{ section.settings.text_color }} !important;
+  }
+   .promo_banner_grid_content, .promo_banner_grid_content p{
+    font-size: {{ section.settings.content_font_size }}px;
+     color: {{ section.settings.text_color }} !important;
+  }
+  @media screen and (max-width: 768px) {
+    .promo_banner_grid_heading {
+      font-size: {{ section.settings.heading_font_size_mobile }}px;
+    }
+    .promo_banner_grid_content, .promo_banner_grid_content p{
+        font-size: {{ section.settings.content_font_size_mobile }}px;
+    }
+  }
+{%- endstyle -%}
+<div
+  data-section-id="{{ section.id }}"
+  data-section-type="promo-banner-section"
+  id="promo-banner-section"
+  class="page-width"
+>
+  {% if section.settings.enable %}
+    {{ 'section-promo-banner.css' | asset_url | stylesheet_tag }}
+    <div class="row">
+      <div class="medium-12 columns">
+        <div class="promo-banner-wrapper">
+          <div class="promo-banner banner--{{ section.id }}">
+            {% if section.settings.link != blank %}
+              <a href="{{ section.settings.link }}">
+            {% endif %}
+            <div class="content_table">
+              <div class="content_table_cell">
+                <div class="row align-middle align-center">
+                  <div class="medium-9 columns">
+                    {% if section.settings.title != blank %}
+                      <h2 class="promo_banner_grid_heading">{{ section.settings.title }}</h2>
+                    {% endif %}
+                    <div class="promo_banner_grid_content">
+                      {% if section.settings.copy != blank %}
+                        <p>{{ section.settings.copy }}</p>
+                      {% endif %}
+                      {% if section.settings.action != blank %}
+                        <div
+                          class="promo-banner-action"
+                          style="color:{{ section.settings.text_color }};border-bottom: 2px solid {{ section.settings.text_color }};"
+                        >
+                          {{ section.settings.action }}
+                        </div>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% if section.settings.link != blank %}
+              </a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+</div>
+{% schema %}
+{
+   "name":"Promo Banner",
+   "disabled_on":{
+      "groups":[
+         "header",
+         "footer"
+      ]
+   },
+   "settings":[
+      {
+         "type":"checkbox",
+         "id":"enable",
+         "label":"Display",
+         "default":false
+      },
+      {
+         "type":"color",
+         "id":"background_color",
+         "default":"#000000",
+         "label":"Background Color"
+      },
+      {
+         "type":"color",
+         "id":"text_color",
+         "default":"#FFFFFF",
+         "label":"Text Color"
+      },
+      {
+         "type":"range",
+         "id":"heading_font_size",
+         "min":0,
+         "max":100,
+         "step":1,
+         "unit":"px",
+         "label":"Heading Font Size Desktop",
+         "default":32
+      },
+      {
+         "type":"range",
+         "id":"heading_font_size_mobile",
+         "min":0,
+         "max":100,
+         "step":1,
+         "unit":"px",
+         "label":"Heading Font Size Mobile",
+         "default":32
+      },
+      {
+         "type":"range",
+         "id":"content_font_size",
+         "min":0,
+         "max":100,
+         "step":1,
+         "unit":"px",
+         "label":"Content Font Size Desktop",
+         "default":18
+      },
+      {
+         "type":"range",
+         "id":"content_font_size_mobile",
+         "min":0,
+         "max":100,
+         "step":1,
+         "unit":"px",
+         "label":"Content Font Size Mobile",
+         "default":18
+      },
+      {
+         "type":"url",
+         "id":"link",
+         "label":"Link"
+      },
+      {
+         "type":"textarea",
+         "id":"title",
+         "label":"Title"
+      },
+      {
+         "type":"textarea",
+         "id":"copy",
+         "label":"Copy"
+      },
+      {
+         "type":"text",
+         "id":"action",
+         "label":"Action"
+      }
+   ],
+   "presets":[
+      {
+         "name":"Promo Banner",
+         "category":"Promo Banner"
+      }
+   ]
+}
+{% endschema %}

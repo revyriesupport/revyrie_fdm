@@ -1,0 +1,21 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-careers",
+      "settings": {
+        "heading_text_color": "#000000",
+        "heading_font_size": 13,
+        "heading_font_size_mobile": 14,
+        "content_text_color": "#d4857b",
+        "content_font_size": 14,
+        "content_font_size_mobile": 13,
+        "page_description": "We're always looking for amazing, hard working, talented people to join our team. For general inquiries, please send your resume and cover letter to <a href=\"mailto:talent@fleurdumal.com\">talent@fleurdumal.com<\/a> to inquire about open positions.",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

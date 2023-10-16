@@ -1032,9 +1032,21 @@ class VariantSelects extends HTMLElement {
       const input = productForm.querySelector('input[name="id"]');
       input.value = this.currentVariant.id;
       input.dispatchEvent(new Event('change', { bubbles: true }));
+
+       document.querySelector('.lovelist-wrapper button.swym-button').setAttribute('data-variant-id', this.currentVariant.id);
+      
+      const addToBagDisable = document.querySelector(`#ProductSubmitButton-${this.dataset.section}`);
+      const soldoutBox = document.querySelector(`#product-form-${this.dataset.section} .sold-out`);
+      const customaddtocart = document.querySelector(`#product-form-${this.dataset.section} .custom_addtocart_button`);  
+      
+      if(this.currentVariant.inventory_quantity == 0){
+          soldoutBox.classList.remove('hidden');
+          addToBagDisable.style.display = "none";
+        }else{
+          soldoutBox.classList.add('hidden');
+          addToBagDisable.style.display = "block";
+        }
     });
-
-
     
     if (window.location.href.indexOf("digital-gift-card") > -1) {
       document.querySelector(`#ProductCustomButton-${this.dataset.section}`).classList.add('hidden');
@@ -1170,6 +1182,7 @@ class VariantSelects extends HTMLElement {
         const addButtonUpdated = html.getElementById(`ProductSubmitButton-${sectionId}`);
         this.toggleAddButton(
           addButtonUpdated ? addButtonUpdated.hasAttribute('disabled') : true,
+          addButtonUpdated.classList.add('hidden'),
           window.variantStrings.soldOut
         );
 
@@ -1188,6 +1201,7 @@ class VariantSelects extends HTMLElement {
     if (!productForm) return;
     const addButton = productForm.querySelector('[name="add"]');
     const addButtonText = productForm.querySelector('[name="add"] > span');
+    
     if (!addButton) return;
 
     if (disable) {

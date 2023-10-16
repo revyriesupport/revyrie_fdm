@@ -26,7 +26,7 @@
 
 <script src="{{ 'quantity-popover.js' | asset_url }}" defer="defer"></script>
 <div class="page-width combine section-{{ section.id }}-padding">
-  <cart-items class="{% if cart == empty %} is-empty{% else %} {% endif %}">
+  <cart-items id="cart_items" class="{% if cart == empty %} is-empty{% else %} {% endif %}">
     <div class="title-wrapper-with-link mobile_hide">
       <h1 class="title title--primary">{{ 'sections.cart.title' | t }}</h1>
       <!--
@@ -124,7 +124,7 @@
                             if itemBYOBRemove != ""
                               assign itemBYOBRemove = itemBYOBRemove | append: "&"
                             endif
-                            assign itemBYOBRemove = itemBYOBRemove | append: "updates[" | append: item.key | append: "]=0"
+                            assign itemBYOBRemove = itemBYOBRemove | append: item.key
                             assign itemBYOBSize = itemBYOBSize | plus: item.quantity
                             assign itemBYOBPrice = itemBYOBPrice | plus: item.line_price
                             assign itemBYOBOriginalPrice = itemBYOBOriginalPrice | plus: item.original_line_price
@@ -156,7 +156,8 @@
                         else
                           assign itemBYOBFinalSale = ''
                         endif
-                        assign itemBYOBRemove = routes.cart_update_url | append: '?' | append: itemBYOBRemove
+                        
+                        
                       -%}
                       <tr class="cart-item row cart-products-product" id="CartItem-bundle-{{ item.index | plus: 1 }}" data-id="bundle-{{itemBYOBRemove}}">
                         <td class="cart-item__media">
@@ -187,7 +188,15 @@
                           <div class="cartbundle_box">
                           <div class="cart-bundle-edit" style="display:inline-block;padding:0 5px;"><a href="/collections/build-your-bundle?edit-bundle={{ itemBYOBEdit }}" style="font-size:10.4px;text-transform:uppercase;">Edit</a></div>
                           
-                      <div class="cart-bundle-remove" style="display:inline-block;padding:0 5px;"><a href="{{ itemBYOBRemove }}" data-ids="{{ itemBYOBRemoveIds }}" class="ajaxifyCart--removeBundle" style="font-size:10.4px;text-transform:uppercase;">Remove</a></div>
+                      <div class="cart-bundle-remove" style="display:inline-block;padding:0 5px;">
+                            <a
+                              href="javascript:void(0);"
+                              onclick="window.theme.removeBundle('{{ itemBYOBRemove }}');"
+                              data-ids="{{ itemBYOBRemoveIds }}"
+                              class="ajaxifyCart--removeBundle"
+                              style="font-size:10.4px;text-transform:uppercase;"
+                              >Remove</a
+                            ></div>
                           </div>    
                       </td>
                       </tr>
@@ -238,6 +247,7 @@
                         <dl>
                           {%- if item.product.has_only_default_variant == false -%}
                             <div class="product-option">
+                              {% comment %}
                               <dt>
                                 {%- for option in item.options_with_values -%}
                                   {%- unless forloop.last -%}
@@ -247,6 +257,7 @@
                                   {%- endunless -%}
                                 {%- endfor -%}
                               </dt>
+                              {% endcomment %}
                               <dd>
                                 <cart-size-button data-index="{{ item.index | plus: 1 }}">
                                   <select

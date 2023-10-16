@@ -37,6 +37,16 @@
     font-size : {{ section.settings.content_font_size }}px;
     color: {{ section.settings.banner_color }};
   }
+
+  #Banner-{{ section.id }} .banner__url{
+    letter-spacing: .075rem;
+    font-weight: 600;
+    /* text-transform: uppercase; */
+    /* border-bottom: 2px solid; */
+    margin-top: 0;
+    display: inline-block;
+    /* line-height: 1.4; */
+  }
   @media screen and (max-width: 768px) {
       #Banner-{{ section.id }} .banner__text {
         font-size: {{section.settings.content_font_mobile_size }}px;
@@ -142,6 +152,10 @@
             <div class="banner__text {{ section.settings.text_style }}" {{ block.shopify_attributes }}>
               {{ block.settings.text }}
             </div>
+          {%- when 'url' -%}
+            <div class="banner__url">
+              <a href="{{ block.settings.banner-link }}">{{ block.settings.banner-link-label }}</a>
+            </div>
         {%- endcase -%}
       {%- endfor -%}
     </div>
@@ -161,12 +175,14 @@
     {
       "type": "image_picker",
       "id": "image",
-      "label": "t:sections.image-banner-version-two.settings.image.label"
+      "label": "t:sections.image-banner-version-two.settings.image.label",
+      "info":"t:sections.image-banner-version-two.settings.image.info"
     },
     {
       "type": "image_picker",
       "id": "image_mobile",
-      "label": "t:sections.image-banner-version-two.settings.image_mobile.label"
+      "label": "t:sections.image-banner-version-two.settings.image_mobile.label",
+      "info":"t:sections.image-banner-version-two.settings.image_mobile.info"
     },
     {
       "type": "range",
@@ -435,6 +451,23 @@
           "label": "t:sections.image-banner-version-two.blocks.text.settings.text.label"
         }
       ]
+    },
+    {
+      "type": "url",
+      "name": "t:sections.image-banner-version-two.blocks.banner-link.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "url",
+          "id": "banner-link",
+          "label": "t:sections.image-banner-version-two.blocks.banner-link.settings.banner-link.label"
+        },
+         {
+          "type": "text",
+          "id": "banner-link-label",
+          "label": "t:sections.image-banner-version-two.blocks.banner-link.settings.banner-link-label.label"
+        }
+      ]
     }
   ],
   "presets": [
@@ -446,6 +479,9 @@
         },
         {
           "type": "text"
+        },
+        {
+          "type": "url"
         }
       ]
     }
